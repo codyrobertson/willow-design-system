@@ -1,17 +1,76 @@
+import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { Icon } from './Icon';
 import { IconText } from './IconText';
 import { Button } from '../Button';
 import { Badge } from '../Badge';
 import { Card, CardContent, CardHeader, CardTitle } from '../Card';
+import { cn } from '@/lib/utils';
 
 const meta = {
   title: 'UI/Icon',
   component: Icon,
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component: `
+The Icon component provides a consistent interface for using Lucide React icons throughout the application.
+
+## Features
+- **7 Size Presets**: xs, sm, md, lg, xl, 2xl, 3xl
+- **Custom Sizing**: Accept any pixel value
+- **Automatic Conversion**: Converts kebab-case names to Lucide components
+- **Accessibility**: Built-in ARIA support
+- **Consistent Styling**: Predictable sizing and behavior
+
+## Usage
+\`\`\`tsx
+import { Icon, IconText } from '@/components/ui/icon';
+
+// Basic icon
+<Icon name="user" size="md" />
+
+// Icon with text
+<IconText icon="download">Download File</IconText>
+
+// Icon button
+<Button size="compact">
+  <Icon name="settings" />
+</Button>
+\`\`\`
+
+## Available Icons
+All Lucide React icons are available. Use kebab-case names:
+- user, users, user-check
+- settings, cog, wrench
+- check, x, alert-circle
+- arrow-right, arrow-left, chevron-down
+- And many more...
+        `
+      }
+    }
   },
   tags: ['autodocs'],
+  argTypes: {
+    name: {
+      control: 'text',
+      description: 'Name of the Lucide icon (kebab-case)',
+    },
+    size: {
+      control: 'select',
+      options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 24, 32, 48],
+      description: 'Size preset or custom pixel value',
+    },
+    className: {
+      control: 'text',
+      description: 'Additional CSS classes',
+    },
+    'aria-label': {
+      control: 'text',
+      description: 'Accessible label for screen readers',
+    },
+  },
 } satisfies Meta<typeof Icon>;
 
 export default meta;
@@ -22,6 +81,115 @@ export const Basic: Story = {
   args: {
     name: 'user',
     size: 'md',
+  },
+};
+
+// Interactive playground
+export const Playground: Story = {
+  name: '🎮 Interactive Playground',
+  args: {
+    name: 'star',
+    size: 'lg',
+  },
+  render: (args) => {
+    const [color, setColor] = React.useState('text-neutral-600');
+    const [rotation, setRotation] = React.useState(0);
+    const [iconName, setIconName] = React.useState(args.name);
+    
+    const popularIcons = [
+      'star', 'heart', 'user', 'settings', 'check', 'x', 
+      'arrow-right', 'download', 'upload', 'trash', 'edit',
+      'search', 'menu', 'home', 'mail', 'bell', 'calendar',
+      'clock', 'globe', 'map-pin', 'phone', 'camera',
+      'image', 'video', 'music', 'file', 'folder'
+    ];
+    
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-center p-8 bg-gray-50 rounded-lg">
+          <Icon 
+            {...args}
+            name={iconName}
+            className={cn(
+              color,
+              rotation !== 0 && 'transition-transform duration-300'
+            )}
+            style={{ transform: `rotate(${rotation}deg)` }}
+          />
+        </div>
+        
+        <div className="space-y-4 p-4 bg-gray-50 rounded">
+          <h3 className="font-semibold text-sm">Interactive Controls</h3>
+          
+          <div>
+            <label className="text-xs font-medium block mb-1">Icon Name</label>
+            <input
+              type="text"
+              value={iconName}
+              onChange={(e) => setIconName(e.target.value)}
+              className="w-full px-2 py-1 text-sm border rounded"
+              placeholder="Enter icon name (kebab-case)"
+            />
+          </div>
+          
+          <div>
+            <label className="text-xs font-medium block mb-1">Popular Icons</label>
+            <div className="grid grid-cols-6 gap-2">
+              {popularIcons.map((icon) => (
+                <button
+                  key={icon}
+                  onClick={() => setIconName(icon)}
+                  className={cn(
+                    "p-2 border rounded hover:bg-white transition-colors",
+                    iconName === icon && "bg-white border-primary"
+                  )}
+                  title={icon}
+                >
+                  <Icon name={icon} size="sm" />
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          <div>
+            <label className="text-xs font-medium block mb-1">Color</label>
+            <div className="flex gap-2">
+              {[
+                { value: 'text-neutral-600', label: 'Default' },
+                { value: 'text-primary', label: 'Primary' },
+                { value: 'text-success', label: 'Success' },
+                { value: 'text-warning', label: 'Warning' },
+                { value: 'text-destructive', label: 'Danger' },
+                { value: 'text-info-600', label: 'Info' },
+              ].map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => setColor(option.value)}
+                  className={cn(
+                    "px-3 py-1 text-xs border rounded",
+                    color === option.value && "bg-neutral-100"
+                  )}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          <div>
+            <label className="text-xs font-medium block mb-1">Rotation: {rotation}°</label>
+            <input
+              type="range"
+              min="0"
+              max="360"
+              value={rotation}
+              onChange={(e) => setRotation(Number(e.target.value))}
+              className="w-full"
+            />
+          </div>
+        </div>
+      </div>
+    );
   },
 };
 

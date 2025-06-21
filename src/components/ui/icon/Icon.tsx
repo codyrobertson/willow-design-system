@@ -3,6 +3,28 @@ import { cn } from '@/lib/utils';
 import * as LucideIcons from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
 
+/**
+ * Icon Component
+ * 
+ * A wrapper around Lucide React icons that provides consistent sizing and styling.
+ * Automatically converts kebab-case icon names to the appropriate Lucide component.
+ * 
+ * @example
+ * ```tsx
+ * // Basic usage
+ * <Icon name="user" size="md" />
+ * 
+ * // With custom size
+ * <Icon name="settings" size={24} />
+ * 
+ * // With custom styling
+ * <Icon name="check" className="text-success" />
+ * 
+ * // Accessible icon with label
+ * <Icon name="trash" aria-label="Delete item" />
+ * ```
+ */
+
 // Icon size mappings
 const iconSizeMap = {
   xs: 12,
@@ -25,9 +47,13 @@ function toPascalCase(str: string): string {
 }
 
 export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
+  /** Name of the Lucide icon (kebab-case) */
   name: string;
+  /** Size preset or custom pixel value */
   size?: IconSize | number;
+  /** Accessible label for screen readers */
   'aria-label'?: string;
+  /** Whether to hide from screen readers */
   'aria-hidden'?: boolean;
 }
 
