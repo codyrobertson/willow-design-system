@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "url": "https://willow-design-system.vercel.app/registry",
+  "paths": {
+    "registry": "./registry",
+    "components": "./src/components/ui",
+    "utils": "./lib/utils.ts"
+  }
+}

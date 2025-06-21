@@ -1,124 +1,127 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 
-export type GradientDirection = "to-t" | "to-tr" | "to-r" | "to-br" | "to-b" | "to-bl" | "to-l" | "to-tl"
-export type BlurType = "solid" | "progressive"
-export type BlurVariant = "light" | "dark"
-export type CoverMode = "contain" | "cover" | "stretch"
-
-interface GradientBackgroundProps {
-  direction?: GradientDirection
-  colors: string[]
-  coverMode?: CoverMode
-  blurSize?: number
-  blurType?: BlurType
-  blurVariant?: BlurVariant
-  position?: {
-    top?: number
-    right?: number
-    bottom?: number
-    left?: number
-  }
-  size?: {
-    width?: number
-    height?: number
-  }
-  blendMode?: "normal" | "multiply" | "screen" | "overlay" | "soft-light" | "hard-light"
-  shape?: "rectangle" | "circle" | "ellipse"
-  className?: string
-  children?: React.ReactNode
+interface GradientBGProps {
+  /**
+   * The URL of the background image (optional).
+   */
+  imageUrl?: string;
+  /**
+   * An array of color strings for the gradient overlay.
+   * If not provided, only the image will be shown.
+   */
+  gradientColors?: string[];
+  /**
+   * Direction of the gradient
+   * @default 'to bottom'
+   */
+  gradientDirection?: 'to top' | 'to bottom' | 'to left' | 'to right' | 'to top left' | 'to top right' | 'to bottom left' | 'to bottom right' | string;
+  /**
+   * Blur amount applied to the background
+   * @default 0
+   */
+  blur?: number;
+  /**
+   * Opacity of the gradient overlay
+   * @default 1
+   */
+  gradientOpacity?: number;
+  /**
+   * Background size for the image
+   * @default 'cover'
+   */
+  backgroundSize?: 'cover' | 'contain' | 'auto' | string;
+  /**
+   * Background position for the image
+   * @default 'center'
+   */
+  backgroundPosition?: string;
+  /**
+   * Whether to add a dark overlay for better text readability
+   * @default false
+   */
+  darkOverlay?: boolean;
+  /**
+   * Height of the component
+   * @default 'min-h-screen'
+   */
+  height?: string;
+  /**
+   * Additional class names to apply to the container.
+   */
+  className?: string;
+  /**
+   * The content to be rendered inside the component.
+   */
+  children?: React.ReactNode;
 }
 
-// Pure function to build gradient classes
-const buildGradientClasses = (direction: GradientDirection, colors: string[]): string => {
-  return [
-    `bg-gradient-${direction}`,
-    ...colors.map((color, i) => 
-      i === 0 ? `from-${color}` : 
-      i === colors.length - 1 ? `to-${color}` : 
-      `via-${color}`
-    )
-  ].join(' ');
-};
-
-// Pure function to build position styles
-const buildPositionStyles = (position?: GradientBackgroundProps['position']) => ({
-  top: position?.top !== undefined ? `${position.top}rem` : undefined,
-  right: position?.right !== undefined ? `${position.right}rem` : undefined,
-  bottom: position?.bottom !== undefined ? `${position.bottom}rem` : undefined,
-  left: position?.left !== undefined ? `${position.left}rem` : undefined,
-});
-
-// Pure function to build size styles
-const buildSizeStyles = (size?: GradientBackgroundProps['size']) => ({
-  width: size?.width !== undefined ? `${size.width}rem` : '40rem',
-  height: size?.height !== undefined ? `${size.height}rem` : '40rem',
-});
-
-const GradientBackground: React.FC<GradientBackgroundProps> = ({
-  direction = "to-b",
-  colors = ["white/30", "transparent"],
-  coverMode = "cover",
-  blurSize = 16,
-  blurType = "progressive",
-  blurVariant = "light",
-  position,
-  size,
-  blendMode = "overlay",
-  shape = "circle",
+export default function GradientBG({
+  imageUrl,
+  gradientColors,
+  gradientDirection = 'to bottom',
+  blur = 0,
+  gradientOpacity = 1,
+  backgroundSize = 'cover',
+  backgroundPosition = 'center',
+  darkOverlay = false,
+  height = 'min-h-screen',
   className,
-  children
-}) => {
-  const gradientClasses = buildGradientClasses(direction, colors);
-  const positionStyles = buildPositionStyles(position);
-  const sizeStyles = buildSizeStyles(size);
+  children,
+}: GradientBGProps) {
+  const hasImage = !!imageUrl;
+  const hasGradient = gradientColors && gradientColors.length > 0;
 
-  const shapeClasses = shape === "circle" ? "rounded-full" : 
-                      shape === "ellipse" ? "rounded-[50%]" : 
-                      "rounded-none";
+  // Create gradient style object
+  const gradientStyle: React.CSSProperties = {};
+  if (hasGradient) {
+    if (gradientColors.length === 1) {
+      gradientStyle.backgroundColor = gradientColors[0];
+    } else {
+      gradientStyle.backgroundImage = `linear-gradient(${gradientDirection}, ${gradientColors.join(', ')})`;
+    }
+    gradientStyle.opacity = gradientOpacity;
+  }
 
-  const coverClasses = coverMode === "contain" ? "object-contain" : 
-                      coverMode === "cover" ? "object-cover" : 
-                      "object-fill";
+  // Create image style object
+  const imageStyle: React.CSSProperties = hasImage ? {
+    backgroundImage: `url('${imageUrl}')`,
+    backgroundSize,
+    backgroundPosition,
+    filter: blur > 0 ? `blur(${blur}px)` : undefined,
+  } : {};
 
   return (
-    <>
-      {/* Gradient overlay */}
-      <div 
-        className={cn(
-          "absolute flex items-center justify-center",
-          `mix-blend-${blendMode}`,
-          coverClasses,
-          className
-        )}
-        style={{
-          ...positionStyles,
-          ...sizeStyles
-        }}
-      >
-        <div className={cn(
-          "relative w-full h-full",
-          shapeClasses
-        )}>
-          <div className={cn(
-            gradientClasses,
-            "w-full h-full",
-            blurType === "solid" ? `blur-[${blurSize}px]` : ""
-          )} />
-        </div>
-      </div>
-
-      {/* Content wrapper with progressive blur */}
-      {blurType === "progressive" && (
-        <div className={cn(
-          "backdrop-blur-sm flex-1 w-full flex flex-col relative",
-          blurVariant === "light" ? "bg-white/30" : "bg-black/30"
-        )}>
-          {children}
-        </div>
+    <div
+      className={cn(
+        'relative w-full overflow-hidden',
+        height,
+        className
       )}
-    </>
+    >
+      {/* Background Image Layer */}
+      {hasImage && (
+        <div
+          className="absolute inset-0 bg-no-repeat"
+          style={imageStyle}
+        />
+      )}
+      
+      {/* Gradient Overlay Layer */}
+      {hasGradient && (
+        <div
+          className="absolute inset-0"
+          style={gradientStyle}
+        />
+      )}
+      
+      {/* Dark Overlay Layer */}
+      {darkOverlay && (
+        <div className="absolute inset-0 bg-black/50" />
+      )}
+      
+      {/* Content Layer */}
+      <div className="relative z-10 h-full flex flex-col">{children}</div>
+    </div>
   );
-};
-
-export default GradientBackground;
+}

@@ -1,7 +1,7 @@
 'use client'
 
 import { FancyButton } from "@/src/components/ui/FancyButton"
-import { FA6Icon } from "@/src/components/ui/FA6Icon"
+import { ArrowLeft, ArrowRight, Download, FileText } from "lucide-react"
 
 export default function ButtonDemo() {
   return (
@@ -42,23 +42,33 @@ export default function ButtonDemo() {
           </div>
         </div>
 
+        {/* Fancy Button Variant */}
+        <div className="bg-white p-6 rounded-lg shadow">
+          <h2 className="text-xl font-semibold mb-4">The New Fancy Button</h2>
+          <div className="flex flex-wrap gap-4 p-4 items-center bg-gray-900 rounded-lg">
+            <FancyButton variant="fancy" size="sm">Get Started</FancyButton>
+            <FancyButton variant="fancy" size="md">Get Started</FancyButton>
+            <FancyButton variant="fancy" size="lg">Get Started</FancyButton>
+          </div>
+        </div>
+
         {/* Buttons with Icons */}
         <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-xl font-semibold mb-4">Buttons with Icons</h2>
           <div className="flex flex-wrap gap-4">
             <FancyButton 
-              leftIcon={<FA6Icon name="arrow-left" size="sm" />}
+              leftIcon={<ArrowLeft className="w-4 h-4" />}
             >
               Back
             </FancyButton>
             <FancyButton 
-              rightIcon={<FA6Icon name="arrow-right" size="sm" />}
+              rightIcon={<ArrowRight className="w-4 h-4" />}
             >
               Next
             </FancyButton>
             <FancyButton 
-              leftIcon={<FA6Icon name="download" size="sm" />}
-              rightIcon={<FA6Icon name="file" size="sm" />}
+              leftIcon={<Download className="w-4 h-4" />}
+              rightIcon={<FileText className="w-4 h-4" />}
             >
               Download File
             </FancyButton>

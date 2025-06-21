@@ -48,3 +48,7 @@ storybook-static
 .claude/
 
 *storybook.log
+
+# registry build
+/registry/components/
+/dist/

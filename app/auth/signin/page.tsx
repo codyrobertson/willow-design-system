@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { FancyButton } from '@/src/components/ui/FancyButton'
+import { Button } from '@/src/components/ui/Button'
 
 export default function SignInPage() {
   const router = useRouter()
@@ -15,9 +15,9 @@ export default function SignInPage() {
     <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
       <div className="text-center">
         <h1 className="text-2xl font-bold mb-4">Sign In (Mock)</h1>
-        <FancyButton onClick={handleMockSignIn}>
+        <Button onClick={handleMockSignIn} variant="fancy" radius="full">
           Mock Sign In
-        </FancyButton>
+        </Button>
       </div>
     </div>
   )

@@ -1,0 +1,103 @@
+{
+  "name": "willow-design-system",
+  "baseUrl": "https://willow-design-system.vercel.app",
+  "registryDependencies": ["tailwindcss-animate", "class-variance-authority", "clsx", "tailwind-merge", "lucide-react"],
+  "themes": [
+    {
+      "name": "willow",
+      "label": "Willow",
+      "cssVars": {
+        "light": {
+          "willow-primary": "256 100% 50%",
+          "willow-primary-50": "256 100% 97%",
+          "willow-primary-100": "256 100% 94%",
+          "willow-primary-200": "256 100% 88%",
+          "willow-primary-300": "256 100% 82%",
+          "willow-primary-400": "256 100% 70%",
+          "willow-primary-500": "256 100% 58%",
+          "willow-primary-600": "256 100% 50%",
+          "willow-primary-700": "256 100% 42%",
+          "willow-primary-800": "256 100% 34%",
+          "willow-primary-900": "256 100% 28%",
+          "willow-primary-950": "256 100% 14%",
+          "danger": "0 84% 60%",
+          "warning": "20 96% 52%",
+          "info": "248 100% 73%",
+          "info-50": "248 100% 98%",
+          "info-100": "248 100% 96%",
+          "info-200": "248 100% 92%",
+          "info-300": "248 100% 86%",
+          "info-400": "248 100% 79%",
+          "info-500": "248 100% 73%",
+          "info-600": "248 98% 60%",
+          "info-700": "248 89% 48%",
+          "info-800": "248 87% 40%",
+          "info-900": "248 82% 33%",
+          "info-950": "248 80% 20%",
+          "state-error-lighter": "0 100% 95%",
+          "state-warning-lighter": "39 100% 95%",
+          "card-foreground": "0 0% 11%",
+          "muted-foreground": "240 3.8% 46.1%"
+        }
+      }
+    }
+  ],
+  "tailwind": {
+    "config": {
+      "theme": {
+        "extend": {
+          "colors": {
+            "willow-primary": {
+              "50": "hsl(var(--willow-primary-50))",
+              "100": "hsl(var(--willow-primary-100))",
+              "200": "hsl(var(--willow-primary-200))",
+              "300": "hsl(var(--willow-primary-300))",
+              "400": "hsl(var(--willow-primary-400))",
+              "500": "hsl(var(--willow-primary-500))",
+              "600": "hsl(var(--willow-primary-600))",
+              "700": "hsl(var(--willow-primary-700))",
+              "800": "hsl(var(--willow-primary-800))",
+              "900": "hsl(var(--willow-primary-900))",
+              "950": "hsl(var(--willow-primary-950))",
+              "DEFAULT": "hsl(var(--willow-primary))"
+            },
+            "danger": "hsl(var(--danger))",
+            "warning": "hsl(var(--warning))",
+            "info": {
+              "50": "hsl(var(--info-50))",
+              "100": "hsl(var(--info-100))",
+              "200": "hsl(var(--info-200))",
+              "300": "hsl(var(--info-300))",
+              "400": "hsl(var(--info-400))",
+              "500": "hsl(var(--info-500))",
+              "600": "hsl(var(--info-600))",
+              "700": "hsl(var(--info-700))",
+              "800": "hsl(var(--info-800))",
+              "900": "hsl(var(--info-900))",
+              "950": "hsl(var(--info-950))",
+              "DEFAULT": "hsl(var(--info))"
+            },
+            "state-error-lighter": "hsl(var(--state-error-lighter))",
+            "state-warning-lighter": "hsl(var(--state-warning-lighter))",
+            "card-foreground": "hsl(var(--card-foreground))",
+            "muted-foreground": "hsl(var(--muted-foreground))"
+          },
+          "boxShadow": {
+            "card": "0px 0px 0px 1px rgba(216, 216, 216, 1), 0px 1px 3px 0px rgba(143, 143, 143, 0.4), 0px 1px 2px 0px rgba(10, 13, 20, 0.06)",
+            "card-raised": "0px 2px 0px 0px rgba(221, 221, 221, 1), 0px 1px 2px 0px rgba(10, 13, 20, 0.03), 0px 1px 3px 0px rgba(143, 143, 143, 0.2), 0px 0px 0px 1px rgba(216, 216, 216, 1)",
+            "card-raised-inset": "inset 0px -4px 0px 0px rgba(226, 226, 226, 0.7)"
+          },
+          "textShadow": {
+            "sm": "0px 1px 0px rgba(255, 255, 255, 0.60)"
+          }
+        }
+      },
+      "plugins": []
+    }
+  },
+  "aliases": {
+    "utils": "@/lib/utils",
+    "components": "@/src/components",
+    "ui": "@/src/components/ui"
+  }
+}

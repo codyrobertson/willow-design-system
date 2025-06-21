@@ -1,17 +1,17 @@
 'use client'
 
 import { Highlight } from '@/src/components/ui/Highlight'
-import { FA6Icon } from '@/src/components/ui/FA6Icon'
+import { CheckCircle } from 'lucide-react'
 import {
   Card,
   CardHeader,
   CardFooter,
   CardTitle,
 } from '@/src/components/ui/Card'
-import { Logo } from '@/src/components/ui/Logo'
-import { FancyButton } from '@/src/components/ui/FancyButton'
+import { Button } from '@/src/components/ui/Button'
 import GradientBG from '@/src/components/ui/GradientBG'
 import { useRouter } from 'next/navigation'
+import { Navigation } from '@/src/components/layout/Navigation'
 
 export default function IntroScreen() {
   const router = useRouter()
@@ -25,67 +25,73 @@ export default function IntroScreen() {
   }
   
   return (
-    <div
-      className="bg-center bg-cover bg-no-repeat h-screen w-full overflow-hidden"
-      style={{ backgroundImage: `url('/onboarding_hero.png')` }}
+    <GradientBG
+      imageUrl="/onboarding_hero.png"
+      gradientColors={['rgba(0,0,0,0.4)', 'rgba(49,26,255,0.3)']}
+      height="h-screen"
+      className="flex flex-col overflow-hidden"
     >
-      <div className="h-full flex flex-col relative">
-        <GradientBG colors={["transparent", "rgba(255,255,255,0.3)"]} />
-
-        <div className="backdrop-blur-sm bg-gradient-to-b from-transparent to-white/30 flex-1 rounded-t-lg w-full flex flex-col">
-          <div className="flex-1 flex flex-col min-h-0">
-            <div className="flex-1 px-8 sm:px-12 md:px-16 pt-20 pb-10 overflow-y-auto">
-              
-              <div className="mb-10">
-                <Logo size="lg" lockup="full" variant="dark" />
-              </div>
-
-              <div className="mb-10 max-w-2xl">
-                <h1 className="bg-gradient-to-b from-white/95 via-white/80 to-white/60 bg-clip-text text-transparent text-display-md sm:text-display-lg font-codec-pro-bold leading-tight tracking-tight text-shadow-md">
-                  Your AI-Powered Aftercare Partner
-                </h1>
-              </div>
-
-              <div className="space-y-6 max-w-lg">
-                <Highlight
-                  text="Daily Video Check-ins"
-                  iconLeft={<FA6Icon name="circle-check" className="text-white/70" size="xl" />}
-                  variant="dark"
-                />
-
-                <Highlight
-                  text="Track Your Recovery"
-                  iconLeft={<FA6Icon name="circle-check" className="text-white/70" size="xl" />}
-                  variant="dark"
-                />
-
-                <Highlight
-                  text="Answer Your Questions"
-                  iconLeft={<FA6Icon name="circle-check" className="text-white/70" size="xl" />}
-                  variant="dark"
-                />
-
-                <Highlight
-                  text="Keeps You On Track"
-                  iconLeft={<FA6Icon name="circle-check" className="text-white/70" size="xl" />}
-                  variant="dark"
-                />
-              </div>
+      <Navigation transparent logoLockup="full" logoVariant="dark" />
+      <div className="flex flex-col lg:flex-row flex-1 pt-24 lg:pt-20">
+        {/* Left side - Content */}
+        <div className="flex flex-col justify-center lg:flex-1 px-8 sm:px-12 lg:px-16 xl:px-20 py-8 lg:py-0">
+          <div className="w-full lg:max-w-xl xl:max-w-2xl mx-auto lg:mx-0">
+            <div className="mb-10">
+              <h1 className="text-white text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight drop-shadow-lg">
+                Your AI-Powered Aftercare Partner
+              </h1>
             </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Ready to start feeling more confident about your recovery?</CardTitle>
+            <div className="space-y-6">
+              <Highlight
+                text="Daily Video Check-ins"
+                iconLeft={<CheckCircle className="text-white/80 w-6 h-6" />}
+                variant="dark"
+                className="bg-black/30"
+              />
+
+              <Highlight
+                text="Track Your Recovery"
+                iconLeft={<CheckCircle className="text-white/80 w-6 h-6" />}
+                variant="dark"
+                className="bg-black/30"
+              />
+
+              <Highlight
+                text="Answer Your Questions"
+                iconLeft={<CheckCircle className="text-white/80 w-6 h-6" />}
+                variant="dark"
+                className="bg-black/30"
+              />
+
+              <Highlight
+                text="Keeps You On Track"
+                iconLeft={<CheckCircle className="text-white/80 w-6 h-6" />}
+                variant="dark"
+                className="bg-black/30"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Right side - Card */}
+        <div className="flex items-end lg:items-center lg:justify-center lg:flex-1 pb-0 lg:py-8">
+          <div className="w-full lg:max-w-lg xl:max-w-xl lg:px-16 xl:px-20">
+            <Card className="p-8 sm:p-10 lg:p-16 xl:p-20 rounded-none lg:rounded-lg lg:min-h-[500px] xl:min-h-[600px] flex flex-col justify-center">
+              <CardHeader className="px-0 pt-0 pb-8 lg:pb-12">
+                <CardTitle className="text-xl lg:text-2xl">Ready to start feeling more confident about your recovery?</CardTitle>
               </CardHeader>
-              <CardFooter className="flex-col gap-4">
-                <FancyButton
+              <CardFooter className="flex-col gap-6 px-0 pb-0">
+                <Button
                   onClick={handleGetStarted}
+                  variant="fancy"
                   size="lg"
                   fullWidth
-                  className="text-2xl font-semibold"
+                  radius="full"
+                  className="text-2xl"
                 >
                   Get Started
-                </FancyButton>
+                </Button>
                 <p className="font-bold text-sm text-center tracking-[-0.28px] w-full leading-6">
                   <span>Already have an account? </span>
                   <button
@@ -101,6 +107,6 @@ export default function IntroScreen() {
           </div>
         </div>
       </div>
-    </div>
+    </GradientBG>
   )
 }
