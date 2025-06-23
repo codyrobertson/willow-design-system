@@ -2,7 +2,20 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
-// List Container
+/**
+ * List component styles using class-variance-authority
+ * 
+ * Variants:
+ * - default: Basic list with no dividers
+ * - divided: Adds dividers between items
+ * - spaced: Adds vertical spacing between items
+ * 
+ * Padding:
+ * - none: No padding
+ * - sm: Small padding (12px)
+ * - md: Medium padding (16px)
+ * - lg: Large padding (24px)
+ */
 const listVariants = cva(
   'w-full',
   {
@@ -26,12 +39,49 @@ const listVariants = cva(
   }
 );
 
+/**
+ * ListProps interface for the List component
+ * 
+ * @property {boolean} [enableKeyboardNavigation] - Enable keyboard navigation with arrow keys
+ */
 export interface ListProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof listVariants> {
   enableKeyboardNavigation?: boolean;
 }
 
+/**
+ * List component - A flexible container for displaying lists of content
+ * 
+ * @component
+ * @example
+ * // Basic list
+ * <List>
+ *   <ListItem>Item 1</ListItem>
+ *   <ListItem>Item 2</ListItem>
+ * </List>
+ * 
+ * @example
+ * // Divided list with padding
+ * <List variant="divided" padding="md">
+ *   <ListItem>
+ *     <ListItemContent title="Title" subtitle="Subtitle" />
+ *   </ListItem>
+ * </List>
+ * 
+ * @example
+ * // With keyboard navigation
+ * <List enableKeyboardNavigation>
+ *   <ListItem>Navigate with arrow keys</ListItem>
+ * </List>
+ * 
+ * @param {ListProps} props - Component props
+ * @param {string} [props.variant="default"] - Visual variant of the list
+ * @param {string} [props.padding="none"] - Padding size
+ * @param {boolean} [props.enableKeyboardNavigation=false] - Enable keyboard navigation
+ * @param {string} [props.className] - Additional CSS classes
+ * @param {React.ReactNode} props.children - List items
+ */
 export const List = React.forwardRef<HTMLDivElement, ListProps>(
   ({ className, variant, padding, enableKeyboardNavigation = false, children, onKeyDown, ...props }, ref) => {
     const listRef = React.useRef<HTMLDivElement>(null);
@@ -100,7 +150,26 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>(
 );
 List.displayName = 'List';
 
-// List Item
+/**
+ * ListItem component styles using class-variance-authority
+ * 
+ * Variants:
+ * - default: Basic list item
+ * - clickable: Adds hover state and cursor pointer
+ * - selected: Shows selected state with background color
+ * 
+ * Padding:
+ * - none: No padding
+ * - sm: Small padding (12px)
+ * - md: Medium padding (12px vertical, no horizontal)
+ * - lg: Large padding (20px)
+ * 
+ * Align:
+ * - start: Align items to the start
+ * - center: Center align items
+ * - end: Align items to the end
+ * - stretch: Stretch items to full height
+ */
 const listItemVariants = cva(
   'flex w-full',
   {
@@ -131,6 +200,14 @@ const listItemVariants = cva(
   }
 );
 
+/**
+ * ListItemProps interface for the ListItem component
+ * 
+ * @property {React.ReactNode} [leading] - Content to display at the start of the item
+ * @property {React.ReactNode} [trailing] - Content to display at the end of the item
+ * @property {boolean} [selected] - Whether the item is selected
+ * @property {boolean} [disabled] - Whether the item is disabled
+ */
 export interface ListItemProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof listItemVariants> {
@@ -140,6 +217,43 @@ export interface ListItemProps
   disabled?: boolean;
 }
 
+/**
+ * ListItem component - Individual item within a List
+ * 
+ * @component
+ * @example
+ * // Basic list item
+ * <ListItem>Simple item</ListItem>
+ * 
+ * @example
+ * // With leading and trailing content
+ * <ListItem
+ *   leading={<ListItemIcon><User /></ListItemIcon>}
+ *   trailing={<ChevronRight />}
+ * >
+ *   User profile
+ * </ListItem>
+ * 
+ * @example
+ * // Clickable with selection
+ * <ListItem
+ *   variant="clickable"
+ *   selected={isSelected}
+ *   onClick={() => setSelected(!isSelected)}
+ * >
+ *   Click me
+ * </ListItem>
+ * 
+ * @param {ListItemProps} props - Component props
+ * @param {React.ReactNode} [props.leading] - Content at the start of the item
+ * @param {React.ReactNode} [props.trailing] - Content at the end of the item
+ * @param {boolean} [props.selected] - Selected state
+ * @param {boolean} [props.disabled] - Disabled state
+ * @param {string} [props.variant="default"] - Visual variant
+ * @param {string} [props.padding="md"] - Padding size
+ * @param {string} [props.align="center"] - Vertical alignment
+ * @param {Function} [props.onClick] - Click handler
+ */
 export const ListItem = React.forwardRef<HTMLDivElement, ListItemProps>(
   ({
     className,
@@ -202,7 +316,14 @@ export const ListItem = React.forwardRef<HTMLDivElement, ListItemProps>(
 );
 ListItem.displayName = 'ListItem';
 
-// List Item Content
+/**
+ * ListItemContentProps interface for structured content within list items
+ * 
+ * @property {React.ReactNode} [title] - Main title text
+ * @property {React.ReactNode} [subtitle] - Secondary subtitle text
+ * @property {React.ReactNode} [description] - Additional description text
+ * @property {React.ReactNode} [overline] - Text that appears above the title
+ */
 export interface ListItemContentProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: React.ReactNode;
   subtitle?: React.ReactNode;
@@ -210,6 +331,33 @@ export interface ListItemContentProps extends React.HTMLAttributes<HTMLDivElemen
   overline?: React.ReactNode;
 }
 
+/**
+ * ListItemContent component - Structured content for list items
+ * 
+ * @component
+ * @example
+ * // Basic content
+ * <ListItemContent
+ *   title="Meeting with team"
+ *   subtitle="Engineering sync"
+ * />
+ * 
+ * @example
+ * // Full content structure
+ * <ListItemContent
+ *   overline="TODAY"
+ *   title="Product Review"
+ *   subtitle="Q4 Planning Session"
+ *   description="Conference Room B, 2nd Floor"
+ * />
+ * 
+ * @param {ListItemContentProps} props - Component props
+ * @param {React.ReactNode} [props.overline] - Overline text (smallest, above title)
+ * @param {React.ReactNode} [props.title] - Main title
+ * @param {React.ReactNode} [props.subtitle] - Subtitle
+ * @param {React.ReactNode} [props.description] - Description text
+ * @param {React.ReactNode} [props.children] - Additional content
+ */
 export const ListItemContent = React.forwardRef<HTMLDivElement, ListItemContentProps>(
   ({ className, title, subtitle, description, overline, children, ...props }, ref) => {
     return (
@@ -233,7 +381,11 @@ export const ListItemContent = React.forwardRef<HTMLDivElement, ListItemContentP
 );
 ListItemContent.displayName = 'ListItemContent';
 
-// List Item Icon
+/**
+ * ListItemIcon component styles
+ * 
+ * Background variants match semantic color system
+ */
 const listItemIconVariants = cva(
   'flex items-center justify-center shrink-0',
   {
@@ -265,6 +417,9 @@ const listItemIconVariants = cva(
   }
 );
 
+/**
+ * Icon color variants to match background variants
+ */
 const listItemIconColorVariants = cva(
   '',
   {
@@ -284,10 +439,41 @@ const listItemIconColorVariants = cva(
   }
 );
 
+/**
+ * ListItemIconProps interface
+ */
 export interface ListItemIconProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof listItemIconVariants> {}
 
+/**
+ * ListItemIcon component - Icon container for list items
+ * 
+ * @component
+ * @example
+ * // Basic icon
+ * <ListItemIcon>
+ *   <User className="w-4 h-4" />
+ * </ListItemIcon>
+ * 
+ * @example
+ * // Colored icon with size
+ * <ListItemIcon variant="primary" size="md">
+ *   <Calendar />
+ * </ListItemIcon>
+ * 
+ * @example
+ * // Square shape icon
+ * <ListItemIcon shape="square" variant="success">
+ *   <Check />
+ * </ListItemIcon>
+ * 
+ * @param {ListItemIconProps} props - Component props
+ * @param {string} [props.variant="default"] - Color variant
+ * @param {string} [props.size="sm"] - Icon container size
+ * @param {string} [props.shape="circle"] - Container shape
+ * @param {React.ReactNode} props.children - Icon content
+ */
 export const ListItemIcon = React.forwardRef<HTMLDivElement, ListItemIconProps>(
   ({ className, variant, size, shape, children, ...props }, ref) => {
     return (
@@ -309,7 +495,17 @@ export const ListItemIcon = React.forwardRef<HTMLDivElement, ListItemIconProps>(
 );
 ListItemIcon.displayName = 'ListItemIcon';
 
-// List Divider
+/**
+ * ListDivider component - Horizontal separator for list sections
+ * 
+ * @component
+ * @example
+ * <List>
+ *   <ListItem>First section</ListItem>
+ *   <ListDivider />
+ *   <ListItem>Second section</ListItem>
+ * </List>
+ */
 export const ListDivider = React.forwardRef<HTMLHRElement, React.HTMLAttributes<HTMLHRElement>>(
   ({ className, ...props }, ref) => {
     return (
@@ -323,12 +519,34 @@ export const ListDivider = React.forwardRef<HTMLHRElement, React.HTMLAttributes<
 );
 ListDivider.displayName = 'ListDivider';
 
-// List Header (for sections)
+/**
+ * ListHeaderProps interface
+ * 
+ * @property {React.ReactNode} [icon] - Optional icon to display
+ * @property {React.ReactNode} [action] - Optional action element (button, badge, etc.)
+ */
 export interface ListHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   icon?: React.ReactNode;
   action?: React.ReactNode;
 }
 
+/**
+ * ListHeader component - Header for list sections
+ * 
+ * @component
+ * @example
+ * <ListHeader
+ *   icon={<Calendar className="w-4 h-4" />}
+ *   action={<Badge>3 items</Badge>}
+ * >
+ *   Today's Tasks
+ * </ListHeader>
+ * 
+ * @param {ListHeaderProps} props - Component props
+ * @param {React.ReactNode} [props.icon] - Optional leading icon
+ * @param {React.ReactNode} [props.action] - Optional trailing action
+ * @param {React.ReactNode} props.children - Header text
+ */
 export const ListHeader = React.forwardRef<HTMLDivElement, ListHeaderProps>(
   ({ className, icon, action, children, ...props }, ref) => {
     return (
@@ -348,12 +566,35 @@ export const ListHeader = React.forwardRef<HTMLDivElement, ListHeaderProps>(
 );
 ListHeader.displayName = 'ListHeader';
 
-// List Section for grouped items
+/**
+ * ListSectionProps interface
+ * 
+ * @property {React.ReactNode} [title] - Section title
+ * @property {React.ReactNode} [description] - Section description
+ */
 export interface ListSectionProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: React.ReactNode;
   description?: React.ReactNode;
 }
 
+/**
+ * ListSection component - Groups related list items
+ * 
+ * @component
+ * @example
+ * <ListSection
+ *   title="Upcoming"
+ *   description="Next 7 days"
+ * >
+ *   <ListItem>Task 1</ListItem>
+ *   <ListItem>Task 2</ListItem>
+ * </ListSection>
+ * 
+ * @param {ListSectionProps} props - Component props
+ * @param {React.ReactNode} [props.title] - Section title
+ * @param {React.ReactNode} [props.description] - Section description
+ * @param {React.ReactNode} props.children - List items in this section
+ */
 export const ListSection = React.forwardRef<HTMLDivElement, ListSectionProps>(
   ({ className, title, description, children, ...props }, ref) => {
     return (

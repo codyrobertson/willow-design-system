@@ -5,6 +5,24 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+/**
+ * Tag component styles using class-variance-authority
+ * 
+ * Variants:
+ * - primary: Willow brand colors
+ * - neutral: Gray colors
+ * - success: Green colors
+ * - warning: Orange colors
+ * - danger: Red colors
+ * - info: Blue colors
+ * 
+ * All variants use soft backgrounds with hover states
+ * 
+ * Sizes:
+ * - sm: Small (extra small text)
+ * - md: Medium (small text)
+ * - lg: Large (base text)
+ */
 const tagVariants = cva(
   'inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-sm font-normal transition-all focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
   {
@@ -30,6 +48,12 @@ const tagVariants = cva(
   }
 );
 
+/**
+ * TagProps interface for the Tag component
+ * 
+ * @property {Function} [onRemove] - Callback when remove button is clicked
+ * @property {React.ReactNode} [icon] - Optional icon to display
+ */
 export interface TagProps
   extends React.HTMLAttributes<HTMLSpanElement>,
     VariantProps<typeof tagVariants> {
@@ -37,6 +61,57 @@ export interface TagProps
   icon?: React.ReactNode;
 }
 
+/**
+ * Tag component - Simple label for categorization and metadata
+ * 
+ * @component
+ * @example
+ * // Basic tag
+ * <Tag>Category</Tag>
+ * 
+ * @example
+ * // Tag with icon
+ * <Tag icon={<Hash />} variant="info">
+ *   trending
+ * </Tag>
+ * 
+ * @example
+ * // Removable tag
+ * <Tag 
+ *   onRemove={() => removeTag()}
+ *   variant="success"
+ * >
+ *   Completed
+ * </Tag>
+ * 
+ * @example
+ * // Different sizes
+ * <Tag size="sm">Small</Tag>
+ * <Tag size="md">Medium</Tag>
+ * <Tag size="lg">Large</Tag>
+ * 
+ * Features:
+ * - Six semantic color variants
+ * - Three size options
+ * - Optional icon support
+ * - Removable with X button
+ * - Hover states
+ * - Focus states for accessibility
+ * 
+ * Use cases:
+ * - Article tags
+ * - Category labels
+ * - Status indicators
+ * - Filter tags
+ * - Metadata display
+ * 
+ * @param {TagProps} props - Component props
+ * @param {string} [props.variant='primary'] - Color variant
+ * @param {string} [props.size='md'] - Size variant
+ * @param {React.ReactNode} [props.icon] - Optional icon
+ * @param {Function} [props.onRemove] - Remove handler
+ * @param {React.ReactNode} props.children - Tag content
+ */
 const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
   ({ className, variant, size, onRemove, icon, children, ...props }, ref) => {
     return (

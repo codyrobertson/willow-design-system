@@ -98,7 +98,7 @@ const buttonVariants = cva(
       { 
         theme: 'primary', 
         variant: 'fancy', 
-        className: 'bg-willow-primary-900 text-white font-medium shadow-button-fancy hover:bg-willow-primary-800 active:bg-willow-primary-950'
+        className: 'bg-gradient-to-b from-willow-primary-800 to-willow-primary-950 text-white font-medium shadow-button-fancy hover:from-willow-primary-700 hover:to-willow-primary-900 active:from-willow-primary-900 active:to-willow-primary-950'
       },
       
       // Danger Theme
@@ -125,7 +125,7 @@ const buttonVariants = cva(
       { 
         theme: 'danger', 
         variant: 'fancy', 
-        className: 'bg-destructive-900 text-white font-medium shadow-button-fancy hover:bg-destructive-800 active:bg-destructive-950' 
+        className: 'bg-gradient-to-b from-destructive-800 to-destructive-950 text-white font-medium shadow-button-fancy hover:from-destructive-700 hover:to-destructive-900 active:from-destructive-900 active:to-destructive-950' 
       },
       
       // Warning Theme
@@ -152,7 +152,7 @@ const buttonVariants = cva(
       { 
         theme: 'warning', 
         variant: 'fancy', 
-        className: 'bg-warning-900 text-white font-medium shadow-button-fancy hover:bg-warning-800 active:bg-warning-950' 
+        className: 'bg-gradient-to-b from-warning-800 to-warning-900 text-white font-medium shadow-button-fancy hover:from-warning-700 hover:to-warning-800 active:from-warning-900 active:to-warning-900' 
       },
       
       // Info Theme
@@ -179,7 +179,7 @@ const buttonVariants = cva(
       { 
         theme: 'info', 
         variant: 'fancy', 
-        className: 'bg-info-900 text-white font-medium shadow-button-fancy hover:bg-info-800 active:bg-info-950' 
+        className: 'bg-gradient-to-b from-info-800 to-info-950 text-white font-medium shadow-button-fancy hover:from-info-700 hover:to-info-900 active:from-info-900 active:to-info-950' 
       },
       
       // Dark Theme
@@ -211,7 +211,7 @@ const buttonVariants = cva(
       { 
         theme: 'dark', 
         variant: 'fancy', 
-        className: 'bg-neutral-900 text-white font-medium shadow-button-fancy hover:bg-neutral-800 active:bg-neutral-950' 
+        className: 'bg-gradient-to-b from-neutral-800 to-neutral-950 text-white font-medium shadow-button-fancy hover:from-neutral-700 hover:to-neutral-900 active:from-neutral-900 active:to-neutral-950' 
       },
       
       // Success Theme
@@ -238,7 +238,7 @@ const buttonVariants = cva(
       { 
         theme: 'success', 
         variant: 'fancy', 
-        className: 'bg-success-900 text-white font-medium shadow-button-fancy hover:bg-success-800 active:bg-success-950' 
+        className: 'bg-gradient-to-b from-success-800 to-success-900 text-white font-medium shadow-button-fancy hover:from-success-700 hover:to-success-800 active:from-success-900 active:to-success-900' 
       },
       
       // Neutral Theme

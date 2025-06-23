@@ -53,14 +53,13 @@ export default function AftercareInstructionsScreen() {
     <GradientBG
       imageUrl="/onboarding_hero.png"
       gradientColors={['transparent', 'rgba(255,255,255,0.3)']}
+      height="h-screen"
+      className="flex flex-col min-h-screen max-h-screen overflow-hidden"
     >
-      <div className="relative z-10">
-        <header className="absolute top-0 left-0 w-full z-10 p-4">
-          <Navigation transparent showBackButton logoSize="lg" />
-        </header>
-
-        <main className="min-h-screen flex flex-col justify-center items-center p-4 pt-24 sm:pt-32">
-          <div className="w-full max-w-4xl">
+      <Navigation transparent showBackButton logoSize="lg" />
+      
+      <main className="flex-1 flex flex-col justify-center items-center p-4 pt-20 overflow-y-auto">
+        <div className="w-full max-w-4xl my-auto">
             {/* Main Card */}
             <Card variant="default">
               <CardHeader align="left" className="pb-4">
@@ -81,7 +80,7 @@ export default function AftercareInstructionsScreen() {
                     onPaste={handlePaste}
                     placeholder="Paste your aftercare instructions here..."
                     maxLength={maxChars}
-                    className="w-full h-[300px] p-4 rounded-lg border border-neutral-300 
+                    className="w-full h-[200px] sm:h-[250px] lg:h-[300px] p-4 rounded-lg border border-neutral-300 
                              focus:border-willow-primary-500 focus:ring-2 focus:ring-willow-primary-500/20 
                              transition-colors resize-none font-codec-pro text-oxford-blue-950
                              placeholder:text-neutral-400"
@@ -123,7 +122,6 @@ export default function AftercareInstructionsScreen() {
             </Card>
           </div>
         </main>
-      </div>
     </GradientBG>
   )
 }

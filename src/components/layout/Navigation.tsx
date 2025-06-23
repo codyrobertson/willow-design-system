@@ -23,12 +23,12 @@ export function Navigation({
 }: NavigationProps) {
   const router = useRouter()
 
-  const defaultLockup = transparent ? 'full' : 'logomark'
+  const defaultLockup = transparent ? 'full' : 'icon'
   const defaultVariant = transparent ? 'dark' : 'dark'
 
   return (
     <nav
-      className={`w-full px-6 py-4 ${
+      className={`w-full px-4 sm:px-6 py-3 sm:py-4 ${
         transparent
           ? 'absolute top-0 left-0 z-50'
           : 'bg-white border-b border-neutral-100'

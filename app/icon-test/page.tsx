@@ -1,9 +1,9 @@
 'use client';
 
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { Chip } from '@/components/ui/Chip';
-import { Tag } from '@/components/ui/Tag';
+import { Button } from '@/src/components/ui/Button';
+import { Badge } from '@/src/components/ui/Badge';
+import { Chip } from '@/src/components/ui/Chip';
+import { Tag } from '@/src/components/ui/Tag';
 import { Star, Heart, Settings, Check, AlertCircle, Info, TrendingUp, User, Rocket, ArrowRight } from 'lucide-react';
 
 export default function IconTestPage() {

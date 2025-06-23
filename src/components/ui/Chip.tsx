@@ -5,6 +5,30 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+/**
+ * Chip component styles using class-variance-authority
+ * 
+ * Variants:
+ * - normal: Rounded corners with standard shadows
+ * - fancy: Fully rounded with layered shadows
+ * 
+ * Themes:
+ * - primary: Willow brand colors
+ * - neutral: Gray colors
+ * - success: Green colors
+ * - warning: Orange colors
+ * - danger: Red colors
+ * - info: Blue colors
+ * 
+ * Sizes:
+ * - sm: Small (28px height)
+ * - md: Medium (36px height)
+ * - lg: Large (44px height)
+ * 
+ * States:
+ * - selected: Changes background to theme color with white text
+ * - unselected: Light background with colored text
+ */
 const chipVariants = cva(
   'inline-flex items-center justify-center gap-2 font-normal transition-all focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
@@ -37,7 +61,7 @@ const chipVariants = cva(
         variant: 'normal',
         theme: 'primary',
         selected: false,
-        className: 'bg-white text-oxford-blue-900 shadow-chip hover:shadow-chip-hover',
+        className: 'bg-white text-oxford-blue-900 border border-willow-primary-200 shadow-chip hover:shadow-chip-hover',
       },
       {
         variant: 'normal',
@@ -49,7 +73,7 @@ const chipVariants = cva(
         variant: 'normal',
         theme: 'neutral',
         selected: false,
-        className: 'bg-neutral-50 text-neutral-700 shadow-chip hover:shadow-chip-hover',
+        className: 'bg-neutral-50 text-neutral-700 border border-neutral-300 shadow-chip hover:shadow-chip-hover',
       },
       {
         variant: 'normal',
@@ -61,31 +85,31 @@ const chipVariants = cva(
         variant: 'normal',
         theme: 'success',
         selected: false,
-        className: 'bg-state-success-lighter text-success shadow-chip hover:shadow-chip-hover',
+        className: 'bg-state-success-lighter text-success-700 border border-success-300 shadow-chip hover:shadow-chip-hover',
       },
       {
         variant: 'normal',
         theme: 'success',
         selected: true,
-        className: 'bg-success text-white shadow-chip-success-selected',
+        className: 'bg-success-600 text-white shadow-chip-success-selected',
       },
       {
         variant: 'normal',
         theme: 'warning',
         selected: false,
-        className: 'bg-state-warning-lighter text-warning shadow-chip hover:shadow-chip-hover',
+        className: 'bg-state-warning-lighter text-warning-700 border border-warning-300 shadow-chip hover:shadow-chip-hover',
       },
       {
         variant: 'normal',
         theme: 'warning',
         selected: true,
-        className: 'bg-warning text-white shadow-chip-warning-selected',
+        className: 'bg-warning-600 text-oxford-blue-950 shadow-chip-warning-selected',
       },
       {
         variant: 'normal',
         theme: 'danger',
         selected: false,
-        className: 'bg-state-error-lighter text-danger shadow-chip hover:shadow-chip-hover',
+        className: 'bg-state-error-lighter text-danger border border-error-300 shadow-chip hover:shadow-chip-hover',
       },
       {
         variant: 'normal',
@@ -97,20 +121,20 @@ const chipVariants = cva(
         variant: 'normal',
         theme: 'info',
         selected: false,
-        className: 'bg-willow-primary-50 text-willow-primary-700 shadow-chip hover:shadow-chip-hover',
+        className: 'bg-info-50 text-info-700 border border-info-300 shadow-chip hover:shadow-chip-hover',
       },
       {
         variant: 'normal',
         theme: 'info',
         selected: true,
-        className: 'bg-willow-primary-600 text-white shadow-chip-info-selected',
+        className: 'bg-info-600 text-white shadow-chip-info-selected',
       },
       // Fancy variant styles with layered shadows - using token shadows
       {
         variant: 'fancy',
         theme: 'primary',
         selected: false,
-        className: 'bg-white text-oxford-blue-800 shadow-chip-fancy hover:shadow-chip-fancy-hover',
+        className: 'bg-white text-oxford-blue-800 border border-willow-primary-200 shadow-chip-fancy hover:shadow-chip-fancy-hover',
       },
       {
         variant: 'fancy',
@@ -122,7 +146,7 @@ const chipVariants = cva(
         variant: 'fancy',
         theme: 'neutral',
         selected: false,
-        className: 'bg-neutral-50 text-neutral-700 shadow-chip-fancy hover:shadow-chip-fancy-hover',
+        className: 'bg-neutral-50 text-neutral-700 border border-neutral-300 shadow-chip-fancy hover:shadow-chip-fancy-hover',
       },
       {
         variant: 'fancy',
@@ -134,31 +158,31 @@ const chipVariants = cva(
         variant: 'fancy',
         theme: 'success',
         selected: false,
-        className: 'bg-state-success-lighter text-success shadow-chip-fancy hover:shadow-chip-fancy-hover',
+        className: 'bg-state-success-lighter text-success-700 border border-success-300 shadow-chip-fancy hover:shadow-chip-fancy-hover',
       },
       {
         variant: 'fancy',
         theme: 'success',
         selected: true,
-        className: 'bg-success text-white shadow-chip-success-fancy-selected',
+        className: 'bg-success-600 text-white shadow-chip-success-fancy-selected',
       },
       {
         variant: 'fancy',
         theme: 'warning',
         selected: false,
-        className: 'bg-state-warning-lighter text-warning shadow-chip-fancy hover:shadow-chip-fancy-hover',
+        className: 'bg-state-warning-lighter text-warning-700 border border-warning-300 shadow-chip-fancy hover:shadow-chip-fancy-hover',
       },
       {
         variant: 'fancy',
         theme: 'warning',
         selected: true,
-        className: 'bg-warning text-white shadow-chip-warning-fancy-selected',
+        className: 'bg-warning-600 text-oxford-blue-950 shadow-chip-warning-fancy-selected',
       },
       {
         variant: 'fancy',
         theme: 'danger',
         selected: false,
-        className: 'bg-state-error-lighter text-danger shadow-chip-fancy hover:shadow-chip-fancy-hover',
+        className: 'bg-state-error-lighter text-danger border border-error-300 shadow-chip-fancy hover:shadow-chip-fancy-hover',
       },
       {
         variant: 'fancy',
@@ -170,13 +194,13 @@ const chipVariants = cva(
         variant: 'fancy',
         theme: 'info',
         selected: false,
-        className: 'bg-willow-primary-50 text-willow-primary-700 shadow-chip-fancy hover:shadow-chip-fancy-hover',
+        className: 'bg-info-50 text-info-700 border border-info-300 shadow-chip-fancy hover:shadow-chip-fancy-hover',
       },
       {
         variant: 'fancy',
         theme: 'info',
         selected: true,
-        className: 'bg-willow-primary-600 text-white shadow-chip-info-fancy-selected',
+        className: 'bg-info-600 text-white shadow-chip-info-fancy-selected',
       },
     ],
     defaultVariants: {
@@ -188,6 +212,14 @@ const chipVariants = cva(
   }
 );
 
+/**
+ * ChipProps interface for the Chip component
+ * 
+ * @property {Function} [onRemove] - Callback when remove button is clicked
+ * @property {React.ReactNode} [icon] - Optional icon to display
+ * @property {boolean} [selected=false] - Selected state
+ * @property {Function} [onClick] - Click handler (makes chip clickable)
+ */
 export interface ChipProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof chipVariants> {
@@ -197,6 +229,58 @@ export interface ChipProps
   onClick?: () => void;
 }
 
+/**
+ * Chip component - Interactive or static tag for selections and filters
+ * 
+ * @component
+ * @example
+ * // Basic chip
+ * <Chip>React</Chip>
+ * 
+ * @example
+ * // Clickable chip with selection
+ * <Chip 
+ *   onClick={() => setSelected(!selected)}
+ *   selected={selected}
+ * >
+ *   TypeScript
+ * </Chip>
+ * 
+ * @example
+ * // Removable chip with icon
+ * <Chip 
+ *   icon={<Tag />}
+ *   onRemove={() => handleRemove()}
+ *   theme="info"
+ * >
+ *   Frontend
+ * </Chip>
+ * 
+ * @example
+ * // Fancy variant chip
+ * <Chip variant="fancy" theme="success" selected>
+ *   Active
+ * </Chip>
+ * 
+ * Features:
+ * - Two visual variants (normal, fancy)
+ * - Six semantic themes
+ * - Selectable state
+ * - Removable with X button
+ * - Icon support
+ * - Clickable or static
+ * - Focus management
+ * 
+ * @param {ChipProps} props - Component props
+ * @param {string} [props.variant='normal'] - Visual variant
+ * @param {string} [props.theme='primary'] - Color theme
+ * @param {string} [props.size='md'] - Size variant
+ * @param {boolean} [props.selected=false] - Selected state
+ * @param {React.ReactNode} [props.icon] - Optional icon
+ * @param {Function} [props.onClick] - Click handler
+ * @param {Function} [props.onRemove] - Remove handler
+ * @param {React.ReactNode} props.children - Chip content
+ */
 const Chip = React.forwardRef<HTMLDivElement, ChipProps>(
   ({ className, variant, theme, size, selected = false, onRemove, icon, children, onClick, ...props }, ref) => {
     const isClickable = onClick !== undefined;

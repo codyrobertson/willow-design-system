@@ -8,6 +8,20 @@ import { Textarea } from './Textarea';
 import { FormField } from './FormField';
 import { Eye, EyeOff } from 'lucide-react';
 
+/**
+ * SimpleFormField interface for defining form fields declaratively
+ * 
+ * @property {string} name - Field name (used as key in form data)
+ * @property {string} label - Field label text
+ * @property {'text' | 'email' | 'password' | 'textarea' | 'tel' | 'url'} type - Input type
+ * @property {string} [placeholder] - Placeholder text
+ * @property {boolean} [required] - Whether field is required
+ * @property {string} [hint] - Helper text
+ * @property {number} [maxLength] - Maximum character length
+ * @property {React.ReactNode} [leftIcon] - Icon on the left side
+ * @property {React.ReactNode} [rightIcon] - Icon on the right side
+ * @property {number} [rows] - Number of rows for textarea
+ */
 export interface SimpleFormField {
   name: string;
   label: string;
@@ -21,6 +35,17 @@ export interface SimpleFormField {
   rows?: number; // for textarea
 }
 
+/**
+ * SimpleFormProps interface for the SimpleForm component
+ * 
+ * @property {SimpleFormField[]} fields - Array of field definitions
+ * @property {Function} onSubmit - Submit handler with form data
+ * @property {string} [submitText="Submit"] - Submit button text
+ * @property {boolean} [isLoading=false] - Loading state
+ * @property {Record<string, string>} [errors] - Field error messages
+ * @property {Record<string, string>} [defaultValues] - Default field values
+ * @property {string} [className] - Additional CSS classes
+ */
 export interface SimpleFormProps {
   fields: SimpleFormField[];
   onSubmit: (data: Record<string, string>) => void | Promise<void>;
@@ -31,6 +56,56 @@ export interface SimpleFormProps {
   className?: string;
 }
 
+/**
+ * SimpleForm component - A declarative form builder for quick forms
+ * 
+ * @component
+ * @example
+ * // Basic login form
+ * <SimpleForm
+ *   fields={[
+ *     { name: 'email', label: 'Email', type: 'email', required: true },
+ *     { name: 'password', label: 'Password', type: 'password', required: true }
+ *   ]}
+ *   onSubmit={(data) => console.log(data)}
+ *   submitText="Sign In"
+ * />
+ * 
+ * @example
+ * // Contact form with icons and hints
+ * <SimpleForm
+ *   fields={[
+ *     { 
+ *       name: 'name', 
+ *       label: 'Name', 
+ *       type: 'text', 
+ *       leftIcon: <User className="w-4 h-4" />,
+ *       required: true 
+ *     },
+ *     { 
+ *       name: 'message', 
+ *       label: 'Message', 
+ *       type: 'textarea',
+ *       rows: 4,
+ *       hint: 'Maximum 500 characters',
+ *       maxLength: 500
+ *     }
+ *   ]}
+ *   onSubmit={async (data) => await sendMessage(data)}
+ *   isLoading={isSubmitting}
+ * />
+ * 
+ * Features:
+ * - Declarative field configuration
+ * - Built-in password visibility toggle
+ * - Icon support (left and right)
+ * - Loading states
+ * - Error handling
+ * - Default values
+ * - Textarea support
+ * 
+ * @param {SimpleFormProps} props - Component props
+ */
 export function SimpleForm({
   fields,
   onSubmit,

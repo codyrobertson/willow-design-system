@@ -1,3 +1,4 @@
+import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { FormField } from './FormField';
 import { Input } from './Input';
@@ -7,13 +8,31 @@ import { Checkbox } from './Checkbox';
 import { Label } from './Label';
 import { Button } from './Button';
 import { Card, CardHeader, CardTitle, CardContent } from './Card';
-import { User, Mail, Lock, Phone, MapPin, Calendar } from 'lucide-react';
+import { User, Mail, Lock, Phone, MapPin, Calendar, Eye, EyeOff } from 'lucide-react';
 
 const meta: Meta<typeof FormField> = {
   title: 'UI/Forms/Form Components',
   component: FormField,
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component: `
+FormField is a wrapper component that provides consistent layout and functionality for form inputs.
+
+## Features
+- Automatic label association with inputs
+- Error message display with icon
+- Helper text (hints) support
+- Required field indicators
+- Full accessibility support (ARIA attributes)
+- Works with any form input component
+
+## Usage
+Wrap any form input (Input, Select, Textarea, etc.) with FormField to get automatic label, error, and hint handling.
+        `
+      }
+    }
   },
   tags: ['autodocs'],
 };
@@ -209,6 +228,160 @@ export const CheckboxExamples: Story = {
       </FormField>
     </div>
   ),
+};
+
+export const InteractiveValidation: Story = {
+  render: () => {
+    const [formData, setFormData] = React.useState({
+      email: '',
+      password: '',
+      confirmPassword: '',
+    });
+    const [errors, setErrors] = React.useState<Record<string, string>>({});
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    const validateField = (name: string, value: string) => {
+      const newErrors = { ...errors };
+      
+      switch (name) {
+        case 'email':
+          if (!value) {
+            newErrors.email = 'Email is required';
+          } else if (!/\S+@\S+\.\S+/.test(value)) {
+            newErrors.email = 'Please enter a valid email';
+          } else {
+            delete newErrors.email;
+          }
+          break;
+          
+        case 'password':
+          if (!value) {
+            newErrors.password = 'Password is required';
+          } else if (value.length < 8) {
+            newErrors.password = 'Password must be at least 8 characters';
+          } else if (!/(?=.*[0-9])/.test(value)) {
+            newErrors.password = 'Password must contain at least one number';
+          } else {
+            delete newErrors.password;
+          }
+          
+          // Re-validate confirm password when password changes
+          if (formData.confirmPassword && value !== formData.confirmPassword) {
+            newErrors.confirmPassword = 'Passwords do not match';
+          } else if (formData.confirmPassword) {
+            delete newErrors.confirmPassword;
+          }
+          break;
+          
+        case 'confirmPassword':
+          if (!value) {
+            newErrors.confirmPassword = 'Please confirm your password';
+          } else if (value !== formData.password) {
+            newErrors.confirmPassword = 'Passwords do not match';
+          } else {
+            delete newErrors.confirmPassword;
+          }
+          break;
+      }
+      
+      setErrors(newErrors);
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      setFormData(prev => ({ ...prev, [name]: value }));
+      validateField(name, value);
+    };
+
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      validateField(name, value);
+    };
+
+    return (
+      <Card className="w-[400px]">
+        <CardHeader>
+          <CardTitle>Interactive Form Validation</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form className="space-y-4">
+            <FormField 
+              label="Email" 
+              required 
+              error={errors.email}
+              hint={!errors.email ? "We'll never share your email" : undefined}
+            >
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input 
+                  name="email"
+                  className="pl-10" 
+                  type="email" 
+                  placeholder="you@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+            </FormField>
+            
+            <FormField 
+              label="Password" 
+              required 
+              error={errors.password}
+              hint={!errors.password ? "Must contain at least 8 characters and 1 number" : undefined}
+            >
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input 
+                  name="password"
+                  className="pl-10 pr-10" 
+                  type={showPassword ? "text" : "password"} 
+                  placeholder="••••••••"
+                  value={formData.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
+            </FormField>
+            
+            <FormField 
+              label="Confirm Password" 
+              required 
+              error={errors.confirmPassword}
+            >
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input 
+                  name="confirmPassword"
+                  className="pl-10" 
+                  type="password" 
+                  placeholder="••••••••"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+            </FormField>
+            
+            <Button 
+              className="w-full" 
+              disabled={Object.keys(errors).length > 0 || !formData.email || !formData.password || !formData.confirmPassword}
+            >
+              Create Account
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    );
+  },
 };
 
 export const CompleteForm: Story = {

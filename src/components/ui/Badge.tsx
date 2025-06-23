@@ -3,6 +3,27 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+/**
+ * Badge component styles using class-variance-authority
+ * 
+ * Variants:
+ * - solid: Filled background with white text
+ * - soft: Light background with colored text
+ * - outline: Border with colored text on white background
+ * 
+ * Colors:
+ * - primary: Willow brand colors
+ * - neutral: Gray colors
+ * - success: Green colors
+ * - warning: Orange colors
+ * - danger: Red colors
+ * - info: Blue colors
+ * 
+ * Sizes:
+ * - sm: Small (20px height, 11px text)
+ * - md: Medium (24px height, 12px text)
+ * - lg: Large (28px height, 14px text)
+ */
 const badgeVariants = cva(
   'inline-flex items-center gap-1.5 text-xs font-normal transition-all',
   {
@@ -45,12 +66,12 @@ const badgeVariants = cva(
       {
         variant: 'solid',
         color: 'success',
-        className: 'bg-success text-white',
+        className: 'bg-success-600 text-white',
       },
       {
         variant: 'solid',
         color: 'warning',
-        className: 'bg-warning text-white',
+        className: 'bg-warning-600 text-oxford-blue-950',
       },
       {
         variant: 'solid',
@@ -60,7 +81,7 @@ const badgeVariants = cva(
       {
         variant: 'solid',
         color: 'info',
-        className: 'bg-willow-primary-600 text-white',
+        className: 'bg-info-600 text-white',
       },
       // Soft variants - lighter backgrounds with colored text
       {
@@ -76,22 +97,22 @@ const badgeVariants = cva(
       {
         variant: 'soft',
         color: 'success',
-        className: 'bg-state-success-lighter text-green-800',
+        className: 'bg-state-success-lighter text-success-700',
       },
       {
         variant: 'soft',
         color: 'warning',
-        className: 'bg-state-warning-lighter text-orange-800',
+        className: 'bg-state-warning-lighter text-warning-700',
       },
       {
         variant: 'soft',
         color: 'danger',
-        className: 'bg-state-error-lighter text-red-800',
+        className: 'bg-state-error-lighter text-destructive-700',
       },
       {
         variant: 'soft',
         color: 'info',
-        className: 'bg-willow-primary-100 text-willow-primary-700',
+        className: 'bg-info-100 text-info-700',
       },
       // Outline variants - border with colored text
       {
@@ -107,22 +128,22 @@ const badgeVariants = cva(
       {
         variant: 'outline',
         color: 'success',
-        className: 'border border-green-300 text-green-700 bg-white',
+        className: 'border border-success-300 text-success-700 bg-white',
       },
       {
         variant: 'outline',
         color: 'warning',
-        className: 'border border-orange-300 text-orange-700 bg-white',
+        className: 'border border-warning-300 text-warning-700 bg-white',
       },
       {
         variant: 'outline',
         color: 'danger',
-        className: 'border border-red-300 text-red-700 bg-white',
+        className: 'border border-destructive-300 text-destructive-700 bg-white',
       },
       {
         variant: 'outline',
         color: 'info',
-        className: 'border border-willow-primary-300 text-willow-primary-600 bg-white',
+        className: 'border border-info-300 text-info-600 bg-white',
       },
     ],
     defaultVariants: {
@@ -134,6 +155,15 @@ const badgeVariants = cva(
   }
 );
 
+/**
+ * BadgeProps interface for the Badge component
+ * 
+ * @property {React.ReactNode} [icon] - Optional icon to display
+ * @property {'left' | 'right'} [iconPosition='left'] - Position of the icon
+ * @property {boolean} [closable] - Whether the badge can be closed
+ * @property {Function} [onClose] - Callback when close button is clicked
+ * @property {boolean} [dot] - Show a dot indicator
+ */
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof badgeVariants> {
@@ -144,6 +174,52 @@ export interface BadgeProps
   dot?: boolean;
 }
 
+/**
+ * Badge component - Small status indicator for labels and counts
+ * 
+ * @component
+ * @example
+ * // Basic badge
+ * <Badge>New</Badge>
+ * 
+ * @example
+ * // Badge with icon
+ * <Badge icon={<CheckCircle />} color="success">
+ *   Verified
+ * </Badge>
+ * 
+ * @example
+ * // Closable badge
+ * <Badge closable onClose={() => console.log('closed')}>
+ *   Tag
+ * </Badge>
+ * 
+ * @example
+ * // Badge with dot indicator
+ * <Badge dot color="warning">
+ *   In Progress
+ * </Badge>
+ * 
+ * Features:
+ * - Three visual variants (solid, soft, outline)
+ * - Six semantic colors
+ * - Icon support with positioning
+ * - Closable badges
+ * - Dot indicators
+ * - Two shape options (rounded-full, rounded-md)
+ * 
+ * @param {BadgeProps} props - Component props
+ * @param {string} [props.variant='solid'] - Visual variant
+ * @param {string} [props.color='primary'] - Color scheme
+ * @param {string} [props.size='md'] - Size variant
+ * @param {string} [props.rounded='full'] - Border radius style
+ * @param {React.ReactNode} [props.icon] - Optional icon
+ * @param {'left' | 'right'} [props.iconPosition='left'] - Icon position
+ * @param {boolean} [props.closable] - Show close button
+ * @param {Function} [props.onClose] - Close handler
+ * @param {boolean} [props.dot] - Show dot indicator
+ * @param {React.ReactNode} props.children - Badge content
+ */
 function Badge({ 
   className, 
   variant, 

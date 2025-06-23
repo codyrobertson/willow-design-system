@@ -46,9 +46,11 @@ export default function ProcessingScreen() {
     <GradientBG
       imageUrl="/onboarding_hero.png"
       gradientColors={['rgba(0,0,0,0.4)', 'rgba(49,26,255,0.3)']}
+      height="h-screen"
+      className="flex flex-col min-h-screen max-h-screen overflow-hidden"
     >
       <Navigation transparent showBackButton logoSize="lg" />
-      <div className="min-h-screen flex flex-col justify-center items-center p-4">
+      <div className="flex-1 flex flex-col justify-center items-center p-4 pt-20 overflow-y-auto">
         {/* Main Card */}
         <Card className="max-w-md w-full" variant="default">
           <div className="flex flex-col h-[600px]">

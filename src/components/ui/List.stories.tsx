@@ -358,3 +358,46 @@ export const VariantShowcase: Story = {
     </div>
   ),
 }
+
+export const KeyboardNavigation: Story = {
+  render: () => {
+    const [selectedIndex, setSelectedIndex] = React.useState<number>(-1)
+    const items = [
+      { id: 1, name: 'Use arrow keys to navigate', icon: '⬆️⬇️' },
+      { id: 2, name: 'Press Home to go to first item', icon: '🏠' },
+      { id: 3, name: 'Press End to go to last item', icon: '🔚' },
+      { id: 4, name: 'Click or press Enter/Space to select', icon: '✅' },
+      { id: 5, name: 'Tab to focus the list', icon: '⌨️' },
+    ]
+    
+    return (
+      <div className="w-[400px]">
+        <Card>
+          <List enableKeyboardNavigation variant="divided" padding="md">
+            <ListHeader>
+              Keyboard Navigation Demo
+            </ListHeader>
+            {items.map((item, index) => (
+              <ListItem
+                key={item.id}
+                variant="clickable"
+                selected={selectedIndex === index}
+                onClick={() => setSelectedIndex(index)}
+                leading={<span className="text-xl">{item.icon}</span>}
+                trailing={
+                  selectedIndex === index && (
+                    <Badge variant="soft" color="primary" size="sm">
+                      Selected
+                    </Badge>
+                  )
+                }
+              >
+                {item.name}
+              </ListItem>
+            ))}
+          </List>
+        </Card>
+      </div>
+    )
+  },
+}
