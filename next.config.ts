@@ -14,14 +14,7 @@ const nextConfig: NextConfig = {
       'clsx',
       'tailwind-merge'
     ],
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
+    // Turbo config moved to turbopack (deprecated)
   },
   
   // Disable linting during builds for faster deployment  
@@ -34,8 +27,7 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   
-  // Performance optimizations
-  swcMinify: true,
+  // Performance optimizations (swcMinify is now default in Next.js 15)
   
   // Build optimizations
   
