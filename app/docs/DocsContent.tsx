@@ -373,6 +373,109 @@ export default function DocsContent() {
                   </CardContent>
                 </Card>
               </div>
+
+              {/* Installation Section */}
+              <section className="mb-16">
+                <h2 className="text-3xl font-bold mb-8 text-neutral-900">Installation</h2>
+                
+                {/* Willow CLI Method */}
+                <Card variant="flat" className="mb-8 border-2 border-willow-primary-200 bg-gradient-to-r from-willow-primary-50 to-blue-50">
+                  <CardHeader>
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-willow-primary-600 rounded-lg flex items-center justify-center">
+                        <Zap className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-xl text-willow-primary-900">Willow CLI (Recommended)</CardTitle>
+                        <CardDescription className="text-willow-primary-700">Install components with simple commands</CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="bg-neutral-800 rounded-lg p-4">
+                      <div className="space-y-2">
+                        <div className="text-neutral-300 text-sm">Install globally:</div>
+                        <code className="text-green-400">npm install -g willow-cli</code>
+                      </div>
+                    </div>
+                    <div className="bg-neutral-800 rounded-lg p-4">
+                      <div className="space-y-2">
+                        <div className="text-neutral-300 text-sm">Add components:</div>
+                        <code className="text-blue-400">willow add button</code>
+                        <br />
+                        <code className="text-blue-400">willow add card</code>
+                        <br />
+                        <code className="text-blue-400">willow list</code>
+                      </div>
+                    </div>
+                    <div className="text-sm text-neutral-700">
+                      The Willow CLI provides the easiest way to install and manage components with short, memorable commands.
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Available CLI Commands */}
+                <Card variant="flat" className="mb-8">
+                  <CardHeader>
+                    <CardTitle className="text-xl">CLI Commands</CardTitle>
+                    <CardDescription>All available Willow CLI commands</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="border border-neutral-200 rounded-lg overflow-hidden">
+                        <table className="w-full">
+                          <thead className="bg-neutral-50">
+                            <tr>
+                              <th className="text-left p-4 font-medium">Command</th>
+                              <th className="text-left p-4 font-medium">Description</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr className="border-t border-neutral-100">
+                              <td className="p-4"><code className="text-sm bg-neutral-100 px-2 py-1 rounded">willow init</code></td>
+                              <td className="p-4 text-sm">Initialize Willow in your project</td>
+                            </tr>
+                            <tr className="border-t border-neutral-100">
+                              <td className="p-4"><code className="text-sm bg-neutral-100 px-2 py-1 rounded">willow add &lt;component&gt;</code></td>
+                              <td className="p-4 text-sm">Install a specific component</td>
+                            </tr>
+                            <tr className="border-t border-neutral-100">
+                              <td className="p-4"><code className="text-sm bg-neutral-100 px-2 py-1 rounded">willow list</code></td>
+                              <td className="p-4 text-sm">List all available components</td>
+                            </tr>
+                            <tr className="border-t border-neutral-100">
+                              <td className="p-4"><code className="text-sm bg-neutral-100 px-2 py-1 rounded">willow --help</code></td>
+                              <td className="p-4 text-sm">Show help information</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Alternative Methods */}
+                <Card variant="flat">
+                  <CardHeader>
+                    <CardTitle className="text-xl">Alternative Installation Methods</CardTitle>
+                    <CardDescription>Other ways to install Willow components</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <h4 className="font-medium mb-2">Direct URLs with shadcn CLI:</h4>
+                      <div className="bg-neutral-800 rounded-lg p-4">
+                        <code className="text-green-400 text-sm">npx shadcn@latest add https://iridescent-brigadeiros-fe4174.netlify.app/r/button.json</code>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="font-medium mb-2">Create new project:</h4>
+                      <div className="bg-neutral-800 rounded-lg p-4">
+                        <code className="text-green-400 text-sm">npx create-willow-design-system@latest my-app</code>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
             </section>
           </>
         );

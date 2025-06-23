@@ -1,0 +1,50 @@
+name: Test Willow CLI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test-cli:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Install CLI dependencies
+      run: |
+        cd packages/willow-cli
+        npm install
+    
+    - name: Run CLI tests
+      run: node tests/cli.test.js
+    
+    - name: Test registry accessibility
+      run: |
+        curl -f https://iridescent-brigadeiros-fe4174.netlify.app/r/button.json
+        curl -f https://iridescent-brigadeiros-fe4174.netlify.app/r/card.json
+        curl -f https://iridescent-brigadeiros-fe4174.netlify.app/r/badge.json
+    
+    - name: Test font CDN
+      run: curl -f https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/codec-pro.css
+    
+    - name: Verify CLI commands work
+      run: |
+        cd packages/willow-cli
+        node index.js list
+        node index.js --help
