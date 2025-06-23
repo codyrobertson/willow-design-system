@@ -60,6 +60,7 @@
     "test:cli": "node tests/cli.test.js",
     "test:components": "node scripts/test-component-installations.js",
     "test:pre-commit": "node scripts/test-before-commit.js",
+    "precommit": "npm run test:pre-commit",
     "typecheck": "tsc --noEmit --skipLibCheck",
     "prepare-fonts": "node scripts/prepare-fonts.js",
     "build:all": "npm run prepare-fonts && npm run build && npm run build:storybook-local && npm run build-registry",

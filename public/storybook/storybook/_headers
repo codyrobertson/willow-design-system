@@ -1,0 +1,47 @@
+# Font files - OTF
+/cdn/fonts/*.otf
+  Content-Type: application/x-font-opentype
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000
+
+# Font files - WOFF2
+/cdn/fonts/*.woff2
+  Content-Type: font/woff2
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000
+
+# Font files - WOFF
+/cdn/fonts/*.woff
+  Content-Type: font/woff
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000
+
+/fonts/*.otf
+  Content-Type: application/x-font-opentype
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000
+
+/fonts/*.woff2
+  Content-Type: font/woff2
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000
+
+/fonts/*.woff
+  Content-Type: font/woff
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000
+
+# Registry JSON files
+/r/*.json
+  Content-Type: application/json
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+
+# Storybook assets
+/storybook/*.css
+  Content-Type: text/css
+  Cache-Control: public, max-age=86400
+
+/storybook/*.js
+  Content-Type: application/javascript
+  Cache-Control: public, max-age=86400
