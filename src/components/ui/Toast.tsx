@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { X, AlertCircle, CheckCircle, Info, AlertTriangle } from 'lucide-react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 
 const toastVariants = cva(
   'pointer-events-auto relative flex w-full items-center gap-3 overflow-hidden rounded-lg p-4 shadow-lg transition-all duration-300',
@@ -261,8 +261,4 @@ export function useToastHelpers() {
   );
 }
 
-export {
-  Toast,
-  ToastContainer,
-  ToastProvider,
-};
+// Components are already exported above

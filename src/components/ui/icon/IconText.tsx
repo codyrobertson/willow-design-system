@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '../../../lib/utils';
 import { Icon, type IconSize, type LucideIconName } from './Icon';
 
 export interface IconTextProps extends React.HTMLAttributes<HTMLDivElement> {

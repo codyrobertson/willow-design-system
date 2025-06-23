@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 import { Loader2 } from 'lucide-react';
 
 /**
@@ -98,7 +98,7 @@ const buttonVariants = cva(
       { 
         theme: 'primary', 
         variant: 'fancy', 
-        className: 'bg-gradient-to-b from-willow-primary-800 to-willow-primary-950 text-white font-medium shadow-button-fancy hover:from-willow-primary-700 hover:to-willow-primary-900 active:from-willow-primary-900 active:to-willow-primary-950'
+        className: 'bg-willow-primary-900 text-white font-semibold shadow-[0px_1px_3px_0px_rgba(37,62,167,0.2)] hover:bg-willow-primary-800 hover:shadow-[0px_2px_5px_0px_rgba(37,62,167,0.3)] active:bg-willow-primary-950 active:shadow-none'
       },
       
       // Danger Theme
@@ -125,7 +125,7 @@ const buttonVariants = cva(
       { 
         theme: 'danger', 
         variant: 'fancy', 
-        className: 'bg-gradient-to-b from-destructive-800 to-destructive-950 text-white font-medium shadow-button-fancy hover:from-destructive-700 hover:to-destructive-900 active:from-destructive-900 active:to-destructive-950' 
+        className: 'bg-destructive-600 text-white font-semibold shadow-[0px_1px_3px_0px_rgba(183,55,55,0.4)] hover:bg-destructive-500 hover:shadow-[0px_2px_5px_0px_rgba(183,55,55,0.5)] active:bg-destructive-700 active:shadow-none' 
       },
       
       // Warning Theme
@@ -152,7 +152,7 @@ const buttonVariants = cva(
       { 
         theme: 'warning', 
         variant: 'fancy', 
-        className: 'bg-gradient-to-b from-warning-800 to-warning-900 text-white font-medium shadow-button-fancy hover:from-warning-700 hover:to-warning-800 active:from-warning-900 active:to-warning-900' 
+        className: 'bg-warning-600 text-white font-semibold shadow-[0px_1px_3px_0px_rgba(255,132,71,0.3)] hover:bg-warning-500 hover:shadow-[0px_2px_5px_0px_rgba(255,132,71,0.4)] active:bg-warning-700 active:shadow-none' 
       },
       
       // Info Theme
@@ -179,7 +179,7 @@ const buttonVariants = cva(
       { 
         theme: 'info', 
         variant: 'fancy', 
-        className: 'bg-gradient-to-b from-info-800 to-info-950 text-white font-medium shadow-button-fancy hover:from-info-700 hover:to-info-900 active:from-info-900 active:to-info-950' 
+        className: 'bg-info-600 text-white font-semibold shadow-[0px_1px_3px_0px_rgba(118,102,255,0.2)] hover:bg-info-500 hover:shadow-[0px_2px_5px_0px_rgba(118,102,255,0.3)] active:bg-info-700 active:shadow-none' 
       },
       
       // Dark Theme
@@ -211,7 +211,7 @@ const buttonVariants = cva(
       { 
         theme: 'dark', 
         variant: 'fancy', 
-        className: 'bg-gradient-to-b from-neutral-800 to-neutral-950 text-white font-medium shadow-button-fancy hover:from-neutral-700 hover:to-neutral-900 active:from-neutral-900 active:to-neutral-950' 
+        className: 'bg-neutral-900 text-white font-semibold shadow-[0px_1px_3px_0px_rgba(69,96,117,0.2)] hover:bg-neutral-800 hover:shadow-[0px_2px_5px_0px_rgba(69,96,117,0.3)] active:bg-neutral-950 active:shadow-none' 
       },
       
       // Success Theme
@@ -238,7 +238,7 @@ const buttonVariants = cva(
       { 
         theme: 'success', 
         variant: 'fancy', 
-        className: 'bg-gradient-to-b from-success-800 to-success-900 text-white font-medium shadow-button-fancy hover:from-success-700 hover:to-success-800 active:from-success-900 active:to-success-900' 
+        className: 'bg-success-600 text-white font-semibold shadow-[0px_1px_3px_0px_rgba(31,193,107,0.2)] hover:bg-success-500 hover:shadow-[0px_2px_5px_0px_rgba(31,193,107,0.3)] active:bg-success-700 active:shadow-none' 
       },
       
       // Neutral Theme
@@ -260,21 +260,21 @@ const buttonVariants = cva(
 const innerShadowVariants = cva('absolute inset-0 pointer-events-none transition-all duration-200', {
   variants: {
     theme: {
-      primary: 'shadow-[inset_0px_-2px_0px_0px_rgba(35,14,103,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(35,14,103,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(35,14,103,0.25)]',
-      danger: 'shadow-[inset_0px_-2px_0px_0px_rgba(235,87,87,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(235,87,87,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(235,87,87,0.25)]',
-      warning: 'shadow-[inset_0px_-2px_0px_0px_rgba(255,132,71,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(255,132,71,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(255,132,71,0.25)]',
-      info: 'shadow-[inset_0px_-2px_0px_0px_rgba(118,102,255,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(118,102,255,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(118,102,255,0.25)]',
-      dark: 'shadow-[inset_0px_-2px_0px_0px_rgba(69,96,117,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(69,96,117,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(69,96,117,0.25)]',
-      neutral: 'shadow-[inset_0px_-2px_0px_0px_rgba(108,137,152,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(108,137,152,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(108,137,152,0.25)]',
-      success: 'shadow-[inset_0px_-2px_0px_0px_rgba(31,193,107,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(31,193,107,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(31,193,107,0.25)]',
+      primary: '',
+      danger: '',
+      warning: '',
+      info: '',
+      dark: '',
+      neutral: '',
+      success: '',
     },
     variant: {
         default: '',
-        secondary: 'opacity-0',
-        outline: 'opacity-0',
-        ghost: 'opacity-0',
-        link: 'opacity-0',
-        fancy: 'opacity-0',
+        secondary: '',
+        outline: '',
+        ghost: '',
+        link: '',
+        fancy: '',
     },
     radius: {
       none: 'rounded-none',
@@ -287,6 +287,24 @@ const innerShadowVariants = cva('absolute inset-0 pointer-events-none transition
       full: 'rounded-full',
     }
   },
+  compoundVariants: [
+    // Default variant inner shadows
+    { theme: 'primary', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(35,14,103,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(35,14,103,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(35,14,103,0.25)]' },
+    { theme: 'danger', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(235,87,87,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(235,87,87,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(235,87,87,0.25)]' },
+    { theme: 'warning', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(255,132,71,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(255,132,71,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(255,132,71,0.25)]' },
+    { theme: 'info', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(118,102,255,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(118,102,255,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(118,102,255,0.25)]' },
+    { theme: 'dark', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(69,96,117,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(69,96,117,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(69,96,117,0.25)]' },
+    { theme: 'neutral', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(108,137,152,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(108,137,152,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(108,137,152,0.25)]' },
+    { theme: 'success', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(31,193,107,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(31,193,107,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(31,193,107,0.25)]' },
+    
+    // Fancy variant theme-aware inner shadows
+    { theme: 'primary', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(122,196,230,0.46)] group-hover:shadow-[inset_0px_-2.4px_7.5px_0px_rgba(122,196,230,0.5)] group-active:shadow-[inset_0px_2px_4px_0px_rgba(37,62,167,0.3)]' },
+    { theme: 'danger', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(255,150,150,0.5)] group-hover:shadow-[inset_0px_-2.4px_7.5px_0px_rgba(255,150,150,0.6)] group-active:shadow-[inset_0px_2px_4px_0px_rgba(183,55,55,0.5)]' },
+    { theme: 'warning', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(255,200,122,0.46)] group-hover:shadow-[inset_0px_-2.4px_7.5px_0px_rgba(255,200,122,0.5)] group-active:shadow-[inset_0px_2px_4px_0px_rgba(255,132,71,0.3)]' },
+    { theme: 'info', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(150,180,255,0.46)] group-hover:shadow-[inset_0px_-2.4px_7.5px_0px_rgba(150,180,255,0.5)] group-active:shadow-[inset_0px_2px_4px_0px_rgba(118,102,255,0.3)]' },
+    { theme: 'dark', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(180,180,180,0.46)] group-hover:shadow-[inset_0px_-2.4px_7.5px_0px_rgba(180,180,180,0.5)] group-active:shadow-[inset_0px_2px_4px_0px_rgba(69,96,117,0.3)]' },
+    { theme: 'success', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(150,255,180,0.46)] group-hover:shadow-[inset_0px_-2.4px_7.5px_0px_rgba(150,255,180,0.5)] group-active:shadow-[inset_0px_2px_4px_0px_rgba(31,193,107,0.3)]' },
+  ],
   defaultVariants: {
     theme: 'primary',
     variant: 'default',

@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import { tokens } from "./lib/tokens";
+import { tokens } from "./src/lib/tokens";
 
 const config: Config = {
   darkMode: ["class"],
@@ -23,6 +23,7 @@ const config: Config = {
         success: tokens.colors.success,
         warning: tokens.colors.warning,
         danger: tokens.colors.error[500],
+        error: tokens.colors.error,
         
         // State colors
         state: {
@@ -143,7 +144,13 @@ const config: Config = {
         "button-danger": tokens.shadows.button.danger.DEFAULT,
         "button-danger-hover": tokens.shadows.button.danger.hover,
         "button-danger-active": tokens.shadows.button.danger.active,
-        "button-fancy": 'inset 0px -2.4px 11.2px 0px rgba(122, 196, 230, 0.46), inset 0px 2px 13px 0px rgba(192, 122, 230, 0.46)',
+        "button-fancy-primary": tokens.shadows.button.primary.DEFAULT,
+        "button-fancy-primary-hover": tokens.shadows.button.primary.hover,
+        "button-fancy-primary-active": tokens.shadows.button.primary.active,
+        
+        "button-fancy-danger": tokens.shadows.button.danger.DEFAULT,
+        "button-fancy-danger-hover": tokens.shadows.button.danger.hover,
+        "button-fancy-danger-active": tokens.shadows.button.danger.active,
         
         // Input shadows
         input: tokens.shadows.input.DEFAULT,

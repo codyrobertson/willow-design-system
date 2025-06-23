@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 import { Info, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
 
 // InfoCard component - a small card for displaying info/warnings

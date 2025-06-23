@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '../../../lib/utils';
 import * as LucideIcons from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
 
@@ -59,6 +59,16 @@ export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
 
 const Icon = React.forwardRef<SVGSVGElement, IconProps>(
   ({ name, size = 'md', className, ...props }, ref) => {
+    // Handle undefined, null, or empty icon names
+    if (!name) {
+      if (name !== '') {
+        console.warn(`Icon name is ${name === undefined ? 'undefined' : 'null'}`);
+      } else {
+        console.warn(`Icon "" (looking for "") not found in lucide-react`);
+      }
+      return null;
+    }
+    
     // Convert kebab-case to PascalCase for Lucide icon lookup
     const iconName = toPascalCase(name);
     const IconComponent = (LucideIcons as any)[iconName] as LucideIcon;

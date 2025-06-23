@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { X } from 'lucide-react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 import { Button } from './Button';
 
 const modalOverlayVariants = cva(
@@ -67,16 +67,60 @@ export interface ModalProps {
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
   children: React.ReactNode;
+  // Simple mode props
+  isOpen?: boolean;
+  onClose?: () => void;
+  className?: string;
+  closeOnOverlayClick?: boolean;
+  closeOnEsc?: boolean;
 }
 
-export function Modal({ open: controlledOpen, defaultOpen = false, onOpenChange, children }: ModalProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen);
-  const isControlled = controlledOpen !== undefined;
-  const open = isControlled ? controlledOpen : uncontrolledOpen;
-  
+export function Modal({ 
+  open: controlledOpen, 
+  defaultOpen = false, 
+  onOpenChange, 
+  children,
+  // Simple mode props
+  isOpen,
+  onClose,
+  className,
+  closeOnOverlayClick = true,
+  closeOnEsc = true
+}: ModalProps) {
+  // Generate IDs early before any conditional returns
   const modalId = React.useId();
   const titleId = `${modalId}-title`;
   const descriptionId = `${modalId}-description`;
+  
+  // Check if we're in simple mode (using isOpen/onClose)
+  const isSimpleMode = isOpen !== undefined || onClose !== undefined;
+  
+  if (isSimpleMode) {
+    // Simple mode - render directly without provider
+    return (
+      <ModalContext.Provider value={{
+        open: isOpen || false,
+        onOpenChange: (open) => !open && onClose?.(),
+        modalId,
+        titleId,
+        descriptionId,
+      }}>
+        <ModalContent 
+          className={className}
+          preventClose={!closeOnOverlayClick || !closeOnEsc}
+          onEscapeKeyDown={closeOnEsc ? undefined : (e) => e.preventDefault()}
+          onPointerDownOutside={closeOnOverlayClick ? undefined : (e) => e.preventDefault()}
+        >
+          {children}
+        </ModalContent>
+      </ModalContext.Provider>
+    );
+  }
+  
+  // Compound component mode
+  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen);
+  const isControlled = controlledOpen !== undefined;
+  const open = isControlled ? controlledOpen : uncontrolledOpen;
 
   const handleOpenChange = React.useCallback((newOpen: boolean) => {
     if (!isControlled) {
@@ -378,15 +422,3 @@ export const DialogDescription = ModalDescription;
 export const DialogBody = ModalBody;
 export const DialogFooter = ModalFooter;
 export const DialogClose = ModalClose;
-
-export {
-  Modal,
-  ModalTrigger,
-  ModalContent,
-  ModalHeader,
-  ModalTitle,
-  ModalDescription,
-  ModalBody,
-  ModalFooter,
-  ModalClose,
-};

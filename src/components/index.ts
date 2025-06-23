@@ -1,25 +1,29 @@
-/**
- * Willow Design System Components
- * 
- * Organized following Atomic Design principles:
- * - Primitives: Base types and utilities shared across components
- * - Atoms: Basic building blocks (Button, Input, Label, etc.)
- * - Molecules: Simple groups of atoms (Card, Accordion, List, etc.)
- * - Organisms: Complex components (Modal, Form, etc.)
- * - Templates: Page-level layout components
- */
-
-// Primitives
-export * from './primitives/types';
-
-// Atoms
-export * from './atoms';
-
-// Molecules
-export * from './molecules';
-
-// Organisms
-export * from './organisms';
-
-// Templates (when added)
-// export * from './templates';
+// Re-export all UI components from a single entry point
+export * from './ui/Button';
+export * from './ui/Badge';
+export * from './ui/Card';
+export * from './ui/Input';
+export * from './ui/Label';
+export * from './ui/Textarea';
+export * from './ui/Select';
+export * from './ui/Checkbox';
+export * from './ui/Switch';
+export * from './ui/Modal';
+export * from './ui/Toast';
+export * from './ui/Tooltip';
+export * from './ui/Accordion';
+export * from './ui/Chip';
+export * from './ui/Tag';
+export * from './ui/List';
+export * from './ui/Skeleton';
+export * from './ui/FormField';
+export * from './ui/FormCard';
+export * from './ui/SimpleForm';
+export * from './ui/InfoCard';
+export * from './ui/Highlight';
+export * from './ui/FancyButton';
+export * from './ui/GradientBG';
+export * from './ui/Logo';
+export * from './ui/ErrorBoundary';
+export * from './ui/icon/Icon';
+export * from './ui/icon/IconText';

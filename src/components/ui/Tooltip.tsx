@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 
 const tooltipContentVariants = cva(
   'absolute z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95',
@@ -487,11 +487,4 @@ export const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentPro
 );
 PopoverContent.displayName = 'PopoverContent';
 
-export {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-};
+// Components are already exported above

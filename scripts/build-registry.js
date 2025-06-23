@@ -20,14 +20,12 @@ function transformImports(content, filePath) {
     const resolvedPath = path.resolve(fileDir, importPath);
     
     // Determine the target import path based on directory structure
-    if (resolvedPath.includes('/components/atoms/')) {
-      return `from '@/components/atoms/${path.basename(importPath)}'`;
-    } else if (resolvedPath.includes('/components/molecules/')) {
-      return `from '@/components/molecules/${path.basename(importPath)}'`;
-    } else if (resolvedPath.includes('/components/organisms/')) {
-      return `from '@/components/organisms/${path.basename(importPath)}'`;
-    } else if (resolvedPath.includes('/components/primitives/')) {
-      return `from '@/components/primitives/${path.basename(importPath)}'`;
+    if (resolvedPath.includes('/components/ui/')) {
+      const relativePath = path.relative(path.join(process.cwd(), 'src/components/ui'), resolvedPath);
+      return `from '@/components/ui/${relativePath}'`;
+    } else if (resolvedPath.includes('/lib/')) {
+      const relativePath = path.relative(path.join(process.cwd(), 'src/lib'), resolvedPath);
+      return `from '@/lib/${relativePath}'`;
     }
     
     // For cross-directory imports, determine the correct path
@@ -71,16 +69,14 @@ async function buildRegistry() {
   const distPath = path.join(registryPath, 'components');
 
   // Create dist directory structure
-  await fs.mkdir(path.join(distPath, 'atoms'), { recursive: true });
-  await fs.mkdir(path.join(distPath, 'molecules'), { recursive: true });
-  await fs.mkdir(path.join(distPath, 'organisms'), { recursive: true });
-  await fs.mkdir(path.join(distPath, 'primitives'), { recursive: true });
+  await fs.mkdir(path.join(distPath, 'ui'), { recursive: true });
+  await fs.mkdir(path.join(distPath, 'ui/icon'), { recursive: true });
 
-  // Scan all atomic directories
-  const atomicDirs = ['atoms', 'molecules', 'organisms', 'primitives'];
+  // Scan UI directory
+  const componentDirs = ['ui'];
   const componentRegistry = [];
 
-  for (const dir of atomicDirs) {
+  for (const dir of componentDirs) {
     const dirPath = path.join(componentsPath, dir);
     
     try {
@@ -114,7 +110,7 @@ async function buildRegistry() {
           } else {
             componentRegistry.push({
               name: componentName,
-              type: dir.slice(0, -1), // Remove 's' from directory name
+              type: 'ui', // All components are UI components
               files: [{ path: file.path }],
               dependencies: extractDependencies(content),
             });
@@ -157,10 +153,7 @@ async function buildRegistry() {
     version: require('../package.json').version,
     components: registryIndex.length,
     structure: {
-      atoms: componentRegistry.filter(c => c.type === 'atom').length,
-      molecules: componentRegistry.filter(c => c.type === 'molecule').length,
-      organisms: componentRegistry.filter(c => c.type === 'organism').length,
-      primitives: componentRegistry.filter(c => c.type === 'primitive').length,
+      ui: componentRegistry.filter(c => c.type === 'ui').length,
     },
     updated: new Date().toISOString(),
   };
@@ -173,10 +166,7 @@ async function buildRegistry() {
   console.log('\n✓ Registry build complete!');
   console.log(`Components written to: ${distPath}`);
   console.log(`Total components: ${componentRegistry.length}`);
-  console.log(`  - Atoms: ${manifest.structure.atoms}`);
-  console.log(`  - Molecules: ${manifest.structure.molecules}`);
-  console.log(`  - Organisms: ${manifest.structure.organisms}`);
-  console.log(`  - Primitives: ${manifest.structure.primitives}`);
+  console.log(`  - UI Components: ${manifest.structure.ui}`);
 }
 
 function extractDependencies(content) {

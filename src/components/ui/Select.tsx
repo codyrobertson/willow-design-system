@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { ChevronDown, Check } from 'lucide-react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 
 const selectTriggerVariants = cva(
   'flex w-full items-center justify-between rounded-lg border bg-background px-3 py-2 text-sm ring-offset-background transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50',

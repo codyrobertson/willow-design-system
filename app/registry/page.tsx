@@ -1,24 +1,45 @@
+'use client';
+
 import Link from 'next/link';
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Badge, Logo } from '@/src/components/ui';
 import { Code2, Palette, Package, Rocket } from 'lucide-react';
 
 export default function RegistryPage() {
   const components = [
+    // Core Components
+    { name: 'Accordion', count: 1, category: 'Core' },
+    { name: 'Avatar', count: 2, category: 'Core' },
+    { name: 'Badge', count: 1, category: 'Core' },
     { name: 'Button', count: 6, category: 'Core' },
     { name: 'Card', count: 5, category: 'Core' },
-    { name: 'Badge', count: 1, category: 'Core' },
-    { name: 'Tag', count: 1, category: 'Core' },
     { name: 'Chip', count: 1, category: 'Core' },
+    { name: 'Icon', count: 1, category: 'Core' },
+    { name: 'IconText', count: 1, category: 'Core' },
+    { name: 'List', count: 1, category: 'Core' },
+    { name: 'Modal', count: 1, category: 'Core' },
+    { name: 'Skeleton', count: 1, category: 'Core' },
+    { name: 'Tabs', count: 6, category: 'Core' },
+    { name: 'Tag', count: 1, category: 'Core' },
+    { name: 'Toast', count: 1, category: 'Core' },
+    { name: 'Tooltip', count: 1, category: 'Core' },
+    
+    // Form Components
+    { name: 'Checkbox', count: 1, category: 'Form' },
+    { name: 'FormCard', count: 1, category: 'Form' },
+    { name: 'FormField', count: 1, category: 'Form' },
     { name: 'Input', count: 1, category: 'Form' },
     { name: 'Label', count: 1, category: 'Form' },
-    { name: 'Textarea', count: 1, category: 'Form' },
     { name: 'Select', count: 1, category: 'Form' },
-    { name: 'Checkbox', count: 1, category: 'Form' },
-    { name: 'FormField', count: 1, category: 'Form' },
-    { name: 'FormCard', count: 1, category: 'Form' },
+    { name: 'SimpleForm', count: 1, category: 'Form' },
+    { name: 'Switch', count: 1, category: 'Form' },
+    { name: 'Textarea', count: 1, category: 'Form' },
+    
+    // Special Components
+    { name: 'ErrorBoundary', count: 1, category: 'Special' },
     { name: 'FancyButton', count: 1, category: 'Special' },
     { name: 'GradientBG', count: 1, category: 'Special' },
     { name: 'Highlight', count: 1, category: 'Special' },
+    { name: 'InfoCard', count: 1, category: 'Special' },
     { name: 'Logo', count: 1, category: 'Special' },
   ];
 
