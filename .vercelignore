@@ -22,7 +22,6 @@ registry/components/ui
 
 # Documentation that's not needed for runtime
 *.md
-docs
 .github
 CONTRIBUTING.md
 
