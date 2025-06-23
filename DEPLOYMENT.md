@@ -6,13 +6,16 @@
   - Protected branch with required PR reviews (2 reviewers)
   - Registry is rebuilt and updated ONLY on main branch changes
   - Direct pushes disabled
+  - Merges ONLY from staging branch
 - **staging**: Pre-production branch - deploys automatically to `staging-willow-design-system.vercel.app`
   - Protected branch with required PR reviews (1 reviewer)
   - Registry NOT rebuilt on staging
-  - Direct pushes disabled  
+  - Direct pushes disabled
+  - Merges ONLY from develop branch
 - **develop**: Main development branch - no automatic deployment
   - Registry NOT rebuilt on develop
   - Direct pushes allowed for maintainers
+  - Merges from feature branches
 - **feature/***: Feature branches - merge into develop via PR
 
 ## Workflow
@@ -24,15 +27,16 @@
 4. After PR approval, merge into `develop`
 
 ### Staging Release  
-1. Create PR from `develop` to `staging`
+1. **Only from develop**: Create PR from `develop` to `staging`
 2. After approval, merge into `staging`
 3. Automatic deployment to staging environment
-4. Test staging deployment
+4. Test staging deployment thoroughly
 
 ### Production Release
-1. Create PR from `staging` to `main`
+1. **Only from staging**: Create PR from `staging` to `main`
 2. After approval, merge into `main`
 3. Automatic deployment to production
+4. Registry is rebuilt for production
 
 ## Storybook Deployment Strategy
 
@@ -153,17 +157,23 @@ For GitHub Actions to work, add these secrets to your repository:
 
 Configure these protection rules in GitHub:
 
-### Main Branch
+### Main Branch (Production)
 - Require pull request reviews (2 reviewers)
 - Require status checks to pass before merging
 - Require branches to be up to date before merging
 - Restrict pushes that create files matching `registry/**`
 - Require linear history
+- **Restrict to staging branch only** (no direct merges from develop/feature branches)
 
 ### Staging Branch
 - Require pull request reviews (1 reviewer)
 - Require status checks to pass before merging
 - Require branches to be up to date before merging
+- **Restrict to develop branch only** (no direct merges from feature branches)
+
+### Develop Branch
+- Allow maintainer pushes
+- Require status checks for PRs from feature branches
 
 ## Contributing
 

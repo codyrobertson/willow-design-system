@@ -101,10 +101,10 @@ willow-design-system/
 
 ### Branch Strategy
 
-- **main**: Production branch (protected)
-- **staging**: Pre-production branch (protected)
-- **develop**: Main development branch
-- **feature/**: Feature branches
+- **main**: Production branch (protected) - merges ONLY from staging
+- **staging**: Pre-production branch (protected) - merges ONLY from develop
+- **develop**: Main development branch - merges from feature branches
+- **feature/**: Feature branches - merge into develop only
 
 ### Workflow Steps
 
@@ -320,8 +320,8 @@ Brief description of changes
 1. **Automated Checks**: CI/CD pipeline runs tests and builds
 2. **Code Review**: Team members review code quality and design
 3. **Approval**: Required approvals based on branch:
-   - develop → main: 2 reviewers
-   - feature → staging: 1 reviewer
+   - staging → main: 2 reviewers
+   - develop → staging: 1 reviewer
    - feature → develop: 1 reviewer
 
 ## 🐛 Issue Guidelines
@@ -378,9 +378,11 @@ We follow [Semantic Versioning](https://semver.org/):
 
 ### Release Workflow
 
-1. **Development** → `develop` branch
-2. **Pre-release** → `staging` branch
-3. **Production** → `main` branch
+1. **Feature Development** → `feature/*` branches → **develop**
+2. **Pre-release Testing** → `develop` → **staging** 
+3. **Production Release** → `staging` → **main**
+
+**Important**: Each branch can only merge to the next branch in the sequence. No skipping stages!
 
 ### Registry Updates
 

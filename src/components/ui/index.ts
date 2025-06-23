@@ -1,5 +1,3 @@
-export { FancyButton } from './FancyButton'
-export type { ButtonSize, ButtonVariant, ButtonState } from './FancyButton'
 
 
 export { Highlight } from './Highlight'
