@@ -1,0 +1,154 @@
+name: ✨ Feature Request
+description: Suggest a new feature for Willow Design System
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your interest in improving Willow Design System! Please describe your feature request in detail.
+
+  - type: dropdown
+    id: feature-type
+    attributes:
+      label: Feature Type
+      description: What type of feature are you requesting?
+      options:
+        - New Component
+        - Component Enhancement
+        - Design Token
+        - Developer Experience
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Description
+      description: A clear and detailed description of the feature you'd like to see.
+      placeholder: Describe your feature request...
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-statement
+    attributes:
+      label: Problem Statement
+      description: What problem does this feature solve? What use case does it address?
+      placeholder: |
+        Is your feature request related to a problem? Please describe.
+        A clear and concise description of what the problem is.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like to see implemented.
+      placeholder: A clear and concise description of what you want to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Describe any alternative solutions or features you've considered.
+      placeholder: A clear and concise description of any alternative solutions or features you've considered.
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: What should be true when this feature is complete?
+      placeholder: |
+        - [ ] Criteria 1
+        - [ ] Criteria 2
+        - [ ] Criteria 3
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this feature to you?
+      options:
+        - Low - Nice to have
+        - Medium - Would improve my workflow
+        - High - Blocking my work
+        - Critical - Can't proceed without this
+    validations:
+      required: true
+
+  - type: textarea
+    id: design-considerations
+    attributes:
+      label: Design Considerations
+      description: |
+        If this is a visual component, please describe:
+        - Visual design requirements
+        - Accessibility considerations
+        - Responsive behavior
+        - Interaction patterns
+      placeholder: Any design-related considerations...
+    validations:
+      required: false
+
+  - type: textarea
+    id: technical-considerations
+    attributes:
+      label: Technical Considerations
+      description: |
+        Any technical requirements or constraints:
+        - API design preferences
+        - Performance considerations
+        - Browser support requirements
+        - Breaking change implications
+      placeholder: Any technical considerations...
+    validations:
+      required: false
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples or References
+      description: |
+        Please provide examples, mockups, or references:
+        - Links to similar implementations
+        - Design mockups
+        - Code examples
+        - Screenshots
+      placeholder: Any examples or references...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Would you be interested in contributing to this feature?
+      options:
+        - label: I would be interested in implementing this feature
+        - label: I would be interested in helping with design
+        - label: I would be interested in helping with documentation
+        - label: I would be interested in testing this feature
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched for existing feature requests that might be similar
+          required: true
+        - label: I have checked the roadmap and this feature is not already planned
+          required: true
+        - label: I have provided a clear description of the problem and solution
+          required: true

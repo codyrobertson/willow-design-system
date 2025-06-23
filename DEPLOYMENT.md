@@ -40,26 +40,53 @@
 # Install dependencies
 npm install
 
-# Run development server
-npm run dev
+# Development servers
+npm run dev                 # Start Next.js dev server
+npm run storybook          # Start Storybook dev server
 
-# Run Storybook
-npm run storybook
-
-# Build project
-npm run build
-
-# Build for Vercel
-npm run build:vercel
-
-# Type checking
-npm run typecheck
-
-# Linting
-npm run lint
+# Building
+npm run build              # Build Next.js site
+npm run build-storybook    # Build Storybook
+npm run build-registry     # Build component registry
+npm run build:all          # Build everything
+npm run build:vercel       # Build for Vercel deployment
 
 # Testing
-npm test
+npm test                   # Run tests once
+npm run test:watch         # Run tests in watch mode
+npm run test:coverage      # Run tests with coverage
+npm run test:ci            # Run tests for CI
+npm run test:update        # Update test snapshots
+
+# Code Quality
+npm run lint               # Run ESLint
+npm run typecheck          # Run TypeScript checks
+npm run check:all          # Check for all errors
+```
+
+## Testing Requirements
+
+All pull requests must pass:
+
+1. **Unit Tests**: `npm test` - All tests must pass
+2. **Type Safety**: `npm run typecheck` - No TypeScript errors
+3. **Code Style**: `npm run lint` - ESLint rules must pass
+4. **Build Success**: `npm run build` - Project must build successfully
+5. **Test Coverage**: Maintain minimum 80% coverage
+
+### Test Coverage Requirements
+
+- **Components**: All UI components must have unit tests
+- **Utilities**: All utility functions must be tested
+- **Integration**: Critical user flows must be tested
+- **Accessibility**: Components must pass a11y tests
+
+```bash
+# Check current coverage
+npm run test:coverage
+
+# View coverage report
+open coverage/lcov-report/index.html
 ```
 
 ## Vercel Configuration
@@ -111,8 +138,37 @@ Configure these protection rules in GitHub:
 - Require status checks to pass before merging
 - Require branches to be up to date before merging
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines including:
+
+- **Development Setup**: How to set up your local environment
+- **Component Guidelines**: Standards for creating new components
+- **Testing Requirements**: What tests to write and how
+- **Pull Request Process**: How to submit changes
+- **Issue Guidelines**: How to report bugs and request features
+
+### Quick Contribution Steps
+
+1. **Fork** the repository
+2. **Clone** and install dependencies: `npm install`
+3. **Create** feature branch: `git checkout -b feature/my-feature`
+4. **Make** changes with tests: `npm test`
+5. **Verify** quality: `npm run typecheck && npm run lint`
+6. **Submit** pull request to `develop` branch
+
+## Issue Reporting
+
+Use GitHub issue templates for:
+
+- 🐛 **Bug Reports**: Something isn't working correctly
+- ✨ **Feature Requests**: New components or functionality
+- 📚 **Documentation**: Improvements to docs or examples
+- ❓ **Questions**: Ask for help or clarification
+
 ## URLs
 
 - **Production**: https://willow-design-system.vercel.app
 - **Staging**: https://staging-willow-design-system.vercel.app (coming soon)
 - **Storybook**: https://willow-design-system.vercel.app/storybook
+- **Registry API**: https://willow-design-system.vercel.app/registry

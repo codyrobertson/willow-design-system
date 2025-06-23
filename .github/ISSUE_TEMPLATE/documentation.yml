@@ -1,0 +1,117 @@
+name: 📚 Documentation
+description: Report issues with documentation or suggest improvements
+title: "[Docs]: "
+labels: ["documentation", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping us improve our documentation! Clear and comprehensive docs are essential for a great developer experience.
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation needs attention?
+      options:
+        - Component Documentation
+        - Storybook Stories
+        - README / Getting Started
+        - Contributing Guidelines
+        - API Reference
+        - Examples / Tutorials
+        - Design Guidelines
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Issue Type
+      description: What kind of documentation issue is this?
+      options:
+        - Missing Documentation
+        - Incorrect Information
+        - Unclear Instructions
+        - Broken Links
+        - Outdated Content
+        - Suggestion for Improvement
+        - Typo / Grammar
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Documentation Location
+      description: Where is the documentation located? (URL, file path, component name)
+      placeholder: e.g., /docs/components/button, src/components/ui/Button/README.md
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-content
+    attributes:
+      label: Current Content (if applicable)
+      description: Copy the current content that needs to be updated
+      placeholder: Paste the current content here...
+    validations:
+      required: false
+
+  - type: textarea
+    id: issue-description
+    attributes:
+      label: Issue Description
+      description: Describe the documentation issue in detail
+      placeholder: |
+        What specifically is wrong, missing, or could be improved?
+        How does this impact users?
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-content
+    attributes:
+      label: Suggested Content
+      description: If you have a suggestion for how to fix or improve the documentation, please share it
+      placeholder: |
+        Provide suggested text, structure, or improvements...
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: |
+        Any additional information that would help us understand and address this documentation issue:
+        - Screenshots
+        - User feedback
+        - Related issues
+        - External references
+      placeholder: Any additional context...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Would you be interested in helping fix this documentation issue?
+      options:
+        - label: I would be interested in submitting a fix for this documentation issue
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched for existing documentation issues that might be related
+          required: true
+        - label: I have checked that this documentation issue still exists in the latest version
+          required: true
+        - label: I have provided specific details about the documentation issue
+          required: true

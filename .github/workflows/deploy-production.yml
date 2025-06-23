@@ -27,7 +27,7 @@ jobs:
       run: npm run lint
       
     - name: Run tests
-      run: npm test
+      run: npm run test:ci
       
     - name: Rebuild registry for production
       run: npm run build-registry
