@@ -38,5 +38,12 @@ jobs:
     - name: Build project
       run: npm run build
       
-    - name: Build Storybook
-      run: npm run build-storybook
+    - name: Verify Storybook static files
+      run: |
+        if [ ! -d "public/storybook" ]; then
+          echo "⚠️  Storybook static files not found in public/storybook"
+          echo "   Run 'npm run build:storybook-local' locally and commit the files"
+          exit 1
+        else
+          echo "✅ Storybook static files found"
+        fi

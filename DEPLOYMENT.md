@@ -34,6 +34,32 @@
 2. After approval, merge into `main`
 3. Automatic deployment to production
 
+## Storybook Deployment Strategy
+
+To optimize deployment speed, Storybook is built locally and committed as static files:
+
+### Building Storybook for Deployment
+```bash
+# Build Storybook and copy to public folder
+npm run build:storybook-local
+
+# Commit the static files
+git add public/storybook
+git commit -m "update: Rebuild Storybook static files"
+```
+
+### How It Works
+1. **Local Build**: `npm run build:storybook-local` builds Storybook and copies it to `public/storybook`
+2. **Static Files**: The built Storybook files are committed to git
+3. **Fast Deployment**: Vercel serves the static files without rebuilding
+4. **Live Storybook**: Available at `https://willow-design-system.vercel.app/storybook`
+
+### When to Rebuild Storybook
+- After adding new components
+- After updating component stories
+- After changing Storybook configuration
+- Before major releases
+
 ## Local Development
 
 ```bash
@@ -46,10 +72,11 @@ npm run storybook          # Start Storybook dev server
 
 # Building
 npm run build              # Build Next.js site
-npm run build-storybook    # Build Storybook
+npm run build-storybook    # Build Storybook to storybook-static
+npm run build:storybook-local # Build Storybook and copy to public/storybook
 npm run build-registry     # Build component registry
-npm run build:all          # Build everything
-npm run build:vercel       # Build for Vercel deployment
+npm run build:all          # Build everything (includes Storybook copy)
+npm run build:vercel       # Build for Vercel deployment (no Storybook build)
 
 # Testing
 npm test                   # Run tests once

@@ -28,26 +28,14 @@ if (process.env.SKIP_REGISTRY_BUILD !== 'true') {
   console.log('\n⏭️  Skipping registry build (SKIP_REGISTRY_BUILD=true)');
 }
 
-// Step 3: Build Storybook
-console.log('\n📚 Building Storybook...');
-try {
-  execSync('npm run build-storybook', { stdio: 'inherit' });
-  
-  // Move storybook-static to public/storybook for serving
-  const storybookSource = path.join(process.cwd(), 'storybook-static');
-  const storybookDest = path.join(process.cwd(), 'public', 'storybook');
-  
-  if (fs.existsSync(storybookDest)) {
-    fs.rmSync(storybookDest, { recursive: true });
-  }
-  
-  if (fs.existsSync(storybookSource)) {
-    fs.renameSync(storybookSource, storybookDest);
-    console.log('✓ Moved Storybook build to public/storybook');
-  }
-} catch (error) {
-  console.error('Failed to build Storybook:', error);
-  process.exit(1);
+// Step 3: Verify Storybook static files exist
+console.log('\n📚 Checking Storybook static files...');
+const storybookPath = path.join(process.cwd(), 'public', 'storybook');
+if (fs.existsSync(storybookPath)) {
+  console.log('✓ Storybook static files found in public/storybook');
+} else {
+  console.log('⚠️  Storybook static files not found. Run: npm run build:storybook-local');
+  console.log('   This will build Storybook and copy it to public/storybook for deployment.');
 }
 
 // Step 4: Build Next.js site

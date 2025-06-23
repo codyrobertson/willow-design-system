@@ -46,6 +46,7 @@
     "check:all": "node scripts/check-all-errors.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "build:storybook-local": "npm run build-storybook && node scripts/copy-storybook.js",
     "build-lib": "tsup",
     "build-registry": "node scripts/build-registry.js",
     "prepublishOnly": "npm run build-lib",
@@ -56,7 +57,7 @@
     "test:update": "jest --updateSnapshot",
     "typecheck": "tsc --noEmit --skipLibCheck",
     "prepare-fonts": "node scripts/prepare-fonts.js",
-    "build:all": "npm run prepare-fonts && npm run build && npm run build-storybook && npm run build-registry",
+    "build:all": "npm run prepare-fonts && npm run build && npm run build:storybook-local && npm run build-registry",
     "build:vercel": "node scripts/build-for-vercel.js",
     "deploy": "vercel --prod"
   },
