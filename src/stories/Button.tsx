@@ -37,3 +37,5 @@ export const Button = ({
     </button>
   );
 };
+
+Button.displayName = 'Button';

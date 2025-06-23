@@ -1,6 +1,6 @@
 import React from 'react'
 
-export interface LogoProps {
+export interface LogoProps extends React.SVGProps<SVGSVGElement> {
   /**
    * Size of the rendered logo.
    */
@@ -27,7 +27,8 @@ const SIZE_MAP = {
 /**
  * Willow Design System logo.
  */
-export const Logo: React.FC<LogoProps> = ({ size = 'md', lockup = 'full', variant = 'light' }) => {
+export const Logo = React.forwardRef<SVGSVGElement, LogoProps>(
+  ({ size = 'md', lockup = 'full', variant = 'light', className, ...props }, ref) => {
   const isDark = variant === 'dark'
   const { width, height, iconSize } = SIZE_MAP[size]
   const iconColor = isDark ? '#171717' : '#ffffff'
@@ -39,6 +40,7 @@ export const Logo: React.FC<LogoProps> = ({ size = 'md', lockup = 'full', varian
 
   return (
     <svg
+      ref={ref}
       width={lockup === 'logomark' || lockup === 'icon' ? iconSize : width}
       height={lockup === 'logomark' || lockup === 'icon' ? iconSize : height}
       viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
@@ -46,6 +48,8 @@ export const Logo: React.FC<LogoProps> = ({ size = 'md', lockup = 'full', varian
       xmlns="http://www.w3.org/2000/svg"
       role="img"
       aria-label="Willow logo"
+      className={className}
+      {...props}
     >
       {/* Logomark */}
       {lockup !== 'wordmark' && (
@@ -157,5 +161,7 @@ export const Logo: React.FC<LogoProps> = ({ size = 'md', lockup = 'full', varian
         </linearGradient>
       </defs>
     </svg>
-  )
-}
+  );
+  }
+);
+Logo.displayName = 'Logo';

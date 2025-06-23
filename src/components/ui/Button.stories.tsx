@@ -152,17 +152,15 @@ export const AsChild: Story = {
 export const AllVariants: Story = {
     render: () => (
       <div className="flex flex-col gap-8 p-4 bg-gray-50">
-        {(['primary', 'danger', 'warning', 'info', 'dark', 'neutral'] as const).map((theme) => (
+        {(['primary', 'danger', 'warning', 'info', 'dark', 'neutral', 'success'] as const).map((theme) => (
           <div key={theme} className="flex flex-col gap-4">
             <h2 className="text-xl font-normal capitalize">{theme}</h2>
             <div className="flex flex-wrap items-center gap-4">
-              {(['default', 'secondary', 'outline', 'ghost'] as const).map((variant) => {
-                if (theme === 'neutral' && variant !== 'secondary') return null;
-                return(
+              {(['default', 'secondary', 'outline', 'ghost'] as const).map((variant) => (
                 <Button key={variant} theme={theme} variant={variant}>
                   {variant}
                 </Button>
-              )})}
+              ))}
               <Button theme={theme} variant="default" loading>
                 Loading
               </Button>
@@ -277,7 +275,11 @@ export const IconExamples: Story = {
 };
 
 export const FancyVariant: Story = {
-  name: 'Fancy Variant',
+  parameters: {
+    docs: {
+      storyDescription: 'Fancy button variant with enhanced styling'
+    }
+  },
   render: () => (
     <div className="flex flex-col gap-8 p-4 bg-gray-50">
       <h2 className="text-xl font-normal">Fancy Button Style</h2>

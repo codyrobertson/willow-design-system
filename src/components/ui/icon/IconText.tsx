@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { cn } from '../../../lib/utils';
-import { Icon, type IconSize, type LucideIconName } from './Icon';
+import { Icon, type IconSize } from './Icon';
 
 export interface IconTextProps extends React.HTMLAttributes<HTMLDivElement> {
-  icon: LucideIconName;
+  icon: string;
   children: React.ReactNode;
   iconPosition?: 'left' | 'right';
   size?: IconSize;

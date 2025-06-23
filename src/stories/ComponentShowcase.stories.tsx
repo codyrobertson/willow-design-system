@@ -33,9 +33,9 @@ export const ColorConsistency: Story = {
             <div>
               <h4 className="text-sm font-normal mb-3">Badges</h4>
               <div className="space-y-2">
-                <Badge variant="solid" color="primary">Solid</Badge>
-                <Badge variant="soft" color="primary">Soft</Badge>
-                <Badge variant="outline" color="primary">Outline</Badge>
+                <Badge variant="default" theme="primary">Solid</Badge>
+                <Badge variant="secondary" theme="primary">Soft</Badge>
+                <Badge variant="outline" theme="primary">Outline</Badge>
               </div>
             </div>
             <div>
@@ -64,9 +64,9 @@ export const ColorConsistency: Story = {
             <div>
               <h4 className="text-sm font-normal mb-3">Badges</h4>
               <div className="space-y-2">
-                <Badge variant="solid" color="success">Solid</Badge>
-                <Badge variant="soft" color="success">Soft</Badge>
-                <Badge variant="outline" color="success">Outline</Badge>
+                <Badge variant="default" theme="success">Solid</Badge>
+                <Badge variant="secondary" theme="success">Soft</Badge>
+                <Badge variant="outline" theme="success">Outline</Badge>
               </div>
             </div>
             <div>
@@ -95,9 +95,9 @@ export const ColorConsistency: Story = {
             <div>
               <h4 className="text-sm font-normal mb-3">Badges</h4>
               <div className="space-y-2">
-                <Badge variant="solid" color="warning">Solid</Badge>
-                <Badge variant="soft" color="warning">Soft</Badge>
-                <Badge variant="outline" color="warning">Outline</Badge>
+                <Badge variant="default" theme="warning">Solid</Badge>
+                <Badge variant="secondary" theme="warning">Soft</Badge>
+                <Badge variant="outline" theme="warning">Outline</Badge>
               </div>
             </div>
             <div>
@@ -126,9 +126,9 @@ export const ColorConsistency: Story = {
             <div>
               <h4 className="text-sm font-normal mb-3">Badges</h4>
               <div className="space-y-2">
-                <Badge variant="solid" color="danger">Solid</Badge>
-                <Badge variant="soft" color="danger">Soft</Badge>
-                <Badge variant="outline" color="danger">Outline</Badge>
+                <Badge variant="default" theme="danger">Solid</Badge>
+                <Badge variant="secondary" theme="danger">Soft</Badge>
+                <Badge variant="outline" theme="danger">Outline</Badge>
               </div>
             </div>
             <div>
@@ -157,9 +157,9 @@ export const ColorConsistency: Story = {
             <div>
               <h4 className="text-sm font-normal mb-3">Badges</h4>
               <div className="space-y-2">
-                <Badge variant="solid" color="neutral">Solid</Badge>
-                <Badge variant="soft" color="neutral">Soft</Badge>
-                <Badge variant="outline" color="neutral">Outline</Badge>
+                <Badge variant="default" theme="neutral">Solid</Badge>
+                <Badge variant="secondary" theme="neutral">Soft</Badge>
+                <Badge variant="outline" theme="neutral">Outline</Badge>
               </div>
             </div>
             <div>
@@ -188,9 +188,9 @@ export const ColorConsistency: Story = {
             <div>
               <h4 className="text-sm font-normal mb-3">Badges</h4>
               <div className="space-y-2">
-                <Badge variant="solid" color="info">Solid</Badge>
-                <Badge variant="soft" color="info">Soft</Badge>
-                <Badge variant="outline" color="info">Outline</Badge>
+                <Badge variant="default" theme="info">Solid</Badge>
+                <Badge variant="secondary" theme="info">Soft</Badge>
+                <Badge variant="outline" theme="info">Outline</Badge>
               </div>
             </div>
             <div>
@@ -274,7 +274,7 @@ export const InteractiveStates: Story = {
           <div className="space-y-4">
             <div className="flex gap-3">
               <Badge closable onClose={() => alert('Badge closed!')}>Closable Badge</Badge>
-              <Badge variant="soft" closable onClose={() => alert('Badge closed!')}>Soft Badge</Badge>
+              <Badge variant="secondary" closable onClose={() => alert('Badge closed!')}>Soft Badge</Badge>
               <Badge variant="outline" closable onClose={() => alert('Badge closed!')}>Outline Badge</Badge>
             </div>
             <div className="flex gap-3">

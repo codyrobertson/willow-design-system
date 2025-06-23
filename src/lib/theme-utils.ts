@@ -6,7 +6,8 @@ import { tokens } from './tokens';
 
 // Color utilities
 export const getColorToken = (color: keyof typeof tokens.colors, shade: string) => {
-  return (tokens.colors[color] as any)[shade] || '';
+  const colorObject = tokens.colors[color] as Record<string, string>;
+  return colorObject[shade] || '';
 };
 
 // Shadow utilities
@@ -15,7 +16,7 @@ export const getShadowToken = (category: keyof typeof tokens.shadows, variant?: 
   if (typeof shadowCategory === 'string') {
     return shadowCategory;
   }
-  return variant && shadowCategory ? (shadowCategory as any)[variant] : '';
+  return variant && shadowCategory ? (shadowCategory as Record<string, string>)[variant] : '';
 };
 
 // Spacing utilities
@@ -52,8 +53,8 @@ export const getComponentToken = (
   property: string,
   size?: string
 ) => {
-  const componentTokens = tokens.components[component] as any;
-  const propertyTokens = componentTokens[property];
+  const componentTokens = tokens.components[component] as Record<string, any>;
+  const propertyTokens = componentTokens[property] as Record<string, any>;
   return size && propertyTokens ? propertyTokens[size] : propertyTokens;
 };
 
@@ -63,11 +64,11 @@ export const getSemanticColor = (
   subcategory: string,
   state?: string
 ) => {
-  const semanticCategory = tokens.semantic[category] as any;
+  const semanticCategory = tokens.semantic[category] as Record<string, unknown>;
   const subcategoryValue = semanticCategory[subcategory];
   
-  if (state && typeof subcategoryValue === 'object') {
-    return subcategoryValue[state];
+  if (state && typeof subcategoryValue === 'object' && subcategoryValue !== null) {
+    return (subcategoryValue as Record<string, any>)[state];
   }
   
   return subcategoryValue;

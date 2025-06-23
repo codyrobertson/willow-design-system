@@ -106,15 +106,16 @@ export interface SimpleFormProps {
  * 
  * @param {SimpleFormProps} props - Component props
  */
-export function SimpleForm({
-  fields,
-  onSubmit,
-  submitText = 'Submit',
-  isLoading = false,
-  errors = {},
-  defaultValues = {},
-  className,
-}: SimpleFormProps) {
+export const SimpleForm = React.forwardRef<HTMLFormElement, SimpleFormProps>(
+  ({
+    fields,
+    onSubmit,
+    submitText = 'Submit',
+    isLoading = false,
+    errors = {},
+    defaultValues = {},
+    className,
+  }, ref) => {
   const [formData, setFormData] = React.useState<Record<string, string>>(() => {
     const initialData: Record<string, string> = {};
     fields.forEach(field => {
@@ -139,7 +140,7 @@ export function SimpleForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className={cn('space-y-4', className)}>
+    <form ref={ref} onSubmit={handleSubmit} className={cn('space-y-4', className)}>
       {fields.map(field => {
         const isPasswordField = field.type === 'password';
         const isTextarea = field.type === 'textarea';
@@ -222,4 +223,6 @@ export function SimpleForm({
       </Button>
     </form>
   );
-}
+  }
+);
+SimpleForm.displayName = 'SimpleForm';

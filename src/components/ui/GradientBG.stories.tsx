@@ -107,7 +107,7 @@ export const HeroSection: Story = {
         
         <main className="flex-1 flex items-center justify-center p-8">
           <div className="text-center text-white max-w-3xl">
-            <Badge variant="soft" color="primary" className="mb-4">New Launch</Badge>
+            <Badge variant="secondary" theme="primary" className="mb-4">New Launch</Badge>
             <h1 className="text-6xl font-normal mb-6">Welcome to Willow Health</h1>
             <p className="text-xl mb-8 opacity-90">
               Experience healthcare simplified. Your personal aftercare assistant is here to guide you through recovery with personalized support.
@@ -142,8 +142,8 @@ export const BlurredBackground: Story = {
           <CardContent>
             <p className="mb-4">The background image is blurred for a frosted glass effect.</p>
             <div className="flex gap-2">
-              <Badge variant="soft" color="info">8px blur</Badge>
-              <Badge variant="soft" color="success">Light overlay</Badge>
+              <Badge variant="secondary" theme="info">8px blur</Badge>
+              <Badge variant="secondary" theme="success">Light overlay</Badge>
             </div>
           </CardContent>
         </Card>
@@ -248,8 +248,8 @@ export const DarkOverlayExample: Story = {
             The dark overlay provides better text readability on bright images
           </p>
           <div className="flex gap-4 justify-center">
-            <Badge variant="soft" color="neutral">50% Black Overlay</Badge>
-            <Badge variant="soft" color="primary">Subtle Gradient</Badge>
+            <Badge variant="secondary" theme="neutral">50% Black Overlay</Badge>
+            <Badge variant="secondary" theme="primary">Subtle Gradient</Badge>
           </div>
         </div>
       </div>

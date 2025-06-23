@@ -45,12 +45,15 @@ export const WithSelect: Story = {
   render: () => (
     <div className="space-y-2">
       <Label htmlFor="country">Country</Label>
-      <Select id="country">
-        <option>Select a country</option>
-        <option>United States</option>
-        <option>Canada</option>
-        <option>Mexico</option>
-      </Select>
+      <Select 
+        id="country"
+        placeholder="Select a country"
+        options={[
+          { value: 'us', label: 'United States' },
+          { value: 'ca', label: 'Canada' },
+          { value: 'mx', label: 'Mexico' }
+        ]}
+      />
     </div>
   ),
 };
@@ -98,7 +101,7 @@ export const Optional: Story = {
 export const Disabled: Story = {
   render: () => (
     <div className="space-y-2">
-      <Label htmlFor="disabled-input" disabled>
+      <Label htmlFor="disabled-input">
         Disabled Label
       </Label>
       <Input id="disabled-input" disabled placeholder="This field is disabled" />
@@ -156,11 +159,14 @@ export const FormExample: Story = {
         <Label htmlFor="form-priority" optional>
           Priority
         </Label>
-        <Select id="form-priority">
-          <option>Low</option>
-          <option>Medium</option>
-          <option>High</option>
-        </Select>
+        <Select 
+          id="form-priority"
+          options={[
+            { value: 'low', label: 'Low' },
+            { value: 'medium', label: 'Medium' },
+            { value: 'high', label: 'High' }
+          ]}
+        />
       </div>
     </form>
   ),

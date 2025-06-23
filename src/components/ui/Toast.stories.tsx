@@ -56,10 +56,10 @@ export const AllVariants: Story = {
       <div className="space-y-4">
         <div className="flex flex-wrap gap-2">
           <Button onClick={() => showToast('default')}>Default</Button>
-          <Button color="success" onClick={() => showToast('success')}>Success</Button>
-          <Button color="warning" onClick={() => showToast('warning')}>Warning</Button>
-          <Button color="danger" onClick={() => showToast('error')}>Error</Button>
-          <Button color="info" onClick={() => showToast('info')}>Info</Button>
+          <Button theme="success" onClick={() => showToast('success')}>Success</Button>
+          <Button theme="warning" onClick={() => showToast('warning')}>Warning</Button>
+          <Button theme="danger" onClick={() => showToast('error')}>Error</Button>
+          <Button theme="info" onClick={() => showToast('info')}>Info</Button>
         </div>
         
         <div className="fixed bottom-4 right-4 space-y-2">
@@ -119,13 +119,13 @@ export const WithIcons: Story = {
     return (
       <div className="space-y-4">
         <div className="flex flex-wrap gap-2">
-          <Button color="success" onClick={() => showToast('success-icon')}>
+          <Button theme="success" onClick={() => showToast('success-icon')}>
             Success with Icon
           </Button>
-          <Button color="danger" onClick={() => showToast('error-icon')}>
+          <Button theme="danger" onClick={() => showToast('error-icon')}>
             Error with Icon
           </Button>
-          <Button color="info" onClick={() => showToast('info-icon')}>
+          <Button theme="info" onClick={() => showToast('info-icon')}>
             Info with Icon
           </Button>
         </div>
@@ -176,14 +176,20 @@ export const WithAction: Story = {
         </Button>
         {show && (
           <Toast
-            message="Item deleted"
-            action={{
-              label: 'Undo',
-              onClick: () => {
-                setUndone(true);
-                setTimeout(() => setShow(false), 2000);
-              },
-            }}
+            id="with-action"
+            description="Item deleted"
+            action={
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => {
+                  setUndone(true);
+                  setTimeout(() => setShow(false), 2000);
+                }}
+              >
+                Undo
+              </Button>
+            }
             onClose={() => setShow(false)}
           />
         )}
@@ -204,7 +210,8 @@ export const LongMessage: Story = {
         <Button onClick={() => setShow(true)}>Show Long Message</Button>
         {show && (
           <Toast
-            message="This is a much longer toast message that demonstrates how the toast component handles multiple lines of text content gracefully."
+            id="long-message"
+            description="This is a much longer toast message that demonstrates how the toast component handles multiple lines of text content gracefully."
             variant="info"
             onClose={() => setShow(false)}
           />
@@ -242,7 +249,8 @@ export const AutoDismiss: Story = {
           {toasts.map(id => (
             <Toast
               key={id}
-              message={`Toast #${id} - Auto-dismissing...`}
+              id={`auto-${id}`}
+              description={`Toast #${id} - Auto-dismissing...`}
               variant="info"
               onClose={() => setToasts(prev => prev.filter(t => t !== id))}
             />
@@ -292,8 +300,9 @@ export const ToastStack: Story = {
           {toasts.map(toast => (
             <Toast
               key={toast.id}
+              id={`stack-${toast.id}`}
               variant={toast.variant}
-              message={toast.message}
+              description={toast.message}
               onClose={() => removeToast(toast.id)}
             />
           ))}
@@ -312,7 +321,8 @@ export const CustomStyling: Story = {
         <Button onClick={() => setShow(true)}>Show Custom Toast</Button>
         {show && (
           <Toast
-            message="Custom styled toast"
+            id="custom-styled"
+            description="Custom styled toast"
             className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0"
             onClose={() => setShow(false)}
           />

@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Badge, Logo } from '@/src/components/ui';
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Badge } from '@/src/components/ui';
+import { AppLayout } from '@/src/components/layout/AppLayout';
 import { Code2, Palette, Package, Rocket } from 'lucide-react';
 
 export default function RegistryPage() {
@@ -44,12 +45,9 @@ export default function RegistryPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 to-neutral-100">
+    <AppLayout>
       <div className="container mx-auto px-4 py-8 md:py-16">
         <header className="text-center mb-12">
-          <div className="flex justify-center mb-6">
-            <Logo size="lg" />
-          </div>
           <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
             Willow Design System Registry
           </h1>
@@ -240,6 +238,6 @@ export default function RegistryPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </AppLayout>
   );
 }

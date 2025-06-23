@@ -13,10 +13,6 @@ const meta: Meta<typeof IconText> = {
     icon: {
       control: 'text',
     },
-    iconStyle: {
-      control: 'select',
-      options: ['solid', 'regular', 'light', 'thin', 'duotone'],
-    },
     iconPosition: {
       control: 'select',
       options: ['left', 'right'],
@@ -41,11 +37,11 @@ export const Default: Story = {
 export const IconStyles: Story = {
   render: () => (
     <div className="space-y-3">
-      <IconText icon="heart" iconStyle="solid">Solid Icon</IconText>
-      <IconText icon="heart" iconStyle="regular">Regular Icon</IconText>
-      <IconText icon="heart" iconStyle="light">Light Icon</IconText>
-      <IconText icon="heart" iconStyle="thin">Thin Icon</IconText>
-      <IconText icon="heart" iconStyle="duotone">Duotone Icon</IconText>
+      <IconText icon="heart">Solid Icon</IconText>
+      <IconText icon="star">Regular Icon</IconText>
+      <IconText icon="bookmark">Light Icon</IconText>
+      <IconText icon="thumbs-up">Thin Icon</IconText>
+      <IconText icon="bell">Duotone Icon</IconText>
     </div>
   ),
 };
@@ -146,7 +142,7 @@ export const InButtons: Story = {
   render: () => (
     <div className="flex gap-3">
       <button className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700">
-        <IconText icon="plus" iconStyle="solid">
+        <IconText icon="plus">
           Add New
         </IconText>
       </button>
@@ -197,22 +193,22 @@ export const SocialLinks: Story = {
   render: () => (
     <div className="flex gap-4">
       <a href="#" className="text-neutral-600 hover:text-neutral-900">
-        <IconText icon="facebook" iconStyle="brands">
+        <IconText icon="facebook">
           Facebook
         </IconText>
       </a>
       <a href="#" className="text-neutral-600 hover:text-neutral-900">
-        <IconText icon="twitter" iconStyle="brands">
+        <IconText icon="twitter">
           Twitter
         </IconText>
       </a>
       <a href="#" className="text-neutral-600 hover:text-neutral-900">
-        <IconText icon="linkedin" iconStyle="brands">
+        <IconText icon="linkedin">
           LinkedIn
         </IconText>
       </a>
       <a href="#" className="text-neutral-600 hover:text-neutral-900">
-        <IconText icon="github" iconStyle="brands">
+        <IconText icon="github">
           GitHub
         </IconText>
       </a>

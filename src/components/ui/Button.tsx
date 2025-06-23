@@ -83,12 +83,12 @@ const buttonVariants = cva(
       { 
         theme: 'primary', 
         variant: 'secondary', 
-        className: 'text-willow-primary-950 bg-willow-primary-200 hover:bg-willow-primary-300 active:bg-willow-primary-400' 
+        className: 'text-willow-primary-700 bg-willow-primary-200 hover:bg-willow-primary-300 active:bg-willow-primary-400' 
       },
       { 
         theme: 'primary', 
         variant: 'outline', 
-        className: 'text-willow-primary-950 border border-willow-primary-950 hover:bg-willow-primary-50 active:bg-willow-primary-100' 
+        className: 'text-willow-primary-700 border border-willow-primary-700 hover:bg-willow-primary-50 active:bg-willow-primary-100' 
       },
       { 
         theme: 'primary', 
@@ -105,22 +105,22 @@ const buttonVariants = cva(
       { 
         theme: 'danger', 
         variant: 'default', 
-        className: 'bg-white text-destructive-500 border border-destructive-200 shadow-button-secondary hover:bg-destructive-50 hover:shadow-button-secondary-hover active:bg-destructive-100 active:shadow-button-secondary-active' 
+        className: 'bg-white text-red-600 border border-red-200 shadow-button-secondary hover:bg-red-50 hover:shadow-button-secondary-hover active:bg-red-100 active:shadow-button-secondary-active' 
       },
       { 
         theme: 'danger', 
         variant: 'secondary', 
-        className: 'text-destructive-500 bg-destructive-100 hover:bg-destructive-200 active:bg-destructive-300' 
+        className: 'text-red-600 bg-red-100 hover:bg-red-200 active:bg-red-300' 
       },
       { 
         theme: 'danger', 
         variant: 'outline', 
-        className: 'text-destructive-500 border border-destructive-500 hover:bg-destructive-50 active:bg-destructive-100' 
+        className: 'text-red-600 border border-red-600 hover:bg-red-50 active:bg-red-100' 
       },
       { 
         theme: 'danger', 
         variant: 'ghost', 
-        className: 'text-destructive-500 hover:bg-state-error-lighter active:bg-destructive-100' 
+        className: 'text-red-600 hover:bg-red-50 active:bg-red-100' 
       },
       { 
         theme: 'danger', 
@@ -132,22 +132,22 @@ const buttonVariants = cva(
       { 
         theme: 'warning', 
         variant: 'default', 
-        className: 'bg-white text-warning border border-warning/30 shadow-button-secondary hover:bg-state-warning-lighter hover:shadow-button-secondary-hover active:bg-warning/10 active:shadow-button-secondary-active' 
+        className: 'bg-white text-warning-800 border border-warning-200 shadow-button-secondary hover:bg-state-warning-lighter hover:shadow-button-secondary-hover active:bg-warning/10 active:shadow-button-secondary-active' 
       },
       { 
         theme: 'warning', 
         variant: 'secondary', 
-        className: 'text-warning bg-warning/10 hover:bg-warning/20 active:bg-warning/30' 
+        className: 'text-warning-800 bg-warning-100 hover:bg-warning-200 active:bg-warning-300' 
       },
       { 
         theme: 'warning', 
         variant: 'outline', 
-        className: 'text-warning border border-warning hover:bg-state-warning-lighter active:bg-warning/10' 
+        className: 'text-warning-800 border border-warning-800 hover:bg-state-warning-lighter active:bg-warning/10' 
       },
       { 
         theme: 'warning', 
         variant: 'ghost', 
-        className: 'text-warning hover:bg-state-warning-lighter active:bg-warning/10' 
+        className: 'text-warning-800 hover:bg-state-warning-lighter active:bg-warning/10' 
       },
       { 
         theme: 'warning', 
@@ -159,17 +159,17 @@ const buttonVariants = cva(
       { 
         theme: 'info', 
         variant: 'default', 
-        className: 'bg-white text-info-950 border border-info-200 shadow-button-secondary hover:bg-info-50 hover:shadow-button-secondary-hover active:bg-info-100 active:shadow-button-secondary-active' 
+        className: 'bg-white text-info-600 border border-info-200 shadow-button-secondary hover:bg-info-50 hover:shadow-button-secondary-hover active:bg-info-100 active:shadow-button-secondary-active' 
       },
       { 
         theme: 'info', 
         variant: 'secondary', 
-        className: 'text-info-950 bg-info-100 hover:bg-info-200 active:bg-info-300' 
+        className: 'text-info-600 bg-info-100 hover:bg-info-200 active:bg-info-300' 
       },
       { 
         theme: 'info', 
         variant: 'outline', 
-        className: 'text-info-800 border border-info-500 hover:bg-info-50 active:bg-info-100' 
+        className: 'text-info-600 border border-info-600 hover:bg-info-50 active:bg-info-100' 
       },
       { 
         theme: 'info', 
@@ -182,26 +182,26 @@ const buttonVariants = cva(
         className: 'bg-info-600 text-white font-semibold shadow-[0px_1px_3px_0px_rgba(118,102,255,0.2)] hover:bg-info-500 hover:shadow-[0px_2px_5px_0px_rgba(118,102,255,0.3)] active:bg-info-700 active:shadow-none' 
       },
       
-      // Dark Theme
+      // Dark Theme (inverse - dark backgrounds with light text)
       { 
         theme: 'dark', 
         variant: 'default', 
-        className: 'bg-white text-neutral-950 border border-neutral-300 shadow-button-secondary hover:bg-neutral-50 hover:shadow-button-secondary-hover active:bg-neutral-100 active:shadow-button-secondary-active' 
+        className: 'bg-neutral-900 text-white border border-neutral-700 shadow-button-secondary hover:bg-neutral-800 hover:shadow-button-secondary-hover active:bg-neutral-950 active:shadow-button-secondary-active' 
       },
       { 
         theme: 'dark', 
         variant: 'secondary', 
-        className: 'text-neutral-950 bg-neutral-200 hover:bg-neutral-300 active:bg-neutral-400' 
+        className: 'text-white bg-neutral-700 hover:bg-neutral-600 active:bg-neutral-800' 
       },
       { 
         theme: 'dark', 
         variant: 'outline', 
-        className: 'text-neutral-950 border border-neutral-950 hover:bg-neutral-50 active:bg-neutral-100' 
+        className: 'text-neutral-900 border border-neutral-900 hover:bg-neutral-50 active:bg-neutral-100' 
       },
       { 
         theme: 'dark', 
         variant: 'ghost', 
-        className: 'text-neutral-800 hover:bg-neutral-200 active:bg-neutral-300' 
+        className: 'text-neutral-700 hover:bg-neutral-100 active:bg-neutral-200' 
       },
       { 
         theme: 'dark', 
@@ -218,22 +218,22 @@ const buttonVariants = cva(
       { 
         theme: 'success', 
         variant: 'default', 
-        className: 'bg-white text-success border border-success/30 shadow-button-secondary hover:bg-state-success-lighter hover:shadow-button-secondary-hover active:bg-success/10 active:shadow-button-secondary-active' 
+        className: 'bg-white text-success-800 border border-success-200 shadow-button-secondary hover:bg-state-success-lighter hover:shadow-button-secondary-hover active:bg-success/10 active:shadow-button-secondary-active' 
       },
       { 
         theme: 'success', 
         variant: 'secondary', 
-        className: 'text-success bg-state-success-lighter hover:bg-success/20 active:bg-success/30' 
+        className: 'text-success-800 bg-state-success-lighter hover:bg-success/20 active:bg-success/30' 
       },
       { 
         theme: 'success', 
         variant: 'outline', 
-        className: 'text-success border border-success hover:bg-state-success-lighter active:bg-success/10' 
+        className: 'text-success-800 border border-success-800 hover:bg-state-success-lighter active:bg-success/10' 
       },
       { 
         theme: 'success', 
         variant: 'ghost', 
-        className: 'text-success hover:bg-state-success-lighter active:bg-success/10' 
+        className: 'text-success-800 hover:bg-state-success-lighter active:bg-success/10' 
       },
       { 
         theme: 'success', 
@@ -244,8 +244,23 @@ const buttonVariants = cva(
       // Neutral Theme
       { 
         theme: 'neutral', 
+        variant: 'default', 
+        className: 'bg-white text-neutral-700 border border-neutral-300 shadow-button-secondary hover:bg-neutral-50 hover:shadow-button-secondary-hover active:bg-neutral-100 active:shadow-button-secondary-active' 
+      },
+      { 
+        theme: 'neutral', 
         variant: 'secondary', 
         className: 'text-neutral-600 bg-neutral-100 hover:bg-neutral-200 active:bg-neutral-300' 
+      },
+      { 
+        theme: 'neutral', 
+        variant: 'outline', 
+        className: 'text-neutral-700 border border-neutral-700 hover:bg-neutral-50 active:bg-neutral-100' 
+      },
+      { 
+        theme: 'neutral', 
+        variant: 'ghost', 
+        className: 'text-neutral-600 hover:bg-neutral-100 active:bg-neutral-200' 
       },
     ],
     defaultVariants: {
@@ -288,22 +303,22 @@ const innerShadowVariants = cva('absolute inset-0 pointer-events-none transition
     }
   },
   compoundVariants: [
-    // Default variant inner shadows
-    { theme: 'primary', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(35,14,103,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(35,14,103,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(35,14,103,0.25)]' },
-    { theme: 'danger', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(235,87,87,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(235,87,87,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(235,87,87,0.25)]' },
-    { theme: 'warning', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(255,132,71,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(255,132,71,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(255,132,71,0.25)]' },
-    { theme: 'info', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(118,102,255,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(118,102,255,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(118,102,255,0.25)]' },
-    { theme: 'dark', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(69,96,117,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(69,96,117,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(69,96,117,0.25)]' },
-    { theme: 'neutral', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(108,137,152,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(108,137,152,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(108,137,152,0.25)]' },
-    { theme: 'success', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(31,193,107,0.08)] group-hover:shadow-[inset_0px_-2.4px_0px_0px_rgba(31,193,107,0.12)] group-active:shadow-[inset_0px_-4px_0px_0px_rgba(31,193,107,0.25)]' },
+    // Default variant inner shadows - enhanced hover (grows slightly) and smaller press effect
+    { theme: 'primary', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(35,14,103,0.08)] group-hover:shadow-[inset_0px_-3px_0px_0px_rgba(35,14,103,0.15)] group-active:shadow-[inset_0px_-1px_0px_0px_rgba(35,14,103,0.3)]' },
+    { theme: 'danger', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(235,87,87,0.08)] group-hover:shadow-[inset_0px_-3px_0px_0px_rgba(235,87,87,0.15)] group-active:shadow-[inset_0px_-1px_0px_0px_rgba(235,87,87,0.3)]' },
+    { theme: 'warning', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(255,132,71,0.08)] group-hover:shadow-[inset_0px_-3px_0px_0px_rgba(255,132,71,0.15)] group-active:shadow-[inset_0px_-1px_0px_0px_rgba(255,132,71,0.3)]' },
+    { theme: 'info', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(118,102,255,0.08)] group-hover:shadow-[inset_0px_-3px_0px_0px_rgba(118,102,255,0.15)] group-active:shadow-[inset_0px_-1px_0px_0px_rgba(118,102,255,0.3)]' },
+    { theme: 'dark', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(255,255,255,0.1)] group-hover:shadow-[inset_0px_-3px_0px_0px_rgba(255,255,255,0.15)] group-active:shadow-[inset_0px_-1px_0px_0px_rgba(255,255,255,0.25)]' },
+    { theme: 'neutral', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(108,137,152,0.08)] group-hover:shadow-[inset_0px_-3px_0px_0px_rgba(108,137,152,0.15)] group-active:shadow-[inset_0px_-1px_0px_0px_rgba(108,137,152,0.3)]' },
+    { theme: 'success', variant: 'default', className: 'shadow-[inset_0px_-2px_0px_0px_rgba(31,193,107,0.08)] group-hover:shadow-[inset_0px_-3px_0px_0px_rgba(31,193,107,0.15)] group-active:shadow-[inset_0px_-1px_0px_0px_rgba(31,193,107,0.3)]' },
     
-    // Fancy variant theme-aware inner shadows
-    { theme: 'primary', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(122,196,230,0.46)] group-hover:shadow-[inset_0px_-2.4px_7.5px_0px_rgba(122,196,230,0.5)] group-active:shadow-[inset_0px_2px_4px_0px_rgba(37,62,167,0.3)]' },
-    { theme: 'danger', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(255,150,150,0.5)] group-hover:shadow-[inset_0px_-2.4px_7.5px_0px_rgba(255,150,150,0.6)] group-active:shadow-[inset_0px_2px_4px_0px_rgba(183,55,55,0.5)]' },
-    { theme: 'warning', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(255,200,122,0.46)] group-hover:shadow-[inset_0px_-2.4px_7.5px_0px_rgba(255,200,122,0.5)] group-active:shadow-[inset_0px_2px_4px_0px_rgba(255,132,71,0.3)]' },
-    { theme: 'info', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(150,180,255,0.46)] group-hover:shadow-[inset_0px_-2.4px_7.5px_0px_rgba(150,180,255,0.5)] group-active:shadow-[inset_0px_2px_4px_0px_rgba(118,102,255,0.3)]' },
-    { theme: 'dark', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(180,180,180,0.46)] group-hover:shadow-[inset_0px_-2.4px_7.5px_0px_rgba(180,180,180,0.5)] group-active:shadow-[inset_0px_2px_4px_0px_rgba(69,96,117,0.3)]' },
-    { theme: 'success', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(150,255,180,0.46)] group-hover:shadow-[inset_0px_-2.4px_7.5px_0px_rgba(150,255,180,0.5)] group-active:shadow-[inset_0px_2px_4px_0px_rgba(31,193,107,0.3)]' },
+    // Fancy variant theme-aware inner shadows - enhanced hover (grows slightly) and smaller press effect
+    { theme: 'primary', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(122,196,230,0.46)] group-hover:shadow-[inset_0px_-3px_8px_0px_rgba(122,196,230,0.55)] group-active:shadow-[inset_0px_1px_3px_0px_rgba(37,62,167,0.4)]' },
+    { theme: 'danger', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(255,150,150,0.5)] group-hover:shadow-[inset_0px_-3px_8px_0px_rgba(255,150,150,0.65)] group-active:shadow-[inset_0px_1px_3px_0px_rgba(183,55,55,0.6)]' },
+    { theme: 'warning', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(255,200,122,0.46)] group-hover:shadow-[inset_0px_-3px_8px_0px_rgba(255,200,122,0.55)] group-active:shadow-[inset_0px_1px_3px_0px_rgba(255,132,71,0.4)]' },
+    { theme: 'info', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(150,180,255,0.46)] group-hover:shadow-[inset_0px_-3px_8px_0px_rgba(150,180,255,0.55)] group-active:shadow-[inset_0px_1px_3px_0px_rgba(118,102,255,0.4)]' },
+    { theme: 'dark', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(255,255,255,0.2)] group-hover:shadow-[inset_0px_-3px_8px_0px_rgba(255,255,255,0.25)] group-active:shadow-[inset_0px_1px_3px_0px_rgba(0,0,0,0.4)]' },
+    { theme: 'success', variant: 'fancy', className: 'shadow-[inset_0px_-2.4px_7.5px_0px_rgba(150,255,180,0.46)] group-hover:shadow-[inset_0px_-3px_8px_0px_rgba(150,255,180,0.55)] group-active:shadow-[inset_0px_1px_3px_0px_rgba(31,193,107,0.4)]' },
   ],
   defaultVariants: {
     theme: 'primary',
@@ -312,25 +327,27 @@ const innerShadowVariants = cva('absolute inset-0 pointer-events-none transition
   },
 });
 
-const linkVariants = cva(
-  'bg-transparent underline-offset-4 hover:underline',
-  {
-      variants: {
-          theme: {
-              primary: 'text-willow-primary-600',
-              danger: 'text-destructive-500',
-              warning: 'text-warning',
-              info: 'text-info-600',
-              dark: 'text-neutral-900',
-              neutral: 'text-neutral-500',
-              success: 'text-success',
-          }
-      },
-      defaultVariants: {
-          theme: 'primary',
-      },
-  }
-);
+// Note: linkVariants is defined but not currently used.
+// It's available for future link-specific styling implementation.
+// const linkVariants = cva(
+//   'bg-transparent underline-offset-4 hover:underline',
+//   {
+//       variants: {
+//           theme: {
+//               primary: 'text-willow-primary-600',
+//               danger: 'text-destructive-500',
+//               warning: 'text-warning',
+//               info: 'text-info-600',
+//               dark: 'text-neutral-900',
+//               neutral: 'text-neutral-500',
+//               success: 'text-success',
+//           }
+//       },
+//       defaultVariants: {
+//           theme: 'primary',
+//       },
+//   }
+// );
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -373,7 +390,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       iconOnly && 'px-0',
       fullWidth && 'w-full'
     );
-    const isFancy = variant === 'fancy';
+    // Note: isFancy is available for future fancy-specific styling
+    // const isFancy = variant === 'fancy';
 
 
     if (asChild) {

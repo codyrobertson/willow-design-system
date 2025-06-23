@@ -22,7 +22,7 @@ describe('Icon', () => {
   });
 
   it('handles undefined icon name gracefully', () => {
-    const { container } = render(<Icon name={undefined as any} />);
+    const { container } = render(<Icon name={undefined as string | undefined} />);
     expect(container.firstChild).toBeNull();
     expect(console.warn).toHaveBeenCalledWith('Icon name is undefined');
   });
@@ -36,7 +36,7 @@ describe('Icon', () => {
   });
 
   it('handles null icon name', () => {
-    const { container } = render(<Icon name={null as any} />);
+    const { container } = render(<Icon name={null as string | null} />);
     expect(container.firstChild).toBeNull();
     expect(console.warn).toHaveBeenCalledWith('Icon name is null');
   });

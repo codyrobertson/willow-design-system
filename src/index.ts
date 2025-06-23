@@ -10,7 +10,7 @@ export { ErrorBoundary } from './components/ui/ErrorBoundary';
 export { FancyButton } from './components/ui/FancyButton';
 export { FormCard } from './components/ui/FormCard';
 export { FormField } from './components/ui/FormField';
-export { GradientBG } from './components/ui/GradientBG';
+export { default as GradientBG } from './components/ui/GradientBG';
 export { Highlight } from './components/ui/Highlight';
 export { InfoCard } from './components/ui/InfoCard';
 export { Input } from './components/ui/Input';

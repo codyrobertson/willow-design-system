@@ -143,7 +143,7 @@ export const ComplexListItems: Story = {
               </ListItemIcon>
             }
             trailing={
-              <Badge variant="soft" color="warning" size="sm">
+              <Badge variant="secondary" theme="warning" size="sm">
                 Refill needed
               </Badge>
             }
@@ -163,7 +163,7 @@ export const ComplexListItems: Story = {
               </ListItemIcon>
             }
             trailing={
-              <Badge variant="soft" color="success" size="sm">
+              <Badge variant="secondary" theme="success" size="sm">
                 Completed
               </Badge>
             }
@@ -253,7 +253,7 @@ export const SelectableList: Story = {
             <ListHeader
             icon={<Activity className="w-4 h-4" />}
             action={
-              <Badge variant="soft" color="primary" size="sm">
+              <Badge variant="secondary" theme="primary" size="sm">
                 {selected.length} selected
               </Badge>
             }
@@ -386,7 +386,7 @@ export const KeyboardNavigation: Story = {
                 leading={<span className="text-xl">{item.icon}</span>}
                 trailing={
                   selectedIndex === index && (
-                    <Badge variant="soft" color="primary" size="sm">
+                    <Badge variant="secondary" theme="primary" size="sm">
                       Selected
                     </Badge>
                   )

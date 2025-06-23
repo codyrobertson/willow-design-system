@@ -8,15 +8,22 @@ const labelVariants = cva(
 
 export interface LabelProps
   extends React.LabelHTMLAttributes<HTMLLabelElement>,
-    VariantProps<typeof labelVariants> {}
+    VariantProps<typeof labelVariants> {
+  required?: boolean;
+  optional?: boolean;
+}
 
 const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
-  ({ className, ...props }, ref) => (
+  ({ className, children, required, optional, ...props }, ref) => (
     <label
       ref={ref}
       className={cn(labelVariants(), className)}
       {...props}
-    />
+    >
+      {children}
+      {required && <span className="text-destructive ml-1">*</span>}
+      {optional && <span className="text-muted-foreground ml-1 text-xs">(optional)</span>}
+    </label>
   )
 )
 Label.displayName = "Label"

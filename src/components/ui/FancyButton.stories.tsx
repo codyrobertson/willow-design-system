@@ -99,6 +99,9 @@ export const Disabled: Story = {
 }
 
 export const Sizes: Story = {
+  args: {
+    children: 'Button',
+  },
   render: () => (
     <div className="flex items-center gap-4">
       <FancyButton size="xs">Extra Small</FancyButton>
@@ -111,6 +114,9 @@ export const Sizes: Story = {
 }
 
 export const AllVariants: Story = {
+  args: {
+    children: 'Button',
+  },
   render: () => (
     <div className="space-y-8">
       <div>
@@ -146,6 +152,9 @@ export const AllVariants: Story = {
 }
 
 export const IconButtons: Story = {
+  args: {
+    children: 'Button',
+  },
   render: () => (
     <div className="space-y-8">
       <div>
@@ -174,6 +183,9 @@ export const IconButtons: Story = {
 }
 
 export const FullWidth: Story = {
+  args: {
+    children: 'Button',
+  },
   render: () => (
     <div className="w-full max-w-md space-y-4">
       <FancyButton fullWidth>Full Width Primary</FancyButton>
@@ -191,6 +203,9 @@ export const FullWidth: Story = {
 }
 
 export const FancyVariants: Story = {
+  args: {
+    children: 'Button',
+  },
   render: () => (
     <div className="space-y-8">
       <div>
@@ -246,6 +261,9 @@ export const FancyVariants: Story = {
 }
 
 export const InteractiveDemo: Story = {
+  args: {
+    children: 'Button',
+  },
   render: () => {
     const [loading, setLoading] = React.useState(false);
     const [liked, setLiked] = React.useState(false);

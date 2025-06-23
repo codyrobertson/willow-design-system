@@ -324,7 +324,7 @@ ListItem.displayName = 'ListItem';
  * @property {React.ReactNode} [description] - Additional description text
  * @property {React.ReactNode} [overline] - Text that appears above the title
  */
-export interface ListItemContentProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ListItemContentProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   title?: React.ReactNode;
   subtitle?: React.ReactNode;
   description?: React.ReactNode;
@@ -572,7 +572,7 @@ ListHeader.displayName = 'ListHeader';
  * @property {React.ReactNode} [title] - Section title
  * @property {React.ReactNode} [description] - Section description
  */
-export interface ListSectionProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ListSectionProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   title?: React.ReactNode;
   description?: React.ReactNode;
 }

@@ -4,44 +4,289 @@
   "type": "registry",
   "components": [
     {
-      "name": "button",
-      "files": ["src/components/ui/Button.tsx"],
-      "dependencies": ["class-variance-authority", "clsx"]
+      "name": "accordion",
+      "files": [
+        "src/components/registry/components/ui/Accordion.tsx"
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "avatar",
+      "files": [
+        "src/components/registry/components/ui/Avatar.tsx"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ]
     },
     {
       "name": "badge",
-      "files": ["src/components/ui/Badge.tsx"],
-      "dependencies": ["class-variance-authority", "clsx"]
+      "files": [
+        "src/components/registry/components/ui/Badge.tsx"
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "button",
+      "files": [
+        "src/components/registry/components/ui/Button.tsx"
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "lucide-react"
+      ]
     },
     {
       "name": "card",
-      "files": ["src/components/ui/Card.tsx"],
-      "dependencies": ["clsx"]
+      "files": [
+        "src/components/registry/components/ui/Card.tsx"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ]
+    },
+    {
+      "name": "checkbox",
+      "files": [
+        "src/components/registry/components/ui/Checkbox.tsx"
+      ],
+      "dependencies": [
+        "lucide-react",
+        "class-variance-authority"
+      ]
+    },
+    {
+      "name": "chip",
+      "files": [
+        "src/components/registry/components/ui/Chip.tsx"
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "errorboundary",
+      "files": [
+        "src/components/registry/components/ui/ErrorBoundary.tsx"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "fancybutton",
+      "files": [
+        "src/components/registry/components/ui/FancyButton.tsx"
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "formcard.refactored",
+      "files": [
+        "src/components/registry/components/ui/FormCard.refactored.tsx"
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "formcard",
+      "files": [
+        "src/components/registry/components/ui/FormCard.tsx"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "formfield",
+      "files": [
+        "src/components/registry/components/ui/FormField.tsx"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "gradientbg",
+      "files": [
+        "src/components/registry/components/ui/GradientBG.tsx"
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "highlight",
+      "files": [
+        "src/components/registry/components/ui/Highlight.tsx"
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "infocard",
+      "files": [
+        "src/components/registry/components/ui/InfoCard.tsx"
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "lucide-react"
+      ]
     },
     {
       "name": "input",
-      "files": ["src/components/ui/Input.tsx"],
-      "dependencies": ["clsx"]
+      "files": [
+        "src/components/registry/components/ui/Input.tsx"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ]
     },
     {
-      "name": "select",
-      "files": ["src/components/ui/Select.tsx"],
-      "dependencies": ["clsx"]
+      "name": "label",
+      "files": [
+        "src/components/registry/components/ui/Label.tsx"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ]
+    },
+    {
+      "name": "list",
+      "files": [
+        "src/components/registry/components/ui/List.tsx"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ]
+    },
+    {
+      "name": "logo",
+      "files": [
+        "src/components/registry/components/ui/Logo.tsx"
+      ],
+      "dependencies": []
     },
     {
       "name": "modal",
-      "files": ["src/components/ui/Modal.tsx"],
-      "dependencies": ["focus-trap-react", "clsx"]
+      "files": [
+        "src/components/registry/components/ui/Modal.tsx"
+      ],
+      "dependencies": [
+        "lucide-react",
+        "class-variance-authority"
+      ]
+    },
+    {
+      "name": "select",
+      "files": [
+        "src/components/registry/components/ui/Select.tsx"
+      ],
+      "dependencies": [
+        "lucide-react",
+        "class-variance-authority"
+      ]
+    },
+    {
+      "name": "simpleform",
+      "files": [
+        "src/components/registry/components/ui/SimpleForm.tsx"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "skeleton",
+      "files": [
+        "src/components/registry/components/ui/Skeleton.tsx"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ]
+    },
+    {
+      "name": "switch",
+      "files": [
+        "src/components/registry/components/ui/Switch.tsx"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ]
+    },
+    {
+      "name": "tabs",
+      "files": [
+        "src/components/registry/components/ui/Tabs.tsx"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ]
+    },
+    {
+      "name": "tag",
+      "files": [
+        "src/components/registry/components/ui/Tag.tsx"
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "textarea",
+      "files": [
+        "src/components/registry/components/ui/Textarea.tsx"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ]
     },
     {
       "name": "toast",
-      "files": ["src/components/ui/Toast.tsx"],
-      "dependencies": ["clsx"]
+      "files": [
+        "src/components/registry/components/ui/Toast.tsx"
+      ],
+      "dependencies": [
+        "lucide-react",
+        "class-variance-authority"
+      ]
     },
     {
       "name": "tooltip",
-      "files": ["src/components/ui/Tooltip.tsx"],
-      "dependencies": ["clsx"]
+      "files": [
+        "src/components/registry/components/ui/Tooltip.tsx"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ]
+    },
+    {
+      "name": "icon",
+      "files": [
+        "src/components/registry/components/ui/icon/Icon.tsx"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "icontext",
+      "files": [
+        "src/components/registry/components/ui/icon/IconText.tsx"
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "index",
+      "files": [
+        "src/components/registry/components/ui/icon/index.ts",
+        "src/components/registry/components/ui/index.ts"
+      ],
+      "dependencies": []
     }
   ]
 }

@@ -4,11 +4,13 @@ import { Button } from '@/src/components/ui/Button';
 import { Badge } from '@/src/components/ui/Badge';
 import { Chip } from '@/src/components/ui/Chip';
 import { Tag } from '@/src/components/ui/Tag';
+import { AppLayout } from '@/src/components/layout/AppLayout';
 import { Star, Heart, Settings, Check, AlertCircle, Info, TrendingUp, User, Rocket, ArrowRight } from 'lucide-react';
 
 export default function IconTestPage() {
   return (
-    <div className="p-8 space-y-8">
+    <AppLayout>
+      <div className="p-8 space-y-8">
       <h1 className="text-2xl font-normal mb-8">Icon Props Test</h1>
       
       <div>
@@ -28,8 +30,8 @@ export default function IconTestPage() {
           <Badge icon={<Star />}>Left Icon</Badge>
           <Badge icon={<Star />} iconPosition="right">Right Icon</Badge>
           <Badge icon={<Star />} closable onClose={() => alert('closed')}>Closable</Badge>
-          <Badge icon={<Info />} color="info">Info Badge</Badge>
-          <Badge icon={<Check />} color="success" variant="soft">Success</Badge>
+          <Badge icon={<Info />} theme="info">Info Badge</Badge>
+          <Badge icon={<Check />} theme="success" variant="secondary">Success</Badge>
         </div>
       </div>
 
@@ -64,6 +66,7 @@ export default function IconTestPage() {
           <Button theme="dark">Dark</Button>
         </div>
       </div>
-    </div>
+      </div>
+    </AppLayout>
   );
 }

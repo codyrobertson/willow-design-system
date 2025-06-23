@@ -56,19 +56,20 @@ interface GradientBGProps {
   children?: React.ReactNode;
 }
 
-export default function GradientBG({
-  imageUrl,
-  gradientColors,
-  gradientDirection = 'to bottom',
-  blur = 0,
-  gradientOpacity = 1,
-  backgroundSize = 'cover',
-  backgroundPosition = 'center',
-  darkOverlay = false,
-  height = 'min-h-screen',
-  className,
-  children,
-}: GradientBGProps) {
+const GradientBG = React.forwardRef<HTMLDivElement, GradientBGProps>(
+  ({
+    imageUrl,
+    gradientColors,
+    gradientDirection = 'to bottom',
+    blur = 0,
+    gradientOpacity = 1,
+    backgroundSize = 'cover',
+    backgroundPosition = 'center',
+    darkOverlay = false,
+    height = 'min-h-screen',
+    className,
+    children,
+  }, ref) => {
   const hasImage = !!imageUrl;
   const hasGradient = gradientColors && gradientColors.length > 0;
 
@@ -93,6 +94,7 @@ export default function GradientBG({
 
   return (
     <div
+      ref={ref}
       className={cn(
         'relative w-full overflow-hidden',
         height,
@@ -124,4 +126,8 @@ export default function GradientBG({
       <div className="relative z-10 h-full flex flex-col">{children}</div>
     </div>
   );
-}
+  }
+);
+GradientBG.displayName = 'GradientBG';
+
+export default GradientBG;

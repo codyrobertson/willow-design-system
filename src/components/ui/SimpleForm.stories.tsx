@@ -191,7 +191,7 @@ export const Loading: Story = {
 };
 
 // FormCard examples
-export const FormCardBasic: Story = {
+export const FormCardBasic: StoryObj = {
   render: () => (
     <FormCard
       title="Create Account"
@@ -227,7 +227,7 @@ export const FormCardBasic: Story = {
 };
 
 // Multi-step FormCard
-export const FormCardMultiStep: Story = {
+export const FormCardMultiStep: StoryObj = {
   render: () => (
     <FormCard
       title="Complete Your Profile"
@@ -262,7 +262,7 @@ export const FormCardMultiStep: Story = {
 };
 
 // Custom composition
-export const CustomComposition: Story = {
+export const CustomComposition: StoryObj = {
   render: () => (
     <Card className="max-w-md w-full">
       <CardHeader>
@@ -330,7 +330,7 @@ export const InlineForm: Story = {
 };
 
 // Interactive form with dynamic errors
-export const InteractiveForm: Story = {
+export const InteractiveForm: StoryObj = {
   render: () => {
     const [isLoading, setIsLoading] = React.useState(false);
     const [errors, setErrors] = React.useState<Record<string, string>>({});
@@ -421,7 +421,7 @@ export const InteractiveForm: Story = {
 };
 
 // Advanced form with all features
-export const AdvancedForm: Story = {
+export const AdvancedForm: StoryObj = {
   render: () => {
     const [formData, setFormData] = React.useState<Record<string, string>>({
       firstName: 'John',

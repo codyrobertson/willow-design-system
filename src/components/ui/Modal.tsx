@@ -7,7 +7,7 @@ import { cn } from '../../lib/utils';
 import { Button } from './Button';
 
 const modalOverlayVariants = cva(
-  'fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity duration-200',
+  'fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity duration-200 overscroll-contain',
   {
     variants: {
       state: {
@@ -22,15 +22,29 @@ const modalOverlayVariants = cva(
 );
 
 const modalContentVariants = cva(
-  'fixed left-[50%] top-[50%] z-50 w-full translate-x-[-50%] translate-y-[-50%] bg-background rounded-lg shadow-lg transition-all duration-200',
+  'fixed z-50 bg-white text-card-foreground rounded-lg overflow-hidden transition-all duration-200 flex flex-col max-h-[90vh] md:max-h-[85vh]',
   {
     variants: {
       size: {
-        sm: 'max-w-sm',
-        md: 'max-w-md',
-        lg: 'max-w-lg',
-        xl: 'max-w-xl',
-        full: 'max-w-[90vw] max-h-[90vh]',
+        sm: 'w-[95vw] max-w-sm',
+        md: 'w-[95vw] max-w-md',
+        lg: 'w-[95vw] max-w-lg md:w-[90vw]',
+        xl: 'w-[95vw] max-w-xl md:w-[90vw]',
+        '2xl': 'w-[95vw] max-w-2xl md:w-[90vw]',
+        '3xl': 'w-[95vw] max-w-3xl md:w-[90vw]',
+        full: 'w-[100vw] h-[100vh] md:w-[95vw] md:h-[95vh] rounded-none md:rounded-lg',
+      },
+      position: {
+        center: 'left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]',
+        top: 'left-[50%] top-8 translate-x-[-50%] md:top-16',
+        bottom: 'left-[50%] bottom-8 translate-x-[-50%] md:bottom-16',
+      },
+      variant: {
+        default: 'border border-slate-200 shadow-[0px_4px_20px_0px_rgba(0,0,0,0.12),0px_1px_3px_0px_rgba(37,62,167,0.2),0px_0px_0px_1px_rgba(55,93,251,0.1),0px_1px_2px_0px_rgba(0,0,0,0.05),0px_-2.4px_9.3px_0px_inset_rgba(137,114,250,0.15)]',
+        raised: 'border border-slate-200 shadow-[0px_4px_5.8px_10px_rgba(208,208,208,0.05),0px_4px_20px_0px_rgba(0,0,0,0.12),0px_1px_3px_0px_rgba(37,62,167,0.2),0px_0px_0px_1px_rgba(55,93,251,0.1),0px_1px_2px_0px_rgba(0,0,0,0.05),0px_-2.4px_9.3px_0px_inset_rgba(137,114,250,0.15)]',
+        flat: 'border border-[#e1dee9] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]',
+        outlined: 'bg-transparent border-2 border-neutral-300 shadow-sm',
+        elevated: 'border border-neutral-100 shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_10px_10px_-5px_rgba(0,0,0,0.04),0px_-2.4px_9.3px_0px_inset_rgba(137,114,250,0.15)]',
       },
       state: {
         open: 'scale-100 opacity-100',
@@ -39,8 +53,17 @@ const modalContentVariants = cva(
     },
     defaultVariants: {
       size: 'md',
+      position: 'center',
+      variant: 'default',
       state: 'closed',
     },
+    compoundVariants: [
+      {
+        size: 'full',
+        position: 'center',
+        className: 'md:w-[90vw] md:h-[90vh]',
+      },
+    ],
   }
 );
 
@@ -73,6 +96,12 @@ export interface ModalProps {
   className?: string;
   closeOnOverlayClick?: boolean;
   closeOnEsc?: boolean;
+  /** Visual variant of the modal */
+  variant?: 'default' | 'raised' | 'flat' | 'outlined' | 'elevated';
+  /** Size of the modal */
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
+  /** Position of the modal on screen */
+  position?: 'center' | 'top' | 'bottom';
 }
 
 export function Modal({ 
@@ -85,39 +114,17 @@ export function Modal({
   onClose,
   className,
   closeOnOverlayClick = true,
-  closeOnEsc = true
+  closeOnEsc = true,
+  variant,
+  size,
+  position
 }: ModalProps) {
-  // Generate IDs early before any conditional returns
+  // All hooks must be called unconditionally before any early returns
   const modalId = React.useId();
   const titleId = `${modalId}-title`;
   const descriptionId = `${modalId}-description`;
   
-  // Check if we're in simple mode (using isOpen/onClose)
-  const isSimpleMode = isOpen !== undefined || onClose !== undefined;
-  
-  if (isSimpleMode) {
-    // Simple mode - render directly without provider
-    return (
-      <ModalContext.Provider value={{
-        open: isOpen || false,
-        onOpenChange: (open) => !open && onClose?.(),
-        modalId,
-        titleId,
-        descriptionId,
-      }}>
-        <ModalContent 
-          className={className}
-          preventClose={!closeOnOverlayClick || !closeOnEsc}
-          onEscapeKeyDown={closeOnEsc ? undefined : (e) => e.preventDefault()}
-          onPointerDownOutside={closeOnOverlayClick ? undefined : (e) => e.preventDefault()}
-        >
-          {children}
-        </ModalContent>
-      </ModalContext.Provider>
-    );
-  }
-  
-  // Compound component mode
+  // Compound component mode hooks - always call these
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen);
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : uncontrolledOpen;
@@ -139,6 +146,34 @@ export function Modal({
     }),
     [open, handleOpenChange, modalId, titleId, descriptionId]
   );
+  
+  // Check if we're in simple mode (using isOpen/onClose) - after all hooks
+  const isSimpleMode = isOpen !== undefined || onClose !== undefined;
+  
+  if (isSimpleMode) {
+    // Simple mode - render directly without provider
+    return (
+      <ModalContext.Provider value={{
+        open: isOpen || false,
+        onOpenChange: (open) => !open && onClose?.(),
+        modalId,
+        titleId,
+        descriptionId,
+      }}>
+        <ModalContent 
+          className={className}
+          variant={variant}
+          size={size}
+          position={position}
+          preventClose={!closeOnOverlayClick || !closeOnEsc}
+          onEscapeKeyDown={closeOnEsc ? undefined : (e) => e.preventDefault()}
+          onPointerDownOutside={closeOnOverlayClick ? undefined : (e) => e.preventDefault()}
+        >
+          {children}
+        </ModalContent>
+      </ModalContext.Provider>
+    );
+  }
 
   return (
     <ModalContext.Provider value={contextValue}>
@@ -166,7 +201,8 @@ export const ModalTrigger = React.forwardRef<HTMLButtonElement, ModalTriggerProp
     );
 
     if (asChild) {
-      return React.cloneElement(React.Children.only(props.children as React.ReactElement), {
+      const child = React.Children.only(props.children as React.ReactElement);
+      return React.cloneElement(child as React.ReactElement<any>, {
         onClick: handleClick,
         ref,
       });
@@ -183,6 +219,10 @@ export interface ModalContentProps
   onEscapeKeyDown?: (event: KeyboardEvent) => void;
   onPointerDownOutside?: (event: MouseEvent) => void;
   preventClose?: boolean;
+  /** Visual variant of the modal */
+  variant?: 'default' | 'raised' | 'flat' | 'outlined' | 'elevated';
+  /** Position of the modal on screen */
+  position?: 'center' | 'top' | 'bottom';
 }
 
 export const ModalContent = React.forwardRef<HTMLDivElement, ModalContentProps>(
@@ -190,6 +230,8 @@ export const ModalContent = React.forwardRef<HTMLDivElement, ModalContentProps>(
     {
       className,
       size,
+      variant,
+      position,
       children,
       onEscapeKeyDown,
       onPointerDownOutside,
@@ -269,7 +311,7 @@ export const ModalContent = React.forwardRef<HTMLDivElement, ModalContentProps>(
           aria-labelledby={titleId}
           aria-describedby={descriptionId}
           id={modalId}
-          className={cn(modalContentVariants({ size, state: open ? 'open' : 'closed' }), className)}
+          className={cn(modalContentVariants({ size, variant, position, state: open ? 'open' : 'closed' }), className)}
           onKeyDown={(e) => {
             if (e.key === 'Tab') {
               const focusableElements = contentRef.current?.querySelectorAll(
@@ -299,16 +341,113 @@ export const ModalContent = React.forwardRef<HTMLDivElement, ModalContentProps>(
 );
 ModalContent.displayName = 'ModalContent';
 
-export interface ModalHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
+const modalHeaderVariants = cva('flex flex-col gap-2', {
+  variants: {
+    align: {
+      left: 'text-left',
+      center: 'text-center',
+      right: 'text-right',
+    },
+    variant: {
+      default: 'p-4 pb-0 md:p-6 md:pb-0',
+      colored: 'relative',
+    },
+  },
+  defaultVariants: {
+    align: 'left',
+    variant: 'default',
+  },
+});
+
+const modalHeaderColorVariants = cva(
+  'relative shrink-0 w-full',
+  {
+    variants: {
+      theme: {
+        neutral: 'bg-neutral-50',
+        primary: 'bg-willow-primary-50',
+        info: 'bg-info-50',
+        success: 'bg-state-success-lighter',
+        warning: 'bg-state-warning-lighter',
+        danger: 'bg-state-error-lighter',
+      },
+    },
+    defaultVariants: {
+      theme: 'neutral',
+    },
+  }
+);
+
+const modalHeaderColorOverlayVariants = cva(
+  'absolute border-solid inset-0 pointer-events-none',
+  {
+    variants: {
+      theme: {
+        neutral: 'border-neutral-200 border-[0px_0px_1px]',
+        primary: 'border-willow-primary-200 border-[0px_0px_1px]',
+        info: 'border-info-200 border-[0px_0px_1px]',
+        success: 'border-success/20 border-[0px_0px_1px]',
+        warning: 'border-warning/20 border-[0px_0px_1px]',
+        danger: 'border-destructive-200 border-[0px_0px_1px]',
+      },
+    },
+    defaultVariants: {
+      theme: 'neutral',
+    },
+  }
+);
+
+// Context for Modal header color
+const ModalHeaderContext = React.createContext<{ isColored: boolean }>({ isColored: false });
+
+export interface ModalHeaderProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof modalHeaderVariants> {
+  /** Background theme for colored variant */
+  theme?: 'neutral' | 'primary' | 'info' | 'success' | 'warning' | 'danger';
+  /** Text alignment within the header */
+  align?: 'left' | 'center' | 'right';
+  /** Visual variant of the header */
+  variant?: 'default' | 'colored';
+}
 
 export const ModalHeader = React.forwardRef<HTMLDivElement, ModalHeaderProps>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn('flex items-center justify-between p-6 pb-0', className)}
-      {...props}
-    />
-  )
+  ({ className, align, variant, theme, children, ...props }, ref) => {
+    const isColored = variant === 'colored' || !!theme;
+    
+    if (isColored) {
+      return (
+        <ModalHeaderContext.Provider value={{ isColored: true }}>
+          <div
+            ref={ref}
+            className={cn(modalHeaderColorVariants({ theme }))}
+            {...props}
+          >
+            <div className="flex flex-row items-center overflow-clip relative size-full">
+              <div className="box-border content-stretch flex flex-row gap-2 items-center justify-start pl-3 pr-2.5 py-1.5 relative w-full">
+                <div className={cn(modalHeaderVariants({ align, variant: 'colored', className }))}>
+                  {children}
+                </div>
+              </div>
+            </div>
+            <div className={cn(modalHeaderColorOverlayVariants({ theme }))} />
+          </div>
+        </ModalHeaderContext.Provider>
+      );
+    }
+    
+    return (
+      <ModalHeaderContext.Provider value={{ isColored: false }}>
+        <div
+          ref={ref}
+          className={cn(modalHeaderVariants({ align, variant, className }))}
+          {...props}
+        >
+          {children}
+        </div>
+      </ModalHeaderContext.Provider>
+    );
+  }
 );
 ModalHeader.displayName = 'ModalHeader';
 
@@ -319,11 +458,18 @@ export interface ModalTitleProps extends React.HTMLAttributes<HTMLHeadingElement
 export const ModalTitle = React.forwardRef<HTMLHeadingElement, ModalTitleProps>(
   ({ className, as: Component = 'h2', ...props }, ref) => {
     const { titleId } = useModalContext();
+    const { isColored } = React.useContext(ModalHeaderContext);
+    
     return (
       <Component
         ref={ref}
         id={titleId}
-        className={cn('text-lg font-semibold', className)}
+        className={cn(
+          isColored 
+            ? 'text-neutral-950 text-sm font-bold tracking-tight leading-5'
+            : 'text-card-foreground text-xl font-normal tracking-tight leading-relaxed text-shadow-sm',
+          className
+        )}
         {...props}
       />
     );
@@ -340,7 +486,7 @@ export const ModalDescription = React.forwardRef<HTMLParagraphElement, ModalDesc
       <p
         ref={ref}
         id={descriptionId}
-        className={cn('text-sm text-muted-foreground', className)}
+        className={cn('text-muted-foreground text-base font-normal leading-6', className)}
         {...props}
       />
     );
@@ -352,20 +498,41 @@ export interface ModalBodyProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const ModalBody = React.forwardRef<HTMLDivElement, ModalBodyProps>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('p-6', className)} {...props} />
+    <div ref={ref} className={cn('p-4 pt-3 md:p-6 md:pt-4 flex-1 overflow-y-auto overscroll-contain', className)} {...props} />
   )
 );
 ModalBody.displayName = 'ModalBody';
 
-export interface ModalFooterProps extends React.HTMLAttributes<HTMLDivElement> {}
+const modalFooterVariants = cva('flex items-center p-4 pt-0 md:p-6 md:pt-0', {
+  variants: {
+    align: {
+      left: 'justify-start',
+      center: 'justify-center',
+      right: 'justify-end',
+      between: 'justify-between',
+    },
+  },
+  defaultVariants: {
+    align: 'right',
+  },
+});
+
+export interface ModalFooterProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof modalFooterVariants> {
+  /** Alignment of footer content */
+  align?: 'left' | 'center' | 'right' | 'between';
+}
 
 export const ModalFooter = React.forwardRef<HTMLDivElement, ModalFooterProps>(
-  ({ className, ...props }, ref) => (
+  ({ className, align, children, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('flex items-center justify-end gap-2 p-6 pt-0', className)}
+      className={cn(modalFooterVariants({ align, className }))}
       {...props}
-    />
+    >
+      {align === 'between' ? children : <div className="flex gap-2">{children}</div>}
+    </div>
   )
 );
 ModalFooter.displayName = 'ModalFooter';
@@ -389,7 +556,8 @@ export const ModalClose = React.forwardRef<HTMLButtonElement, ModalCloseProps>(
     );
 
     if (asChild) {
-      return React.cloneElement(React.Children.only(props.children as React.ReactElement), {
+      const child = React.Children.only(props.children as React.ReactElement);
+      return React.cloneElement(child as React.ReactElement<any>, {
         onClick: handleClick,
         ref,
       });
@@ -399,8 +567,8 @@ export const ModalClose = React.forwardRef<HTMLButtonElement, ModalCloseProps>(
       <Button
         ref={ref}
         variant="ghost"
-        size="icon"
-        className="absolute right-4 top-4"
+size="compact"
+        className="absolute right-2 top-2 md:right-4 md:top-4 rounded-full hover:bg-neutral-100"
         onClick={handleClick}
         {...props}
       >

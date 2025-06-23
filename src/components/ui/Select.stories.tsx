@@ -30,14 +30,12 @@ type Story = StoryObj<typeof Select>;
 
 export const Default: Story = {
   args: {
-    children: (
-      <>
-        <option value="">Select an option</option>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-      </>
-    ),
+    options: [
+      { value: '', label: 'Select an option' },
+      { value: '1', label: 'Option 1' },
+      { value: '2', label: 'Option 2' },
+      { value: '3', label: 'Option 3' }
+    ],
   },
 };
 
@@ -46,29 +44,41 @@ export const Sizes: Story = {
     <div className="space-y-4">
       <div className="space-y-2">
         <Label htmlFor="small">Small Select</Label>
-        <Select id="small" size="sm">
-          <option>Small size</option>
-          <option>Option 1</option>
-          <option>Option 2</option>
-        </Select>
+        <Select 
+          id="small" 
+          size="sm"
+          options={[
+            { value: 'small', label: 'Small size' },
+            { value: 'option1', label: 'Option 1' },
+            { value: 'option2', label: 'Option 2' }
+          ]}
+        />
       </div>
       
       <div className="space-y-2">
         <Label htmlFor="medium">Medium Select (Default)</Label>
-        <Select id="medium" size="md">
-          <option>Medium size</option>
-          <option>Option 1</option>
-          <option>Option 2</option>
-        </Select>
+        <Select 
+          id="medium" 
+          size="md"
+          options={[
+            { value: 'medium', label: 'Medium size' },
+            { value: 'option1', label: 'Option 1' },
+            { value: 'option2', label: 'Option 2' }
+          ]}
+        />
       </div>
       
       <div className="space-y-2">
         <Label htmlFor="large">Large Select</Label>
-        <Select id="large" size="lg">
-          <option>Large size</option>
-          <option>Option 1</option>
-          <option>Option 2</option>
-        </Select>
+        <Select 
+          id="large" 
+          size="lg"
+          options={[
+            { value: 'large', label: 'Large size' },
+            { value: 'option1', label: 'Option 1' },
+            { value: 'option2', label: 'Option 2' }
+          ]}
+        />
       </div>
     </div>
   ),
@@ -78,14 +88,17 @@ export const WithLabel: Story = {
   render: () => (
     <div className="space-y-2">
       <Label htmlFor="country" required>Country</Label>
-      <Select id="country">
-        <option value="">Select your country</option>
-        <option value="us">United States</option>
-        <option value="ca">Canada</option>
-        <option value="mx">Mexico</option>
-        <option value="uk">United Kingdom</option>
-        <option value="au">Australia</option>
-      </Select>
+      <Select 
+        id="country"
+        options={[
+          { value: '', label: 'Select your country' },
+          { value: 'us', label: 'United States' },
+          { value: 'ca', label: 'Canada' },
+          { value: 'mx', label: 'Mexico' },
+          { value: 'uk', label: 'United Kingdom' },
+          { value: 'au', label: 'Australia' }
+        ]}
+      />
     </div>
   ),
 };
@@ -95,27 +108,38 @@ export const States: Story = {
     <div className="space-y-4 w-64">
       <div className="space-y-2">
         <Label htmlFor="normal">Normal State</Label>
-        <Select id="normal">
-          <option>Select an option</option>
-          <option>Option 1</option>
-          <option>Option 2</option>
-        </Select>
+        <Select 
+          id="normal"
+          options={[
+            { value: '', label: 'Select an option' },
+            { value: 'option1', label: 'Option 1' },
+            { value: 'option2', label: 'Option 2' }
+          ]}
+        />
       </div>
       
       <div className="space-y-2">
         <Label htmlFor="disabled">Disabled State</Label>
-        <Select id="disabled" disabled>
-          <option>Disabled select</option>
-        </Select>
+        <Select 
+          id="disabled" 
+          disabled
+          options={[
+            { value: '', label: 'Disabled select' }
+          ]}
+        />
       </div>
       
       <div className="space-y-2">
         <Label htmlFor="error">Error State</Label>
-        <Select id="error" error>
-          <option value="">Please select</option>
-          <option>Option 1</option>
-          <option>Option 2</option>
-        </Select>
+        <Select 
+          id="error" 
+          error
+          options={[
+            { value: '', label: 'Please select' },
+            { value: 'option1', label: 'Option 1' },
+            { value: 'option2', label: 'Option 2' }
+          ]}
+        />
         <p className="text-sm text-danger">Please select an option</p>
       </div>
     </div>
@@ -126,24 +150,21 @@ export const WithGroups: Story = {
   render: () => (
     <div className="space-y-2">
       <Label htmlFor="grouped">Categories</Label>
-      <Select id="grouped">
-        <option value="">Select a category</option>
-        <optgroup label="Technology">
-          <option value="computers">Computers</option>
-          <option value="phones">Phones</option>
-          <option value="tablets">Tablets</option>
-        </optgroup>
-        <optgroup label="Entertainment">
-          <option value="movies">Movies</option>
-          <option value="music">Music</option>
-          <option value="games">Games</option>
-        </optgroup>
-        <optgroup label="Sports">
-          <option value="football">Football</option>
-          <option value="basketball">Basketball</option>
-          <option value="tennis">Tennis</option>
-        </optgroup>
-      </Select>
+      <Select 
+        id="grouped"
+        options={[
+          { value: '', label: 'Select a category' },
+          { value: 'computers', label: 'Technology - Computers' },
+          { value: 'phones', label: 'Technology - Phones' },
+          { value: 'tablets', label: 'Technology - Tablets' },
+          { value: 'movies', label: 'Entertainment - Movies' },
+          { value: 'music', label: 'Entertainment - Music' },
+          { value: 'games', label: 'Entertainment - Games' },
+          { value: 'football', label: 'Sports - Football' },
+          { value: 'basketball', label: 'Sports - Basketball' },
+          { value: 'tennis', label: 'Sports - Tennis' }
+        ]}
+      />
     </div>
   ),
 };
@@ -159,15 +180,16 @@ export const Controlled: Story = {
           <Select
             id="controlled"
             value={value}
-            onChange={(e) => setValue(e.target.value)}
-          >
-            <option value="">Choose a color</option>
-            <option value="red">Red</option>
-            <option value="green">Green</option>
-            <option value="blue">Blue</option>
-            <option value="yellow">Yellow</option>
-            <option value="purple">Purple</option>
-          </Select>
+            onChange={(value) => setValue(value)}
+            options={[
+              { value: '', label: 'Choose a color' },
+              { value: 'red', label: 'Red' },
+              { value: 'green', label: 'Green' },
+              { value: 'blue', label: 'Blue' },
+              { value: 'yellow', label: 'Yellow' },
+              { value: 'purple', label: 'Purple' }
+            ]}
+          />
         </div>
         {value && (
           <p className="text-sm text-muted-foreground">
@@ -194,14 +216,15 @@ export const FormExample: Story = {
           <Select
             id="title"
             value={formData.title}
-            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          >
-            <option value="">Select a position</option>
-            <option value="developer">Software Developer</option>
-            <option value="designer">UI/UX Designer</option>
-            <option value="manager">Product Manager</option>
-            <option value="analyst">Business Analyst</option>
-          </Select>
+            onChange={(value) => setFormData({ ...formData, title: value })}
+            options={[
+              { value: '', label: 'Select a position' },
+              { value: 'developer', label: 'Software Developer' },
+              { value: 'designer', label: 'UI/UX Designer' },
+              { value: 'manager', label: 'Product Manager' },
+              { value: 'analyst', label: 'Business Analyst' }
+            ]}
+          />
         </div>
         
         <div className="space-y-2">
@@ -209,15 +232,16 @@ export const FormExample: Story = {
           <Select
             id="department"
             value={formData.department}
-            onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-          >
-            <option value="">Choose department</option>
-            <option value="engineering">Engineering</option>
-            <option value="design">Design</option>
-            <option value="product">Product</option>
-            <option value="marketing">Marketing</option>
-            <option value="sales">Sales</option>
-          </Select>
+            onChange={(value) => setFormData({ ...formData, department: value })}
+            options={[
+              { value: '', label: 'Choose department' },
+              { value: 'engineering', label: 'Engineering' },
+              { value: 'design', label: 'Design' },
+              { value: 'product', label: 'Product' },
+              { value: 'marketing', label: 'Marketing' },
+              { value: 'sales', label: 'Sales' }
+            ]}
+          />
         </div>
         
         <div className="space-y-2">
@@ -225,15 +249,16 @@ export const FormExample: Story = {
           <Select
             id="location"
             value={formData.location}
-            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-          >
-            <option value="">Any location</option>
-            <option value="remote">Remote</option>
-            <option value="nyc">New York City</option>
-            <option value="sf">San Francisco</option>
-            <option value="london">London</option>
-            <option value="berlin">Berlin</option>
-          </Select>
+            onChange={(value) => setFormData({ ...formData, location: value })}
+            options={[
+              { value: '', label: 'Any location' },
+              { value: 'remote', label: 'Remote' },
+              { value: 'nyc', label: 'New York City' },
+              { value: 'sf', label: 'San Francisco' },
+              { value: 'london', label: 'London' },
+              { value: 'berlin', label: 'Berlin' }
+            ]}
+          />
         </div>
       </form>
     );
@@ -243,17 +268,20 @@ export const FormExample: Story = {
 export const Multiple: Story = {
   render: () => (
     <div className="space-y-2">
-      <Label htmlFor="multiple">Select Multiple Options</Label>
-      <Select id="multiple" multiple size={5}>
-        <option value="react">React</option>
-        <option value="vue">Vue</option>
-        <option value="angular">Angular</option>
-        <option value="svelte">Svelte</option>
-        <option value="solid">Solid</option>
-        <option value="qwik">Qwik</option>
-      </Select>
+      <Label htmlFor="multiple">Select Framework</Label>
+      <Select 
+        id="multiple"
+        options={[
+          { value: 'react', label: 'React' },
+          { value: 'vue', label: 'Vue' },
+          { value: 'angular', label: 'Angular' },
+          { value: 'svelte', label: 'Svelte' },
+          { value: 'solid', label: 'Solid' },
+          { value: 'qwik', label: 'Qwik' }
+        ]}
+      />
       <p className="text-sm text-muted-foreground">
-        Hold Ctrl/Cmd to select multiple options
+        Choose your preferred frontend framework
       </p>
     </div>
   ),

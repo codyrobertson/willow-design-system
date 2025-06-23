@@ -4,7 +4,7 @@ import { cn } from '../../lib/utils'
 export type HighlightSize = "sm" | "md" | "lg"
 export type HighlightVariant = "dark" | "light"
 
-interface HighlightProps {
+export interface HighlightProps {
   /** Strength of the backdrop blur in pixels. Default is `34`. */
   blurStrength?: number
   /** Visual theme for card */
@@ -27,15 +27,16 @@ const sizeStyles: Record<HighlightSize, string> = {
   lg: "text-xl",
 }
 
-export function Highlight({
-  blurStrength = 20,
-  variant = "dark",
-  text,
-  size = "md",
-  iconLeft,
-  iconRight,
-  className,
-}: HighlightProps) {
+export const Highlight = React.forwardRef<HTMLDivElement, HighlightProps>(
+  ({
+    blurStrength = 20,
+    variant = "dark",
+    text,
+    size = "md",
+    iconLeft,
+    iconRight,
+    className,
+  }, ref) => {
   const background =
     variant === "dark"
       ? "bg-black/20 border border-white/10"
@@ -53,6 +54,7 @@ export function Highlight({
 
   return (
     <div
+      ref={ref}
       className={cn(
         "relative rounded-2xl w-full",
         background,
@@ -74,7 +76,9 @@ export function Highlight({
         {renderIcon(iconRight)}
       </div>
     </div>
-  )
-}
+  );
+  }
+);
+Highlight.displayName = 'Highlight';
 
-export default Highlight
+export default Highlight;

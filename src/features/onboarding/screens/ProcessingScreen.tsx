@@ -70,7 +70,7 @@ export default function ProcessingScreen() {
                 {/* Text container - no scrolling, just clipped */}
                 <div className="relative h-full px-4 py-4">
                   <div className="space-y-2 text-sm font-codec-pro text-[#b8b2c9] leading-[20px] tracking-[-0.084px]">
-                    {instructions.map((line, index) => (
+                    {instructions.map((line: string, index: number) => (
                       <p 
                         key={index}
                         className={cn(

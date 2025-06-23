@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../lib/utils';
-import { ChevronDown, ChevronRight } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 /**
  * Accordion Component System
@@ -93,10 +93,10 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
       >
         {React.Children.map(children, (child) => {
           if (React.isValidElement(child)) {
-            return React.cloneElement(child, {
-              ...child.props,
+            const childElement = child as React.ReactElement<{ 'data-state'?: string; onClick?: () => void }>;
+            return React.cloneElement(childElement, {
               'data-state': isExpanded ? 'open' : 'closed',
-              onClick: child.type === AccordionTrigger ? handleToggle : child.props.onClick,
+              onClick: childElement.type === AccordionTrigger ? handleToggle : childElement.props.onClick,
             });
           }
           return child;
@@ -131,6 +131,7 @@ export interface AccordionTriggerProps
   chevron?: boolean;
   chevronIcon?: React.ReactNode;
   asChild?: boolean;
+  'data-state'?: 'open' | 'closed';
 }
 
 export const AccordionTrigger = React.forwardRef<HTMLButtonElement, AccordionTriggerProps>(
@@ -144,15 +145,16 @@ export const AccordionTrigger = React.forwardRef<HTMLButtonElement, AccordionTri
     asChild,
     ...props
   }, ref) => {
-    const Comp = asChild ? 'div' : 'button';
     const isExpanded = props['data-state'] === 'open';
     
     if (asChild) {
+      const { onClick, ...divProps } = props as React.HTMLAttributes<HTMLDivElement> & { onClick?: () => void };
       return (
         <div
-          ref={ref as React.RefObject<HTMLDivElement>}
+          ref={ref as React.Ref<HTMLDivElement>}
           className={cn(accordionTriggerVariants({ variant }), className)}
-          {...props}
+          onClick={onClick}
+          {...divProps}
         >
           <div className="flex items-center gap-2">
             {icon}
@@ -218,6 +220,7 @@ export interface AccordionContentProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof accordionContentVariants> {
   forceMount?: boolean;
+  'data-state'?: 'open' | 'closed';
 }
 
 export const AccordionContent = React.forwardRef<HTMLDivElement, AccordionContentProps>(
@@ -287,12 +290,15 @@ export const AccordionGroup = React.forwardRef<HTMLDivElement, AccordionGroupPro
     return (
       <div ref={ref} className={cn('space-y-2', className)} {...props}>
         {React.Children.map(children, (child) => {
-          if (React.isValidElement(child) && child.props.value) {
-            const itemValue = child.props.value;
-            return React.cloneElement(child, {
-              expanded: isItemExpanded(itemValue),
-              onExpandedChange: (expanded: boolean) => handleValueChange(itemValue, expanded),
-            });
+          if (React.isValidElement(child)) {
+            const childElement = child as React.ReactElement<{ value?: string; expanded?: boolean; onExpandedChange?: (expanded: boolean) => void }>;
+            if (childElement.props.value) {
+              const itemValue = childElement.props.value;
+              return React.cloneElement(childElement, {
+                expanded: isItemExpanded(itemValue),
+                onExpandedChange: (expanded: boolean) => handleValueChange(itemValue, expanded),
+              });
+            }
           }
           return child;
         })}
@@ -308,7 +314,8 @@ export interface AccordionItemProps extends AccordionProps {
 }
 
 export const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps>(
-  ({ value, ...props }, ref) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ({ value: _value, ...props }, ref) => {
     return <Accordion ref={ref} {...props} />;
   }
 );

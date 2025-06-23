@@ -253,7 +253,7 @@ export const WithBadges: Story = {
         </TabsTrigger>
         <TabsTrigger value="requests" className="gap-2">
           Requests
-          <Badge size="sm" color="warning" className="ml-1">12</Badge>
+          <Badge size="sm" theme="warning" className="ml-1">12</Badge>
         </TabsTrigger>
         <TabsTrigger value="archived">
           Archived

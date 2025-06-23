@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { 
   Accordion, 
@@ -230,7 +230,7 @@ describe('Accordion Component', () => {
       const paddingVariants = ['none', 'sm', 'md', 'lg'] as const;
       
       paddingVariants.forEach(padding => {
-        const { container } = render(
+        render(
           <Accordion defaultExpanded>
             <AccordionContent padding={padding}>Content</AccordionContent>
           </Accordion>

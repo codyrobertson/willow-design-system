@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Image from 'next/image';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../lib/utils';
 
@@ -184,11 +185,13 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
         {...props}
       >
         {showImage ? (
-          <img
+          <Image
             src={src}
             alt={alt || 'Avatar'}
             onError={handleImageError}
             className={avatarImageVariants({ shape })}
+            fill
+            sizes="(max-width: 64px) 100vw, 64px"
           />
         ) : fallback ? (
           <span className="font-medium text-white">

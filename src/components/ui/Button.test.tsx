@@ -7,14 +7,14 @@ import { Button } from './Button';
 describe('Button Component', () => {
   describe('Edge Cases', () => {
     it('handles undefined children gracefully', () => {
-      const { container } = render(<Button>{undefined}</Button>);
+      render(<Button>{undefined}</Button>);
       expect(screen.getByRole('button')).toBeInTheDocument();
       // Button has internal structure, check that no visible text is rendered
       expect(screen.getByRole('button')).toHaveTextContent('');
     });
 
     it('handles null children gracefully', () => {
-      const { container } = render(<Button>{null}</Button>);
+      render(<Button>{null}</Button>);
       expect(screen.getByRole('button')).toBeInTheDocument();
       // Button has internal structure, check that no visible text is rendered
       expect(screen.getByRole('button')).toHaveTextContent('');
@@ -28,7 +28,7 @@ describe('Button Component', () => {
     });
 
     it('handles undefined onClick', () => {
-      const { container } = render(<Button onClick={undefined}>Click</Button>);
+      render(<Button onClick={undefined}>Click</Button>);
       const button = screen.getByRole('button');
       fireEvent.click(button);
       // Should not crash
@@ -36,7 +36,7 @@ describe('Button Component', () => {
     });
 
     it('handles null onClick', () => {
-      const { container } = render(<Button onClick={null as any}>Click</Button>);
+      render(<Button onClick={null as (() => void) | undefined}>Click</Button>);
       const button = screen.getByRole('button');
       fireEvent.click(button);
       // Should not crash
@@ -49,7 +49,7 @@ describe('Button Component', () => {
     });
 
     it('handles null leftIcon', () => {
-      render(<Button leftIcon={null as any}>Button</Button>);
+      render(<Button leftIcon={null as React.ReactNode | undefined}>Button</Button>);
       expect(screen.getByRole('button')).toHaveTextContent('Button');
     });
 
@@ -59,22 +59,22 @@ describe('Button Component', () => {
     });
 
     it('handles null rightIcon', () => {
-      render(<Button rightIcon={null as any}>Button</Button>);
+      render(<Button rightIcon={null as React.ReactNode | undefined}>Button</Button>);
       expect(screen.getByRole('button')).toHaveTextContent('Button');
     });
 
     it('handles invalid variant', () => {
-      render(<Button variant={'invalid' as any}>Button</Button>);
+      render(<Button variant={'invalid' as 'default' | 'secondary' | 'ghost' | 'outline' | 'link' | 'fancy' | undefined}>Button</Button>);
       expect(screen.getByRole('button')).toBeInTheDocument();
     });
 
     it('handles invalid theme', () => {
-      render(<Button theme={'invalid' as any}>Button</Button>);
+      render(<Button theme={'invalid' as 'primary' | 'danger' | 'warning' | 'success' | 'info' | 'dark' | 'neutral' | undefined}>Button</Button>);
       expect(screen.getByRole('button')).toBeInTheDocument();
     });
 
     it('handles invalid size', () => {
-      render(<Button size={'invalid' as any}>Button</Button>);
+      render(<Button size={'invalid' as 'sm' | 'md' | 'lg' | 'compact' | undefined}>Button</Button>);
       expect(screen.getByRole('button')).toBeInTheDocument();
     });
 
@@ -132,7 +132,7 @@ describe('Button Component', () => {
     });
 
     it('handles className as null', () => {
-      render(<Button className={null as any}>Button</Button>);
+      render(<Button className={null as string | undefined}>Button</Button>);
       expect(screen.getByRole('button')).toBeInTheDocument();
     });
 

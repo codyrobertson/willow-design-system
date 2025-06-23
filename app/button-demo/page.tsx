@@ -1,12 +1,13 @@
 'use client'
 
 import { FancyButton } from "@/src/components/ui/FancyButton"
+import { AppLayout } from '@/src/components/layout/AppLayout'
 import { ArrowLeft, ArrowRight, Download, FileText } from "lucide-react"
 
 export default function ButtonDemo() {
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <AppLayout>
+      <div className="max-w-4xl mx-auto space-y-8 p-8">
         <h1 className="text-3xl font-bold text-gray-900">FancyButton Demo</h1>
         
         {/* Button Sizes */}
@@ -83,6 +84,6 @@ export default function ButtonDemo() {
           </FancyButton>
         </div>
       </div>
-    </div>
+    </AppLayout>
   )
 }

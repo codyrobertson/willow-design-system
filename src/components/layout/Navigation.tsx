@@ -1,10 +1,10 @@
 'use client'
 
 import React from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { Logo, LogoProps } from '../ui/Logo'
-import { ArrowLeft, UserCircle, Package } from 'lucide-react'
+import { ArrowLeft, UserCircle, Package, Zap, Book } from 'lucide-react'
 
 interface NavigationProps {
   showBackButton?: boolean
@@ -22,9 +22,27 @@ export function Navigation({
   logoSize,
 }: NavigationProps) {
   const router = useRouter()
+  const pathname = usePathname()
 
-  const defaultLockup = transparent ? 'full' : 'icon'
-  const defaultVariant = transparent ? 'dark' : 'dark'
+  const defaultLockup = transparent ? 'full' : 'full'
+  const defaultVariant = transparent ? 'light' : 'light'
+
+  const isActive = (path: string) => {
+    if (path === '/storybook' && (pathname === '/storybook' || pathname === '/')) return true
+    return pathname === path
+  }
+
+  const getLinkClassName = (path: string) => `
+    px-3 py-2 rounded-lg transition-colors flex items-center gap-2 text-sm font-medium
+    ${isActive(path) 
+      ? transparent 
+        ? 'bg-white/20 text-white' 
+        : 'bg-neutral-100 text-neutral-900'
+      : transparent
+        ? 'text-white hover:bg-white/10'
+        : 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900'
+    }
+  `.trim().replace(/\s+/g, ' ')
 
   return (
     <nav
@@ -48,30 +66,44 @@ export function Navigation({
               <ArrowLeft className="w-5 h-5" />
             </button>
           )}
-          <Logo
-            size={logoSize ?? 'md'}
-            lockup={logoLockup ?? defaultLockup}
-            variant={logoVariant ?? defaultVariant}
-          />
+          <a href="https://willow-design-system.vercel.app/storybook" target="_blank" rel="noopener noreferrer">
+            <Logo
+              size={logoSize ?? 'md'}
+              lockup={logoLockup ?? defaultLockup}
+              variant={logoVariant ?? defaultVariant}
+            />
+          </a>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
+          <Link
+            href="/quick-start"
+            className={getLinkClassName('/quick-start')}
+          >
+            <Zap className="w-4 h-4" />
+            <span className="hidden sm:inline">Quick Start</span>
+          </Link>
+          <a
+            href="https://willow-design-system.vercel.app/storybook"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={getLinkClassName('/storybook')}
+          >
+            <Book className="w-4 h-4" />
+            <span className="hidden sm:inline">Storybook</span>
+          </a>
           <Link
             href="/registry"
-            className={`px-3 py-2 rounded-lg transition-colors flex items-center gap-2 text-sm font-medium ${
-              transparent
-                ? 'text-white hover:bg-white/10'
-                : 'hover:bg-neutral-100'
-            }`}
+            className={getLinkClassName('/registry')}
           >
             <Package className="w-4 h-4" />
-            Registry
+            <span className="hidden sm:inline">Registry</span>
           </Link>
           <button
-            className={`p-2 rounded-full transition-colors ${
+            className={`p-2 rounded-full transition-colors ml-2 ${
               transparent
                 ? 'text-white hover:bg-white/10'
-                : 'hover:bg-neutral-100'
+                : 'text-neutral-600 hover:bg-neutral-100'
             }`}
           >
             <UserCircle className="w-5 h-5" />

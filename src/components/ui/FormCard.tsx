@@ -55,7 +55,7 @@ export interface FormField {
   rightIcon?: React.ReactNode;
 }
 
-interface FormCardProps {
+export interface FormCardProps {
   /**
    * Card title/heading
    */
@@ -102,19 +102,20 @@ interface FormCardProps {
   className?: string;
 }
 
-export function FormCard({
-  title,
-  subtitle,
-  fields,
-  submitText,
-  onSubmit,
-  currentStep,
-  totalSteps,
-  isLoading = false,
-  errors = {},
-  defaultValues = {},
-  className,
-}: FormCardProps) {
+export const FormCard = React.forwardRef<HTMLDivElement, FormCardProps>(
+  ({
+    title,
+    subtitle,
+    fields,
+    submitText,
+    onSubmit,
+    currentStep,
+    totalSteps,
+    isLoading = false,
+    errors = {},
+    defaultValues = {},
+    className,
+  }, ref) => {
   const [formData, setFormData] = useState<Record<string, string>>(() => {
     // Initialize with defaultValues or empty strings for each field
     const initialData: Record<string, string> = {};
@@ -189,7 +190,7 @@ export function FormCard({
   }, [formData, touched, errors, validateField]);
 
   return (
-    <Card className={cn('max-w-md w-full', className)} variant="default">
+    <Card ref={ref} className={cn('max-w-md w-full', className)} variant="default">
       <form onSubmit={handleSubmit} noValidate className="w-full">
         <CardHeader align="center" className="px-8 pt-6 pb-4">
           <h2 className="font-codec-pro font-normal text-[#534f5e] text-[32px] tracking-[-0.64px]">
@@ -371,4 +372,6 @@ export function FormCard({
       </form>
     </Card>
   );
-}
+  }
+);
+FormCard.displayName = 'FormCard';

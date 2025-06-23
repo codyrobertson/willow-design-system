@@ -1,6 +1,7 @@
 // Re-export all UI components from a single entry point
 export * from './ui/Button';
 export * from './ui/Badge';
+export * from './ui/Avatar';
 export * from './ui/Card';
 export * from './ui/Input';
 export * from './ui/Label';
@@ -12,12 +13,13 @@ export * from './ui/Modal';
 export * from './ui/Toast';
 export * from './ui/Tooltip';
 export * from './ui/Accordion';
+export * from './ui/Tabs';
 export * from './ui/Chip';
 export * from './ui/Tag';
 export * from './ui/List';
 export * from './ui/Skeleton';
 export * from './ui/FormField';
-export * from './ui/FormCard';
+export { FormCard, type FormField as FormFieldType } from './ui/FormCard';
 export * from './ui/SimpleForm';
 export * from './ui/InfoCard';
 export * from './ui/Highlight';

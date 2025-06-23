@@ -12,7 +12,7 @@ describe('Avatar', () => {
     });
 
     it('handles null src gracefully', () => {
-      const { container } = render(<Avatar src={null as any} />);
+      const { container } = render(<Avatar src={null as string | undefined} />);
       const svg = container.querySelector('svg');
       expect(svg).toBeInTheDocument();
     });
@@ -30,7 +30,7 @@ describe('Avatar', () => {
     });
 
     it('handles null alt text', () => {
-      render(<Avatar src="/test.jpg" alt={null as any} />);
+      render(<Avatar src="/test.jpg" alt={null as string | undefined} />);
       const img = screen.getByRole('img');
       expect(img).toHaveAttribute('alt', 'Avatar');
     });
@@ -42,7 +42,7 @@ describe('Avatar', () => {
     });
 
     it('handles null fallback', () => {
-      const { container } = render(<Avatar fallback={null as any} />);
+      const { container } = render(<Avatar fallback={null as string | undefined} />);
       const svg = container.querySelector('svg');
       expect(svg).toBeInTheDocument();
     });
@@ -72,7 +72,7 @@ describe('Avatar', () => {
     });
 
     it('handles invalid status values', () => {
-      const { container } = render(<Avatar status={'invalid' as any} />);
+      const { container } = render(<Avatar status={'invalid' as 'online' | 'offline' | 'away' | 'busy' | undefined} />);
       // Should still render without crashing
       expect(container.firstChild).toBeInTheDocument();
     });

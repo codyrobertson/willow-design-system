@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import { Badge } from './Badge';
 
@@ -43,17 +44,17 @@ describe('Badge Component', () => {
     });
   });
 
-  describe('Variants and Colors', () => {
-    const variants = ['solid', 'soft', 'outline'] as const;
-    const colors = ['primary', 'neutral', 'success', 'warning', 'danger', 'info'] as const;
+  describe('Variants and Themes', () => {
+    const variants = ['default', 'secondary', 'outline'] as const;
+    const themes = ['primary', 'neutral', 'success', 'warning', 'danger', 'info'] as const;
 
     variants.forEach(variant => {
-      colors.forEach(color => {
-        it(`renders ${variant} variant with ${color} color`, () => {
-          render(<Badge variant={variant} color={color}>{variant}-{color}</Badge>);
-          const badge = screen.getByText(`${variant}-${color}`);
+      themes.forEach(theme => {
+        it(`renders ${variant} variant with ${theme} theme`, () => {
+          render(<Badge variant={variant} theme={theme}>{variant}-{theme}</Badge>);
+          const badge = screen.getByText(`${variant}-${theme}`);
           expect(badge).toBeInTheDocument();
-          // Check that appropriate color classes are applied
+          // Check that appropriate theme classes are applied
           expect(badge.parentElement?.className).toMatch(/bg-|text-|border-/);
         });
       });
@@ -117,14 +118,14 @@ describe('Badge Component', () => {
   });
 
   describe('Dot Indicator Styling', () => {
-    it('applies correct dot styling for solid variant', () => {
-      render(<Badge variant="solid" dot>Solid</Badge>);
+    it('applies correct dot styling for default variant', () => {
+      render(<Badge variant="default" dot>Solid</Badge>);
       const dot = screen.getByText('Solid').parentElement?.querySelector('.rounded-full');
       expect(dot?.className).toContain('bg-white');
     });
 
-    it('applies correct dot styling for soft variant', () => {
-      render(<Badge variant="soft" dot>Soft</Badge>);
+    it('applies correct dot styling for secondary variant', () => {
+      render(<Badge variant="secondary" dot>Soft</Badge>);
       const dot = screen.getByText('Soft').parentElement?.querySelector('.rounded-full');
       expect(dot?.className).toContain('bg-current');
     });
@@ -151,6 +152,12 @@ describe('Badge Component', () => {
     it('forwards additional props', () => {
       render(<Badge data-testid="custom-badge">Test Badge</Badge>);
       expect(screen.getByTestId('custom-badge')).toBeInTheDocument();
+    });
+
+    it('forwards ref correctly', () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(<Badge ref={ref}>Badge</Badge>);
+      expect(ref.current).toBeInstanceOf(HTMLDivElement);
     });
   });
 

@@ -121,7 +121,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
 Card.displayName = 'Card';
 
 // Add Card context
-const CardContext = React.createContext<{ setTitleId?: (id: string) => void }>({});
+const CardContext = React.createContext<{ setTitleId?: (id: string | undefined) => void }>({});
 
 const cardHeaderVariants = cva('flex flex-col gap-2', {
   variants: {
@@ -145,7 +145,7 @@ const cardHeaderColorVariants = cva(
   'relative shrink-0 w-full',
   {
     variants: {
-      color: {
+      theme: {
         neutral: 'bg-neutral-50',
         primary: 'bg-willow-primary-50',
         info: 'bg-info-50',
@@ -155,7 +155,7 @@ const cardHeaderColorVariants = cva(
       },
     },
     defaultVariants: {
-      color: 'neutral',
+      theme: 'neutral',
     },
   }
 );
@@ -164,7 +164,7 @@ const cardHeaderColorOverlayVariants = cva(
   'absolute border-solid inset-0 pointer-events-none',
   {
     variants: {
-      color: {
+      theme: {
         neutral: 'border-neutral-200 border-[0px_0px_1px]',
         primary: 'border-willow-primary-200 border-[0px_0px_1px]',
         info: 'border-info-200 border-[0px_0px_1px]',
@@ -174,7 +174,7 @@ const cardHeaderColorOverlayVariants = cva(
       },
     },
     defaultVariants: {
-      color: 'neutral',
+      theme: 'neutral',
     },
   }
 );
@@ -183,7 +183,7 @@ export interface CardHeaderProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof cardHeaderVariants> {
   /** Background color theme for colored variant */
-  color?: 'neutral' | 'primary' | 'info' | 'success' | 'warning' | 'danger';
+  theme?: 'neutral' | 'primary' | 'info' | 'success' | 'warning' | 'danger';
   /** Text alignment within the header */
   align?: 'left' | 'center' | 'right';
   /** Visual variant of the header */
@@ -206,21 +206,21 @@ export interface CardHeaderProps
  * </CardHeader>
  * 
  * // Colored header
- * <CardHeader color="primary" variant="colored">
+ * <CardHeader theme="primary" variant="colored">
  *   <CardTitle>Important Info</CardTitle>
  * </CardHeader>
  * ```
  */
 const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
-  ({ className, align, variant, color, children, ...props }, ref) => {
-    const isColored = variant === 'colored' || !!color;
+  ({ className, align, variant, theme, children, ...props }, ref) => {
+    const isColored = variant === 'colored' || !!theme;
     
     if (isColored) {
       return (
         <CardHeaderContext.Provider value={{ isColored: true }}>
           <div
             ref={ref}
-            className={cn(cardHeaderColorVariants({ color }))}
+            className={cn(cardHeaderColorVariants({ theme }))}
             {...props}
           >
             <div className="flex flex-row items-center overflow-clip relative size-full">
@@ -230,7 +230,7 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
                 </div>
               </div>
             </div>
-            <div className={cn(cardHeaderColorOverlayVariants({ color }))} />
+            <div className={cn(cardHeaderColorOverlayVariants({ theme }))} />
           </div>
         </CardHeaderContext.Provider>
       );
@@ -285,7 +285,8 @@ const CardTitle = React.forwardRef<
   const { setTitleId } = React.useContext(CardContext);
   
   // Generate ID if not provided
-  const titleId = id || React.useId();
+  const generatedId = React.useId();
+  const titleId = id || generatedId;
   
   // Register ID with Card
   React.useEffect(() => {
@@ -301,7 +302,7 @@ const CardTitle = React.forwardRef<
       id={titleId}
       className={cn(
         isColored 
-          ? 'text-neutral-950 text-sm font-bold tracking-tight leading-5'
+          ? 'text-neutral-950 text-sm font-medium tracking-tight leading-5'
           : 'text-card-foreground text-xl font-normal tracking-tight leading-relaxed text-shadow-sm',
         className
       )}

@@ -182,21 +182,21 @@ export const AccordionGroupSingle: Story = {
   render: () => (
     <div className="w-[500px]">
       <AccordionGroup type="single" defaultValue="item-1">
-        <AccordionItem value="item-1" variant="bordered">
+        <AccordionItem value="item-1" variant="default">
           <AccordionTrigger>First Section</AccordionTrigger>
           <AccordionContent>
             <p className="text-sm">Only one section can be open at a time.</p>
           </AccordionContent>
         </AccordionItem>
         
-        <AccordionItem value="item-2" variant="bordered">
+        <AccordionItem value="item-2" variant="default">
           <AccordionTrigger>Second Section</AccordionTrigger>
           <AccordionContent>
             <p className="text-sm">Opening this will close the first section.</p>
           </AccordionContent>
         </AccordionItem>
         
-        <AccordionItem value="item-3" variant="bordered">
+        <AccordionItem value="item-3" variant="default">
           <AccordionTrigger>Third Section</AccordionTrigger>
           <AccordionContent>
             <p className="text-sm">This follows the same single-selection behavior.</p>
@@ -211,21 +211,21 @@ export const AccordionGroupMultiple: Story = {
   render: () => (
     <div className="w-[500px]">
       <AccordionGroup type="multiple" defaultValue={['item-1', 'item-3']}>
-        <AccordionItem value="item-1" variant="bordered">
+        <AccordionItem value="item-1" variant="default">
           <AccordionTrigger>First Section</AccordionTrigger>
           <AccordionContent>
             <p className="text-sm">Multiple sections can be open at once.</p>
           </AccordionContent>
         </AccordionItem>
         
-        <AccordionItem value="item-2" variant="bordered">
+        <AccordionItem value="item-2" variant="default">
           <AccordionTrigger>Second Section</AccordionTrigger>
           <AccordionContent>
             <p className="text-sm">This section starts closed.</p>
           </AccordionContent>
         </AccordionItem>
         
-        <AccordionItem value="item-3" variant="bordered">
+        <AccordionItem value="item-3" variant="default">
           <AccordionTrigger>Third Section</AccordionTrigger>
           <AccordionContent>
             <p className="text-sm">This section starts open along with the first.</p>
@@ -247,7 +247,7 @@ export const MedicationsList: Story = {
             <Pill className="w-4 h-4 text-neutral-950" />
             <span className="text-[18px] font-medium text-neutral-950">Your Medications</span>
           </div>
-          <Badge variant="soft" color="neutral" size="sm" dot>1 Item</Badge>
+          <Badge variant="secondary" theme="neutral" size="sm" dot>1 Item</Badge>
         </AccordionTrigger>
         <AccordionContent>
           <List variant="divided">
@@ -264,7 +264,7 @@ export const MedicationsList: Story = {
                   title={
                     <div className="flex items-center gap-2">
                       <span className="font-bold text-[14px]">Acetaminophen (Tylenol)</span>
-                      <Badge variant="soft" color="warning" size="sm">650mg</Badge>
+                      <Badge variant="secondary" theme="warning" size="sm">650mg</Badge>
                     </div>
                   }
                   description="Take 650mg every 6 hours when needed for headache; do not exceed 3000mg in 24 hours. Do not use NSAIDs like ibuprofen or aspirin."
@@ -285,7 +285,7 @@ export const MedicationsList: Story = {
                   title={
                     <div className="flex items-center gap-2">
                       <span className="font-bold text-[14px]">Melatonin</span>
-                      <Badge variant="soft" color="warning" size="sm">3mg</Badge>
+                      <Badge variant="secondary" theme="warning" size="sm">3mg</Badge>
                     </div>
                   }
                   description="Take 3mg 30 minutes before bedtime only if you have trouble sleeping. Use for up to 2 weeks"
@@ -304,14 +304,14 @@ export const ActivityRestrictions: Story = {
   render: () => (
     <div className="w-[340px]">
       <Card>
-        <CardHeader color="neutral" variant="colored">
+        <CardHeader theme="neutral" variant="colored">
           <CardTitle>Activity Guidelines</CardTitle>
         </CardHeader>
         <Accordion defaultExpanded>
           <AccordionTrigger variant="padded">
             <ListHeader 
               icon={<Activity className="w-4 h-4" />}
-              action={<Badge variant="soft" color="neutral" size="sm" dot>3 Items</Badge>}
+              action={<Badge variant="secondary" theme="neutral" size="sm" dot>3 Items</Badge>}
             >
               <span className="text-[18px] font-medium">Activity</span>
             </ListHeader>
@@ -411,14 +411,14 @@ export const FollowUpAppointments: Story = {
   render: () => (
     <div className="w-[340px]">
       <Card>
-        <CardHeader color="neutral" variant="colored">
+        <CardHeader theme="neutral" variant="colored">
           <CardTitle>Follow-Up Care</CardTitle>
         </CardHeader>
         <Accordion defaultExpanded>
           <AccordionTrigger variant="padded">
             <ListHeader 
               icon={<Calendar className="w-4 h-4" />}
-              action={<Badge variant="soft" color="neutral" size="sm" dot>3 Items</Badge>}
+              action={<Badge variant="secondary" theme="neutral" size="sm" dot>3 Items</Badge>}
             >
               <span className="text-[18px] font-medium">Follow Up</span>
             </ListHeader>
@@ -426,12 +426,12 @@ export const FollowUpAppointments: Story = {
           <AccordionContent padding="none">
             <List variant="divided" className="p-4">
               <ListSection>
-                <Badge variant="outline" color="neutral" size="sm" className="mb-2">
+                <Badge variant="outline" theme="neutral" size="sm" className="mb-2">
                   Dr. Lisa Martinez
                 </Badge>
                 <ListItem
                   leading={<ListItemIcon><User className="w-4 h-4" /></ListItemIcon>}
-                  trailing={<Badge variant="soft" color="primary" size="sm">3-5 days</Badge>}
+                  trailing={<Badge variant="secondary" theme="primary" size="sm">3-5 days</Badge>}
                 >
                   <ListItemContent
                     title="Primary Care Provider"
@@ -441,12 +441,12 @@ export const FollowUpAppointments: Story = {
               </ListSection>
 
               <ListSection>
-                <Badge variant="outline" color="neutral" size="sm" className="mb-2">
+                <Badge variant="outline" theme="neutral" size="sm" className="mb-2">
                   Regional Neurology Associates
                 </Badge>
                 <ListItem
                   leading={<ListItemIcon><User className="w-4 h-4" /></ListItemIcon>}
-                  trailing={<Badge variant="soft" color="primary" size="sm">1-2 weeks</Badge>}
+                  trailing={<Badge variant="secondary" theme="primary" size="sm">1-2 weeks</Badge>}
                 >
                   <ListItemContent
                     title="Neurology Specialist"
@@ -456,12 +456,12 @@ export const FollowUpAppointments: Story = {
               </ListSection>
 
               <ListSection>
-                <Badge variant="outline" color="neutral" size="sm" className="mb-2">
+                <Badge variant="outline" theme="neutral" size="sm" className="mb-2">
                   Emergency Department
                 </Badge>
                 <ListItem
                   leading={<ListItemIcon><User className="w-4 h-4" /></ListItemIcon>}
-                  trailing={<Badge variant="soft" color="primary" size="sm">If Needed</Badge>}
+                  trailing={<Badge variant="secondary" theme="primary" size="sm">If Needed</Badge>}
                 >
                   <ListItemContent
                     title="Emergency Department"
@@ -478,7 +478,11 @@ export const FollowUpAppointments: Story = {
 }
 
 export const CustomComposition: Story = {
-  name: 'Custom Composition',
+  parameters: {
+    docs: {
+      storyDescription: 'Accordion component with custom content composition'
+    }
+  },
   render: () => (
     <div className="w-[500px] space-y-4">
       <h3 className="text-lg font-semibold">Compose accordions with any content:</h3>
@@ -492,7 +496,7 @@ export const CustomComposition: Story = {
                 <h4 className="font-medium">Custom Header</h4>
                 <p className="text-sm text-neutral-600">With any layout you want</p>
               </div>
-              <Badge variant="soft" color="success">Active</Badge>
+              <Badge variant="secondary" theme="success">Active</Badge>
             </div>
           </AccordionTrigger>
           <AccordionContent>

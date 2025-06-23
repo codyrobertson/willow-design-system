@@ -7,11 +7,11 @@ import { cn } from '../../lib/utils';
  * Badge component styles using class-variance-authority
  * 
  * Variants:
- * - solid: Filled background with white text
- * - soft: Light background with colored text
+ * - default: Filled background with white text
+ * - secondary: Light background with colored text
  * - outline: Border with colored text on white background
  * 
- * Colors:
+ * Themes:
  * - primary: Willow brand colors
  * - neutral: Gray colors
  * - success: Green colors
@@ -29,11 +29,11 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        solid: '',
-        soft: '',
+        default: '',
+        secondary: '',
         outline: '',
       },
-      color: {
+      theme: {
         primary: '',
         neutral: '',
         success: '',
@@ -52,103 +52,103 @@ const badgeVariants = cva(
       },
     },
     compoundVariants: [
-      // Solid variants - using Willow brand colors
+      // Default variants - using filled backgrounds (previously solid)
       {
-        variant: 'solid',
-        color: 'primary',
+        variant: 'default',
+        theme: 'primary',
         className: 'bg-willow-primary-950 text-white',
       },
       {
-        variant: 'solid',
-        color: 'neutral',
+        variant: 'default',
+        theme: 'neutral',
         className: 'bg-neutral-700 text-white',
       },
       {
-        variant: 'solid',
-        color: 'success',
+        variant: 'default',
+        theme: 'success',
         className: 'bg-success-600 text-white',
       },
       {
-        variant: 'solid',
-        color: 'warning',
+        variant: 'default',
+        theme: 'warning',
         className: 'bg-warning-600 text-oxford-blue-950',
       },
       {
-        variant: 'solid',
-        color: 'danger',
+        variant: 'default',
+        theme: 'danger',
         className: 'bg-danger text-white',
       },
       {
-        variant: 'solid',
-        color: 'info',
+        variant: 'default',
+        theme: 'info',
         className: 'bg-info-600 text-white',
       },
-      // Soft variants - lighter backgrounds with colored text
+      // Secondary variants - lighter backgrounds with colored text (previously soft)
       {
-        variant: 'soft',
-        color: 'primary',
+        variant: 'secondary',
+        theme: 'primary',
         className: 'bg-willow-primary-50 text-willow-primary-800',
       },
       {
-        variant: 'soft',
-        color: 'neutral',
+        variant: 'secondary',
+        theme: 'neutral',
         className: 'bg-neutral-100 text-neutral-700',
       },
       {
-        variant: 'soft',
-        color: 'success',
+        variant: 'secondary',
+        theme: 'success',
         className: 'bg-state-success-lighter text-success-700',
       },
       {
-        variant: 'soft',
-        color: 'warning',
+        variant: 'secondary',
+        theme: 'warning',
         className: 'bg-state-warning-lighter text-warning-700',
       },
       {
-        variant: 'soft',
-        color: 'danger',
+        variant: 'secondary',
+        theme: 'danger',
         className: 'bg-state-error-lighter text-destructive-700',
       },
       {
-        variant: 'soft',
-        color: 'info',
+        variant: 'secondary',
+        theme: 'info',
         className: 'bg-info-100 text-info-700',
       },
       // Outline variants - border with colored text
       {
         variant: 'outline',
-        color: 'primary',
+        theme: 'primary',
         className: 'border border-willow-primary-300 text-willow-primary-700 bg-white',
       },
       {
         variant: 'outline',
-        color: 'neutral',
+        theme: 'neutral',
         className: 'border border-neutral-300 text-neutral-600 bg-white',
       },
       {
         variant: 'outline',
-        color: 'success',
+        theme: 'success',
         className: 'border border-success-300 text-success-700 bg-white',
       },
       {
         variant: 'outline',
-        color: 'warning',
+        theme: 'warning',
         className: 'border border-warning-300 text-warning-700 bg-white',
       },
       {
         variant: 'outline',
-        color: 'danger',
+        theme: 'danger',
         className: 'border border-destructive-300 text-destructive-700 bg-white',
       },
       {
         variant: 'outline',
-        color: 'info',
+        theme: 'info',
         className: 'border border-info-300 text-info-600 bg-white',
       },
     ],
     defaultVariants: {
-      variant: 'solid',
-      color: 'primary',
+      variant: 'default',
+      theme: 'primary',
       size: 'md',
       rounded: 'full',
     },
@@ -184,7 +184,7 @@ export interface BadgeProps
  * 
  * @example
  * // Badge with icon
- * <Badge icon={<CheckCircle />} color="success">
+ * <Badge icon={<CheckCircle />} theme="success">
  *   Verified
  * </Badge>
  * 
@@ -196,21 +196,21 @@ export interface BadgeProps
  * 
  * @example
  * // Badge with dot indicator
- * <Badge dot color="warning">
+ * <Badge dot theme="warning">
  *   In Progress
  * </Badge>
  * 
  * Features:
- * - Three visual variants (solid, soft, outline)
- * - Six semantic colors
+ * - Three visual variants (default, secondary, outline)
+ * - Six semantic themes
  * - Icon support with positioning
  * - Closable badges
  * - Dot indicators
  * - Two shape options (rounded-full, rounded-md)
  * 
  * @param {BadgeProps} props - Component props
- * @param {string} [props.variant='solid'] - Visual variant
- * @param {string} [props.color='primary'] - Color scheme
+ * @param {string} [props.variant='default'] - Visual variant
+ * @param {string} [props.theme='primary'] - Theme color
  * @param {string} [props.size='md'] - Size variant
  * @param {string} [props.rounded='full'] - Border radius style
  * @param {React.ReactNode} [props.icon] - Optional icon
@@ -220,64 +220,69 @@ export interface BadgeProps
  * @param {boolean} [props.dot] - Show dot indicator
  * @param {React.ReactNode} props.children - Badge content
  */
-function Badge({ 
-  className, 
-  variant, 
-  color, 
-  size, 
-  rounded,
-  icon,
-  iconPosition = 'left',
-  closable,
-  onClose,
-  dot,
-  children,
-  ...props 
-}: BadgeProps) {
-  return (
-    <div 
-      className={cn(badgeVariants({ variant, color, size, rounded }), className)} 
-      {...props}
-    >
-      {dot && (
-        <span className={cn(
-          "w-[0.375em] h-[0.375em] rounded-full",
-          variant === 'solid' ? 'bg-white/80' : 
-          variant === 'soft' ? 'bg-current opacity-80' : 
-          'bg-current'
-        )} />
-      )}
-      {icon && iconPosition === 'left' && (
-        <span className={cn(
-          "flex-shrink-0 [&>svg]:w-[0.89em] [&>svg]:h-[0.89em]"
-        )}>{icon}</span>
-      )}
-      <span>{children}</span>
-      {icon && iconPosition === 'right' && (
-        <span className={cn(
-          "flex-shrink-0 [&>svg]:w-[0.89em] [&>svg]:h-[0.89em]"
-        )}>{icon}</span>
-      )}
-      {closable && (
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onClose?.();
-          }}
-          aria-label="Remove badge"
-          className={cn(
-            "flex-shrink-0 ml-1 hover:opacity-70 focus:outline-none transition-opacity",
-            size === 'sm' && '-mr-0.5',
-            size === 'md' && '-mr-0.5',
-            size === 'lg' && '-mr-1'
-          )}
-        >
-          <X className="opacity-60 w-[0.89em] h-[0.89em]" aria-hidden="true" />
-        </button>
-      )}
-    </div>
-  );
-}
+const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
+  ({ 
+    className, 
+    variant, 
+    theme, 
+    size, 
+    rounded,
+    icon,
+    iconPosition = 'left',
+    closable,
+    onClose,
+    dot,
+    children,
+    ...props 
+  }, ref) => {
+    return (
+      <div 
+        ref={ref}
+        className={cn(badgeVariants({ variant, theme, size, rounded }), className)} 
+        {...props}
+      >
+        {dot && (
+          <span className={cn(
+            "w-[0.375em] h-[0.375em] rounded-full",
+            variant === 'default' ? 'bg-white/80' : 
+            variant === 'secondary' ? 'bg-current opacity-80' : 
+            'bg-current'
+          )} />
+        )}
+        {icon && iconPosition === 'left' && (
+          <span className={cn(
+            "flex-shrink-0 [&>svg]:w-[0.89em] [&>svg]:h-[0.89em]"
+          )}>{icon}</span>
+        )}
+        <span>{children}</span>
+        {icon && iconPosition === 'right' && (
+          <span className={cn(
+            "flex-shrink-0 [&>svg]:w-[0.89em] [&>svg]:h-[0.89em]"
+          )}>{icon}</span>
+        )}
+        {closable && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose?.();
+            }}
+            aria-label="Remove badge"
+            className={cn(
+              "flex-shrink-0 ml-1 hover:opacity-70 focus:outline-none transition-opacity",
+              size === 'sm' && '-mr-0.5',
+              size === 'md' && '-mr-0.5',
+              size === 'lg' && '-mr-1'
+            )}
+          >
+            <X className="opacity-60 w-[0.89em] h-[0.89em]" aria-hidden="true" />
+          </button>
+        )}
+      </div>
+    );
+  }
+);
+
+Badge.displayName = 'Badge';
 
 export { Badge, badgeVariants };

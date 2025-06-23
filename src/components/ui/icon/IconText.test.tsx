@@ -5,7 +5,7 @@ import { IconText } from './IconText';
 
 // Mock the Icon component
 jest.mock('./Icon', () => ({
-  Icon: ({ name, size, className }: any) => (
+  Icon: ({ name, size, className }: { name?: string | null; size?: string; className?: string }) => (
     <div 
       data-testid="icon" 
       {...(name !== undefined && { 'data-name': String(name) })}
@@ -21,7 +21,7 @@ describe('IconText', () => {
   describe('Edge Cases', () => {
     it('handles undefined icon name', () => {
       const { container } = render(
-        <IconText icon={undefined as any}>
+        <IconText icon={undefined as string | undefined}>
           Text content
         </IconText>
       );
@@ -33,7 +33,7 @@ describe('IconText', () => {
 
     it('handles null icon name', () => {
       const { container } = render(
-        <IconText icon={null as any}>
+        <IconText icon={null as string | null}>
           Text content
         </IconText>
       );
@@ -113,7 +113,7 @@ describe('IconText', () => {
 
     it('handles invalid iconPosition values', () => {
       const { container } = render(
-        <IconText icon="user" iconPosition={'invalid' as any}>
+        <IconText icon="user" iconPosition={'invalid' as 'left' | 'right'}>
           Text
         </IconText>
       );
@@ -123,7 +123,7 @@ describe('IconText', () => {
 
     it('handles invalid size values', () => {
       render(
-        <IconText icon="user" size={'invalid' as any}>
+        <IconText icon="user" size={'invalid' as 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'}>
           Text
         </IconText>
       );
@@ -133,7 +133,7 @@ describe('IconText', () => {
 
     it('handles invalid gap values', () => {
       const { container } = render(
-        <IconText icon="user" gap={'invalid' as any}>
+        <IconText icon="user" gap={'invalid' as 'xs' | 'sm' | 'md' | 'lg'}>
           Text
         </IconText>
       );

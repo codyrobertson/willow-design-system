@@ -195,6 +195,9 @@ export const Playground: Story = {
 
 // Icon sizes
 export const Sizes: Story = {
+  args: {
+    name: 'user',
+  },
   render: () => (
     <div className="flex items-center gap-4">
       <Icon name="user" size="xs" />
@@ -210,6 +213,9 @@ export const Sizes: Story = {
 
 // Icon with text
 export const WithText: Story = {
+  args: {
+    name: 'user',
+  },
   render: () => (
     <div className="space-y-4">
       <IconText icon="download">Download File</IconText>
@@ -222,6 +228,9 @@ export const WithText: Story = {
 
 // Icon buttons
 export const IconButtons: Story = {
+  args: {
+    name: 'user',
+  },
   render: () => (
     <div className="flex gap-4">
       <Button size="compact" variant="outline" aria-label="Settings">
@@ -242,6 +251,9 @@ export const IconButtons: Story = {
 
 // Button with icons
 export const ButtonWithIcons: Story = {
+  args: {
+    name: 'user',
+  },
   render: () => (
     <div className="space-y-4">
       <Button leftIcon={<Icon name="download" />}>
@@ -259,11 +271,14 @@ export const ButtonWithIcons: Story = {
 
 // Icons with badges
 export const WithBadges: Story = {
+  args: {
+    name: 'user',
+  },
   render: () => (
     <div className="flex gap-6">
       <div className="relative">
         <Icon name="bell" size="lg" />
-        <Badge className="absolute -top-2 -right-2 h-5 w-5 p-0" variant="destructive">
+        <Badge className="absolute -top-2 -right-2 h-5 w-5 p-0" variant="default" theme="danger">
           3
         </Badge>
       </div>
@@ -281,6 +296,9 @@ export const WithBadges: Story = {
 
 // Icon containers (using composition)
 export const IconContainers: Story = {
+  args: {
+    name: 'user',
+  },
   render: () => (
     <div className="flex gap-4">
       <div className="flex h-12 w-12 items-center justify-center rounded-full bg-willow-primary-100">
@@ -298,6 +316,9 @@ export const IconContainers: Story = {
 
 // Loading states
 export const LoadingStates: Story = {
+  args: {
+    name: 'user',
+  },
   render: () => (
     <div className="space-y-4">
       <Button loading>
@@ -313,6 +334,9 @@ export const LoadingStates: Story = {
 
 // Icon lists
 export const IconLists: Story = {
+  args: {
+    name: 'user',
+  },
   render: () => (
     <Card className="w-64">
       <CardHeader>
@@ -338,6 +362,9 @@ export const IconLists: Story = {
 
 // Complex compositions
 export const ComplexCompositions: Story = {
+  args: {
+    name: 'user',
+  },
   render: () => (
     <div className="space-y-6">
       {/* Notification item */}

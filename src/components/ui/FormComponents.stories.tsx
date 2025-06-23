@@ -68,13 +68,16 @@ export const AllFormFields: Story = {
       </FormField>
       
       <FormField label="Country">
-        <Select defaultValue="">
-          <option value="" disabled>Select a country</option>
-          <option value="us">United States</option>
-          <option value="uk">United Kingdom</option>
-          <option value="ca">Canada</option>
-          <option value="au">Australia</option>
-        </Select>
+        <Select 
+          defaultValue="" 
+          placeholder="Select a country"
+          options={[
+            { value: 'us', label: 'United States' },
+            { value: 'uk', label: 'United Kingdom' },
+            { value: 'ca', label: 'Canada' },
+            { value: 'au', label: 'Australia' }
+          ]}
+        />
       </FormField>
       
       <div className="space-y-2">
@@ -134,42 +137,50 @@ export const SelectExamples: Story = {
   render: () => (
     <div className="space-y-4 w-[400px]">
       <FormField label="Basic Select">
-        <Select>
-          <option value="">Choose an option</option>
-          <option value="1">Option 1</option>
-          <option value="2">Option 2</option>
-          <option value="3">Option 3</option>
-        </Select>
+        <Select 
+          placeholder="Choose an option"
+          options={[
+            { value: '1', label: 'Option 1' },
+            { value: '2', label: 'Option 2' },
+            { value: '3', label: 'Option 3' }
+          ]}
+        />
       </FormField>
       
-      <FormField label="Select with Groups">
-        <Select defaultValue="">
-          <option value="" disabled>Select a fruit</option>
-          <optgroup label="Citrus">
-            <option value="orange">Orange</option>
-            <option value="lemon">Lemon</option>
-            <option value="lime">Lime</option>
-          </optgroup>
-          <optgroup label="Berries">
-            <option value="strawberry">Strawberry</option>
-            <option value="blueberry">Blueberry</option>
-            <option value="raspberry">Raspberry</option>
-          </optgroup>
-        </Select>
+      <FormField label="Select with Fruits">
+        <Select 
+          defaultValue=""
+          placeholder="Select a fruit"
+          options={[
+            { value: 'orange', label: 'Orange' },
+            { value: 'lemon', label: 'Lemon' },
+            { value: 'lime', label: 'Lime' },
+            { value: 'strawberry', label: 'Strawberry' },
+            { value: 'blueberry', label: 'Blueberry' },
+            { value: 'raspberry', label: 'Raspberry' }
+          ]}
+        />
       </FormField>
       
       <FormField label="Disabled Select">
-        <Select disabled>
-          <option>Disabled option</option>
-        </Select>
+        <Select 
+          disabled
+          placeholder="Disabled option"
+          options={[
+            { value: '1', label: 'Option 1' }
+          ]}
+        />
       </FormField>
       
       <FormField label="Required Select" required error="Please select an option">
-        <Select className="border-destructive" required>
-          <option value="">Select an option</option>
-          <option value="1">Option 1</option>
-          <option value="2">Option 2</option>
-        </Select>
+        <Select 
+          error
+          placeholder="Select an option"
+          options={[
+            { value: '1', label: 'Option 1' },
+            { value: '2', label: 'Option 2' }
+          ]}
+        />
       </FormField>
     </div>
   ),
@@ -437,12 +448,15 @@ export const CompleteForm: Story = {
           </FormField>
           
           <FormField label="Account Type" required>
-            <Select defaultValue="">
-              <option value="" disabled>Select account type</option>
-              <option value="personal">Personal</option>
-              <option value="business">Business</option>
-              <option value="enterprise">Enterprise</option>
-            </Select>
+            <Select 
+              defaultValue=""
+              placeholder="Select account type"
+              options={[
+                { value: 'personal', label: 'Personal' },
+                { value: 'business', label: 'Business' },
+                { value: 'enterprise', label: 'Enterprise' }
+              ]}
+            />
           </FormField>
           
           <FormField label="Password" required hint="At least 8 characters">

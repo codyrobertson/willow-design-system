@@ -56,7 +56,7 @@ The Card component is a versatile container for grouping related content and act
 
 // Colored header card
 <Card>
-  <CardHeader color="primary" variant="colored">
+  <CardHeader theme="primary" variant="colored">
     <CardTitle>Premium Feature</CardTitle>
   </CardHeader>
   <CardContent>
@@ -145,7 +145,7 @@ export const Playground: Story = {
         <Card {...args}>
           <CardHeader 
             align={headerAlign} 
-            color={headerColor}
+            theme={headerColor}
             variant={headerColor !== 'neutral' ? 'colored' : 'default'}
           >
             <CardTitle>Interactive Card</CardTitle>
@@ -209,7 +209,7 @@ export const Playground: Story = {
               <select 
                 className="w-full px-2 py-1 text-sm border rounded"
                 value={headerColor}
-                onChange={(e) => setHeaderColor(e.target.value as any)}
+                onChange={(e) => setHeaderColor(e.target.value as 'neutral' | 'primary' | 'info' | 'success' | 'warning' | 'danger')}
               >
                 <option value="neutral">Neutral</option>
                 <option value="primary">Primary</option>
@@ -225,7 +225,7 @@ export const Playground: Story = {
               <select 
                 className="w-full px-2 py-1 text-sm border rounded"
                 value={headerAlign}
-                onChange={(e) => setHeaderAlign(e.target.value as any)}
+                onChange={(e) => setHeaderAlign(e.target.value as 'left' | 'center' | 'right')}
               >
                 <option value="left">Left</option>
                 <option value="center">Center</option>
@@ -238,7 +238,7 @@ export const Playground: Story = {
               <select 
                 className="w-full px-2 py-1 text-sm border rounded"
                 value={footerAlign}
-                onChange={(e) => setFooterAlign(e.target.value as any)}
+                onChange={(e) => setFooterAlign(e.target.value as 'left' | 'center' | 'right' | 'between')}
               >
                 <option value="left">Left</option>
                 <option value="center">Center</option>
@@ -428,7 +428,11 @@ export const RightAligned: Story = {
 
 // Complex Examples
 export const FeatureCard: Story = {
-  name: 'Feature Card',
+  parameters: {
+    docs: {
+      storyDescription: 'Card component featuring a service or product'
+    }
+  },
   args: {
     variant: 'raised',
     className: 'w-[350px]'
@@ -466,7 +470,11 @@ export const FeatureCard: Story = {
 }
 
 export const PricingCard: Story = {
-  name: 'Pricing Card',
+  parameters: {
+    docs: {
+      storyDescription: 'Card component for pricing information'
+    }
+  },
   args: {
     variant: 'elevated',
     className: 'w-[350px]'
@@ -511,7 +519,11 @@ export const PricingCard: Story = {
 }
 
 export const NotificationCard: Story = {
-  name: 'Notification Card',
+  parameters: {
+    docs: {
+      storyDescription: 'Card component for notifications and alerts'
+    }
+  },
   args: {
     variant: 'outlined',
     className: 'w-[400px]'
@@ -545,7 +557,11 @@ export const NotificationCard: Story = {
 }
 
 export const StatsCard: Story = {
-  name: 'Stats Card',
+  parameters: {
+    docs: {
+      storyDescription: 'Card component for displaying statistics'
+    }
+  },
   args: {
     variant: 'flat',
     padding: 'lg',
@@ -571,7 +587,11 @@ export const StatsCard: Story = {
 }
 
 export const SimpleCard: Story = {
-  name: 'Simple Card',
+  parameters: {
+    docs: {
+      storyDescription: 'Simple card component with basic content'
+    }
+  },
   args: {
     padding: 'md',
     className: 'w-[350px]'
@@ -673,7 +693,7 @@ export const ColoredHeaderNeutral: Story = {
   },
   render: (args) => (
     <Card {...args}>
-      <CardHeader color="neutral">
+      <CardHeader theme="neutral">
         <CardTitle>Grade 3 Concussion</CardTitle>
       </CardHeader>
       <CardContent>
@@ -700,7 +720,7 @@ export const ColoredHeaderPrimary: Story = {
   },
   render: (args) => (
     <Card {...args}>
-      <CardHeader color="primary">
+      <CardHeader theme="primary">
         <CardTitle>Premium Feature</CardTitle>
       </CardHeader>
       <CardContent>
@@ -722,7 +742,7 @@ export const ColoredHeaderSuccess: Story = {
   },
   render: (args) => (
     <Card {...args}>
-      <CardHeader color="success">
+      <CardHeader theme="success">
         <CardTitle>Task Completed</CardTitle>
       </CardHeader>
       <CardContent>
@@ -749,14 +769,14 @@ export const ColoredHeaderWarning: Story = {
   },
   render: (args) => (
     <Card {...args}>
-      <CardHeader color="warning">
+      <CardHeader theme="warning">
         <CardTitle>Attention Required</CardTitle>
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground mb-4">
           Your subscription will expire in 7 days. Please renew to continue.
         </p>
-        <FancyButton variant="warning" size="sm" className="w-full">
+        <FancyButton variant="primary" size="sm" className="w-full">
           Renew Subscription
         </FancyButton>
       </CardContent>
@@ -771,7 +791,7 @@ export const ColoredHeaderDanger: Story = {
   },
   render: (args) => (
     <Card {...args}>
-      <CardHeader color="danger">
+      <CardHeader theme="danger">
         <CardTitle>Critical Alert</CardTitle>
       </CardHeader>
       <CardContent>
@@ -793,7 +813,7 @@ export const ColoredHeaderInfo: Story = {
   },
   render: (args) => (
     <Card {...args}>
-      <CardHeader color="info">
+      <CardHeader theme="info">
         <CardTitle>New Update Available</CardTitle>
       </CardHeader>
       <CardContent>
@@ -821,7 +841,7 @@ export const ColoredHeaderGrid: Story = {
   render: () => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl">
       <Card>
-        <CardHeader color="primary">
+        <CardHeader theme="primary">
           <CardTitle>Primary Color</CardTitle>
         </CardHeader>
         <CardContent>
@@ -832,7 +852,7 @@ export const ColoredHeaderGrid: Story = {
       </Card>
 
       <Card>
-        <CardHeader color="success">
+        <CardHeader theme="success">
           <CardTitle>Success Color</CardTitle>
         </CardHeader>
         <CardContent>
@@ -843,7 +863,7 @@ export const ColoredHeaderGrid: Story = {
       </Card>
 
       <Card>
-        <CardHeader color="warning">
+        <CardHeader theme="warning">
           <CardTitle>Warning Color</CardTitle>
         </CardHeader>
         <CardContent>
@@ -854,7 +874,7 @@ export const ColoredHeaderGrid: Story = {
       </Card>
 
       <Card>
-        <CardHeader color="danger">
+        <CardHeader theme="danger">
           <CardTitle>Danger Color</CardTitle>
         </CardHeader>
         <CardContent>
@@ -865,7 +885,7 @@ export const ColoredHeaderGrid: Story = {
       </Card>
 
       <Card>
-        <CardHeader color="info">
+        <CardHeader theme="info">
           <CardTitle>Info Color</CardTitle>
         </CardHeader>
         <CardContent>
@@ -876,7 +896,7 @@ export const ColoredHeaderGrid: Story = {
       </Card>
 
       <Card>
-        <CardHeader color="neutral">
+        <CardHeader theme="neutral">
           <CardTitle>Neutral Color</CardTitle>
         </CardHeader>
         <CardContent>

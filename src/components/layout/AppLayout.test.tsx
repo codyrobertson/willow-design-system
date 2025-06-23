@@ -2,6 +2,24 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { AppLayout } from './AppLayout';
 
+// Mock next/navigation
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+    back: jest.fn(),
+  }),
+  usePathname: () => '/',
+}));
+
+// Mock next/link
+jest.mock('next/link', () => {
+  const MockLink = ({ children, href }: { children: React.ReactNode; href: string }) => (
+    <a href={href}>{children}</a>
+  );
+  MockLink.displayName = 'MockLink';
+  return MockLink;
+});
+
 describe('AppLayout Component', () => {
   it('renders children', () => {
     render(
@@ -20,7 +38,8 @@ describe('AppLayout Component', () => {
       </AppLayout>
     );
     
-    const container = screen.getByTestId('child').parentElement;
+    // The min-h-screen is on the root div, not the immediate parent
+    const container = screen.getByTestId('child').parentElement?.parentElement;
     expect(container).toHaveClass('min-h-screen');
   });
 
@@ -31,7 +50,8 @@ describe('AppLayout Component', () => {
       </AppLayout>
     );
     
-    const container = screen.getByTestId('child').parentElement;
+    // The bg-neutral-50 is on the root div, not the immediate parent
+    const container = screen.getByTestId('child').parentElement?.parentElement;
     expect(container).toHaveClass('bg-neutral-50');
   });
 

@@ -286,20 +286,21 @@ const Chip = React.forwardRef<HTMLDivElement, ChipProps>(
     const isClickable = onClick !== undefined;
 
     if (isClickable) {
+      const { role, ...buttonProps } = props as React.HTMLAttributes<HTMLButtonElement>;
       return (
         <button
-          ref={ref as React.RefObject<HTMLButtonElement>}
+          ref={ref as React.Ref<HTMLButtonElement>}
           type="button"
           onClick={onClick}
           aria-selected={selected || undefined}
           aria-pressed={selected}
-          role={props.role || 'button'}
+          role={role || 'button'}
           className={cn(
             chipVariants({ variant, theme, size, selected }),
             'cursor-pointer',
             className
           )}
-          {...props}
+          {...buttonProps}
         >
           {icon && <span className="flex-shrink-0 [&>svg]:w-[0.89em] [&>svg]:h-[0.89em]" aria-hidden="true">{icon}</span>}
           <span>{children}</span>

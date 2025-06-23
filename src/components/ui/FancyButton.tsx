@@ -21,7 +21,7 @@ export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl"
 export type ButtonVariant = "primary" | "secondary" | "ghost" | "outline" | "danger" | "fancy"
 export type ButtonState = "default" | "hover" | "active" | "disabled" | "loading"
 
-interface FancyButtonProps {
+interface FancyButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
   children: React.ReactNode
   variant?: ButtonVariant
   size?: ButtonSize
@@ -64,42 +64,49 @@ const variantMap = (variant: ButtonVariant): Pick<BaseButtonProps, 'theme' | 'va
   }
 }
 
-export function FancyButton({
-  children,
-  variant = "primary",
-  size = "md",
-  disabled = false,
-  loading = false,
-  onClick,
-  type = "button",
-  leftIcon,
-  rightIcon,
-  fullWidth = false,
-  className,
-}: FancyButtonProps) {
-  console.warn(
-    'FancyButton is deprecated. Please use Button component instead. ' +
-    'See migration guide in FancyButton.tsx'
-  );
+export const FancyButton = React.forwardRef<HTMLButtonElement, FancyButtonProps>(
+  ({
+    children,
+    variant = "primary",
+    size = "md",
+    disabled = false,
+    loading = false,
+    onClick,
+    type = "button",
+    leftIcon,
+    rightIcon,
+    fullWidth = false,
+    className,
+    ...props
+  }, ref) => {
+    console.warn(
+      'FancyButton is deprecated. Please use Button component instead. ' +
+      'See migration guide in FancyButton.tsx'
+    );
 
-  const { theme, variant: newVariant } = variantMap(variant);
+    const { theme, variant: newVariant } = variantMap(variant);
 
-  return (
-    <Button
-      theme={theme}
-      variant={newVariant}
-      size={sizeMap[size]}
-      disabled={disabled}
-      loading={loading}
-      onClick={onClick}
-      type={type}
-      leftIcon={leftIcon}
-      rightIcon={rightIcon}
-      fullWidth={fullWidth}
-      className={className}
-      radius="full" // FancyButton was always rounded-full
-    >
-      {children}
-    </Button>
-  );
-}
+    return (
+      <Button
+        ref={ref}
+        theme={theme}
+        variant={newVariant}
+        size={sizeMap[size]}
+        disabled={disabled}
+        loading={loading}
+        onClick={onClick}
+        type={type}
+        leftIcon={leftIcon}
+        rightIcon={rightIcon}
+        fullWidth={fullWidth}
+        className={className}
+        radius="full" // FancyButton was always rounded-full
+        {...props}
+      >
+        {children}
+      </Button>
+    );
+  }
+);
+
+FancyButton.displayName = 'FancyButton';
