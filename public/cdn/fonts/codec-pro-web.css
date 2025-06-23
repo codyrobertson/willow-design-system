@@ -1,0 +1,113 @@
+/* Willow Design System - Web-Safe Font Loading */
+
+/* 
+ * This CSS file uses multiple font formats for maximum compatibility
+ * Priority: WOFF2 > WOFF > OTF
+ * Includes fallback to system fonts
+ */
+
+/* Regular weight - 400 */
+@font-face {
+  font-family: 'Codec Pro';
+  src: url('/cdn/fonts/Codec-Pro-Regular.woff2') format('woff2'),
+       url('/cdn/fonts/Codec-Pro-Regular.woff') format('woff'),
+       url('/cdn/fonts/Codec-Pro-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Italic - 400 */
+@font-face {
+  font-family: 'Codec Pro';
+  src: url('/cdn/fonts/Codec-Pro-Italic.woff2') format('woff2'),
+       url('/cdn/fonts/Codec-Pro-Italic.woff') format('woff'),
+       url('/cdn/fonts/Codec-Pro-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Light weight - 300 */
+@font-face {
+  font-family: 'Codec Pro';
+  src: url('/cdn/fonts/Codec-Pro-Light.woff2') format('woff2'),
+       url('/cdn/fonts/Codec-Pro-Light.woff') format('woff'),
+       url('/cdn/fonts/Codec-Pro-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold weight - 700 */
+@font-face {
+  font-family: 'Codec Pro';
+  src: url('/cdn/fonts/Codec-Pro-Bold.woff2') format('woff2'),
+       url('/cdn/fonts/Codec-Pro-Bold.woff') format('woff'),
+       url('/cdn/fonts/Codec-Pro-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold Italic - 700 */
+@font-face {
+  font-family: 'Codec Pro';
+  src: url('/cdn/fonts/Codec-Pro-Bold-Italic.woff2') format('woff2'),
+       url('/cdn/fonts/Codec-Pro-Bold-Italic.woff') format('woff'),
+       url('/cdn/fonts/Codec-Pro-Bold-Italic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Extrabold weight - 800 */
+@font-face {
+  font-family: 'Codec Pro';
+  src: url('/cdn/fonts/Codec-Pro-Extrabold.woff2') format('woff2'),
+       url('/cdn/fonts/Codec-Pro-Extrabold.woff') format('woff'),
+       url('/cdn/fonts/Codec-Pro-Extrabold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallback font stack */
+:root {
+  --font-sans: 'Codec Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+  --font-mono: 'Courier New', Courier, monospace;
+}
+
+/* Base styles */
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Font weight utilities */
+.font-light { font-weight: 300; }
+.font-normal { font-weight: 400; }
+.font-medium { font-weight: 500; } /* Will use 400 as Codec Pro doesn't have 500 */
+.font-semibold { font-weight: 600; } /* Will use 700 as Codec Pro doesn't have 600 */
+.font-bold { font-weight: 700; }
+.font-extrabold { font-weight: 800; }
+
+/* Italic utilities */
+.italic { font-style: italic; }
+.not-italic { font-style: normal; }
+
+/* Font loading optimization class */
+.fonts-loaded body {
+  /* Additional styles when fonts are loaded */
+  letter-spacing: -0.01em;
+}
+
+/* System font fallback adjustments */
+@supports not (font-display: swap) {
+  /* For older browsers, use system fonts */
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+  }
+}

@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "willow",
-  "homepage": "https://willow-prod.vercel.app",
+  "homepage": "https://iridescent-brigadeiros-fe4174.netlify.app",
   "items": [
     {
       "name": "button",

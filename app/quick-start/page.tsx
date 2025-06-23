@@ -67,53 +67,96 @@ export default function QuickStartPage() {
           </div>
         </section>
 
-        {/* Installation Steps */}
+        {/* Installation Options */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-neutral-900">Installation</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <Card variant="flat">
+          <h2 className="text-3xl font-bold mb-8 text-neutral-900">Choose Your Installation Method</h2>
+          
+          {/* Method 1: Willow CLI */}
+          <div className="mb-12">
+            <Card variant="flat" className="border-2 border-willow-primary-200 bg-gradient-to-r from-willow-primary-50 to-blue-50">
               <CardHeader className="pb-4">
-                <div className="w-12 h-12 bg-willow-primary-100 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="package" size="lg" className="text-willow-primary-600" />
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-willow-primary-600 rounded-lg flex items-center justify-center">
+                    <Icon name="zap" size="lg" className="text-white" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-xl text-willow-primary-900">Method 1: Willow CLI (Recommended)</CardTitle>
+                    <CardDescription className="text-willow-primary-700">Fast and easy component installation</CardDescription>
+                  </div>
                 </div>
-                <CardTitle>1. Install Package</CardTitle>
-                <CardDescription>Add Willow to your project</CardDescription>
               </CardHeader>
-              <CardContent className="pt-0">
-                <CodeBlock>npm install willow-design-system</CodeBlock>
+              <CardContent className="space-y-4">
+                <div>
+                  <p className="text-neutral-700 mb-3">Install the Willow CLI globally:</p>
+                  <CodeBlock>npm install -g willow-cli</CodeBlock>
+                </div>
+                <div>
+                  <p className="text-neutral-700 mb-3">Initialize Willow in your project:</p>
+                  <CodeBlock>willow init</CodeBlock>
+                </div>
+                <div>
+                  <p className="text-neutral-700 mb-3">Install components with short commands:</p>
+                  <CodeBlock>{`willow add button
+willow add card
+willow add badge
+
+# View all available components
+willow list`}</CodeBlock>
+                </div>
               </CardContent>
             </Card>
+          </div>
 
+          {/* Method 2: Direct URLs */}
+          <div className="mb-12">
             <Card variant="flat">
               <CardHeader className="pb-4">
-                <div className="w-12 h-12 bg-info-100 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="palette" size="lg" className="text-info-600" />
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-neutral-100 rounded-lg flex items-center justify-center">
+                    <Icon name="download" size="lg" className="text-neutral-600" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-xl">Method 2: Direct URLs</CardTitle>
+                    <CardDescription>Use shadcn CLI with component URLs</CardDescription>
+                  </div>
                 </div>
-                <CardTitle>2. Import Fonts</CardTitle>
-                <CardDescription>Use our custom Codec Pro font</CardDescription>
               </CardHeader>
-              <CardContent className="pt-0">
-                <CodeBlock>{`<link 
-  rel="stylesheet" 
-  href="https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/codec-pro.css"
-/>`}</CodeBlock>
+              <CardContent className="space-y-4">
+                <div>
+                  <p className="text-neutral-700 mb-3">Install shadcn CLI (if not already installed):</p>
+                  <CodeBlock>npm install -D shadcn@latest</CodeBlock>
+                </div>
+                <div>
+                  <p className="text-neutral-700 mb-3">Install components using direct URLs:</p>
+                  <CodeBlock>{`npx shadcn@latest add https://iridescent-brigadeiros-fe4174.netlify.app/r/button.json
+npx shadcn@latest add https://iridescent-brigadeiros-fe4174.netlify.app/r/card.json
+npx shadcn@latest add https://iridescent-brigadeiros-fe4174.netlify.app/r/badge.json`}</CodeBlock>
+                </div>
               </CardContent>
             </Card>
+          </div>
 
-            <Card variant="flat">
+          {/* Method 3: New Project */}
+          <div className="mb-12">
+            <Card variant="flat" className="border-2 border-green-200 bg-gradient-to-r from-green-50 to-emerald-50">
               <CardHeader className="pb-4">
-                <div className="w-12 h-12 bg-success-100 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="rocket" size="lg" className="text-success-600" />
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
+                    <Icon name="plus" size="lg" className="text-white" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-xl text-green-900">Method 3: New Project</CardTitle>
+                    <CardDescription className="text-green-700">Start fresh with everything pre-configured</CardDescription>
+                  </div>
                 </div>
-                <CardTitle>3. Use Components</CardTitle>
-                <CardDescription>Import and use our components</CardDescription>
               </CardHeader>
-              <CardContent className="pt-0">
-                <CodeBlock>{`import { Button } from 'willow-design-system'
-
-<Button theme="primary">
-  Click me
-</Button>`}</CodeBlock>
+              <CardContent className="space-y-4">
+                <div>
+                  <p className="text-neutral-700 mb-3">Create a new project with Willow pre-installed:</p>
+                  <CodeBlock>{`npx create-willow-design-system@latest my-app
+cd my-app
+npm run dev`}</CodeBlock>
+                </div>
               </CardContent>
             </Card>
           </div>

@@ -14,7 +14,7 @@ const registryComponents = [
 export default function RegistryTestPage() {
   const [selectedComponent, setSelectedComponent] = useState<string | null>(null);
   const [installCode, setInstallCode] = useState<string>('');
-  const [registryUrl, setRegistryUrl] = useState<string>('https://willow-prod.vercel.app');
+  const [registryUrl, setRegistryUrl] = useState<string>('https://iridescent-brigadeiros-fe4174.netlify.app');
 
   const generateInstallCode = (component: string) => {
     const code = `# Method 1: Using shadcn CLI (Recommended)

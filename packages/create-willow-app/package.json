@@ -1,6 +1,6 @@
 {
   "name": "create-willow-design-system",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "Initialize a new project with Willow Design System",
   "type": "module",
   "bin": {
@@ -30,7 +30,7 @@
   "bugs": {
     "url": "https://github.com/your-org/willow-design-system/issues"
   },
-  "homepage": "https://willow-prod.vercel.app",
+  "homepage": "https://iridescent-brigadeiros-fe4174.netlify.app",
   "dependencies": {
     "chalk": "^5.3.0",
     "commander": "^11.0.0",

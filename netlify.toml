@@ -1,5 +1,6 @@
 [build]
   command = "npm run build"
+  publish = ".next"
 
 [build.environment]
   NODE_VERSION = "18"
@@ -10,3 +11,63 @@
 
 [functions]
   node_bundler = "esbuild"
+
+# Ensure registry files are served correctly
+[[headers]]
+  for = "/r/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Access-Control-Allow-Origin = "*"
+    Content-Type = "application/json"
+
+# Ensure CDN files are served correctly
+[[headers]]
+  for = "/cdn/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+    Access-Control-Allow-Origin = "*"
+
+# Ensure fonts are served with CORS headers
+[[headers]]
+  for = "/cdn/fonts/*.otf"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+    Access-Control-Allow-Origin = "*"
+    Content-Type = "application/x-font-opentype"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/fonts/*.otf"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+    Access-Control-Allow-Origin = "*"
+    Content-Type = "application/x-font-opentype"
+    X-Content-Type-Options = "nosniff"
+
+# Copy public files to build output
+[[redirects]]
+  from = "/r/*"
+  to = "/r/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/cdn/*"
+  to = "/cdn/:splat"
+  status = 200
+  force = true
+
+# Handle storybook assets
+[[redirects]]
+  from = "/storybook/*"
+  to = "/storybook/:splat"
+  status = 200
+  force = true
+
+# Ensure all assets in public are served
+[[redirects]]
+  from = "/*"
+  to = "/:splat"
+  status = 200
+  conditions = {Role = ["*"]}
+  force = false

@@ -16,5 +16,5 @@
     "ui": "@/src/components/ui",
     "lib": "@/lib",
     "hooks": "@/src/hooks"
-  }
+  },
 }

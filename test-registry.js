@@ -3,9 +3,9 @@
 // Test script to verify registry accessibility
 
 const REGISTRY_URLS = [
-  'https://willow-prod.vercel.app/r/button.json',
-  'https://willow-prod.vercel.app/api/registry/ui/button',
-  'https://willow-design-system.vercel.app/r/button.json',
+  'https://iridescent-brigadeiros-fe4174.netlify.app/r/button.json',
+  'https://iridescent-brigadeiros-fe4174.netlify.app/api/registry/ui/button',
+  'https://iridescent-brigadeiros-fe4174.netlify.app/registry/ui/button.json',
 ];
 
 async function testRegistry() {

@@ -10,8 +10,8 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const WILLOW_REGISTRY_URL = 'https://willow-prod.vercel.app/r';
-const FALLBACK_REGISTRY_URL = 'https://willow-prod.vercel.app/api/registry/ui';
+const WILLOW_REGISTRY_URL = 'https://iridescent-brigadeiros-fe4174.netlify.app/r';
+const FALLBACK_REGISTRY_URL = 'https://iridescent-brigadeiros-fe4174.netlify.app/api/registry/ui';
 
 async function init() {
   console.log(chalk.blue.bold('\n🌳 Welcome to Willow Design System\n'));
@@ -234,7 +234,7 @@ next-env.d.ts`;
       },
       "registries": {
         "willow": {
-          "url": WILLOW_REGISTRY_URL
+          "url": "https://iridescent-brigadeiros-fe4174.netlify.app/r"
         }
       }
     };
@@ -409,49 +409,9 @@ export function cn(...inputs) {
       
       for (const component of components) {
         try {
-          // Try primary registry first
-          let response = await fetch(`${WILLOW_REGISTRY_URL}/${component}.json`);
-          let componentData;
-          
-          if (!response.ok) {
-            // Try fallback API
-            response = await fetch(`${FALLBACK_REGISTRY_URL}/${component}`);
-            if (!response.ok) {
-              throw new Error(`Failed to fetch ${component} from both registry URLs`);
-            }
-          }
-          
-          componentData = await response.json();
-          
-          // Write component files
-          if (componentData.files) {
-            for (const file of componentData.files) {
-              let filePath = file.path || file.name;
-              const content = file.content;
-              
-              // Transform registry path to project path
-              if (filePath.startsWith('registry/components/')) {
-                filePath = filePath.replace('registry/components/', '');
-                // Also fix the casing (Button.tsx -> button.tsx)
-                const fileName = path.basename(filePath);
-                const dir = path.dirname(filePath);
-                filePath = path.join(dir, fileName.toLowerCase());
-              }
-              
-              // Ensure directory exists
-              const dir = path.dirname(filePath);
-              await fs.mkdir(dir, { recursive: true });
-              
-              // Write the component file
-              await fs.writeFile(filePath, content);
-              spinner.text = `Installed ${component} component`;
-            }
-          }
-          
-          // Also check for dependencies and add them to a list
-          if (componentData.dependencies) {
-            // We'll install these after all components are downloaded
-          }
+          // Use Willow CLI for simpler component installation
+          execSync(`npx willow-cli add ${component} --yes`, { stdio: 'pipe' });
+          spinner.text = `Installed ${component} component via Willow CLI`;
         } catch (error) {
           console.warn(chalk.yellow(`\nWarning: Could not install ${component}: ${error.message}`));
         }
@@ -464,26 +424,35 @@ export function cn(...inputs) {
 @tailwind components;
 @tailwind utilities;
 
-/* Willow Fonts */
+/* Willow Fonts - with multiple format support */
 @font-face {
   font-family: 'Codec Pro';
-  src: url('https://willow-prod.vercel.app/cdn/fonts/Codec-Pro-Regular.otf') format('opentype');
+  src: url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/Codec-Pro-Regular.woff2') format('woff2'),
+       url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/Codec-Pro-Regular.woff') format('woff'),
+       url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/Codec-Pro-Regular.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Codec Pro';
-  src: url('https://willow-prod.vercel.app/cdn/fonts/Codec-Pro-Bold.otf') format('opentype');
+  src: url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/Codec-Pro-Bold.woff2') format('woff2'),
+       url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/Codec-Pro-Bold.woff') format('woff'),
+       url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/Codec-Pro-Bold.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Codec Pro';
-  src: url('https://willow-prod.vercel.app/cdn/fonts/Codec-Pro-Light.otf') format('opentype');
+  src: url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/Codec-Pro-Light.woff2') format('woff2'),
+       url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/Codec-Pro-Light.woff') format('woff'),
+       url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/Codec-Pro-Light.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
+  font-display: swap;
 }
 
 @layer base {
@@ -556,12 +525,12 @@ ${chalk.yellow('Next steps:')}
   ${chalk.gray('npm run dev')}
 
 ${chalk.yellow('Install more components:')}
-  ${chalk.gray('npx shadcn@latest add willow/accordion')}
-  ${chalk.gray('npx shadcn@latest add willow/tabs')}
-  ${chalk.gray('npx shadcn@latest add willow/modal')}
+  ${chalk.gray('willow add accordion')}
+  ${chalk.gray('willow add tabs')}
+  ${chalk.gray('willow add modal')}
 
 ${chalk.yellow('Documentation:')}
-  ${chalk.gray('https://willow-prod.vercel.app/docs')}
+  ${chalk.gray('https://iridescent-brigadeiros-fe4174.netlify.app/docs')}
 `);
 
   } catch (error) {

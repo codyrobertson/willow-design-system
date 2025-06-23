@@ -1,0 +1,33 @@
+{
+  "name": "willow-cli",
+  "version": "0.1.0",
+  "description": "CLI for installing Willow Design System components",
+  "type": "module",
+  "bin": {
+    "willow": "./index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "node index.js add button"
+  },
+  "keywords": [
+    "willow",
+    "design-system",
+    "shadcn",
+    "ui",
+    "components",
+    "cli"
+  ],
+  "author": "Willow Design System Team",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.0.0",
+    "ora": "^7.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
