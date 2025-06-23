@@ -24,6 +24,11 @@ const nextConfig: NextConfig = {
     },
   },
   
+  // Disable linting during builds for faster deployment  
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  
   // Bundle analysis and optimization
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',

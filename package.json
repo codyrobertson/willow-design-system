@@ -40,7 +40,6 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "prebuild": "npm run prepare-fonts && npm run build-registry && node scripts/ensure-registry-utils.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
