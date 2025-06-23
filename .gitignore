@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -14,11 +14,12 @@
 /coverage
 
 # next.js
-/.next/
-/out/
+.next/
+out/
 
 # production
-/build
+build/
+dist/
 
 # misc
 .DS_Store
@@ -54,7 +55,6 @@ storybook-static
 !/registry/components/ui/utils.ts
 !/registry/components/ui/icon/
 !/registry/components/ui/icon/utils.ts
-/dist/
 
 # Auto-generated symlinks
 /registry/components/lib
