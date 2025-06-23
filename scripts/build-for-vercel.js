@@ -15,13 +15,17 @@ try {
   process.exit(1);
 }
 
-// Step 2: Build the registry
-console.log('\n📦 Building component registry...');
-try {
-  execSync('npm run build-registry', { stdio: 'inherit' });
-} catch (error) {
-  console.error('Failed to build registry:', error);
-  process.exit(1);
+// Step 2: Build the registry (only in production)
+if (process.env.SKIP_REGISTRY_BUILD !== 'true') {
+  console.log('\n📦 Building component registry...');
+  try {
+    execSync('npm run build-registry', { stdio: 'inherit' });
+  } catch (error) {
+    console.error('Failed to build registry:', error);
+    process.exit(1);
+  }
+} else {
+  console.log('\n⏭️  Skipping registry build (SKIP_REGISTRY_BUILD=true)');
 }
 
 // Step 3: Build Storybook

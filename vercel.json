@@ -3,6 +3,14 @@
   "outputDirectory": "out",
   "framework": "nextjs",
   "public": true,
+  "github": {
+    "deploymentEnabled": {
+      "main": true,
+      "staging": true,
+      "develop": false
+    },
+    "autoAlias": false
+  },
   "rewrites": [
     {
       "source": "/storybook",
