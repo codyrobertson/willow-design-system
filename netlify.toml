@@ -26,14 +26,25 @@
   [headers.values]
     Cache-Control = "public, max-age=86400"
     Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, HEAD, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type"
 
-# Ensure fonts are served with CORS headers
+# Font CSS files
+[[headers]]
+  for = "/cdn/fonts/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+    Access-Control-Allow-Origin = "*"
+    Content-Type = "text/css"
+    X-Content-Type-Options = "nosniff"
+
+# Font files
 [[headers]]
   for = "/cdn/fonts/*.otf"
   [headers.values]
     Cache-Control = "public, max-age=31536000"
     Access-Control-Allow-Origin = "*"
-    Content-Type = "application/x-font-opentype"
+    Content-Type = "font/otf"
     X-Content-Type-Options = "nosniff"
 
 [[headers]]
@@ -41,8 +52,19 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000"
     Access-Control-Allow-Origin = "*"
-    Content-Type = "application/x-font-opentype"
+    Content-Type = "font/otf"
     X-Content-Type-Options = "nosniff"
+
+# Static assets optimization
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
 
 # Copy public files to build output
 [[redirects]]

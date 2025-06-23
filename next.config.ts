@@ -44,37 +44,45 @@ const nextConfig: NextConfig = {
       '@/registry/lib': path.resolve('./registry/lib'),
     };
     
-    // Only apply optimizations in production
+    // Fix source map issues
+    if (!dev) {
+      config.devtool = false; // Disable source maps in production
+    }
+    
+    // Ensure proper module resolution
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      path: false,
+      os: false,
+    };
+    
+    // Optimize chunk splitting for better caching
     if (!dev && !isServer) {
       config.optimization = {
         ...config.optimization,
         splitChunks: {
           chunks: 'all',
+          minSize: 20000,
+          maxSize: 244000,
           cacheGroups: {
-            default: false,
-            vendors: false,
-            // Vendor chunk for framework code
+            default: {
+              minChunks: 2,
+              priority: 10,
+              reuseExistingChunk: true,
+            },
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              priority: 20,
+              chunks: 'all',
+            },
             framework: {
               chunks: 'all',
               name: 'framework',
               test: /(?:react|react-dom)/,
               priority: 40,
               enforce: true,
-            },
-            // UI library chunk
-            lib: {
-              test: /[\\/]node_modules[\\/]/,
-              name: 'lib',
-              priority: 30,
-              chunks: 'all',
-            },
-            // Common chunks
-            common: {
-              name: 'commons',
-              minChunks: 2,
-              priority: 20,
-              chunks: 'all',
-              reuseExistingChunk: true,
             },
           },
         },
