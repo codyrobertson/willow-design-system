@@ -2,7 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Core optimizations
-  output: 'export',
+  trailingSlash: true,
+  generateBuildId: async () => {
+    return 'willow-design-system'
+  },
   experimental: {
     optimizePackageImports: [
       'lucide-react',
@@ -30,7 +33,7 @@ const nextConfig: NextConfig = {
   swcMinify: true,
   
   // Static generation optimizations
-  trailingSlash: false,
+  distDir: '.next',
   
   // Image optimization (if using next/image)
   images: {
@@ -39,6 +42,12 @@ const nextConfig: NextConfig = {
   
   // Webpack optimizations
   webpack: (config, { dev, isServer }) => {
+    // Ensure registry/lib directory is always resolved
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@/registry/lib': '/Users/Cody/code_projects/willow-design-system/registry/lib',
+    };
+    
     // Only apply optimizations in production
     if (!dev && !isServer) {
       config.optimization = {

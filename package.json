@@ -39,6 +39,7 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
+    "prebuild": "node scripts/ensure-registry-utils.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -59,7 +60,9 @@
     "prepare-fonts": "node scripts/prepare-fonts.js",
     "build:all": "npm run prepare-fonts && npm run build && npm run build:storybook-local && npm run build-registry",
     "build:vercel": "node scripts/build-for-vercel.js",
-    "deploy": "vercel --prod"
+    "build:deploy": "npm run prepare-fonts && npm run build && npm run build-registry",
+    "deploy": "npm run build:deploy && vercel --prod --archive=tgz",
+    "registry:build": "shadcn build"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
@@ -95,6 +98,7 @@
     "jest": "^30.0.2",
     "jest-environment-jsdom": "^30.0.2",
     "postcss": "^8.5.6",
+    "shadcn": "^2.7.0-canary.0",
     "storybook": "^9.0.12",
     "tailwindcss": "^3.4.17",
     "tsup": "^8.0.1",

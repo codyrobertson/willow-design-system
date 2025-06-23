@@ -1,22 +1,25 @@
-'use client';
-
-import { useEffect } from 'react';
-// import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Home() {
-  // Note: router is available but not currently used since we're using window.location.href
-  // const router = useRouter();
-
-  useEffect(() => {
-    // Redirect to production storybook
-    window.location.href = 'https://willow-design-system.vercel.app/storybook';
-  }, []);
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-neutral-50 to-neutral-100">
       <div className="text-center">
-        <h1 className="text-2xl font-bold mb-4 text-neutral-900">Redirecting to Storybook...</h1>
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-willow-primary-600 mx-auto"></div>
+        <h1 className="text-4xl font-bold mb-6 text-neutral-900">Willow Design System</h1>
+        <p className="text-lg text-neutral-600 mb-8">A modern React component library</p>
+        <div className="flex gap-4 justify-center">
+          <Link 
+            href="/storybook" 
+            className="px-6 py-3 bg-willow-primary-600 text-white rounded-lg hover:bg-willow-primary-700 transition-colors"
+          >
+            View Storybook
+          </Link>
+          <Link 
+            href="/registry" 
+            className="px-6 py-3 border border-neutral-300 text-neutral-700 rounded-lg hover:bg-neutral-50 transition-colors"
+          >
+            Component Registry
+          </Link>
+        </div>
       </div>
     </div>
   );

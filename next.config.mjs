@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Only enable static export for production builds
-  output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
+  // Disable static export to enable registry API routes
+  // output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
   
   // Disable ESLint during builds to avoid blocking on warnings
   eslint: {

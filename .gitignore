@@ -49,6 +49,12 @@ storybook-static
 
 *storybook.log
 
-# registry build
-/registry/components/
+# registry build (except utils which are needed)
+/registry/components/ui/
+!/registry/components/ui/utils.ts
+!/registry/components/ui/icon/
+!/registry/components/ui/icon/utils.ts
 /dist/
+
+# Auto-generated symlinks
+/registry/components/lib
