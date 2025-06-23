@@ -1,11 +1,8 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
   // Core optimizations
-  trailingSlash: true,
-  generateBuildId: async () => {
-    return 'willow-design-system'
-  },
   experimental: {
     optimizePackageImports: [
       'lucide-react',
@@ -35,9 +32,9 @@ const nextConfig: NextConfig = {
   // Static generation optimizations
   distDir: '.next',
   
-  // Image optimization (if using next/image)
+  // Image optimization
   images: {
-    unoptimized: true, // Required for static export
+    unoptimized: true,
   },
   
   // Webpack optimizations
@@ -45,7 +42,7 @@ const nextConfig: NextConfig = {
     // Ensure registry/lib directory is always resolved
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@/registry/lib': '/Users/Cody/code_projects/willow-design-system/registry/lib',
+      '@/registry/lib': path.resolve('./registry/lib'),
     };
     
     // Only apply optimizations in production
