@@ -1,0 +1,15 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run prepare-fonts && npm run build-registry && npm run build",
+  "functions": {
+    "app/api/**/*.ts": {
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/storybook/(.*)",
+      "destination": "/storybook/$1"
+    }
+  ]
+}

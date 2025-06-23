@@ -2,8 +2,8 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
-  // Force dynamic rendering for Vercel compatibility
-  dynamicParams: true,
+  // Ensure this is NOT a static export - we need server functions
+  // dynamicParams: true, // Remove this as it's for dynamic routes, not forcing SSR
   
   // Core optimizations
   experimental: {
