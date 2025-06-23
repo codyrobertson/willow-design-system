@@ -58,3 +58,6 @@ storybook-static
 
 # Auto-generated symlinks
 /registry/components/lib
+
+# Local Netlify folder
+.netlify
