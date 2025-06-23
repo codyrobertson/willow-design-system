@@ -1,5 +1,4 @@
 {
-  "buildCommand": "npm run build:deploy",
-  "installCommand": "npm ci",
-  "framework": null
+  "buildCommand": "npm run build",
+  "installCommand": "npm ci"
 }
