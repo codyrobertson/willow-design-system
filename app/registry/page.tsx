@@ -144,7 +144,7 @@ export default function RegistryPage() {
   "registries": [
     {
       "name": "willow",
-      "url": "https://willow-design-system.vercel.app/api/registry"
+      "url": "https://iridescent-brigadeiros-fe4174.netlify.app/api/registry"
     }
   ]
 }`}

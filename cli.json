@@ -1,6 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
-  "url": "https://willow-design-system.vercel.app/registry",
+  "url": "https://iridescent-brigadeiros-fe4174.netlify.app/registry",
   "paths": {
     "registry": "./registry",
     "components": "./src/components/ui",

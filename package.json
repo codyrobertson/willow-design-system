@@ -9,7 +9,7 @@
     "type": "git",
     "url": "https://github.com/your-org/willow-design-system"
   },
-  "homepage": "https://willow-design-system.vercel.app",
+  "homepage": "https://iridescent-brigadeiros-fe4174.netlify.app",
   "keywords": [
     "react",
     "design-system",
@@ -40,7 +40,7 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "prebuild": "npm run prepare-fonts && npm run build-registry && node scripts/ensure-registry-utils.js",
+    "prebuild": "npm run prepare-fonts && npm run build-registry && npm run build:storybook-local && node scripts/ensure-registry-utils.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -96,6 +96,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
     "eslint-plugin-storybook": "^9.0.12",
+    "fs-extra": "^11.3.0",
     "jest": "^30.0.2",
     "jest-environment-jsdom": "^30.0.2",
     "postcss": "^8.5.6",

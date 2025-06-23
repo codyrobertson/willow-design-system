@@ -95,7 +95,7 @@ export default function QuickStartPage() {
               <CardContent className="pt-0">
                 <CodeBlock>{`<link 
   rel="stylesheet" 
-  href="https://willow-design-system.vercel.app/cdn/fonts/codec-pro.css"
+  href="https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/codec-pro.css"
 />`}</CodeBlock>
               </CardContent>
             </Card>

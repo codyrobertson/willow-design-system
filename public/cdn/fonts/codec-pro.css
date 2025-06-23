@@ -1,7 +1,7 @@
 /* Willow Design System - Codec Pro Font */
 @font-face {
   font-family: 'Codec Pro';
-  src: url('https://willow-design-system.vercel.app/cdn/fonts/Codec-Pro-Regular.otf') format('opentype');
+  src: url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/Codec-Pro-Regular.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -9,7 +9,7 @@
 
 @font-face {
   font-family: 'Codec Pro';
-  src: url('https://willow-design-system.vercel.app/cdn/fonts/Codec-Pro-Italic.otf') format('opentype');
+  src: url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/Codec-Pro-Italic.otf') format('opentype');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -17,7 +17,7 @@
 
 @font-face {
   font-family: 'Codec Pro';
-  src: url('https://willow-design-system.vercel.app/cdn/fonts/Codec-Pro-Light.otf') format('opentype');
+  src: url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/Codec-Pro-Light.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -25,7 +25,7 @@
 
 @font-face {
   font-family: 'Codec Pro';
-  src: url('https://willow-design-system.vercel.app/cdn/fonts/Codec-Pro-Bold.otf') format('opentype');
+  src: url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/Codec-Pro-Bold.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -33,7 +33,7 @@
 
 @font-face {
   font-family: 'Codec Pro';
-  src: url('https://willow-design-system.vercel.app/cdn/fonts/Codec-Pro-Bold-Italic.otf') format('opentype');
+  src: url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/Codec-Pro-Bold-Italic.otf') format('opentype');
   font-weight: 700;
   font-style: italic;
   font-display: swap;
@@ -41,11 +41,11 @@
 
 @font-face {
   font-family: 'Codec Pro';
-  src: url('https://willow-design-system.vercel.app/cdn/fonts/Codec-Pro-Extrabold.otf') format('opentype');
+  src: url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/Codec-Pro-Extrabold.otf') format('opentype');
   font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 
 /* Alternative import method for users */
-/* @import url('https://willow-design-system.vercel.app/cdn/fonts/codec-pro.css'); */
+/* @import url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/codec-pro.css'); */
