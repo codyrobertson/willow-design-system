@@ -1,11 +1,11 @@
-# @willow-design-system/create-app
+# create-willow-design-system
 
 The easiest way to get started with Willow Design System.
 
 ## Usage
 
 ```bash
-npx @willow-design-system/create-app@latest
+npx create-willow-design-system@latest
 ```
 
 or 

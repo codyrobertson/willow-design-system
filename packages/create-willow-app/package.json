@@ -1,10 +1,10 @@
 {
-  "name": "@willow-design-system/create-app",
-  "version": "0.1.0",
+  "name": "create-willow-design-system",
+  "version": "0.1.2",
   "description": "Initialize a new project with Willow Design System",
   "type": "module",
   "bin": {
-    "create-willow-app": "./index.js"
+    "create-willow-design-system": "./index.js"
   },
   "publishConfig": {
     "access": "public"

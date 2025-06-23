@@ -55,7 +55,7 @@ async function init() {
     spinner.text = 'Creating project structure...';
     
     if (answers.framework === 'Next.js') {
-      execSync(`npx create-next-app@latest . --typescript=${answers.typescript} --tailwind --app --no-src-dir --import-alias "@/*" --eslint`, { 
+      execSync(`npx create-next-app@latest . --typescript=${answers.typescript} --tailwind --app --no-src-dir --import-alias "@/*" --eslint --no-install`, { 
         stdio: 'pipe' 
       });
     } else if (answers.framework === 'Vite') {
@@ -64,8 +64,13 @@ async function init() {
       });
     }
 
-    // Install Tailwind CSS if not Next.js
-    if (answers.framework !== 'Next.js') {
+    // Install dependencies based on framework
+    if (answers.framework === 'Next.js') {
+      spinner.text = 'Installing Next.js dependencies...';
+      // Install core Next.js dependencies
+      execSync('npm install next@latest react@latest react-dom@latest', { stdio: 'pipe' });
+      execSync('npm install -D typescript @types/react @types/react-dom @types/node eslint eslint-config-next tailwindcss postcss autoprefixer', { stdio: 'pipe' });
+    } else if (answers.framework !== 'Next.js') {
       spinner.text = 'Installing Tailwind CSS...';
       execSync('npm install -D tailwindcss postcss autoprefixer', { stdio: 'pipe' });
       execSync('npx tailwindcss init -p', { stdio: 'pipe' });
@@ -208,11 +213,31 @@ export default config;`;
 
     await fs.writeFile('tailwind.config.js', tailwindConfig);
 
-    // Install required dependencies
-    spinner.text = 'Installing dependencies...';
-    execSync('npm install clsx tailwind-merge class-variance-authority lucide-react @radix-ui/react-slot tailwindcss-animate', { 
-      stdio: 'pipe' 
-    });
+    // Install required Willow dependencies
+    spinner.text = 'Installing Willow dependencies...';
+    const willowDeps = [
+      'clsx',
+      'tailwind-merge',
+      'class-variance-authority',
+      'lucide-react',
+      '@radix-ui/react-slot',
+      'tailwindcss-animate'
+    ];
+    
+    try {
+      execSync(`npm install ${willowDeps.join(' ')} --save-exact`, { 
+        stdio: 'pipe' 
+      });
+    } catch (error) {
+      // If that fails, install one by one
+      for (const dep of willowDeps) {
+        try {
+          execSync(`npm install ${dep} --save-exact`, { stdio: 'pipe' });
+        } catch (e) {
+          console.warn(chalk.yellow(`Warning: Could not install ${dep}, you may need to install it manually`));
+        }
+      }
+    }
 
     // Install shadcn CLI
     execSync('npm install -D shadcn@latest', { stdio: 'pipe' });

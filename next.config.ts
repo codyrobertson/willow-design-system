@@ -29,8 +29,7 @@ const nextConfig: NextConfig = {
   // Performance optimizations
   swcMinify: true,
   
-  // Static generation optimizations
-  distDir: '.next',
+  // Build optimizations
   
   // Image optimization
   images: {
