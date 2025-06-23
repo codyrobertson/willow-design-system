@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
+  // Force dynamic rendering for Vercel compatibility
+  dynamicParams: true,
+  
   // Core optimizations
   experimental: {
     optimizePackageImports: [
