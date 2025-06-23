@@ -1,231 +1,8 @@
 /* Font imports */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-/* Codec Pro Font Face Definitions */
-@font-face {
-  font-family: 'Codec Pro';
-  src: url('/fonts/Codec-Pro-Regular.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Codec Pro';
-  src: url('/fonts/Codec-Pro-Bold.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Codec Pro';
-  src: url('/fonts/Codec-Pro-Light.otf') format('opentype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Codec Pro';
-  src: url('/fonts/Codec-Pro-News.otf') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Codec Pro';
-  src: url('/fonts/Codec-Pro-Heavy.otf') format('opentype');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Codec Pro';
-  src: url('/fonts/Codec-Pro-Extrabold.otf') format('opentype');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Codec Pro';
-  src: url('/fonts/Codec-Pro-Thin.otf') format('opentype');
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Codec Pro';
-  src: url('/fonts/Codec-Pro-Extralight.otf') format('opentype');
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Codec Pro';
-  src: url('/fonts/Codec-Pro-Ultra.otf') format('opentype');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Font Awesome Pro 6 Font Face Definitions */
-@font-face {
-  font-family: 'Font Awesome 6 Pro';
-  font-style: normal;
-  font-weight: 300;
-  font-display: block;
-  src: url('/fontawesome/otfs/Font Awesome 6 Pro-Light-300.otf') format('opentype');
-}
-
-@font-face {
-  font-family: 'Font Awesome 6 Pro';
-  font-style: normal;
-  font-weight: 400;
-  font-display: block;
-  src: url('/fontawesome/otfs/Font Awesome 6 Pro-Regular-400.otf') format('opentype');
-}
-
-@font-face {
-  font-family: 'Font Awesome 6 Pro';
-  font-style: normal;
-  font-weight: 900;
-  font-display: block;
-  src: url('/fontawesome/otfs/Font Awesome 6 Pro-Solid-900.otf') format('opentype');
-}
-
-@font-face {
-  font-family: 'Font Awesome 6 Pro';
-  font-style: normal;
-  font-weight: 100;
-  font-display: block;
-  src: url('/fontawesome/otfs/Font Awesome 6 Pro-Thin-100.otf') format('opentype');
-}
-
-@font-face {
-  font-family: 'Font Awesome 6 Brands';
-  font-style: normal;
-  font-weight: 400;
-  font-display: block;
-  src: url('/fontawesome/otfs/Font Awesome 6 Brands-Regular-400.otf') format('opentype');
-}
-
-@font-face {
-  font-family: 'Font Awesome 6 Duotone';
-  font-style: normal;
-  font-weight: 900;
-  font-display: block;
-  src: url('/fontawesome/otfs/Font Awesome 6 Duotone-Solid-900.otf') format('opentype');
-}
-
-/* Font Awesome Base Styles */
-.fa, .fas, .far, .fal, .fat, .fad, .fab {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
-  line-height: 1;
-}
-
-.fas { font-family: 'Font Awesome 6 Pro'; font-weight: 900; }
-.far { font-family: 'Font Awesome 6 Pro'; font-weight: 400; }
-.fal { font-family: 'Font Awesome 6 Pro'; font-weight: 300; }
-.fat { font-family: 'Font Awesome 6 Pro'; font-weight: 100; }
-.fad { font-family: 'Font Awesome 6 Duotone'; font-weight: 900; }
-.fab { font-family: 'Font Awesome 6 Brands'; font-weight: 400; }
-
-/* Icon content mappings */
-.fa-user::before { content: "\f007"; }
-.fa-envelope::before { content: "\f0e0"; }
-.fa-lock::before { content: "\f023"; }
-.fa-eye::before { content: "\f06e"; }
-.fa-eye-slash::before { content: "\f070"; }
-.fa-circle-check::before { content: "\f058"; }
-.fa-arrow-left::before { content: "\f060"; }
-.fa-arrow-right::before { content: "\f061"; }
-.fa-download::before { content: "\f019"; }
-.fa-file::before { content: "\f15b"; }
-.fa-spinner::before { content: "\f110"; }
-.fa-user-circle::before { content: "\f2bd"; }
-.fa-code::before { content: "\f121"; }
-.fa-file-medical::before { content: "\f477"; }
-.fa-info-circle::before { content: "\f05a"; }
-.fa-check::before { content: "\f00c"; }
-.fa-magnifying-glass-chart::before { content: "\e522"; }
-.fa-pills::before { content: "\f484"; }
-.fa-calendar-check::before { content: "\f274"; }
-.fa-shield-heart::before { content: "\e574"; }
-.fa-chart-line::before { content: "\f201"; }
-.fa-robot::before { content: "\f544"; }
-.fa-check-circle::before { content: "\f058"; }
-.fa-seedling::before { content: "\f4d8"; }
-/* Additional icons for stories */
-.fa-heart::before { content: "\f004"; }
-.fa-star::before { content: "\f005"; }
-.fa-house::before { content: "\f015"; }
-.fa-gear::before { content: "\f013"; }
-.fa-cog::before { content: "\f013"; }
-.fa-plus::before { content: "\f067"; }
-.fa-minus::before { content: "\f068"; }
-.fa-xmark::before { content: "\f00d"; }
-.fa-x::before { content: "\f00d"; }
-.fa-pencil::before { content: "\f303"; }
-.fa-trash::before { content: "\f1f8"; }
-.fa-phone::before { content: "\f095"; }
-.fa-calendar::before { content: "\f073"; }
-.fa-clock::before { content: "\f017"; }
-.fa-search::before { content: "\f002"; }
-.fa-bars::before { content: "\f0c9"; }
-.fa-upload::before { content: "\f093"; }
-.fa-folder::before { content: "\f07b"; }
-.fa-image::before { content: "\f03e"; }
-.fa-video::before { content: "\f03d"; }
-.fa-music::before { content: "\f001"; }
-.fa-unlock::before { content: "\f09c"; }
-.fa-key::before { content: "\f084"; }
-.fa-shield::before { content: "\f132"; }
-.fa-bell::before { content: "\f0f3"; }
-.fa-bookmark::before { content: "\f02e"; }
-.fa-flag::before { content: "\f024"; }
-.fa-circle-notch::before { content: "\f1ce"; }
-.fa-circle::before { content: "\f111"; }
-.fa-github::before { content: "\f09b"; }
-.fa-twitter::before { content: "\f099"; }
-.fa-facebook::before { content: "\f09a"; }
-.fa-instagram::before { content: "\f16d"; }
-.fa-youtube::before { content: "\f167"; }
-.fa-linkedin::before { content: "\f0e1"; }
-.fa-rocket::before { content: "\f135"; }
-.fa-external-link::before { content: "\f08e"; }
-.fa-chevron-down::before { content: "\f078"; }
-.fa-ellipsis-vertical::before { content: "\f142"; }
-.fa-filter::before { content: "\f0b0"; }
-.fa-exclamation-triangle::before { content: "\f071"; }
-.fa-circle-xmark::before { content: "\f057"; }
-.fa-sparkles::before { content: "\f890"; }
-.fa-arrow-up-right-from-square::before { content: "\f08e"; }
-.fa-palette::before { content: "\f53f"; }
-.fa-brush::before { content: "\f1fc"; }
-.fa-moon::before { content: "\f186"; }
-.fa-shield-check::before { content: "\e550"; }
-.fa-circle-exclamation::before { content: "\f06a"; }
-.fa-microchip::before { content: "\f2db"; }
-
-/* Spin animation */
-@keyframes fa-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-.fa-spin {
-  animation: fa-spin 2s infinite linear;
-}
+/* Import Codec Pro from CDN */
+@import url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/codec-pro.css');
 
 @tailwind base;
 @tailwind components;
@@ -233,496 +10,137 @@
 
 @layer base {
   :root {
-    /* ===== Light Mode ===== */
-    
-    /* Backgrounds - Using Willow tokens */
-    --background: 0 0% 100%; /* neutral-0: #FFFFFF */
-    --foreground: 264 8% 37%; /* neutral-900: #534F5E */
-    
-    /* Card */
-    --card: 0 0% 100%; /* neutral-0: #FFFFFF */
-    --card-foreground: 264 8% 37%; /* neutral-900: #534F5E */
-    
-    /* Popover */
-    --popover: 0 0% 100%; /* neutral-0: #FFFFFF */
-    --popover-foreground: 264 8% 37%; /* neutral-900: #534F5E */
-    
-    /* Primary - Willow Purple */
-    --primary: 251 79% 27%; /* willow-950: #230E67 */
-    --primary-foreground: 0 0% 100%; /* neutral-0: #FFFFFF */
-    
-    /* Secondary - Neutral */
-    --secondary: 260 14% 96%; /* neutral-50: #F6F5F8 */
-    --secondary-foreground: 264 8% 37%; /* neutral-900: #534F5E */
-    
-    /* Muted */
-    --muted: 258 25% 93%; /* neutral-100: #EEEDF2 */
-    --muted-foreground: 252 10% 58%; /* neutral-600: #8D85A2 */
-    
-    /* Accent */
-    --accent: 260 14% 96%; /* neutral-50: #F6F5F8 */
-    --accent-foreground: 264 8% 37%; /* neutral-900: #534F5E */
-    
-    /* Destructive - Error */
-    --destructive: 355 94% 61%; /* error-500: #FB3748 */
-    --destructive-foreground: 0 0% 100%; /* neutral-0: #FFFFFF */
-    
-    /* Success */
-    --success: 151 71% 44%; /* success-500: #1FC16B */
-    --success-foreground: 0 0% 100%; /* neutral-0: #FFFFFF */
-    
-    /* Warning */
-    --warning: 19 100% 64%; /* warning-500: #FF8447 */
-    --warning-foreground: 0 0% 100%; /* neutral-0: #FFFFFF */
-    
-    /* Info */
-    --info: 207 76% 49%; /* info-500: #188DDF */
-    --info-foreground: 0 0% 100%; /* neutral-0: #FFFFFF */
-    
-    /* Border */
-    --border: 258 31% 89%; /* neutral-200: #E1DEE9 */
-    --input: 258 31% 89%; /* neutral-200: #E1DEE9 */
-    --ring: 251 79% 27%; /* willow-950: #230E67 */
-    
-    /* Chart - Medical context colors */
-    --chart-1: 251 79% 27%; /* Willow primary */
-    --chart-2: 151 71% 44%; /* Success green */
-    --chart-3: 207 76% 49%; /* Info blue */
-    --chart-4: 19 100% 64%; /* Warning orange */
-    --chart-5: 355 94% 61%; /* Error red */
-    
-    /* Border Radius */
-    --radius: 0.5rem; /* 8px default */
-    
-    /* Animation Durations */
-    --duration-instant: 0ms;
-    --duration-fast: 150ms;
-    --duration-default: 200ms;
-    --duration-medium: 300ms;
-    --duration-slow: 500ms;
+    /* Willow Primary Colors */
+    --willow-primary-50: #f0f5ff;
+    --willow-primary-100: #e5edff;
+    --willow-primary-200: #cddbfe;
+    --willow-primary-300: #b4c6fc;
+    --willow-primary-400: #8da2fb;
+    --willow-primary-500: #6b7ff8;
+    --willow-primary-600: #4c5ff6;
+    --willow-primary-700: #254df2;
+    --willow-primary-800: #2040d8;
+    --willow-primary-900: #1939bc;
+    --willow-primary-950: #0f2481;
+
+    /* Success Colors */
+    --success-50: #f0fdf4;
+    --success-100: #dcfce7;
+    --success-200: #bbf7d0;
+    --success-300: #86efac;
+    --success-400: #4ade80;
+    --success-500: #1fc16b;
+    --success-600: #16a34a;
+    --success-700: #15803d;
+    --success-800: #166534;
+    --success-900: #14532d;
+
+    /* Warning Colors */
+    --warning-50: #fff7ed;
+    --warning-100: #ffedd5;
+    --warning-200: #fed7aa;
+    --warning-300: #fdba74;
+    --warning-400: #fb923c;
+    --warning-500: #ff8447;
+    --warning-600: #ea580c;
+    --warning-700: #c2410c;
+    --warning-800: #9a3412;
+    --warning-900: #7c2d12;
+
+    /* Destructive Colors */
+    --destructive-50: #fef2f2;
+    --destructive-100: #fee2e2;
+    --destructive-200: #fecaca;
+    --destructive-300: #fca5a5;
+    --destructive-400: #f87171;
+    --destructive-500: #ef4444;
+    --destructive-600: #dc2626;
+    --destructive-700: #b91c1c;
+    --destructive-800: #991b1b;
+    --destructive-900: #7f1d1d;
+
+    /* Info Colors */
+    --info-50: #f5f3ff;
+    --info-100: #ede9fe;
+    --info-200: #ddd6fe;
+    --info-300: #c4b5fd;
+    --info-400: #a78bfa;
+    --info-500: #8b5cf6;
+    --info-600: #7666ff;
+    --info-700: #6d28d9;
+    --info-800: #5b21b6;
+    --info-900: #4c1d95;
+
+    /* State Colors */
+    --state-success-lighter: #e8fbef;
+    --state-warning-lighter: #fffaeb;
+    --state-error-lighter: #fef2f2;
+
+    /* Neutral Colors */
+    --neutral-50: #fafafa;
+    --neutral-100: #f5f5f5;
+    --neutral-200: #e5e5e5;
+    --neutral-300: #d4d4d4;
+    --neutral-400: #a3a3a3;
+    --neutral-500: #737373;
+    --neutral-600: #525252;
+    --neutral-700: #404040;
+    --neutral-800: #262626;
+    --neutral-900: #171717;
+    --neutral-950: #0a0a0a;
+
+    /* Semantic tokens using Willow colors */
+    --background: var(--neutral-50);
+    --foreground: var(--neutral-900);
+    --card: var(--neutral-50);
+    --card-foreground: var(--neutral-900);
+    --popover: var(--neutral-50);
+    --popover-foreground: var(--neutral-900);
+    --primary: var(--willow-primary-600);
+    --primary-foreground: var(--neutral-50);
+    --secondary: var(--neutral-100);
+    --secondary-foreground: var(--neutral-900);
+    --muted: var(--neutral-100);
+    --muted-foreground: var(--neutral-500);
+    --accent: var(--neutral-100);
+    --accent-foreground: var(--neutral-900);
+    --destructive: var(--destructive-500);
+    --destructive-foreground: var(--neutral-50);
+    --border: var(--neutral-200);
+    --input: var(--neutral-200);
+    --ring: var(--willow-primary-600);
+    --radius: 0.5rem;
   }
-  
+ 
   .dark {
-    /* ===== Dark Mode ===== */
-    
-    /* Backgrounds */
-    --background: 255 11% 12%; /* neutral-950: #312F37 */
-    --foreground: 260 14% 96%; /* neutral-50: #F6F5F8 */
-    
-    /* Card */
-    --card: 255 11% 12%; /* neutral-950: #312F37 */
-    --card-foreground: 260 14% 96%; /* neutral-50: #F6F5F8 */
-    
-    /* Popover */
-    --popover: 258 7% 22%; /* neutral-950 lighter */
-    --popover-foreground: 260 14% 96%; /* neutral-50: #F6F5F8 */
-    
-    /* Primary - Willow Purple (inverted) */
-    --primary: 244 100% 95%; /* willow-100: #EAE8FF */
-    --primary-foreground: 251 79% 27%; /* willow-950: #230E67 */
-    
-    /* Secondary */
-    --secondary: 252 5% 51%; /* neutral-700: #7F7892 */
-    --secondary-foreground: 260 14% 96%; /* neutral-50: #F6F5F8 */
-    
-    /* Muted */
-    --muted: 252 10% 42%; /* neutral-800: #635E73 */
-    --muted-foreground: 257 19% 76%; /* neutral-400: #B8B2C9 */
-    
-    /* Accent */
-    --accent: 252 5% 51%; /* neutral-700: #7F7892 */
-    --accent-foreground: 260 14% 96%; /* neutral-50: #F6F5F8 */
-    
-    /* Destructive - Error (adjusted for dark) */
-    --destructive: 356 75% 53%; /* error-600: #E01E2F */
-    --destructive-foreground: 0 0% 100%; /* neutral-0: #FFFFFF */
-    
-    /* Success (adjusted for dark) */
-    --success: 151 65% 40%; /* success-600: #199B55 */
-    --success-foreground: 0 0% 100%; /* neutral-0: #FFFFFF */
-    
-    /* Warning (adjusted for dark) */
-    --warning: 17 83% 53%; /* warning-600: #E66A2E */
-    --warning-foreground: 0 0% 100%; /* neutral-0: #FFFFFF */
-    
-    /* Info (adjusted for dark) */
-    --info: 207 89% 39%; /* info-600: #0B6FBE */
-    --info-foreground: 0 0% 100%; /* neutral-0: #FFFFFF */
-    
-    /* Border */
-    --border: 252 10% 42%; /* neutral-800: #635E73 */
-    --input: 252 10% 42%; /* neutral-800: #635E73 */
-    --ring: 244 100% 95%; /* willow-100: #EAE8FF */
-    
-    /* Chart - Adjusted for dark mode */
-    --chart-1: 244 100% 80%; /* Willow lighter */
-    --chart-2: 151 71% 60%; /* Success lighter */
-    --chart-3: 207 76% 65%; /* Info lighter */
-    --chart-4: 19 100% 70%; /* Warning lighter */
-    --chart-5: 355 94% 70%; /* Error lighter */
+    --background: var(--neutral-950);
+    --foreground: var(--neutral-50);
+    --card: var(--neutral-950);
+    --card-foreground: var(--neutral-50);
+    --popover: var(--neutral-950);
+    --popover-foreground: var(--neutral-50);
+    --primary: var(--willow-primary-500);
+    --primary-foreground: var(--neutral-900);
+    --secondary: var(--neutral-800);
+    --secondary-foreground: var(--neutral-50);
+    --muted: var(--neutral-800);
+    --muted-foreground: var(--neutral-400);
+    --accent: var(--neutral-800);
+    --accent-foreground: var(--neutral-50);
+    --destructive: var(--destructive-400);
+    --destructive-foreground: var(--neutral-50);
+    --border: var(--neutral-800);
+    --input: var(--neutral-800);
+    --ring: var(--willow-primary-500);
   }
 }
 
 @layer base {
   * {
-    border-color: hsl(var(--border));
-  }
-  html, body {
-    height: 100%;
+    @apply border-border;
   }
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-    font-family: 'Codec Pro', 'Inter', system-ui, sans-serif;
+    @apply bg-background text-foreground;
+    font-family: 'Codec Pro', 'Inter', system-ui, -apple-system, sans-serif;
   }
-  #__next, main {
-    height: 100%;
-  }
-}
-
-/* Custom font classes for Codec Pro */
-.font-codec-pro-regular {
-  font-family: 'Codec Pro', 'Inter', system-ui, sans-serif;
-  font-weight: 400;
-}
-
-.font-codec-pro-medium {
-  font-family: 'Codec Pro', 'Inter', system-ui, sans-serif;
-  font-weight: 500;
-}
-
-.font-codec-pro-bold {
-  font-family: 'Codec Pro', 'Inter', system-ui, sans-serif;
-  font-weight: 700;
-}
-
-/* Text display utilities */
-.text-display-xs {
-  font-size: 1.5rem; /* 24px */
-  line-height: 2rem; /* 32px */
-}
-
-.text-display-sm {
-  font-size: 1.875rem; /* 30px */
-  line-height: 2.375rem; /* 38px */
-}
-
-.text-display-md {
-  font-size: 2.25rem; /* 36px */
-  line-height: 2.75rem; /* 44px */
-}
-
-.text-display-lg {
-  font-size: 3rem; /* 48px */
-  line-height: 3.75rem; /* 60px */
-}
-
-.text-display-xl {
-  font-size: 3.75rem; /* 60px */
-  line-height: 4.5rem; /* 72px */
-}
-
-.text-display-2xl {
-  font-size: 4.5rem; /* 72px */
-  line-height: 5.625rem; /* 90px */
-}
-
-/* Text shadow utility */
-.text-shadow-md {
-  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* Keep legacy alias for backwards-compatibility */
-.font-codec-pro { @apply font-codec-pro-regular; }
-
-/* Fallback for Ux Sans Trial to Inter */
-.font-ux-sans-medium {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 500;
-}
-
-.font-ux-sans-bold {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 700;
-}
-
-/* Typography Styles based on Figma Design */
-@layer components {
-  /* Display styles */
-  .text-display-xs {
-    font-size: 1.5rem; /* 24px */
-    line-height: 2rem; /* 32px */
-    font-weight: 600;
-  }
-  
-  .text-display-sm {
-    font-size: 1.875rem; /* 30px */
-    line-height: 2.375rem; /* 38px */
-    font-weight: 600;
-  }
-  
-  .text-display-md {
-    font-size: 2.25rem; /* 36px */
-    line-height: 2.75rem; /* 44px */
-    font-weight: 600;
-    letter-spacing: -0.02em;
-  }
-  
-  .text-display-lg {
-    font-size: 3rem; /* 48px */
-    line-height: 3.75rem; /* 60px */
-    font-weight: 600;
-    letter-spacing: -0.02em;
-  }
-  
-  .text-display-xl {
-    font-size: 3.75rem; /* 60px */
-    line-height: 4.5rem; /* 72px */
-    font-weight: 600;
-    letter-spacing: -0.02em;
-  }
-  
-  .text-display-2xl {
-    font-size: 4.5rem; /* 72px */
-    line-height: 5.625rem; /* 90px */
-    font-weight: 600;
-    letter-spacing: -0.02em;
-  }
-  
-  /* Heading styles */
-  .text-xs {
-    font-size: 0.75rem; /* 12px */
-    line-height: 1.125rem; /* 18px */
-  }
-  
-  .text-sm {
-    font-size: 0.875rem; /* 14px */
-    line-height: 1.25rem; /* 20px */
-  }
-  
-  .text-md {
-    font-size: 1rem; /* 16px */
-    line-height: 1.5rem; /* 24px */
-  }
-  
-  .text-lg {
-    font-size: 1.125rem; /* 18px */
-    line-height: 1.75rem; /* 28px */
-  }
-  
-  .text-xl {
-    font-size: 1.25rem; /* 20px */
-    line-height: 1.875rem; /* 30px */
-  }
-  
-  /* Font weight variants for each size */
-  .text-xs-regular { @apply text-xs font-normal; }
-  .text-xs-medium { @apply text-xs font-medium; }
-  .text-xs-semibold { @apply text-xs font-semibold; }
-  .text-xs-bold { @apply text-xs font-bold; }
-  
-  .text-sm-regular { @apply text-sm font-normal; }
-  .text-sm-medium { @apply text-sm font-medium; }
-  .text-sm-semibold { @apply text-sm font-semibold; }
-  .text-sm-bold { @apply text-sm font-bold; }
-  
-  .text-md-regular { @apply text-md font-normal; }
-  .text-md-medium { @apply text-md font-medium; }
-  .text-md-semibold { @apply text-md font-semibold; }
-  .text-md-bold { @apply text-md font-bold; }
-  
-  .text-lg-regular { @apply text-lg font-normal; }
-  .text-lg-medium { @apply text-lg font-medium; }
-  .text-lg-semibold { @apply text-lg font-semibold; }
-  .text-lg-bold { @apply text-lg font-bold; }
-  
-  .text-xl-regular { @apply text-xl font-normal; }
-  .text-xl-medium { @apply text-xl font-medium; }
-  .text-xl-semibold { @apply text-xl font-semibold; }
-  .text-xl-bold { @apply text-xl font-bold; }
-}
-
-/* Font Awesome Classes */
-.fas,
-.fa-solid {
-  font-family: 'Font Awesome 6 Pro';
-  font-weight: 900;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.far,
-.fa-regular {
-  font-family: 'Font Awesome 6 Pro';
-  font-weight: 400;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.fal,
-.fa-light {
-  font-family: 'Font Awesome 6 Pro';
-  font-weight: 300;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.fat,
-.fa-thin {
-  font-family: 'Font Awesome 6 Pro';
-  font-weight: 100;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.fad,
-.fa-duotone {
-  font-family: 'Font Awesome 6 Duotone';
-  font-weight: 900;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.fab,
-.fa-brands {
-  font-family: 'Font Awesome 6 Brands';
-  font-weight: 400;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Font Awesome Sizing */
-.fa-xs { font-size: 0.75em; }
-.fa-sm { font-size: 0.875em; }
-.fa-lg { font-size: 1.25em; }
-.fa-xl { font-size: 1.5em; }
-.fa-2xl { font-size: 2em; }
-.fa-3xl { font-size: 3em; }
-.fa-4xl { font-size: 4em; }
-.fa-5xl { font-size: 5em; }
-.fa-6xl { font-size: 6em; }
-.fa-7xl { font-size: 7em; }
-.fa-8xl { font-size: 8em; }
-.fa-9xl { font-size: 9em; }
-.fa-fw { text-align: center; width: 1.25em; }
-
-/* Font Awesome Animations */
-.fa-spin {
-  animation: fa-spin 2s infinite linear;
-}
-
-.fa-pulse {
-  animation: fa-pulse 2s infinite steps(8);
-}
-
-.fa-beat {
-  animation: fa-beat 1.25s ease-in-out infinite;
-}
-
-.fa-bounce {
-  animation: fa-bounce 1s ease-in-out infinite;
-}
-
-@keyframes fa-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes fa-pulse {
-  0% { opacity: 0.1; }
-  50% { opacity: 1; }
-  100% { opacity: 0.1; }
-}
-
-@keyframes fa-beat {
-  0%, 90% { transform: scale(1); }
-  45% { transform: scale(1.25); }
-}
-
-@keyframes fa-bounce {
-  0%, 10%, 26%, 40%, 50% { transform: translateY(0); }
-  20% { transform: translateY(-0.5em); }
-  30% { transform: translateY(-0.3em); }
-}
-
-/* Font Awesome Transforms */
-.fa-flip-horizontal { transform: scaleX(-1); }
-.fa-flip-vertical { transform: scaleY(-1); }
-.fa-flip-both { transform: scale(-1); }
-.fa-rotate-90 { transform: rotate(90deg); }
-.fa-rotate-180 { transform: rotate(180deg); }
-.fa-rotate-270 { transform: rotate(270deg); }
-
-/* Font Awesome Icon Content */
-.fa-circle-check::before { content: "\f058"; }
-.fa-leaf::before { content: "\f06c"; }
-.fa-video::before { content: "\f03d"; }
-.fa-chart-line::before { content: "\f201"; }
-.fa-comments::before { content: "\f086"; }
-.fa-bullseye::before { content: "\f140"; }
-.fa-check::before { content: "\f00c"; }
-
-/* Custom utilities */
-.css-i38q0p {
-  word-break: break-word;
-}
-
-.adjustLetterSpacing {
-  letter-spacing: -0.02em;
-}
-
-/* Text shadow utilities */
-.text-shadow-sm {
-  text-shadow: rgba(0,0,0,0.05) 0px 1px 2px;
-}
-
-.text-shadow-md {
-  text-shadow: rgba(0,0,0,0.1) 0px 1px 3px, rgba(0,0,0,0.1) 0px 1px 2px;
-}
-
-/* Custom animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Utility classes */
-.scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari and Opera */
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.3s ease-out;
-}
-
-/* Cycle text animation for processing screen */
-@keyframes cycle-text {
-  0%, 16.66% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  16.67%, 100% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-}
-
-.animate-cycle-text {
-  animation: cycle-text var(--duration, 18s) var(--delay, 0s) infinite;
 }
