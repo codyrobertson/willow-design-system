@@ -2,6 +2,7 @@
   "name": "willow-design-system",
   "version": "0.1.0",
   "description": "A modern design system for React applications built with Tailwind CSS",
+  "private": false,
   "author": "Willow Design System Team",
   "license": "MIT",
   "repository": {

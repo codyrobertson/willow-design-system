@@ -29,8 +29,7 @@ export { Toast } from './components/ui/Toast';
 export { Tooltip } from './components/ui/Tooltip';
 
 // Icon Components
-export { Icon } from './components/ui/icon/Icon';
-export { IconText } from './components/ui/icon/IconText';
+export { Icon, IconText } from './components/ui/icon';
 
 // Utilities (if any exist in lib)
 export * from './lib';

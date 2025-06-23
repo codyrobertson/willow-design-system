@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import { TooltipWrapper, Tooltip, TooltipTrigger, TooltipContent } from './Tooltip';
 import { Button } from './Button';
 import { Badge } from './Badge';
-import { Icon } from './icon/Icon';
+import { Icon } from './icon';
 import React from 'react';
 import { Info, HelpCircle, AlertCircle, Copy, Download, Share2 } from 'lucide-react';
 

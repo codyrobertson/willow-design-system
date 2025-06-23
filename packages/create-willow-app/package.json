@@ -1,0 +1,44 @@
+{
+  "name": "@willow-design-system/create-app",
+  "version": "0.1.0",
+  "description": "Initialize a new project with Willow Design System",
+  "type": "module",
+  "bin": {
+    "create-willow-app": "./index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [
+    "willow",
+    "design-system",
+    "shadcn",
+    "ui",
+    "components",
+    "react",
+    "tailwindcss"
+  ],
+  "author": "Willow Design System Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/willow-design-system.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/willow-design-system/issues"
+  },
+  "homepage": "https://willow-prod.vercel.app",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.0.0",
+    "execa": "^8.0.1",
+    "inquirer": "^9.2.12",
+    "ora": "^7.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

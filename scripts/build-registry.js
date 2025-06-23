@@ -5,40 +5,45 @@ const path = require('path');
  * Transform imports using enhanced regex patterns
  */
 function transformImports(content, filePath) {
-  const fileDir = path.dirname(filePath);
-  
-  // Pattern to match import statements
+  // Pattern to match import statements (both relative and absolute)
   const importPattern = /from\s+['"]([^'"]+)['"]/g;
   
   return content.replace(importPattern, (match, importPath) => {
-    // Skip non-relative imports
-    if (!importPath.startsWith('.')) {
-      return match;
+    // Handle utils imports - always use local utils
+    if (importPath === './utils' || importPath.endsWith('/utils') || importPath.includes('lib/utils')) {
+      return `from './utils'`;
     }
     
-    // Keep local utils imports as relative paths for registry components
-    if (importPath === './utils' || importPath.endsWith('/utils')) {
-      return match; // Don't transform utils imports
+    // Handle @/components/ui imports - convert to relative imports
+    if (importPath.startsWith('@/components/ui/')) {
+      const componentName = importPath.replace('@/components/ui/', '');
+      return `from './${componentName}'`;
     }
     
-    // Resolve the absolute path
-    const resolvedPath = path.resolve(fileDir, importPath);
-    
-    // Determine the target import path based on directory structure
-    if (resolvedPath.includes('/components/ui/')) {
-      const relativePath = path.relative(path.join(process.cwd(), 'src/components/ui'), resolvedPath);
-      return `from '@/components/ui/${relativePath}'`;
-    } else if (resolvedPath.includes('/lib/')) {
-      const relativePath = path.relative(path.join(process.cwd(), 'src/lib'), resolvedPath);
-      return `from '@/lib/${relativePath}'`;
+    // Handle @/lib imports - use local utils
+    if (importPath.startsWith('@/lib/')) {
+      return `from './utils'`;
     }
     
-    // For cross-directory imports, determine the correct path
-    if (importPath.includes('../')) {
-      const segments = resolvedPath.split('/components/')[1]?.split('/') || [];
-      if (segments.length > 1) {
-        const [dir, ...rest] = segments;
-        return `from '@/components/${dir}/${rest.join('/')}'`;
+    // Handle relative imports that go to components/ui
+    if (importPath.startsWith('.') && !importPath.startsWith('./utils')) {
+      const fileDir = path.dirname(filePath);
+      const resolvedPath = path.resolve(fileDir, importPath);
+      
+      // Special case: if we're in the icon directory and importing from same directory, keep it simple
+      if (filePath.includes('/icon/') && (importPath.startsWith('./') && !importPath.includes('/'))) {
+        return match; // Keep the import as-is for same-directory imports in icon folder
+      }
+      
+      // Special case: if we're in the icon directory and importing from './XXX' (same dir), keep as-is
+      if (filePath.includes('/icon/') && importPath.match(/^\.\/[^\/]+$/)) {
+        return match;
+      }
+      
+      if (resolvedPath.includes('/components/ui/')) {
+        const relativePath = path.relative(path.join(process.cwd(), 'src/components/ui'), resolvedPath);
+        const targetPath = `./${relativePath}`.replace(/\.tsx?$/, '');
+        return `from '${targetPath}'`;
       }
     }
     

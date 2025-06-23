@@ -1,292 +1,421 @@
 {
-  "name": "willow-design-system",
-  "version": "0.1.0",
-  "type": "registry",
-  "components": [
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "willow",
+  "homepage": "https://willow-prod.vercel.app",
+  "items": [
     {
-      "name": "accordion",
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "A flexible, themeable button component with multiple variants, sizes, and states.",
       "files": [
-        "src/components/registry/components/ui/Accordion.tsx"
+        {
+          "path": "registry/components/ui/Button.tsx",
+          "type": "registry:component"
+        }
       ],
       "dependencies": [
+        "@radix-ui/react-slot",
         "class-variance-authority",
         "lucide-react"
-      ]
+      ],
+      "registryDependencies": ["utils"]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "A vertically stacked set of interactive headings that each reveal an associated section of content.",
+      "files": [
+        {
+          "path": "registry/components/ui/Accordion.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["@radix-ui/react-accordion", "lucide-react"],
+      "registryDependencies": ["utils"]
     },
     {
       "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "An image element with a fallback for representing the user.",
       "files": [
-        "src/components/registry/components/ui/Avatar.tsx"
+        {
+          "path": "registry/components/ui/Avatar.tsx",
+          "type": "registry:component"
+        }
       ],
-      "dependencies": [
-        "class-variance-authority"
-      ]
+      "dependencies": ["@radix-ui/react-avatar"],
+      "registryDependencies": ["utils"]
     },
     {
       "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Displays a badge or a component that looks like a badge.",
       "files": [
-        "src/components/registry/components/ui/Badge.tsx"
+        {
+          "path": "registry/components/ui/Badge.tsx",
+          "type": "registry:component"
+        }
       ],
-      "dependencies": [
-        "class-variance-authority",
-        "lucide-react"
-      ]
-    },
-    {
-      "name": "button",
-      "files": [
-        "src/components/registry/components/ui/Button.tsx"
-      ],
-      "dependencies": [
-        "class-variance-authority",
-        "lucide-react"
-      ]
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils"]
     },
     {
       "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Displays a card with header, content, and footer.",
       "files": [
-        "src/components/registry/components/ui/Card.tsx"
+        {
+          "path": "registry/components/ui/Card.tsx",
+          "type": "registry:component"
+        }
       ],
-      "dependencies": [
-        "class-variance-authority"
-      ]
+      "dependencies": [],
+      "registryDependencies": ["utils"]
     },
     {
       "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "A checkbox control that allows the user to toggle between checked and not checked.",
       "files": [
-        "src/components/registry/components/ui/Checkbox.tsx"
+        {
+          "path": "registry/components/ui/Checkbox.tsx",
+          "type": "registry:component"
+        }
       ],
-      "dependencies": [
-        "lucide-react",
-        "class-variance-authority"
-      ]
+      "dependencies": ["@radix-ui/react-checkbox"],
+      "registryDependencies": ["utils"]
     },
     {
       "name": "chip",
+      "type": "registry:ui",
+      "title": "Chip",
+      "description": "A compact element used to represent an attribute, text, entity, or action.",
       "files": [
-        "src/components/registry/components/ui/Chip.tsx"
+        {
+          "path": "registry/components/ui/Chip.tsx",
+          "type": "registry:component"
+        }
       ],
-      "dependencies": [
-        "class-variance-authority",
-        "lucide-react"
-      ]
+      "dependencies": [],
+      "registryDependencies": ["utils"]
     },
     {
-      "name": "errorboundary",
+      "name": "fancy-button",
+      "type": "registry:ui",
+      "title": "Fancy Button",
+      "description": "An enhanced button component with advanced styling and animations.",
       "files": [
-        "src/components/registry/components/ui/ErrorBoundary.tsx"
+        {
+          "path": "registry/components/ui/FancyButton.tsx",
+          "type": "registry:component"
+        }
       ],
-      "dependencies": [
-        "lucide-react"
-      ]
+      "dependencies": [],
+      "registryDependencies": ["utils"]
     },
     {
-      "name": "fancybutton",
+      "name": "form-card",
+      "type": "registry:ui",
+      "title": "Form Card",
+      "description": "A card component specifically designed for forms.",
       "files": [
-        "src/components/registry/components/ui/FancyButton.tsx"
+        {
+          "path": "registry/components/ui/FormCard.tsx",
+          "type": "registry:component"
+        }
       ],
-      "dependencies": []
+      "dependencies": [],
+      "registryDependencies": ["utils", "card"]
     },
     {
-      "name": "formcard.refactored",
+      "name": "form-field",
+      "type": "registry:ui",
+      "title": "Form Field",
+      "description": "A form field component that combines label, input, and error messages.",
       "files": [
-        "src/components/registry/components/ui/FormCard.refactored.tsx"
+        {
+          "path": "registry/components/ui/FormField.tsx",
+          "type": "registry:component"
+        }
       ],
-      "dependencies": []
+      "dependencies": [],
+      "registryDependencies": ["utils", "label"]
     },
     {
-      "name": "formcard",
+      "name": "gradient-bg",
+      "type": "registry:ui",
+      "title": "Gradient Background",
+      "description": "A component that creates animated gradient backgrounds.",
       "files": [
-        "src/components/registry/components/ui/FormCard.tsx"
+        {
+          "path": "registry/components/ui/GradientBG.tsx",
+          "type": "registry:component"
+        }
       ],
-      "dependencies": [
-        "lucide-react"
-      ]
-    },
-    {
-      "name": "formfield",
-      "files": [
-        "src/components/registry/components/ui/FormField.tsx"
-      ],
-      "dependencies": [
-        "lucide-react"
-      ]
-    },
-    {
-      "name": "gradientbg",
-      "files": [
-        "src/components/registry/components/ui/GradientBG.tsx"
-      ],
-      "dependencies": []
+      "dependencies": [],
+      "registryDependencies": ["utils"]
     },
     {
       "name": "highlight",
+      "type": "registry:ui",
+      "title": "Highlight",
+      "description": "A component to highlight text or content.",
       "files": [
-        "src/components/registry/components/ui/Highlight.tsx"
+        {
+          "path": "registry/components/ui/Highlight.tsx",
+          "type": "registry:component"
+        }
       ],
-      "dependencies": []
-    },
-    {
-      "name": "infocard",
-      "files": [
-        "src/components/registry/components/ui/InfoCard.tsx"
-      ],
-      "dependencies": [
-        "class-variance-authority",
-        "lucide-react"
-      ]
-    },
-    {
-      "name": "input",
-      "files": [
-        "src/components/registry/components/ui/Input.tsx"
-      ],
-      "dependencies": [
-        "class-variance-authority"
-      ]
-    },
-    {
-      "name": "label",
-      "files": [
-        "src/components/registry/components/ui/Label.tsx"
-      ],
-      "dependencies": [
-        "class-variance-authority"
-      ]
-    },
-    {
-      "name": "list",
-      "files": [
-        "src/components/registry/components/ui/List.tsx"
-      ],
-      "dependencies": [
-        "class-variance-authority"
-      ]
-    },
-    {
-      "name": "logo",
-      "files": [
-        "src/components/registry/components/ui/Logo.tsx"
-      ],
-      "dependencies": []
-    },
-    {
-      "name": "modal",
-      "files": [
-        "src/components/registry/components/ui/Modal.tsx"
-      ],
-      "dependencies": [
-        "lucide-react",
-        "class-variance-authority"
-      ]
-    },
-    {
-      "name": "select",
-      "files": [
-        "src/components/registry/components/ui/Select.tsx"
-      ],
-      "dependencies": [
-        "lucide-react",
-        "class-variance-authority"
-      ]
-    },
-    {
-      "name": "simpleform",
-      "files": [
-        "src/components/registry/components/ui/SimpleForm.tsx"
-      ],
-      "dependencies": [
-        "lucide-react"
-      ]
-    },
-    {
-      "name": "skeleton",
-      "files": [
-        "src/components/registry/components/ui/Skeleton.tsx"
-      ],
-      "dependencies": [
-        "class-variance-authority"
-      ]
-    },
-    {
-      "name": "switch",
-      "files": [
-        "src/components/registry/components/ui/Switch.tsx"
-      ],
-      "dependencies": [
-        "class-variance-authority"
-      ]
-    },
-    {
-      "name": "tabs",
-      "files": [
-        "src/components/registry/components/ui/Tabs.tsx"
-      ],
-      "dependencies": [
-        "class-variance-authority"
-      ]
-    },
-    {
-      "name": "tag",
-      "files": [
-        "src/components/registry/components/ui/Tag.tsx"
-      ],
-      "dependencies": [
-        "class-variance-authority",
-        "lucide-react"
-      ]
-    },
-    {
-      "name": "textarea",
-      "files": [
-        "src/components/registry/components/ui/Textarea.tsx"
-      ],
-      "dependencies": [
-        "class-variance-authority"
-      ]
-    },
-    {
-      "name": "toast",
-      "files": [
-        "src/components/registry/components/ui/Toast.tsx"
-      ],
-      "dependencies": [
-        "lucide-react",
-        "class-variance-authority"
-      ]
-    },
-    {
-      "name": "tooltip",
-      "files": [
-        "src/components/registry/components/ui/Tooltip.tsx"
-      ],
-      "dependencies": [
-        "class-variance-authority"
-      ]
+      "dependencies": [],
+      "registryDependencies": ["utils"]
     },
     {
       "name": "icon",
+      "type": "registry:ui",
+      "title": "Icon",
+      "description": "A flexible icon component with Willow icons.",
       "files": [
-        "src/components/registry/components/ui/icon/Icon.tsx"
+        {
+          "path": "registry/components/ui/icon/Icon.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/components/ui/icon/utils.ts",
+          "type": "registry:lib"
+        }
       ],
-      "dependencies": [
-        "lucide-react"
-      ]
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["utils"]
     },
     {
-      "name": "icontext",
+      "name": "icon-text",
+      "type": "registry:ui",
+      "title": "Icon Text",
+      "description": "A component that combines icons with text.",
       "files": [
-        "src/components/registry/components/ui/icon/IconText.tsx"
+        {
+          "path": "registry/components/ui/icon/IconText.tsx",
+          "type": "registry:component"
+        }
       ],
-      "dependencies": []
+      "dependencies": [],
+      "registryDependencies": ["utils", "icon"]
     },
     {
-      "name": "index",
+      "name": "info-card",
+      "type": "registry:ui",
+      "title": "Info Card",
+      "description": "A card component for displaying informational content.",
       "files": [
-        "src/components/registry/components/ui/icon/index.ts",
-        "src/components/registry/components/ui/index.ts"
+        {
+          "path": "registry/components/ui/InfoCard.tsx",
+          "type": "registry:component"
+        }
       ],
-      "dependencies": []
+      "dependencies": [],
+      "registryDependencies": ["utils", "card"]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Displays a form input field or a component that looks like an input field.",
+      "files": [
+        {
+          "path": "registry/components/ui/Input.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": ["utils"]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Renders an accessible label associated with controls.",
+      "files": [
+        {
+          "path": "registry/components/ui/Label.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["@radix-ui/react-label"],
+      "registryDependencies": ["utils"]
+    },
+    {
+      "name": "list",
+      "type": "registry:ui",
+      "title": "List",
+      "description": "A component for rendering lists with various styles.",
+      "files": [
+        {
+          "path": "registry/components/ui/List.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": ["utils"]
+    },
+    {
+      "name": "logo",
+      "type": "registry:ui",
+      "title": "Logo",
+      "description": "The Willow brand logo component.",
+      "files": [
+        {
+          "path": "registry/components/ui/Logo.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": ["utils"]
+    },
+    {
+      "name": "modal",
+      "type": "registry:ui",
+      "title": "Modal",
+      "description": "A modal dialog component.",
+      "files": [
+        {
+          "path": "registry/components/ui/Modal.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": ["utils"]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Displays a list of options for the user to pick from—triggered by a button.",
+      "files": [
+        {
+          "path": "registry/components/ui/Select.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["@radix-ui/react-select"],
+      "registryDependencies": ["utils"]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Use to show a placeholder while content is loading.",
+      "files": [
+        {
+          "path": "registry/components/ui/Skeleton.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": ["utils"]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "A control that allows the user to toggle between checked and not checked.",
+      "files": [
+        {
+          "path": "registry/components/ui/Switch.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["@radix-ui/react-switch"],
+      "registryDependencies": ["utils"]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+      "files": [
+        {
+          "path": "registry/components/ui/Tabs.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["@radix-ui/react-tabs"],
+      "registryDependencies": ["utils"]
+    },
+    {
+      "name": "tag",
+      "type": "registry:ui",
+      "title": "Tag",
+      "description": "A component for displaying tags or labels.",
+      "files": [
+        {
+          "path": "registry/components/ui/Tag.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": ["utils"]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Displays a form textarea or a component that looks like a textarea.",
+      "files": [
+        {
+          "path": "registry/components/ui/Textarea.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": ["utils"]
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "A succinct message that is displayed temporarily.",
+      "files": [
+        {
+          "path": "registry/components/ui/Toast.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": ["utils"]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+      "files": [
+        {
+          "path": "registry/components/ui/Tooltip.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["@radix-ui/react-tooltip"],
+      "registryDependencies": ["utils"]
+    },
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "Utilities",
+      "description": "Utility functions for cn.",
+      "files": [
+        {
+          "path": "lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": []
     }
   ]
 }

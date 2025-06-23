@@ -27,5 +27,4 @@ export * from './ui/FancyButton';
 export * from './ui/GradientBG';
 export * from './ui/Logo';
 export * from './ui/ErrorBoundary';
-export * from './ui/icon/Icon';
-export * from './ui/icon/IconText';
+export * from './ui/icon';

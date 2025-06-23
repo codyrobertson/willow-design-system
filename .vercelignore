@@ -1,0 +1,38 @@
+# Vercel ignore - exclude from deployment
+node_modules
+.next
+out
+.vercel
+
+# Development files
+src/stories
+*.stories.tsx
+*.stories.ts
+*.test.tsx
+*.test.ts
+__tests__
+coverage
+
+# Large build artifacts - exclude storybook (deploy separately)
+storybook-static
+public/storybook
+
+# Registry components (auto-generated, built during deploy)
+registry/components/ui
+
+# Documentation that's not needed for runtime
+*.md
+docs
+.github
+CONTRIBUTING.md
+
+# Development tools
+.vscode
+.idea
+*.log
+
+# Source maps (reduce bundle size)
+**/*.map
+
+# Font source files (keep only generated fonts)
+fonts/codec-pro/*.otf

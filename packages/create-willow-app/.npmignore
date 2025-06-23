@@ -1,0 +1,25 @@
+# Development files
+*.log
+.DS_Store
+node_modules/
+.env
+.env.local
+
+# Test files
+test/
+__tests__/
+*.test.js
+*.spec.js
+
+# Source control
+.git/
+.gitignore
+
+# Editor directories
+.vscode/
+.idea/
+
+# Build files
+dist/
+build/
+*.tsbuildinfo
