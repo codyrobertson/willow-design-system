@@ -1,6 +1,6 @@
 {
   "name": "create-willow-design-system",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Initialize a new project with Willow Design System",
   "type": "module",
   "bin": {

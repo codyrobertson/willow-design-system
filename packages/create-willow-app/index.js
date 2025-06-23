@@ -11,6 +11,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const WILLOW_REGISTRY_URL = 'https://willow-prod.vercel.app/r';
+const FALLBACK_REGISTRY_URL = 'https://willow-prod.vercel.app/api/registry/ui';
 
 async function init() {
   console.log(chalk.blue.bold('\n🌳 Welcome to Willow Design System\n'));
@@ -55,9 +56,141 @@ async function init() {
     spinner.text = 'Creating project structure...';
     
     if (answers.framework === 'Next.js') {
-      execSync(`npx create-next-app@latest . --typescript=${answers.typescript} --tailwind --app --no-src-dir --import-alias "@/*" --eslint --no-install`, { 
-        stdio: 'pipe' 
-      });
+      // Create package.json first
+      const packageJson = {
+        name: answers.projectName,
+        version: "0.1.0",
+        private: true,
+        scripts: {
+          dev: "next dev",
+          build: "next build",
+          start: "next start",
+          lint: "next lint"
+        }
+      };
+      await fs.writeFile('package.json', JSON.stringify(packageJson, null, 2));
+      
+      // Create Next.js project structure
+      await fs.mkdir('app', { recursive: true });
+      await fs.mkdir('public', { recursive: true });
+      await fs.mkdir('components', { recursive: true });
+      
+      // Create app layout
+      const layoutContent = `import './globals.css'
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  )
+}`;
+      await fs.writeFile('app/layout.tsx', layoutContent);
+      
+      // Create app page
+      const pageContent = `export default function Home() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+      <h1 className="text-4xl font-bold">Welcome to Willow Design System</h1>
+    </main>
+  )
+}`;
+      await fs.writeFile('app/page.tsx', pageContent);
+      
+      // Create next.config.js
+      const nextConfig = `/** @type {import('next').NextConfig} */
+const nextConfig = {}
+
+module.exports = nextConfig`;
+      await fs.writeFile('next.config.js', nextConfig);
+      
+      // Create tsconfig.json
+      const tsConfig = {
+        "compilerOptions": {
+          "lib": ["dom", "dom.iterable", "esnext"],
+          "allowJs": true,
+          "skipLibCheck": true,
+          "strict": true,
+          "noEmit": true,
+          "esModuleInterop": true,
+          "module": "esnext",
+          "moduleResolution": "bundler",
+          "resolveJsonModule": true,
+          "isolatedModules": true,
+          "jsx": "preserve",
+          "incremental": true,
+          "plugins": [
+            {
+              "name": "next"
+            }
+          ],
+          "paths": {
+            "@/*": ["./*"]
+          }
+        },
+        "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+        "exclude": ["node_modules"]
+      };
+      await fs.writeFile('tsconfig.json', JSON.stringify(tsConfig, null, 2));
+      
+      // Create globals.css
+      await fs.writeFile('app/globals.css', '/* Temporary file - will be replaced */');
+      
+      // Create postcss.config.js
+      const postcssConfig = `module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}`;
+      await fs.writeFile('postcss.config.js', postcssConfig);
+      
+      // Create .eslintrc.json
+      const eslintConfig = {
+        extends: "next/core-web-vitals"
+      };
+      await fs.writeFile('.eslintrc.json', JSON.stringify(eslintConfig, null, 2));
+      
+      // Create .gitignore
+      const gitignore = `# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts`;
+      await fs.writeFile('.gitignore', gitignore);
+      
     } else if (answers.framework === 'Vite') {
       execSync(`npm create vite@latest . -- --template ${answers.typescript ? 'react-ts' : 'react'}`, { 
         stdio: 'pipe' 
@@ -254,17 +387,73 @@ export function cn(...inputs: ClassValue[]) {
 }`;
 
     await fs.writeFile('lib/utils.ts', utilsContent);
+    
+    // For TypeScript projects, create utils.js as well for compatibility
+    if (answers.typescript) {
+      const utilsJs = `import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs) {
+  return twMerge(clsx(inputs));
+}`;
+      await fs.writeFile('lib/utils.js', utilsJs);
+    }
 
     // Install example components if requested
     if (answers.installExamples) {
       spinner.text = 'Installing Willow components...';
       
+      // First, let's download the components directly from the registry
       const components = ['button', 'card', 'badge', 'input', 'select'];
+      await fs.mkdir('components/ui', { recursive: true });
+      
       for (const component of components) {
         try {
-          execSync(`npx shadcn@latest add willow/${component} -y`, { stdio: 'pipe' });
+          // Try primary registry first
+          let response = await fetch(`${WILLOW_REGISTRY_URL}/${component}.json`);
+          let componentData;
+          
+          if (!response.ok) {
+            // Try fallback API
+            response = await fetch(`${FALLBACK_REGISTRY_URL}/${component}`);
+            if (!response.ok) {
+              throw new Error(`Failed to fetch ${component} from both registry URLs`);
+            }
+          }
+          
+          componentData = await response.json();
+          
+          // Write component files
+          if (componentData.files) {
+            for (const file of componentData.files) {
+              let filePath = file.path || file.name;
+              const content = file.content;
+              
+              // Transform registry path to project path
+              if (filePath.startsWith('registry/components/')) {
+                filePath = filePath.replace('registry/components/', '');
+                // Also fix the casing (Button.tsx -> button.tsx)
+                const fileName = path.basename(filePath);
+                const dir = path.dirname(filePath);
+                filePath = path.join(dir, fileName.toLowerCase());
+              }
+              
+              // Ensure directory exists
+              const dir = path.dirname(filePath);
+              await fs.mkdir(dir, { recursive: true });
+              
+              // Write the component file
+              await fs.writeFile(filePath, content);
+              spinner.text = `Installed ${component} component`;
+            }
+          }
+          
+          // Also check for dependencies and add them to a list
+          if (componentData.dependencies) {
+            // We'll install these after all components are downloaded
+          }
         } catch (error) {
-          console.warn(chalk.yellow(`Warning: Could not install ${component}`));
+          console.warn(chalk.yellow(`\nWarning: Could not install ${component}: ${error.message}`));
         }
       }
     }

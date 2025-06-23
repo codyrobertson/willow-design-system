@@ -1,6 +1,11 @@
 import Link from 'next/link';
 
+// Force this to be a server component by using dynamic data
+export const dynamic = 'force-dynamic';
+
 export default function Home() {
+  // Add timestamp to force server-side rendering
+  const timestamp = new Date().toISOString();
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-neutral-50 to-neutral-100">
       <div className="text-center">
