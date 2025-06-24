@@ -24,15 +24,25 @@ async function copyStorybook() {
     await fs.copy(storybookStaticPath, publicStorybookPath);
     console.log('✅ Copied Storybook to public/storybook');
 
-    // Update any hardcoded URLs in the Storybook files to work with the new path
-    const indexPath = path.join(publicStorybookPath, 'index.html');
-    if (fs.existsSync(indexPath)) {
-      let indexContent = await fs.readFile(indexPath, 'utf8');
-      // Update base path for assets if needed
-      indexContent = indexContent.replace(/src="\.\//g, 'src="./storybook/');
-      indexContent = indexContent.replace(/href="\.\//g, 'href="./storybook/');
-      await fs.writeFile(indexPath, indexContent);
-      console.log('🔧 Updated Storybook index.html paths');
+    // Update paths in both index.html and iframe.html
+    const filesToUpdate = ['index.html', 'iframe.html'];
+    
+    for (const filename of filesToUpdate) {
+      const filePath = path.join(publicStorybookPath, filename);
+      if (fs.existsSync(filePath)) {
+        let content = await fs.readFile(filePath, 'utf8');
+        // Update base path for assets - use absolute paths from root
+        content = content.replace(/src="\.\//g, 'src="/storybook/');
+        content = content.replace(/href="\.\//g, 'href="/storybook/');
+        // Also update import paths for ES modules
+        content = content.replace(/import '\.\//g, "import '/storybook/");
+        // Fix font paths in CSS
+        content = content.replace(/url\('\.\//g, "url('/storybook/");
+        // Also handle URLs without quotes
+        content = content.replace(/url\(\.\//g, "url(/storybook/");
+        await fs.writeFile(filePath, content);
+        console.log(`🔧 Updated Storybook ${filename} paths`);
+      }
     }
 
     console.log('📚 Storybook is now available at /storybook on your site');
