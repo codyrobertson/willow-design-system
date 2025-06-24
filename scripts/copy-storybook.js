@@ -45,6 +45,29 @@ async function copyStorybook() {
       }
     }
 
+    // Update JavaScript files to fix runtime path resolution
+    const jsFiles = await fs.readdir(publicStorybookPath);
+    const runtimeFiles = jsFiles.filter(file => file.includes('runtime') && file.endsWith('.js'));
+    
+    for (const filename of runtimeFiles) {
+      const filePath = path.join(publicStorybookPath, 'sb-manager', filename);
+      if (fs.existsSync(filePath)) {
+        try {
+          let content = await fs.readFile(filePath, 'utf8');
+          // Replace common patterns that might cause runtime issues
+          content = content.replace(/['"]\.\/index\.json['"]/g, '"/storybook/index.json"');
+          content = content.replace(/['"]\.\/iframe\.html['"]/g, '"/storybook/iframe.html"');
+          content = content.replace(/['"]index\.json['"]/g, '"/storybook/index.json"');
+          content = content.replace(/['"]iframe\.html['"]/g, '"/storybook/iframe.html"');
+          await fs.writeFile(filePath, content);
+          console.log(`🔧 Updated runtime file ${filename}`);
+        } catch (error) {
+          // Skip files that can't be processed
+          console.log(`⚠️  Skipped ${filename} (${error.message})`);
+        }
+      }
+    }
+
     console.log('📚 Storybook is now available at /storybook on your site');
   } catch (error) {
     console.error('❌ Error copying Storybook:', error);

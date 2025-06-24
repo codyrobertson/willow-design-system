@@ -118,28 +118,57 @@ program
   .description('Initialize Willow Design System in your project (complete setup)')
   .option('--skip-install', 'Skip npm package installation')
   .option('--skip-components', 'Skip installing all components')
+  .option('--fast', 'Fast mode: skip dependencies and components installation')
   .action(async (options) => {
+    const fs = await import('fs/promises');
+    
+    // Check if we're in a valid project
+    try {
+      await fs.access('package.json');
+    } catch {
+      console.error(chalk.red('❌ No package.json found. Please run this command in a Next.js/React project root.'));
+      console.log(chalk.yellow('\n💡 To get started:'));
+      console.log('1. Create a new Next.js project: npx create-next-app@latest my-app');
+      console.log('2. cd into your project: cd my-app');
+      console.log('3. Initialize Willow: willow init');
+      process.exit(1);
+    }
+
+    // Detect environment early for warnings
+    let isStackBlitz = process.env.SHELL && process.env.SHELL.includes('jsh');
+    let isOnlineIDE = isStackBlitz || process.env.CODESANDBOX_SSE || process.env.GITPOD_WORKSPACE_ID;
+    
+    // Environment-specific warnings
+    if (isOnlineIDE) {
+      console.log(chalk.blue('🌐 Online environment detected - optimizing for compatibility...'));
+    }
+    
+    // Warning about overwriting files
+    console.log(chalk.yellow('⚠️  WARNING: This will overwrite existing files with Willow defaults:'));
+    console.log(chalk.gray('   • CSS file (globals.css)'));
+    console.log(chalk.gray('   • Tailwind configuration'));
+    console.log(chalk.gray('   • components.json'));
+    console.log(chalk.gray('   • lib/utils.ts'));
+    console.log('');
+    
     const spinner = ora('🌳 Setting up Willow Design System...').start();
     
     try {
-      const fs = await import('fs/promises');
-      
-      // Check if we're in a valid project
-      try {
-        await fs.access('package.json');
-      } catch {
-        spinner.fail(chalk.red('❌ No package.json found. Please run this command in a Next.js/React project root.'));
-        console.log(chalk.yellow('\n💡 To get started:'));
-        console.log('1. Create a new Next.js project: npx create-next-app@latest my-app');
-        console.log('2. cd into your project: cd my-app');
-        console.log('3. Initialize Willow: willow init');
-        process.exit(1);
-      }
 
-      // Detect project structure
+      // Detect project structure and environment
       let cssPath = 'app/globals.css';
       let tailwindConfig = 'tailwind.config.js';
+      let isStackBlitz = false;
+      let isTypeScriptProject = false;
       
+      // Check if running in StackBlitz or similar online environment
+      try {
+        const packageJson = await fs.readFile('package.json', 'utf8');
+        const pkg = JSON.parse(packageJson);
+        isStackBlitz = process.env.SHELL && process.env.SHELL.includes('jsh');
+        isTypeScriptProject = pkg.devDependencies?.typescript || pkg.dependencies?.typescript;
+      } catch {}
+
       const possibleCssPaths = [
         'app/globals.css', 'src/app/globals.css', 'styles/globals.css', 'src/styles/globals.css'
       ];
@@ -152,27 +181,41 @@ program
         } catch {}
       }
 
-      const possibleTailwindConfigs = [
-        'tailwind.config.ts', 'tailwind.config.js', 'tailwind.config.mjs'
-      ];
-      
-      for (const config of possibleTailwindConfigs) {
-        try {
-          await fs.access(config);
-          tailwindConfig = config;
-          break;
-        } catch {}
+      // Force .js config for StackBlitz and online environments
+      if (isStackBlitz) {
+        tailwindConfig = 'tailwind.config.js';
+      } else {
+        const possibleTailwindConfigs = [
+          'tailwind.config.ts', 'tailwind.config.js', 'tailwind.config.mjs'
+        ];
+        
+        for (const config of possibleTailwindConfigs) {
+          try {
+            await fs.access(config);
+            tailwindConfig = config;
+            break;
+          } catch {}
+        }
       }
 
       // 1. Install required dependencies
-      if (!options.skipInstall) {
+      if (!options.skipInstall && !options.fast) {
         spinner.text = '📦 Installing required dependencies...';
         try {
-          execSync('npm install clsx tailwind-merge lucide-react class-variance-authority @radix-ui/react-slot', { stdio: 'pipe' });
-          spinner.text = '✅ Dependencies installed...';
+          execSync('npm install clsx tailwind-merge lucide-react class-variance-authority @radix-ui/react-slot', { 
+            stdio: 'pipe',
+            timeout: 60000 // 60 second timeout
+          });
+          spinner.succeed('✅ Dependencies installed successfully!');
+          spinner.start('⚙️  Configuring Willow...');
         } catch (error) {
-          spinner.warn(chalk.yellow('⚠️  Could not auto-install dependencies. Please run:'));
+          if (error.signal === 'SIGTERM') {
+            spinner.warn(chalk.yellow('⚠️  Dependency installation timed out. Please run manually:'));
+          } else {
+            spinner.warn(chalk.yellow('⚠️  Could not auto-install dependencies. Please run manually:'));
+          }
           console.log(chalk.gray('   npm install clsx tailwind-merge lucide-react class-variance-authority @radix-ui/react-slot'));
+          spinner.start('⚙️  Continuing with configuration...');
         }
       }
 
@@ -191,64 +234,43 @@ program
         "aliases": {
           "components": "@/components",
           "utils": "@/lib/utils"
+        },
+        "registries": {
+          "default": "https://ui.shadcn.com",
+          "willow": {
+            "url": "https://iridescent-brigadeiros-fe4174.netlify.app/r"
+          }
         }
       };
 
-      // Check if components.json already exists
-      try {
-        const existingConfig = await fs.readFile('components.json', 'utf8');
-        const existing = JSON.parse(existingConfig);
-        
-        // Merge with existing config, preserving user customizations
-        componentsConfig = {
-          ...existing,
-          "$schema": "https://ui.shadcn.com/schema.json",
-          tailwind: {
-            ...existing.tailwind,
-            config: tailwindConfig,
-            css: cssPath,
-            baseColor: existing.tailwind?.baseColor || "neutral",
-            cssVariables: existing.tailwind?.cssVariables ?? true
-          },
-          aliases: {
-            ...existing.aliases,
-            components: existing.aliases?.components || "@/components",
-            utils: existing.aliases?.utils || "@/lib/utils"
-          }
-        };
-        
-        spinner.text = '⚙️  Updated existing components.json...';
-      } catch {
-        spinner.text = '⚙️  Created components.json...';
-      }
-
+      // Always overwrite components.json with Willow defaults
       await fs.writeFile('components.json', JSON.stringify(componentsConfig, null, 2));
+      spinner.succeed('⚙️  Created components.json with Willow defaults!');
+      spinner.start('📁 Setting up directories...');
       
       // 3. Create directories
       await fs.mkdir('lib', { recursive: true });
       await fs.mkdir('components/ui', { recursive: true });
-      spinner.text = '📁 Created project directories...';
+      spinner.succeed('📁 Created project directories!');
+      spinner.start('🔧 Setting up utilities...');
 
-      // 4. Create lib/utils.ts if it doesn't exist
-      try {
-        await fs.access('lib/utils.ts');
-        spinner.text = '🔧 Utils already exists...';
-      } catch {
-        const utilsContent = `import { type ClassValue, clsx } from "clsx";
+      // 4. Always overwrite lib/utils.ts with Willow defaults
+      const utilsContent = `import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }`;
-        
-        await fs.writeFile('lib/utils.ts', utilsContent);
-        spinner.text = '🔧 Created utilities...';
-      }
+      
+      await fs.writeFile('lib/utils.ts', utilsContent);
+      spinner.succeed('🔧 Created utilities with Willow defaults!');
+      spinner.start('🎨 Setting up CSS...');
 
       // 5. Update CSS with Willow styles
       const willowCSS = `/* Willow Design System */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+/* Font imports with fallbacks */
 @import url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/codec-pro.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -339,29 +361,10 @@ export function cn(...inputs: ClassValue[]) {
   }
 }`;
 
-      // Check if CSS file exists and handle accordingly
-      try {
-        const existingCSS = await fs.readFile(cssPath, 'utf8');
-        
-        // Check if Willow styles are already present
-        if (existingCSS.includes('Willow Design System')) {
-          spinner.text = '🎨 Willow styles already present...';
-        } else {
-          // Backup existing CSS and add Willow styles
-          const backupCSS = `/* === EXISTING STYLES === */
-${existingCSS}
-
-/* === WILLOW DESIGN SYSTEM === */
-${willowCSS}`;
-          
-          await fs.writeFile(cssPath, backupCSS);
-          spinner.text = '🎨 Added Willow styles to existing CSS...';
-        }
-      } catch {
-        // File doesn't exist, create it
-        await fs.writeFile(cssPath, willowCSS);
-        spinner.text = '🎨 Created CSS with Willow styles...';
-      }
+      // Always overwrite CSS with Willow defaults
+      await fs.writeFile(cssPath, willowCSS);
+      spinner.succeed('🎨 Created CSS with Willow defaults!');
+      spinner.start('⚙️  Setting up Tailwind...');
 
       // 6. Update Tailwind config
       const tailwindConfigContent = `import type { Config } from "tailwindcss"
@@ -459,63 +462,91 @@ const config: Config = {
 
 export default config`;
 
-      // Check if Tailwind config exists and handle accordingly
-      try {
-        const existingTailwind = await fs.readFile(tailwindConfig, 'utf8');
-        
-        // Check if it already has Willow colors
-        if (existingTailwind.includes('willow-primary')) {
-          spinner.text = '⚙️  Tailwind already has Willow config...';
-        } else {
-          // Try to merge configs intelligently
-          if (tailwindConfig.endsWith('.ts')) {
-            await fs.writeFile(tailwindConfig, tailwindConfigContent);
-            spinner.text = '⚙️  Updated Tailwind configuration...';
-          } else {
-            // For .js files, create a basic config
-            const jsConfig = tailwindConfigContent.replace('import type { Config } from "tailwindcss"', '/** @type {import("tailwindcss").Config} */').replace(' satisfies Config', '');
-            await fs.writeFile(tailwindConfig, jsConfig);
-            spinner.text = '⚙️  Updated Tailwind configuration...';
-          }
-        }
-      } catch {
-        // File doesn't exist, create it
+      // Always overwrite Tailwind config with Willow defaults
+      // Use JS config for StackBlitz and online environments
+      if (isStackBlitz || tailwindConfig.endsWith('.js') || tailwindConfig.endsWith('.mjs')) {
+        const jsConfig = tailwindConfigContent
+          .replace('import type { Config } from "tailwindcss"', '/** @type {import("tailwindcss").Config} */')
+          .replace(' satisfies Config', '')
+          .replace('export default config', 'module.exports = config');
+        await fs.writeFile(tailwindConfig, jsConfig);
+        spinner.succeed('⚙️  Created Tailwind config (JS) with Willow defaults!');
+      } else {
+        // TypeScript config for local development
         await fs.writeFile(tailwindConfig, tailwindConfigContent);
-        spinner.text = '⚙️  Created Tailwind configuration...';
+        spinner.succeed('⚙️  Created Tailwind config (TS) with Willow defaults!');
       }
 
       // 7. Install all components
-      if (!options.skipComponents) {
+      if (!options.skipComponents && !options.fast) {
         spinner.text = '🎯 Installing all Willow components...';
         let installedCount = 0;
+        let failedComponents = [];
         
         for (const component of AVAILABLE_COMPONENTS) {
           try {
             const componentUrl = `${WILLOW_REGISTRY_BASE}/${component}.json`;
-            execSync(`npx shadcn@latest add ${componentUrl} --yes`, { stdio: 'pipe' });
+            
+            // Try different installation methods for better compatibility
+            let installCommand = `npx shadcn@latest add ${componentUrl} --yes`;
+            
+            // For StackBlitz, use a more compatible approach
+            if (isStackBlitz) {
+              installCommand = `npx shadcn@latest add ${componentUrl} --yes --overwrite`;
+            }
+            
+            execSync(installCommand, { 
+              stdio: 'pipe',
+              timeout: 30000, // 30 second timeout per component
+              env: { ...process.env, NODE_ENV: 'development' }
+            });
             installedCount++;
-            spinner.text = `🎯 Installing components (${installedCount}/${AVAILABLE_COMPONENTS.length})...`;
+            spinner.text = `🎯 Installing components (${installedCount}/${AVAILABLE_COMPONENTS.length}) - ${component}...`;
           } catch (error) {
+            failedComponents.push(component);
             // Continue installing other components
           }
         }
-        spinner.text = `✅ Installed ${installedCount} components...`;
+        
+        if (failedComponents.length > 0) {
+          spinner.warn(chalk.yellow(`⚠️  Installed ${installedCount}/${AVAILABLE_COMPONENTS.length} components. Failed: ${failedComponents.join(', ')}`));
+          console.log(chalk.gray('   You can install failed components manually with: willow add <component>'));
+          spinner.start('🎉 Finalizing setup...');
+        } else {
+          spinner.succeed(`✅ All ${installedCount} components installed successfully!`);
+          spinner.start('🎉 Finalizing setup...');
+        }
       }
 
       spinner.succeed(chalk.green('🎉 Willow Design System setup complete!'));
       
-      console.log(chalk.blue('\n✨ What was installed:'));
+      console.log(chalk.blue('\n✨ What was overwritten with Willow defaults:'));
       console.log(chalk.gray('📦 Dependencies: clsx, tailwind-merge, lucide-react, class-variance-authority'));
-      console.log(chalk.gray('🎨 CSS: Willow fonts, colors, and design tokens'));
-      console.log(chalk.gray('⚙️  Tailwind: Complete configuration with Willow theme'));
-      console.log(chalk.gray(`🧩 Components: ${options.skipComponents ? 'Skipped' : 'All ' + AVAILABLE_COMPONENTS.length + ' components'}`));
+      console.log(chalk.gray('🎨 CSS: Complete Willow fonts, colors, and design tokens'));
+      console.log(chalk.gray('⚙️  Tailwind: Full Willow configuration and theme'));
+      console.log(chalk.gray('🔧 components.json: Willow registry configuration'));
+      console.log(chalk.gray('🛠️  lib/utils.ts: Willow utility functions'));
+      console.log(chalk.gray(`🧩 Components: ${(options.skipComponents || options.fast) ? 'Skipped' : 'All ' + AVAILABLE_COMPONENTS.length + ' components'}`));
       
       console.log(chalk.blue('\n🚀 Next steps:'));
+      if (options.fast || options.skipInstall) {
+        console.log(chalk.yellow('• Install dependencies: npm install clsx tailwind-merge lucide-react class-variance-authority @radix-ui/react-slot'));
+      }
+      if (options.fast || options.skipComponents) {
+        console.log(chalk.yellow('• Install components: willow add button card badge input'));
+      }
       console.log(chalk.gray('• Start your development server: npm run dev'));
-      console.log(chalk.gray('• Add more components: willow add <component>'));
+      console.log(chalk.gray('• Create test page: app/test-willow/page.tsx'));
       console.log(chalk.gray('• View all components: willow list'));
       console.log(chalk.gray('• Check the documentation: https://iridescent-brigadeiros-fe4174.netlify.app/docs'));
       console.log(chalk.gray(`📁 Files: ${cssPath}, ${tailwindConfig}, components.json, lib/utils.ts`));
+      
+      if (isOnlineIDE) {
+        console.log(chalk.blue('\n🌐 Online Environment Optimizations Applied:'));
+        console.log(chalk.gray('• JavaScript Tailwind config (better compatibility)'));
+        console.log(chalk.gray('• Enhanced registry configuration'));
+        console.log(chalk.gray('• Optimized font loading'));
+      }
       
       console.log(chalk.blue('\n🚀 Ready to use:'));
       console.log(chalk.gray('import { Button } from "@/components/ui/button"'));

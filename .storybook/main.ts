@@ -24,6 +24,23 @@ const config: StorybookConfig = {
       window.__STORYBOOK_ADDONS_CHANNEL__ = window.__STORYBOOK_ADDONS_CHANNEL__ || {};
       window.STORYBOOK_ENV = 'production';
       window.PUBLIC_URL = '/storybook';
+      // Override story loading URLs
+      window.STORYBOOK_BASE_URL = '/storybook';
+      window.__STORYBOOK_STORY_STORE__ = window.__STORYBOOK_STORY_STORE__ || {};
+      // Patch the globals for proper URL resolution
+      const originalFetch = window.fetch;
+      window.fetch = function(url, options) {
+        if (typeof url === 'string') {
+          if (url === 'index.json' || url === './index.json') {
+            url = '/storybook/index.json';
+          } else if (url === 'iframe.html' || url === './iframe.html') {
+            url = '/storybook/iframe.html';
+          } else if (url.startsWith('./') && !url.startsWith('./static/')) {
+            url = url.replace('./', '/storybook/');
+          }
+        }
+        return originalFetch.call(this, url, options);
+      };
     </script>
   `,
   webpack: (config, { configType }) => {
