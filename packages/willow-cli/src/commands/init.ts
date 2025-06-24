@@ -20,6 +20,7 @@ import { detectProjectType, validateProjectRequirements, logProjectEnvironment }
 import { createDesignSystemFiles, createCoreLibFiles, createVersionFile } from '../utils/createDesignSystemFiles.js';
 import { handleError, safeExecute, ProgressTracker } from '../utils/errorHandling.js';
 import { Logger } from '../utils/logger.js';
+import { fixWillowImports } from '../utils/importFixer.js';
 import type { ProjectType } from '../types/index.js';
 
 export function registerInitCommand(program: Command): void {
@@ -47,6 +48,7 @@ export function registerInitCommand(program: Command): void {
       progressTracker.addStep('Setup CSS');
       progressTracker.addStep('Install dependencies');
       progressTracker.addStep('Install components');
+      progressTracker.addStep('Fix imports');
       
       try {
         // Step 1: Validate project
@@ -245,6 +247,11 @@ export function registerInitCommand(program: Command): void {
             }
           });
         }
+        
+        // Step 9: Fix any incorrect imports
+        await progressTracker.executeStep('Fix imports', async () => {
+          await fixWillowImports(process.cwd());
+        });
         
         // Success summary
         Logger.spacer();

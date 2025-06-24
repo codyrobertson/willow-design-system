@@ -28,6 +28,17 @@ Willow uses a **balanced color approach**:
 - **Accents**: `text-willow-primary-600`, `border-willow-primary-200`
 - **Cards**: `bg-white` with `border-neutral-200`
 
+## Import Examples
+```tsx
+// ✅ Correct imports - individual component files
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+
+// ❌ Wrong - this package doesn't exist
+import { Button, Card } from "@willow/components";
+```
+
 ## Example Usage
 ```tsx
 // Balanced design - mostly neutral with purple accents

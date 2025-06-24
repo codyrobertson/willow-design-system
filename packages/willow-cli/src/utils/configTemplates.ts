@@ -35,7 +35,20 @@ export function createComponentsJson(projectType: ProjectType): ComponentsConfig
   };
 }
 
-export function createUtilsFile(): string {
+export function createUtilsFile(isOnlineIDE: boolean = false): string {
+  if (isOnlineIDE) {
+    return `import { clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+/**
+ * Core utility for combining class names with Tailwind CSS
+ * Handles conditional classes, removes duplicates, and resolves conflicts
+ */
+export function cn(...inputs) {
+  return twMerge(clsx(inputs))
+}`;
+  }
+  
   return `import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -541,10 +554,11 @@ Willow uses a balanced approach to color:
 1. Use neutral colors (neutral-*) for most UI elements and backgrounds
 2. Reserve willow-primary colors for key actions, links, and brand elements
 3. Always use Willow components instead of building custom ones
-4. Leverage design tokens for consistent styling
-5. Use TypeScript for better development experience
-6. Follow component composition patterns
-7. Implement proper accessibility features
+4. Import components from individual files: \`@/components/ui/button\` NOT \`@willow/components\`
+5. Leverage design tokens for consistent styling
+6. Use TypeScript for better development experience
+7. Follow component composition patterns
+8. Implement proper accessibility features
 
 ## Common Patterns
 - \`<Button theme="neutral">\` for most buttons, \`theme="primary"\` for main actions only
@@ -552,6 +566,17 @@ Willow uses a balanced approach to color:
 - \`text-willow-primary-600\` for links and accents
 - \`<Card>\` with \`<CardHeader>\`, \`<CardContent>\`, \`<CardFooter>\`
 - \`<Tooltip content="Help text">\` for contextual information
+
+## Import Examples
+\`\`\`tsx
+// ✅ Correct imports
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+// ❌ Wrong - this package doesn't exist
+import { Button, Card } from "@willow/components";
+\`\`\`
 
 ## Color Usage Examples
 - Page backgrounds: \`bg-neutral-50\` or \`bg-white\`

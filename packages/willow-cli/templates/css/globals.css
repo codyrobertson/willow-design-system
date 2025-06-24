@@ -1,4 +1,5 @@
 /* Willow Design System - Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/codec-pro.css');
 @tailwind base;
 @tailwind components;
@@ -153,7 +154,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Codec Pro', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Codec Pro', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 

@@ -486,7 +486,20 @@ export async function createCoreLibFiles(
       isOnlineIDE: projectType.isOnlineIDE
     });
   } catch (error) {
-    utilsContent = `import { type ClassValue, clsx } from "clsx";
+    // Use JavaScript-compatible syntax for online IDEs
+    if (projectType.isOnlineIDE) {
+      utilsContent = `import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+/**
+ * Core utility for combining class names with Tailwind CSS
+ * Handles conditional classes, removes duplicates, and resolves conflicts
+ */
+export function cn(...inputs) {
+  return twMerge(clsx(inputs));
+}`;
+    } else {
+      utilsContent = `import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 /**
@@ -496,6 +509,7 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }`;
+    }
   }
 
   await writeFileContent(utilsPath, utilsContent);

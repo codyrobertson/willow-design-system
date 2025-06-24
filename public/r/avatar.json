@@ -3,7 +3,7 @@
   "name": "avatar",
   "type": "registry:ui",
   "title": "Avatar",
-  "description": "An image element with a fallback for representing the user.",
+  "description": "An image element with a fallback for representing the user. Updated to work in all environments.",
   "dependencies": [
     "class-variance-authority"
   ],
