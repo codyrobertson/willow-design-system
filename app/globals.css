@@ -1,8 +1,8 @@
 /* Font imports */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-/* Import Codec Pro from CDN */
-@import url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/codec-pro.css');
+/* Import system font fallback (until real Codec Pro fonts are available) */
+@import url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/codec-pro-system-fallback.css');
 
 @tailwind base;
 @tailwind components;
