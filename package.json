@@ -64,7 +64,6 @@
     "typecheck": "tsc --noEmit --skipLibCheck",
     "prepare-fonts": "node scripts/prepare-fonts.js",
     "build:all": "npm run prepare-fonts && npm run build && npm run build:storybook-local && npm run build-registry",
-    "build:vercel": "node scripts/build-for-vercel.js",
     "deploy": "netlify deploy --prod",
     "deploy:preview": "netlify deploy",
     "registry:build": "shadcn build"

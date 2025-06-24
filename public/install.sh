@@ -6,7 +6,7 @@
 set -e
 
 COMPONENT=$1
-REGISTRY_URL="https://willow-prod.vercel.app/api"
+REGISTRY_URL="https://iridescent-brigadeiros-fe4174.netlify.app/api"
 COMPONENTS_DIR="components/ui"
 
 if [ -z "$COMPONENT" ]; then

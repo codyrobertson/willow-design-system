@@ -1,6 +1,6 @@
 {
   "name": "willow-cli",
-  "version": "0.6.20",
+  "version": "0.6.22",
   "description": "CLI for installing Willow Design System components",
   "type": "module",
   "bin": {

@@ -51,6 +51,7 @@ export function registerInitCommand(program: Command): void {
       progressTracker.addStep('Install dependencies');
       progressTracker.addStep('Install components');
       progressTracker.addStep('Fix imports');
+      progressTracker.addStep('Install docs');
       
       try {
         // Step 1: Validate project

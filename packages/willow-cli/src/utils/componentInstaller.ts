@@ -337,12 +337,22 @@ export async function installComponents(
 export async function installAllWillowComponents(
   options: InstallOptions & { projectType?: ProjectType } = {}
 ): Promise<InstallResult & { npmDependencies: string[] }> {
-  const { projectType, ...installOptions } = options;
+  const { projectType, includeUnstable, ...installOptions } = options;
   
   if (projectType) {
     const componentDir = await getComponentDir(projectType);
     console.log(chalk.gray(`Target directory: ${componentDir}`));
   }
   
-  return installComponents([...AVAILABLE_COMPONENTS], WILLOW_REGISTRY, installOptions);
+  // Determine which components to install
+  const componentsToInstall = includeUnstable 
+    ? [...STABLE_COMPONENTS, ...UNSTABLE_COMPONENTS]
+    : [...STABLE_COMPONENTS];
+  
+  if (!includeUnstable && UNSTABLE_COMPONENTS.length > 0) {
+    console.log(chalk.yellow(`   ⚠️  Skipping unstable components: ${UNSTABLE_COMPONENTS.join(', ')}`));
+    console.log(chalk.gray(`   Use --include-unstable to install them`));
+  }
+  
+  return installComponents(componentsToInstall, WILLOW_REGISTRY, installOptions);
 }
