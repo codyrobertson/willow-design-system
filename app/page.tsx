@@ -22,10 +22,13 @@ export default function Home() {
           {/* CLI Installation */}
           <div className="bg-neutral-800 rounded-lg p-6 mb-8 max-w-2xl mx-auto">
             <div className="text-left">
-              <p className="text-neutral-300 mb-2">Get started in seconds:</p>
+              <p className="text-neutral-300 mb-2">Complete setup in one command:</p>
               <code className="text-green-400 text-lg">npm install -g willow-cli</code>
               <br />
-              <code className="text-blue-400 text-lg">willow add button</code>
+              <code className="text-blue-400 text-lg">willow init</code>
+              <p className="text-neutral-400 text-sm mt-2">
+                ✨ Installs all components, fonts, theme, and dependencies automatically
+              </p>
             </div>
           </div>
 

@@ -4,15 +4,30 @@ A modern, accessible design system built with React, TypeScript, and Tailwind CS
 
 ## 🚀 Quick Start
 
-### Option 1: Create New Project (Recommended)
+### Option 1: Willow CLI (Recommended) ⭐
+
+The fastest way to get started with Willow Design System - complete setup in one command!
 
 ```bash
-npx create-willow-design-system@latest my-app
+# Install the CLI globally
+npm install -g willow-cli
+
+# Create your Next.js project
+npx create-next-app@latest my-app
 cd my-app
-npm run dev
+
+# Complete Willow setup (installs everything!)
+willow init
 ```
 
-### Option 2: Add to Existing Project
+This automatically installs:
+- ✅ All Willow components (25+ components)
+- ✅ Complete CSS with Willow fonts and design tokens
+- ✅ Tailwind configuration with Willow theme
+- ✅ All required dependencies
+- ✅ Proper project structure
+
+### Option 2: Manual Setup
 
 1. **Install Dependencies**
 ```bash

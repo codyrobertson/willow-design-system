@@ -16,6 +16,16 @@ const config: StorybookConfig = {
   staticDirs: [
     "../public"
   ],
+  managerHead: (head) => `
+    ${head}
+    <base href="/storybook/">
+    <script>
+      // Set the base path for runtime requests
+      window.__STORYBOOK_ADDONS_CHANNEL__ = window.__STORYBOOK_ADDONS_CHANNEL__ || {};
+      window.STORYBOOK_ENV = 'production';
+      window.PUBLIC_URL = '/storybook';
+    </script>
+  `,
   webpack: (config, { configType }) => {
     // Production optimizations
     if (configType === 'PRODUCTION') {

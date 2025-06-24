@@ -1,10 +1,10 @@
 {
   "name": "willow-cli",
-  "version": "0.1.0",
+  "version": "0.2.4",
   "description": "CLI for installing Willow Design System components",
   "type": "module",
   "bin": {
-    "willow": "./index.js"
+    "willow": "index.js"
   },
   "publishConfig": {
     "access": "public"

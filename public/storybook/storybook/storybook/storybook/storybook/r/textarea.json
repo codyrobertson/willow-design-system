@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "textarea",
+  "type": "registry:ui",
+  "title": "Textarea",
+  "description": "Displays a form textarea or a component that looks like a textarea.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/components/ui/Textarea.tsx",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from '@/lib/utils'\n\nconst textareaVariants = cva(\n  \"flex w-full rounded-lg border bg-background px-4 py-3 text-sm font-sans text-foreground placeholder:text-muted-foreground transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y\",\n  {\n    variants: {\n      variant: {\n        default: \"border-input shadow-input hover:border-neutral-300 focus:border-primary\",\n        error: \"border-destructive shadow-input-error focus:border-destructive focus:ring-destructive/20\",\n        success: \"border-success shadow-sm focus:border-success focus:ring-success/20\",\n        outline: \"border-primary bg-transparent focus:bg-background\",\n        ghost: \"border-transparent bg-transparent hover:bg-accent hover:text-accent-foreground\",\n      },\n      size: {\n        sm: \"min-h-[60px] text-xs py-2\",\n        md: \"min-h-[80px] text-sm py-3\",\n        lg: \"min-h-[100px] text-base py-3.5\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"md\",\n    },\n  }\n)\n\nexport interface TextareaProps\n  extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,\n    VariantProps<typeof textareaVariants> {\n  error?: boolean\n  success?: boolean\n}\n\nconst Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(\n  ({ className, variant, size, error, success, ...props }, ref) => {\n    const computedVariant = error ? \"error\" : success ? \"success\" : variant\n    \n    return (\n      <textarea\n        className={cn(\n          textareaVariants({ variant: computedVariant, size }),\n          className\n        )}\n        ref={ref}\n        aria-invalid={error || undefined}\n        {...props}\n      />\n    )\n  }\n)\nTextarea.displayName = \"Textarea\"\n\nexport { Textarea, textareaVariants }",
+      "type": "registry:component"
+    }
+  ]
+}
