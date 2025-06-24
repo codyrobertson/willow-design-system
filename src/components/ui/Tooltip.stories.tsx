@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import { Tooltip, TooltipTrigger, TooltipContent } from './Tooltip';
-import { TooltipWrapper } from './TooltipWrapper';
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipWrapper } from './Tooltip';
 import { Button } from './Button';
 import { Badge } from './Badge';
 import { Icon } from './icon';

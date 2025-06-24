@@ -1,5 +1,6 @@
 import { Command } from 'commander';
 import { execSync } from 'child_process';
+import { writeFile } from 'fs/promises';
 import {
   fileExists,
   createDirectory,
@@ -31,6 +32,7 @@ export function registerInitCommand(program: Command): void {
     .option('--no-install', 'Skip dependency installation')
     .option('--force', 'Overwrite existing configuration')
     .option('--with-components', 'Install all Willow components after initialization')
+    .option('--include-unstable', 'Include unstable components (avatar, tooltip)')
     .option('--debug', 'Enable debug logging')
     .action(async (options) => {
       if (options.debug) {
@@ -206,6 +208,7 @@ export function registerInitCommand(program: Command): void {
             const installResult = await installAllWillowComponents({
               overwrite: true,
               baseDir: process.cwd(),
+              includeUnstable: options.includeUnstable,
               componentDir,
               libDir,
               isVite: projectType.isVite,
@@ -253,7 +256,7 @@ export function registerInitCommand(program: Command): void {
           try {
             const { loadTemplate } = await import('../utils/templateLoader.js');
             const guideContent = await loadTemplate('docs/component-guide.md');
-            await writeFile('COMPONENT-GUIDE.md', guideContent);
+            await writeFile('COMPONENT-GUIDE.md', guideContent, 'utf-8');
             Logger.substep('Created COMPONENT-GUIDE.md with usage examples');
           } catch (error) {
             Logger.substep('Component guide not available');

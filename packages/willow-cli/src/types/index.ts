@@ -39,6 +39,7 @@ export interface InstallOptions {
   skipDeps?: boolean;
   componentDir?: string;
   libDir?: string;
+  includeUnstable?: boolean;
 }
 
 export interface InstallResult {
@@ -78,12 +79,21 @@ export interface ComponentsConfig {
 
 export const WILLOW_REGISTRY = 'https://iridescent-brigadeiros-fe4174.netlify.app/r' as const;
 
-export const AVAILABLE_COMPONENTS = [
+export const STABLE_COMPONENTS = [
   'button', 'badge', 'card', 'input', 'label', 'select', 'textarea',
-  'accordion', 'tabs', 'modal', 'avatar', 'checkbox', 'chip', 
+  'accordion', 'tabs', 'modal', 'checkbox', 'chip', 
   'fancy-button', 'form-card', 'form-field', 'gradient-bg', 
   'highlight', 'info-card', 'list', 'logo', 'skeleton', 
-  'switch', 'tag', 'toast', 'tooltip'
+  'switch', 'tag', 'toast'
+] as const;
+
+export const UNSTABLE_COMPONENTS = [
+  'avatar', 'tooltip'
+] as const;
+
+export const AVAILABLE_COMPONENTS = [
+  ...STABLE_COMPONENTS,
+  ...UNSTABLE_COMPONENTS
 ] as const;
 
 export type ComponentName = typeof AVAILABLE_COMPONENTS[number];

@@ -9,7 +9,7 @@ import type {
   ProjectType,
   ComponentName 
 } from '../types/index.js';
-import { WILLOW_REGISTRY, AVAILABLE_COMPONENTS } from '../types/index.js';
+import { WILLOW_REGISTRY, AVAILABLE_COMPONENTS, STABLE_COMPONENTS, UNSTABLE_COMPONENTS } from '../types/index.js';
 import { 
   fileExists, 
   getComponentDir, 

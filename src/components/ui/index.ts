@@ -72,10 +72,8 @@ export type { ModalProps, ModalContentProps, ModalTitleProps } from './Modal'
 export { Toast, ToastContainer, ToastProvider, useToast, useToastHelpers } from './Toast'
 export type { ToastProps, ToastContainerProps, ToastData, ToastProviderProps } from './Toast'
 
-export { Tooltip, TooltipTrigger, TooltipContent, Popover, PopoverTrigger, PopoverContent } from './Tooltip'
-export type { PopoverProps, PopoverTriggerProps, PopoverContentProps } from './Tooltip'
-export { TooltipWrapper } from './TooltipWrapper'
-export type { TooltipWrapperProps } from './TooltipWrapper'
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipWrapper, Popover, PopoverTrigger, PopoverContent } from './Tooltip'
+export type { TooltipWrapperProps, PopoverProps, PopoverTriggerProps, PopoverContentProps } from './Tooltip'
 
 export { Switch, Toggle, LabeledSwitch, switchVariants } from './Switch'
 export type { SwitchProps, LabeledSwitchProps } from './Switch'
