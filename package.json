@@ -70,7 +70,9 @@
     "registry:build": "shadcn build"
   },
   "dependencies": {
+    "@radix-ui/react-popover": "^1.1.14",
     "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tooltip": "^1.2.7",
     "autoprefixer": "^10.4.21",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -94,9 +96,9 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
     "@types/marked": "^5.0.2",
-    "@types/node": "^20.10.5",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/node": "^20.19.1",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
     "eslint-plugin-storybook": "^9.0.12",
@@ -108,7 +110,8 @@
     "storybook": "^9.0.12",
     "tailwindcss": "^3.4.17",
     "tsup": "^8.0.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "willow-cli": "^0.2.16"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",

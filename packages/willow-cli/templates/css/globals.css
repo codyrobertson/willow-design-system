@@ -1,0 +1,202 @@
+/* Willow Design System - Global Styles */
+@import url('https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/codec-pro.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Willow Primary Colors - Purple/Blue Theme */
+    --willow-primary-50: #f4f3ff;
+    --willow-primary-100: #e8e6ff;
+    --willow-primary-200: #d1ccff;
+    --willow-primary-300: #bbb3ff;
+    --willow-primary-400: #a499ff;
+    --willow-primary-500: #8d80ff;
+    --willow-primary-600: #7666ff;
+    --willow-primary-700: #5f4dff;
+    --willow-primary-800: #4833ff;
+    --willow-primary-900: #311aff;
+    --willow-primary-950: #230e67;
+
+    /* Neutral Colors - Oxford Blue Inspired */
+    --neutral-0: #ffffff;
+    --neutral-50: #f3f7f8;
+    --neutral-100: #e0e9ed;
+    --neutral-200: #cdd9de;
+    --neutral-300: #b9c9d0;
+    --neutral-400: #a6b9c2;
+    --neutral-500: #93a9b4;
+    --neutral-600: #7f99a6;
+    --neutral-700: #6c8998;
+    --neutral-800: #587989;
+    --neutral-900: #45697b;
+    --neutral-950: #31596d;
+
+    /* Oxford Blue (secondary neutral) */
+    --oxford-blue-50: #f3f7f8;
+    --oxford-blue-100: #e0e9ed;
+    --oxford-blue-400: #6c90a4;
+    --oxford-blue-500: #50748a;
+    --oxford-blue-600: #456075;
+    --oxford-blue-800: #384652;
+    --oxford-blue-900: #333e49;
+    --oxford-blue-950: #1e262e;
+
+    /* Info Blue */
+    --info-50: #f1f8fe;
+    --info-100: #e1effd;
+    --info-200: #bddffa;
+    --info-300: #62b6f4;
+    --info-400: #41a8ef;
+    --info-500: #188ddf;
+    --info-600: #0b6fbe;
+    --info-700: #0a589a;
+    --info-800: #0d4b7f;
+    --info-900: #10406a;
+    --info-950: #0b2846;
+
+    /* Success Green */
+    --success-50: #e0faec;
+    --success-100: #c8f5dd;
+    --success-200: #91ebba;
+    --success-300: #5ae198;
+    --success-400: #23d775;
+    --success-500: #1fc16b;
+    --success-600: #199b55;
+    --success-700: #147540;
+    --success-800: #0e4f2a;
+    --success-900: #082a15;
+
+    /* Warning Orange */
+    --warning-50: #fff1eb;
+    --warning-100: #ffe3d6;
+    --warning-200: #ffc7ad;
+    --warning-300: #ffab85;
+    --warning-400: #ff8f5c;
+    --warning-500: #ff8447;
+    --warning-600: #e66a2e;
+    --warning-700: #b35124;
+    --warning-800: #803919;
+    --warning-900: #4d210f;
+
+    /* Error/Danger Red */
+    --error-50: #ffebec;
+    --error-100: #ffd6d9;
+    --error-200: #ffadb3;
+    --error-300: #ff858c;
+    --error-400: #ff5c66;
+    --error-500: #fb3748;
+    --error-600: #e01e2f;
+    --error-700: #ab1723;
+    --error-800: #751018;
+    --error-900: #400a0c;
+
+    /* Shadcn UI Variables */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 255 84% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 255 84% 60%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Codec Pro', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Typography Enhancements */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Codec Pro', 'Inter', system-ui, sans-serif;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+  }
+
+  /* Focus Styles */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Selection */
+  ::selection {
+    background: hsla(var(--primary), 0.2);
+  }
+}

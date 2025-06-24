@@ -1,0 +1,102 @@
+/* Willow Design System - Optimized Font Loading */
+
+/* Preload critical fonts */
+@font-face {
+  font-family: 'Codec Pro';
+  src: url('/cdn/fonts/Codec-Pro-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Codec Pro';
+  src: url('/cdn/fonts/Codec-Pro-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Codec Pro';
+  src: url('/cdn/fonts/Codec-Pro-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Codec Pro';
+  src: url('/cdn/fonts/Codec-Pro-Extrabold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Codec Pro';
+  src: url('/cdn/fonts/Codec-Pro-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Codec Pro';
+  src: url('/cdn/fonts/Codec-Pro-Bold-Italic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* CSS Custom Properties for font stacks */
+:root {
+  --font-codec-pro: 'Codec Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+  --font-fallback: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+}
+
+/* Base typography */
+body {
+  font-family: var(--font-codec-pro);
+  font-weight: 400;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Font weight utilities */
+.font-light { font-weight: 300; }
+.font-normal, .font-regular { font-weight: 400; }
+.font-medium { font-weight: 500; } /* Falls back to 400 */
+.font-semibold { font-weight: 600; } /* Falls back to 700 */
+.font-bold { font-weight: 700; }
+.font-extrabold { font-weight: 800; }
+
+/* Tailwind font family utilities */
+.font-sans { font-family: var(--font-codec-pro); }
+.font-mono { font-family: ui-monospace, SFMono-Regular, 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace; }
+
+/* Performance optimization for loading states */
+.fonts-loading body {
+  font-family: var(--font-fallback);
+  visibility: hidden;
+}
+
+.fonts-loaded body {
+  visibility: visible;
+  font-family: var(--font-codec-pro);
+}
+
+/* Responsive font loading */
+@media (prefers-reduced-motion: reduce) {
+  body {
+    font-family: var(--font-fallback);
+  }
+}

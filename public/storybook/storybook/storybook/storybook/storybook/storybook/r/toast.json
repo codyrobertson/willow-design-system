@@ -4,7 +4,7 @@
   "type": "registry:ui",
   "title": "Toast",
   "description": "A succinct message that is displayed temporarily.",
-  "dependencies": [],
+  "dependencies": ["lucide-react", "class-variance-authority"],
   "registryDependencies": [
     "utils"
   ],

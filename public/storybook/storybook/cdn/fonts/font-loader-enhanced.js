@@ -9,24 +9,24 @@
   // Configuration
   const FONT_FAMILY = 'Codec Pro';
   const FONT_TIMEOUT = 3000; // 3 seconds
-  const BASE_URL = 'https://iridescent-brigadeiros-fe4174.netlify.app/cdn/fonts/';
+  const BASE_URL = '/cdn/fonts/';
   
   // Font configurations with multiple formats
   const fontConfigs = [
     {
       weight: 400,
       style: 'normal',
-      files: ['Codec-Pro-Regular.woff2', 'Codec-Pro-Regular.woff', 'Codec-Pro-Regular.otf']
+      files: ['Codec-Pro-Regular.otf']
     },
     {
       weight: 700,
       style: 'normal',
-      files: ['Codec-Pro-Bold.woff2', 'Codec-Pro-Bold.woff', 'Codec-Pro-Bold.otf']
+      files: ['Codec-Pro-Bold.otf']
     },
     {
       weight: 300,
       style: 'normal',
-      files: ['Codec-Pro-Light.woff2', 'Codec-Pro-Light.woff', 'Codec-Pro-Light.otf']
+      files: ['Codec-Pro-Light.otf']
     }
   ];
   

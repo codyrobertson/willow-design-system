@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon",
+  "type": "registry:ui",
+  "title": "Icon",
+  "description": "A flexible icon component with Willow icons.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/components/ui/icon/Icon.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport * as LucideIcons from 'lucide-react';\nimport { LucideIcon } from 'lucide-react';\n\n/**\n * Icon Component\n * \n * A wrapper around Lucide React icons that provides consistent sizing and styling.\n * Automatically converts kebab-case icon names to the appropriate Lucide component.\n * \n * @example\n * ```tsx\n * // Basic usage\n * <Icon name=\"user\" size=\"md\" />\n * \n * // With custom size\n * <Icon name=\"settings\" size={24} />\n * \n * // With custom styling\n * <Icon name=\"check\" className=\"text-success\" />\n * \n * // Accessible icon with label\n * <Icon name=\"trash\" aria-label=\"Delete item\" />\n * ```\n */\n\n// Icon size mappings\nconst iconSizeMap = {\n  xs: 12,\n  sm: 16,\n  md: 20,\n  lg: 24,\n  xl: 32,\n  '2xl': 40,\n  '3xl': 48,\n} as const;\n\nexport type IconSize = keyof typeof iconSizeMap;\n\n// Convert kebab-case to PascalCase\nfunction toPascalCase(str: string): string {\n  return str\n    .split('-')\n    .map(word => word.charAt(0).toUpperCase() + word.slice(1))\n    .join('');\n}\n\nexport interface IconProps extends React.SVGAttributes<SVGSVGElement> {\n  /** Name of the Lucide icon (kebab-case) */\n  name: string;\n  /** Size preset or custom pixel value */\n  size?: IconSize | number;\n  /** Accessible label for screen readers */\n  'aria-label'?: string;\n  /** Whether to hide from screen readers */\n  'aria-hidden'?: boolean;\n}\n\nconst Icon = React.forwardRef<SVGSVGElement, IconProps>(\n  ({ name, size = 'md', className, ...props }, ref) => {\n    // Handle undefined, null, or empty icon names\n    if (!name) {\n      if (name !== '') {\n        console.warn(`Icon name is ${name === undefined ? 'undefined' : 'null'}`);\n      } else {\n        console.warn(`Icon \"\" (looking for \"\") not found in lucide-react`);\n      }\n      return null;\n    }\n    \n    // Convert kebab-case to PascalCase for Lucide icon lookup\n    const iconName = toPascalCase(name);\n    const IconComponent = (LucideIcons as any)[iconName] as LucideIcon;\n    \n    if (!IconComponent) {\n      console.warn(`Icon \"${name}\" (looking for \"${iconName}\") not found in lucide-react`);\n      return null;\n    }\n\n    const iconSize = typeof size === 'number' ? size : iconSizeMap[size];\n\n    return (\n      <IconComponent\n        ref={ref}\n        size={iconSize}\n        className={cn('shrink-0', className)}\n        aria-hidden={props['aria-hidden'] ?? !props['aria-label']}\n        {...props}\n      />\n    );\n  }\n);\n\nIcon.displayName = 'Icon';\n\nexport { Icon };",
+      "type": "registry:component"
+    },
+    {
+      "path": "registry/components/ui/icon/utils.ts",
+      "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib"
+    }
+  ]
+}

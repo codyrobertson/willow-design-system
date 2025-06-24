@@ -11,10 +11,16 @@
     "prefix": ""
   },
   "aliases": {
-    "components": "@/src/components",
+    "components": "@/components",
     "utils": "@/lib/utils",
-    "ui": "@/src/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/src/hooks"
+    "ui": "@/components/ui",
+    "lib": "@/lib"
   },
+  "registries": {
+    "default": "https://iridescent-brigadeiros-fe4174.netlify.app/r",
+    "willow": "https://iridescent-brigadeiros-fe4174.netlify.app/r",
+    "shadcn": "https://ui.shadcn.com"
+  },
+  "iconLibrary": "lucide",
+  "url": "https://iridescent-brigadeiros-fe4174.netlify.app/r"
 }

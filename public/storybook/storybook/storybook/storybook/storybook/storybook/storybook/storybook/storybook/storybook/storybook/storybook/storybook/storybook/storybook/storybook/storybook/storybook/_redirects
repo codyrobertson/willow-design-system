@@ -1,0 +1,9 @@
+# Handle storybook tailwind imports
+/storybook/tailwindcss/base       /storybook/static/css/tailwind-base.css       200
+/storybook/tailwindcss/components /storybook/static/css/tailwind-components.css 200
+/storybook/tailwindcss/utilities  /storybook/static/css/tailwind-utilities.css  200
+
+# Ensure static files are served
+/r/*     /r/:splat    200
+/cdn/*   /cdn/:splat  200
+/fonts/* /fonts/:splat 200

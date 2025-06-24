@@ -1,16 +1,25 @@
 {
   "name": "willow-cli",
-  "version": "0.2.7",
+  "version": "0.6.9",
   "description": "CLI for installing Willow Design System components",
   "type": "module",
   "bin": {
-    "willow": "index.js"
+    "willow": "bin/index.js"
   },
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "bin",
+    "dist",
+    "README.md"
+  ],
   "scripts": {
-    "test": "node index.js add button"
+    "build": "tsc",
+    "dev": "tsx src/cli.ts",
+    "test": "tsx src/cli.ts add button",
+    "type-check": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "willow",
@@ -25,9 +34,15 @@
   "dependencies": {
     "chalk": "^5.3.0",
     "commander": "^11.0.0",
+    "didyoumean": "^1.2.2",
     "ora": "^7.0.1"
   },
   "engines": {
     "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.3",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
   }
 }

@@ -4,7 +4,7 @@
   "type": "registry:ui",
   "title": "Modal",
   "description": "A modal dialog component.",
-  "dependencies": [],
+  "dependencies": ["lucide-react", "class-variance-authority"],
   "registryDependencies": [
     "utils"
   ],
