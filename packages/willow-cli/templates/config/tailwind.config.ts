@@ -99,6 +99,20 @@ const config: Config = {
           900: '#400A0C',
         },
         
+        // Danger (alias for error)
+        danger: {
+          50: '#FFEBEC',
+          100: '#FFD6D9',
+          200: '#FFADB3',
+          300: '#FF858C',
+          400: '#FF5C66',
+          500: '#FB3748',
+          600: '#E01E2F',
+          700: '#AB1723',
+          800: '#751018',
+          900: '#400A0C',
+        },
+        
         // State colors
         state: {
           error: {
@@ -144,6 +158,16 @@ const config: Config = {
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
+          50: '#FFEBEC',
+          100: '#FFD6D9',
+          200: '#FFADB3',
+          300: '#FF858C',
+          400: '#FF5C66',
+          500: '#FB3748',
+          600: '#E01E2F',
+          700: '#AB1723',
+          800: '#751018',
+          900: '#400A0C',
         },
         
         muted: {
@@ -176,6 +200,72 @@ const config: Config = {
           3: "hsl(var(--chart-3))",
           4: "hsl(var(--chart-4))",
           5: "hsl(var(--chart-5))",
+        },
+        
+        // Color aliases for common patterns
+        red: {
+          50: '#FFEBEC',
+          100: '#FFD6D9',
+          200: '#FFADB3',
+          300: '#FF858C',
+          400: '#FF5C66',
+          500: '#FB3748',
+          600: '#E01E2F',
+          700: '#AB1723',
+          800: '#751018',
+          900: '#400A0C',
+        },
+        
+        green: {
+          50: '#E0FAEC',
+          100: '#C8F5DD',
+          200: '#91EBBA',
+          300: '#5AE198',
+          400: '#23D775',
+          500: '#1FC16B',
+          600: '#199B55',
+          700: '#147540',
+          800: '#0E4F2A',
+          900: '#082A15',
+        },
+        
+        orange: {
+          50: '#FFF1EB',
+          100: '#FFE3D6',
+          200: '#FFC7AD',
+          300: '#FFAB85',
+          400: '#FF8F5C',
+          500: '#FF8447',
+          600: '#E66A2E',
+          700: '#B35124',
+          800: '#803919',
+          900: '#4D210F',
+        },
+        
+        gray: {
+          50: '#F3F7F8',
+          100: '#E0E9ED',
+          200: '#CDD9DE',
+          300: '#B9C9D0',
+          400: '#A6B9C2',
+          500: '#93A9B4',
+          600: '#7F99A6',
+          700: '#6C8998',
+          800: '#587989',
+          900: '#45697B',
+        },
+        
+        slate: {
+          50: '#F3F7F8',
+          100: '#E0E9ED',
+          200: '#CDD9DE',
+          300: '#B9C9D0',
+          400: '#A6B9C2',
+          500: '#93A9B4',
+          600: '#7F99A6',
+          700: '#6C8998',
+          800: '#587989',
+          900: '#45697B',
         },
       },
       
