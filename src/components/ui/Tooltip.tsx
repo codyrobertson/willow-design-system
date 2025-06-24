@@ -94,6 +94,55 @@ const PopoverContent = React.forwardRef<
 ));
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
+// Simple Tooltip wrapper component for convenience
+export interface TooltipWrapperProps {
+  children: React.ReactNode;
+  content: React.ReactNode;
+  side?: 'top' | 'right' | 'bottom' | 'left';
+  align?: 'start' | 'center' | 'end';
+  delayDuration?: number;
+  skipDelayDuration?: number;
+  disableHoverableContent?: boolean;
+  variant?: 'default' | 'secondary' | 'outline';
+  className?: string;
+  asChild?: boolean;
+}
+
+export function TooltipWrapper({
+  children,
+  content,
+  side = 'top',
+  align = 'center',
+  delayDuration = 200,
+  skipDelayDuration = 300,
+  disableHoverableContent = false,
+  variant = 'default',
+  className,
+  asChild = false,
+}: TooltipWrapperProps) {
+  return (
+    <TooltipProvider
+      delayDuration={delayDuration}
+      skipDelayDuration={skipDelayDuration}
+      disableHoverableContent={disableHoverableContent}
+    >
+      <Tooltip>
+        <TooltipTrigger asChild={asChild}>
+          {children}
+        </TooltipTrigger>
+        <TooltipContent
+          side={side}
+          align={align}
+          variant={variant}
+          className={className}
+        >
+          {content}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
+
 // Define PopoverProps interface for compatibility
 export interface PopoverProps {
   children?: React.ReactNode;
@@ -113,6 +162,7 @@ export {
   TooltipTrigger,
   TooltipContent,
   TooltipProvider,
+  TooltipWrapper,
   Popover,
   PopoverTrigger,
   PopoverContent,
