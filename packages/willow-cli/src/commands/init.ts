@@ -248,7 +248,19 @@ export function registerInitCommand(program: Command): void {
           });
         }
         
-        // Step 9: Fix any incorrect imports
+        // Step 9: Install component guide
+        await progressTracker.executeStep('Install docs', async () => {
+          try {
+            const { loadTemplate } = await import('../utils/templateLoader.js');
+            const guideContent = await loadTemplate('docs/component-guide.md');
+            await writeFile('COMPONENT-GUIDE.md', guideContent);
+            Logger.substep('Created COMPONENT-GUIDE.md with usage examples');
+          } catch (error) {
+            Logger.substep('Component guide not available');
+          }
+        });
+        
+        // Step 10: Fix any incorrect imports
         await progressTracker.executeStep('Fix imports', async () => {
           await fixWillowImports(process.cwd());
         });

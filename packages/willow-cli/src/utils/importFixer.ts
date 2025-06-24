@@ -33,11 +33,33 @@ export async function fixWillowImports(baseDir: string = process.cwd()): Promise
             .filter((imp: string) => imp.length > 0);
           
           const individualImports = importList.map((componentName: string) => {
-            const kebabCase = componentName
-              .replace(/([A-Z])/g, '-$1')
-              .toLowerCase()
-              .replace(/^-/, '');
-            
+            const kebabCase = componentNameToPath(componentName);
+            return `import { ${componentName} } from "@/components/ui/${kebabCase}";`;
+          }).join('\n');
+          
+          console.log(chalk.green(`   ✅ Fixed to individual imports:`));
+          individualImports.split('\n').forEach((line: string) => {
+            console.log(chalk.gray(`       ${line}`));
+          });
+          
+          return individualImports;
+        }
+      );
+      
+      // Fix barrel imports from @/components/ui to individual imports
+      updatedContent = updatedContent.replace(
+        /import\s*\{([^}]+)\}\s*from\s*["']@\/components\/ui["'];?/g,
+        (match, imports) => {
+          console.log(chalk.yellow(`   ⚠️  Found barrel import in ${file}: ${match}`));
+          
+          // Parse the imports and create individual import statements
+          const importList = imports
+            .split(',')
+            .map((imp: string) => imp.trim())
+            .filter((imp: string) => imp.length > 0);
+          
+          const individualImports = importList.map((componentName: string) => {
+            const kebabCase = componentNameToPath(componentName);
             return `import { ${componentName} } from "@/components/ui/${kebabCase}";`;
           }).join('\n');
           
@@ -61,6 +83,33 @@ export async function fixWillowImports(baseDir: string = process.cwd()): Promise
         }
       );
       
+      // Fix incorrect path patterns
+      updatedContent = updatedContent.replace(
+        /from\s*["']@\/src\/components\/ui\/([A-Z][a-zA-Z]*)["'];?/g,
+        (match, componentName) => {
+          const kebabCase = componentName.toLowerCase();
+          console.log(chalk.yellow(`   ⚠️  Found incorrect path in ${file}: ${match}`));
+          const replacement = `from "@/components/ui/${kebabCase}";`;
+          console.log(chalk.green(`   ✅ Fixed to: ${replacement}`));
+          return replacement;
+        }
+      );
+      
+      // Fix @/components/ui/[CapitalCase] -> @/components/ui/[lowercase]
+      updatedContent = updatedContent.replace(
+        /from\s*["']@\/components\/ui\/([A-Z][a-zA-Z]*)["'];?/g,
+        (match, componentName) => {
+          const kebabCase = componentName.toLowerCase();
+          if (componentName !== kebabCase) {
+            console.log(chalk.yellow(`   ⚠️  Found incorrect casing in ${file}: ${match}`));
+            const replacement = `from "@/components/ui/${kebabCase}";`;
+            console.log(chalk.green(`   ✅ Fixed to: ${replacement}`));
+            return replacement;
+          }
+          return match;
+        }
+      );
+      
       // Fix relative imports with incorrect casing (e.g., ./Button -> ./button)
       updatedContent = updatedContent.replace(
         /from\s*["']\.\/([A-Z][a-zA-Z]+)["'];?/g,
@@ -70,6 +119,42 @@ export async function fixWillowImports(baseDir: string = process.cwd()): Promise
           const replacement = `from "./${kebabCase}";`;
           console.log(chalk.green(`   ✅ Fixed to: ${replacement}`));
           return replacement;
+        }
+      );
+      
+      // Fix cn utility imports from ./utils to @/lib/utils
+      updatedContent = updatedContent.replace(
+        /from\s*["']\.\/utils["'];?/g,
+        (match) => {
+          console.log(chalk.yellow(`   ⚠️  Found incorrect utils import in ${file}: ${match}`));
+          const replacement = `from "@/lib/utils";`;
+          console.log(chalk.green(`   ✅ Fixed to: ${replacement}`));
+          return replacement;
+        }
+      );
+      
+      // Fix other relative utils imports
+      updatedContent = updatedContent.replace(
+        /from\s*["']\.\.\/(lib\/)?utils["'];?/g,
+        (match) => {
+          console.log(chalk.yellow(`   ⚠️  Found incorrect utils import in ${file}: ${match}`));
+          const replacement = `from "@/lib/utils";`;
+          console.log(chalk.green(`   ✅ Fixed to: ${replacement}`));
+          return replacement;
+        }
+      );
+      
+      // Fix missing file extensions in online IDEs
+      updatedContent = updatedContent.replace(
+        /from\s*["'](@\/[^"']+)["'](?!\.)/g,
+        (match, importPath) => {
+          if (!importPath.includes('.') && !importPath.endsWith('/')) {
+            console.log(chalk.yellow(`   ⚠️  Adding .js extension for online IDE in ${file}: ${match}`));
+            const replacement = `from "${importPath}.js"`;
+            console.log(chalk.green(`   ✅ Fixed to: ${replacement}`));
+            return replacement;
+          }
+          return match;
         }
       );
       
