@@ -1,8 +1,0 @@
-{
-  "version": "0.1.0",
-  "buildDate": "2025-06-23T21:11:27.787Z",
-  "registry": "https://willow-design-system.vercel.app/registry",
-  "storybook": "https://willow-design-system.vercel.app/storybook",
-  "fonts": "https://willow-design-system.vercel.app/cdn/fonts/codec-pro.css",
-  "npm": "npm install willow-design-system"
-}
