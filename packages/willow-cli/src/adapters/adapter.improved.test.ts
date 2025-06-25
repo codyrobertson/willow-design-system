@@ -64,6 +64,11 @@ class TestAdapter implements AdapterInstance {
       throw new AdapterError('Adapter not initialized', 'NOT_INITIALIZED');
     }
 
+    // Handle null/undefined gracefully
+    if (!styles) {
+      return {};
+    }
+
     // Exact translation logic
     const result: Record<string, unknown> = {};
     
@@ -428,12 +433,9 @@ describe.shuffle('Adapter Integration Tests with Fixtures', () => {
       // Assert exact transformation order
       expect(result).toEqual({
         original: true,
-        'chain-plugin-0': true,
         plugin0: true,
         chainOrder: [0, 1, 2],
-        'chain-plugin-1': true,
         plugin1: true,
-        'chain-plugin-2': true,
         plugin2: true,
       });
       

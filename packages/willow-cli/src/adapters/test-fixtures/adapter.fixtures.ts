@@ -1,6 +1,6 @@
 import { AdapterConfig, AdapterInstance, ComponentMapping, StyleConfig, TokenConfig, ValidationResult } from '../types';
 import { AdapterError } from '../errors';
-import { vi } from 'vitest';
+import { vi, expect } from 'vitest';
 
 /**
  * Test fixture factories for adapter testing

@@ -24,8 +24,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@willow-cli/types": "workspace:*",
-    "@willow-cli/parser": "workspace:*",
+    "@willow-cli/types": "file:../types",
+    "@willow-cli/parser": "file:../parser",
     "typescript": "^5.0.0",
     "ts-morph": "^21.0.0",
     "zod": "^3.22.0"
