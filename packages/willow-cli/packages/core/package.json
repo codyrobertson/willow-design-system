@@ -24,12 +24,12 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@willow-cli/types": "workspace:*",
-    "@willow-cli/parser": "workspace:*",
-    "@willow-cli/transformer": "workspace:*",
-    "@willow-cli/generator": "workspace:*",
-    "@willow-cli/validator": "workspace:*",
-    "@willow-cli/config": "workspace:*"
+    "@willow-cli/types": "file:../types",
+    "@willow-cli/parser": "file:../parser",
+    "@willow-cli/transformer": "file:../transformer",
+    "@willow-cli/generator": "file:../generator",
+    "@willow-cli/validator": "file:../validator",
+    "@willow-cli/config": "file:../config"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

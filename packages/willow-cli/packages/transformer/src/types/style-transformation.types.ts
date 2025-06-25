@@ -202,3 +202,40 @@ export interface StyleTransformerRegistry {
   getAll(): StyleTransformer[];
   getForStyleType(styleType: StyleType): StyleTransformer[];
 }
+
+/**
+ * Styled-components specific types
+ */
+export interface StyledComponentResult {
+  type: 'styled-component';
+  element: string;
+  isWrapped: boolean;
+  styles: {
+    static: Record<string, string>;
+    dynamic: Array<{
+      property: string;
+      expression: string;
+    }>;
+    conditional: Array<{
+      condition: string;
+      styles: string;
+    }>;
+    media: Record<string, string>;
+    pseudo: Record<string, string>;
+    nested: Record<string, string>;
+  };
+  fullDefinition: string;
+  hasTheme: boolean;
+  hasProps: boolean;
+  propUsages?: string[];
+}
+
+export interface StyledComponentAnalysis {
+  components: StyledComponentResult[];
+  themeUsages: string[];
+  propUsages: string[];
+  cssBlocks: string[];
+  hasGlobalStyles: boolean;
+  hasThemeProvider: boolean;
+  hasKeyframes: boolean;
+}

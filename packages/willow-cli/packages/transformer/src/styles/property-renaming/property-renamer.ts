@@ -186,6 +186,11 @@ export class BasePropertyRenamer implements PropertyRenamer {
       return this.config.frameworkRules.aliases[property];
     }
 
+    // Preserve HTML data attributes and aria attributes
+    if (property.startsWith('data-') || property.startsWith('aria-')) {
+      return property;
+    }
+
     // Apply conditional transformations
     if (context && this.config.frameworkRules?.conditional) {
       for (const transformation of this.config.frameworkRules.conditional) {
@@ -256,7 +261,7 @@ export class BasePropertyRenamer implements PropertyRenamer {
       // Handle nested objects (like in styled-components)
       if (typeof value === 'object' && !Array.isArray(value)) {
         const nestedResult = this.renameProperties(value, context);
-        renamedStyles[property] = nestedResult;
+        renamedStyles[property] = JSON.parse(nestedResult.renamed);
         changes.push(...nestedResult.changes);
         warnings.push(...nestedResult.warnings);
         continue;

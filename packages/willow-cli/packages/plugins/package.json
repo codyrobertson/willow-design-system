@@ -24,7 +24,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@willow-cli/types": "workspace:*",
+    "@willow-cli/types": "file:../types",
     "globby": "^14.0.0"
   },
   "devDependencies": {

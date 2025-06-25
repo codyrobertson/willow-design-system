@@ -3,6 +3,10 @@ import {
   type StyleTransformer,
   type StyleTransformerRegistry,
 } from '../types/style-transformation.types';
+import { CssInJsTransformer } from './css-in-js/css-in-js-transformer';
+import { TailwindTransformer } from './tailwind/tailwind-transformer';
+import { CssModulesTransformer } from './css-modules/css-modules-transformer';
+import { StyledComponentsTransformer } from './styled-components/styled-components-transformer';
 
 /**
  * Registry for managing style transformers
@@ -95,7 +99,13 @@ export class StyleTransformerRegistryImpl implements StyleTransformerRegistry {
    */
   static createWithDefaults(): StyleTransformerRegistryImpl {
     const registry = new StyleTransformerRegistryImpl();
-    // Default transformers will be registered here
+    
+    // Register default transformers
+    registry.register(new CssInJsTransformer());
+    registry.register(new TailwindTransformer());
+    registry.register(new CssModulesTransformer());
+    registry.register(new StyledComponentsTransformer());
+    
     return registry;
   }
 }

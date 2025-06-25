@@ -4,6 +4,10 @@ import {
   type StyleTransformerConfig,
 } from '../types/style-transformation.types';
 import { BaseStyleTransformer } from './base-style-transformer';
+import { CssInJsTransformer } from './css-in-js/css-in-js-transformer';
+import { TailwindTransformer } from './tailwind/tailwind-transformer';
+import { CssModulesTransformer } from './css-modules/css-modules-transformer';
+import { StyledComponentsTransformer } from './styled-components/styled-components-transformer';
 
 /**
  * Factory for creating style transformers
@@ -13,6 +17,14 @@ export class StyleTransformerFactory {
     string,
     new (config?: Partial<StyleTransformerConfig>) => StyleTransformer
   >();
+
+  // Static initialization block to register default transformers
+  static {
+    this.register('css-in-js', CssInJsTransformer as any);
+    this.register('tailwind', TailwindTransformer as any);
+    this.register('css-modules', CssModulesTransformer as any);
+    this.register('styled-components', StyledComponentsTransformer as any);
+  }
 
   /**
    * Register a transformer constructor

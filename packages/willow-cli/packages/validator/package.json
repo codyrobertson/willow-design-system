@@ -24,8 +24,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@willow-cli/types": "workspace:*",
-    "@willow-cli/parser": "workspace:*",
+    "@willow-cli/types": "file:../types",
+    "@willow-cli/parser": "file:../parser",
     "zod": "^3.22.4"
   },
   "devDependencies": {
