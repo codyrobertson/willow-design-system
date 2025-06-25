@@ -199,7 +199,7 @@ export function AdapterProvider({
    * Measure operation performance
    */
   const measureOperation = useCallback(
-    async <T>(operation: () => Promise<T>, metricKey: keyof AdapterContextState['metrics']): Promise<T> => {
+    async function <T>(operation: () => Promise<T>, metricKey: keyof AdapterContextState['metrics']): Promise<T> {
       const startTime = performance.now();
       try {
         const result = await operation();

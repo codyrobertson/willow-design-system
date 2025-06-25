@@ -7,9 +7,32 @@ import { AdapterRegistry } from '../base/AdapterRegistry';
 import { ValidationResult } from '../base/AdapterValidator';
 
 // Mock dependencies
-vi.mock('../base/AdapterRegistry');
-vi.mock('../base/AdapterLifecycle');
-vi.mock('../utils/ValidationUtils');
+vi.mock('../base/AdapterRegistry', () => ({
+  AdapterRegistry: {
+    getInstance: vi.fn(() => ({
+      getRegisteredAdapters: vi.fn(() => ['test-adapter']),
+      create: vi.fn(() => Promise.resolve(new MockAdapter('test-adapter', '1.0.0'))),
+    })),
+  },
+}));
+
+vi.mock('../base/AdapterLifecycle', () => ({
+  AdapterLifecycle: vi.fn(() => ({
+    runPhase: vi.fn(() => Promise.resolve()),
+  })),
+  AdapterLifecyclePhase: {
+    INITIALIZING: 'initializing',
+    INITIALIZED: 'initialized',
+    ERROR: 'error',
+    DISPOSING: 'disposing',
+  },
+}));
+
+vi.mock('../utils/ValidationUtils', () => ({
+  ValidationUtils: {
+    validateAdapterConfigStrict: vi.fn(() => ({ valid: true })),
+  },
+}));
 
 // Mock adapter class
 class MockAdapter extends UIKitAdapter {
@@ -35,32 +58,9 @@ class MockAdapter extends UIKitAdapter {
 }
 
 describe('AdapterContext', () => {
-  let mockRegistry: any;
-  let mockLifecycle: any;
-
   beforeEach(() => {
     // Reset all mocks
     vi.clearAllMocks();
-
-    // Mock registry
-    mockRegistry = {
-      getInstance: vi.fn().mockReturnValue({
-        getRegisteredAdapters: vi.fn().mockReturnValue(['test-adapter']),
-        create: vi.fn().mockResolvedValue(new MockAdapter('test-adapter', '1.0.0')),
-      }),
-    };
-
-    // Mock lifecycle
-    mockLifecycle = {
-      runPhase: vi.fn().mockResolvedValue(undefined),
-    };
-
-    // Mock AdapterRegistry.getInstance
-    (AdapterRegistry.getInstance as any) = vi.fn().mockReturnValue(mockRegistry.getInstance());
-
-    // Mock ValidationUtils
-    const { ValidationUtils } = await import('../utils/ValidationUtils');
-    (ValidationUtils.validateAdapterConfigStrict as any) = vi.fn().mockReturnValue({ valid: true });
   });
 
   afterEach(() => {
@@ -235,8 +235,8 @@ describe('AdapterContext', () => {
 
     it('should handle validation errors', async () => {
       // Mock validation to fail
-      const { ValidationUtils } = await import('../utils/ValidationUtils');
-      (ValidationUtils.validateAdapterConfigStrict as any) = vi.fn().mockReturnValue({
+      const { ValidationUtils } = await vi.importMock('../utils/ValidationUtils');
+      ValidationUtils.validateAdapterConfigStrict.mockReturnValue({
         valid: false,
         errors: [{ path: 'name', message: 'Name is required', code: 'REQUIRED' }],
       });
@@ -260,8 +260,11 @@ describe('AdapterContext', () => {
     });
 
     it('should handle adapter creation errors', async () => {
-      const registry = AdapterRegistry.getInstance();
-      (registry.create as any) = vi.fn().mockRejectedValue(new Error('Creation failed'));
+      const { AdapterRegistry } = await vi.importMock('../base/AdapterRegistry');
+      AdapterRegistry.getInstance.mockReturnValue({
+        getRegisteredAdapters: vi.fn(() => ['test-adapter']),
+        create: vi.fn(() => Promise.reject(new Error('Creation failed'))),
+      });
 
       const config: AdapterConfig = {
         name: 'test-adapter',
@@ -331,8 +334,11 @@ describe('AdapterContext', () => {
       const adapterWithDispose = new MockAdapter('test-adapter', '1.0.0');
       (adapterWithDispose as any).dispose = disposeMock;
 
-      const registry = AdapterRegistry.getInstance();
-      (registry.create as any) = vi.fn().mockResolvedValue(adapterWithDispose);
+      const { AdapterRegistry } = await vi.importMock('../base/AdapterRegistry');
+      AdapterRegistry.getInstance.mockReturnValue({
+        getRegisteredAdapters: vi.fn(() => ['test-adapter']),
+        create: vi.fn(() => Promise.resolve(adapterWithDispose)),
+      });
 
       const { result } = renderHook(() => useAdapter(), {
         wrapper: ({ children }) => <AdapterProvider>{children}</AdapterProvider>,
@@ -424,8 +430,8 @@ describe('AdapterContext', () => {
       });
 
       // Mock validation to fail
-      const { ValidationUtils } = await import('../utils/ValidationUtils');
-      (ValidationUtils.validateAdapterConfigStrict as any) = vi.fn().mockReturnValue({
+      const { ValidationUtils } = await vi.importMock('../utils/ValidationUtils');
+      ValidationUtils.validateAdapterConfigStrict.mockReturnValue({
         valid: false,
         errors: [{ path: 'options', message: 'Invalid options', code: 'INVALID' }],
       });
@@ -491,8 +497,8 @@ describe('AdapterContext', () => {
       });
 
       // Set an error by trying invalid config
-      const { ValidationUtils } = await import('../utils/ValidationUtils');
-      (ValidationUtils.validateAdapterConfigStrict as any) = vi.fn().mockReturnValue({
+      const { ValidationUtils } = await vi.importMock('../utils/ValidationUtils');
+      ValidationUtils.validateAdapterConfigStrict.mockReturnValue({
         valid: false,
         errors: [{ path: 'name', message: 'Error', code: 'ERROR' }],
       });

@@ -118,7 +118,7 @@ export function ComponentProvider({
    * Measure operation performance if tracking is enabled
    */
   const measureOperation = useCallback(
-    <T>(operation: () => T): T => {
+    function <T>(operation: () => T): T {
       if (!state.enablePerformanceTracking) {
         return operation();
       }
