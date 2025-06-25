@@ -16,7 +16,7 @@ import type {
 /**
  * Transformer for CSS Modules
  */
-export class CSSModulesTransformer extends BaseStyleTransformer {
+export class CssModulesTransformer extends BaseStyleTransformer {
   name = 'css-modules';
   supportedTypes: StyleType[] = [StyleType.CSS_MODULES];
   priority = 20;

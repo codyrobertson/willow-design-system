@@ -1,9 +1,12 @@
 /**
- * Logger implementation for transformers
+ * Logger Implementation
  */
 
 import { Logger } from './index';
 
+/**
+ * Log levels
+ */
 export enum LogLevel {
   DEBUG = 0,
   INFO = 1,
@@ -15,114 +18,109 @@ export enum LogLevel {
  * Console logger implementation
  */
 export class ConsoleLogger implements Logger {
-  private level: LogLevel;
-  private prefix: string;
+  constructor(private level: LogLevel = LogLevel.INFO) {}
 
-  constructor(level: LogLevel = LogLevel.INFO, prefix: string = '') {
-    this.level = level;
-    this.prefix = prefix;
-  }
-
+  /**
+   * Log debug message
+   */
   debug(message: string, ...args: any[]): void {
     if (this.level <= LogLevel.DEBUG) {
-      console.debug(this.formatMessage('DEBUG', message), ...args);
+      console.debug(`[DEBUG] ${message}`, ...args);
     }
   }
 
+  /**
+   * Log info message
+   */
   info(message: string, ...args: any[]): void {
     if (this.level <= LogLevel.INFO) {
-      console.info(this.formatMessage('INFO', message), ...args);
+      console.info(`[INFO] ${message}`, ...args);
     }
   }
 
+  /**
+   * Log warning message
+   */
   warn(message: string, ...args: any[]): void {
     if (this.level <= LogLevel.WARN) {
-      console.warn(this.formatMessage('WARN', message), ...args);
+      console.warn(`[WARN] ${message}`, ...args);
     }
   }
 
+  /**
+   * Log error message
+   */
   error(message: string, ...args: any[]): void {
     if (this.level <= LogLevel.ERROR) {
-      console.error(this.formatMessage('ERROR', message), ...args);
+      console.error(`[ERROR] ${message}`, ...args);
     }
   }
 
-  private formatMessage(level: string, message: string): string {
-    const timestamp = new Date().toISOString();
-    const prefix = this.prefix ? `[${this.prefix}] ` : '';
-    return `${timestamp} [${level}] ${prefix}${message}`;
+  /**
+   * Set log level
+   */
+  setLevel(level: LogLevel): void {
+    this.level = level;
+  }
+
+  /**
+   * Get current log level
+   */
+  getLevel(): LogLevel {
+    return this.level;
   }
 }
 
 /**
- * Null logger that discards all messages
+ * Silent logger that doesn't output anything
  */
-export class NullLogger implements Logger {
+export class SilentLogger implements Logger {
+  debug(): void {}
+  info(): void {}
+  warn(): void {}
+  error(): void {}
+}
+
+/**
+ * Memory logger that stores messages in memory
+ */
+export class MemoryLogger implements Logger {
+  private messages: Array<{ level: string; message: string; args: any[]; timestamp: Date }> = [];
+
   debug(message: string, ...args: any[]): void {
-    // No-op
+    this.messages.push({ level: 'DEBUG', message, args, timestamp: new Date() });
   }
 
   info(message: string, ...args: any[]): void {
-    // No-op
+    this.messages.push({ level: 'INFO', message, args, timestamp: new Date() });
   }
 
   warn(message: string, ...args: any[]): void {
-    // No-op
+    this.messages.push({ level: 'WARN', message, args, timestamp: new Date() });
   }
 
   error(message: string, ...args: any[]): void {
-    // No-op
-  }
-}
-
-/**
- * Logger that writes to multiple loggers
- */
-export class MultiLogger implements Logger {
-  private loggers: Logger[];
-
-  constructor(loggers: Logger[]) {
-    this.loggers = loggers;
+    this.messages.push({ level: 'ERROR', message, args, timestamp: new Date() });
   }
 
-  debug(message: string, ...args: any[]): void {
-    this.loggers.forEach((logger) => logger.debug(message, ...args));
+  /**
+   * Get all logged messages
+   */
+  getMessages(): Array<{ level: string; message: string; args: any[]; timestamp: Date }> {
+    return [...this.messages];
   }
 
-  info(message: string, ...args: any[]): void {
-    this.loggers.forEach((logger) => logger.info(message, ...args));
+  /**
+   * Clear all messages
+   */
+  clear(): void {
+    this.messages = [];
   }
 
-  warn(message: string, ...args: any[]): void {
-    this.loggers.forEach((logger) => logger.warn(message, ...args));
-  }
-
-  error(message: string, ...args: any[]): void {
-    this.loggers.forEach((logger) => logger.error(message, ...args));
-  }
-}
-
-/**
- * Logger factory
- */
-export class LoggerFactory {
-  private static defaultLevel = LogLevel.INFO;
-
-  static createLogger(type: 'console' | 'null' = 'console', options?: any): Logger {
-    switch (type) {
-      case 'console':
-        return new ConsoleLogger(
-          options?.level ?? this.defaultLevel,
-          options?.prefix ?? ''
-        );
-      case 'null':
-        return new NullLogger();
-      default:
-        throw new Error(`Unknown logger type: ${type}`);
-    }
-  }
-
-  static setDefaultLevel(level: LogLevel): void {
-    this.defaultLevel = level;
+  /**
+   * Get messages by level
+   */
+  getMessagesByLevel(level: string): Array<{ level: string; message: string; args: any[]; timestamp: Date }> {
+    return this.messages.filter(m => m.level === level);
   }
 }

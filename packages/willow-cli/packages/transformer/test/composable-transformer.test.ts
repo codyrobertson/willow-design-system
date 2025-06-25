@@ -14,7 +14,7 @@ import {
   LogLevel,
   Transformer,
   BaseTransformer,
-} from '../src/transformer-api';
+} from '../src';
 
 // Mock transformer for testing
 class MockTransformer extends BaseTransformer {

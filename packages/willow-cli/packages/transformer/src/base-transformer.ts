@@ -1,5 +1,5 @@
 /**
- * Base transformer implementation
+ * Base Transformer Implementation
  * Provides common functionality for all transformers
  */
 
@@ -13,104 +13,86 @@ import {
   TransformWarning,
   TransformChange,
   TransformMetrics,
-  Logger,
 } from './index';
 
 /**
- * Abstract base class for transformers
+ * Abstract base class that provides common transformer functionality
  */
-export abstract class BaseTransformer<TConfig = any, TResult = any>
-  implements Transformer<TConfig, TResult>
-{
-  abstract readonly name: string;
-  abstract readonly description: string;
-  abstract readonly version: string;
-
-  protected config: TConfig | null = null;
-  protected logger: Logger | null = null;
-  protected initialized = false;
+export abstract class BaseTransformer<TConfig = any, TResult = any> implements Transformer<TConfig, TResult> {
+  /**
+   * Transformer configuration
+   */
+  protected config?: TConfig;
 
   /**
-   * Initialize the transformer
+   * Unique identifier for the transformer
+   */
+  abstract readonly name: string;
+
+  /**
+   * Human-readable description of what this transformer does
+   */
+  abstract readonly description: string;
+
+  /**
+   * Version of the transformer
+   */
+  abstract readonly version: string;
+
+  /**
+   * Initialize the transformer with configuration
    */
   async initialize(config: TConfig): Promise<void> {
     this.config = config;
-    this.initialized = true;
-    await this.onInitialize(config);
-  }
-
-  /**
-   * Hook for subclasses to perform custom initialization
-   */
-  protected async onInitialize(config: TConfig): Promise<void> {
-    // Override in subclasses
   }
 
   /**
    * Transform a single source file
    */
-  async transform(
-    sourceFile: ts.SourceFile,
-    context: TransformContext
-  ): Promise<TransformResult<TResult>> {
-    if (!this.initialized) {
-      throw new Error(`Transformer ${this.name} not initialized`);
-    }
-
-    this.logger = context.logger;
-    const startTime = Date.now();
-    const errors: TransformError[] = [];
-    const warnings: TransformWarning[] = [];
-    const changes: TransformChange[] = [];
+  async transform(sourceFile: ts.SourceFile, context: TransformContext): Promise<TransformResult<TResult>> {
+    const startTime = performance.now();
+    
+    const collectors = {
+      errors: [] as TransformError[],
+      warnings: [] as TransformWarning[],
+      changes: [] as TransformChange[],
+    };
 
     try {
-      // Check if we can transform this file
-      if (!this.canTransform(sourceFile)) {
-        return {
-          success: true,
-          transformedFile: sourceFile,
-          errors: [],
-          warnings: [],
-          changes: [],
-        };
-      }
+      const result = await this.performTransform(sourceFile, context, collectors);
+      const endTime = performance.now();
 
-      // Perform the transformation
-      const result = await this.performTransform(sourceFile, context, {
-        errors,
-        warnings,
-        changes,
-      });
-
-      const duration = Date.now() - startTime;
+      const metrics: TransformMetrics = {
+        duration: endTime - startTime,
+        nodesProcessed: result.nodesProcessed || 0,
+      };
 
       return {
-        success: errors.length === 0,
+        success: true,
         transformedFile: result.transformedFile,
         data: result.data,
-        errors,
-        warnings,
-        changes,
-        metrics: {
-          duration,
-          nodesProcessed: result.nodesProcessed,
-        },
+        errors: collectors.errors,
+        warnings: collectors.warnings,
+        changes: collectors.changes,
+        metrics,
       };
     } catch (error) {
-      errors.push({
+      const endTime = performance.now();
+      
+      const transformError: TransformError = {
         code: 'TRANSFORM_ERROR',
-        message: error instanceof Error ? error.message : String(error),
+        message: error instanceof Error ? error.message : 'Unknown transformation error',
         file: sourceFile.fileName,
         stack: error instanceof Error ? error.stack : undefined,
-      });
+      };
 
       return {
         success: false,
-        errors,
-        warnings,
-        changes,
+        errors: [transformError, ...collectors.errors],
+        warnings: collectors.warnings,
+        changes: collectors.changes,
         metrics: {
-          duration: Date.now() - startTime,
+          duration: endTime - startTime,
         },
       };
     }
@@ -119,71 +101,48 @@ export abstract class BaseTransformer<TConfig = any, TResult = any>
   /**
    * Transform multiple files in batch
    */
-  async transformBatch(
-    sourceFiles: ts.SourceFile[],
-    context: TransformContext
-  ): Promise<BatchTransformResult<TResult>> {
+  async transformBatch(sourceFiles: ts.SourceFile[], context: TransformContext): Promise<BatchTransformResult<TResult>> {
     const results = new Map<string, TransformResult<TResult>>();
-    const startTime = Date.now();
     let totalErrors = 0;
     let totalWarnings = 0;
+    let totalDuration = 0;
 
-    // Process files based on configuration
-    const maxConcurrency = context.config.maxConcurrency || 4;
-    const chunks = this.chunkArray(sourceFiles, maxConcurrency);
-
-    for (const chunk of chunks) {
-      const chunkResults = await Promise.all(
-        chunk.map(async (sourceFile) => {
-          const result = await this.transform(sourceFile, context);
-          return { fileName: sourceFile.fileName, result };
-        })
-      );
-
-      for (const { fileName, result } of chunkResults) {
-        results.set(fileName, result);
-        totalErrors += result.errors.length;
-        totalWarnings += result.warnings.length;
-      }
+    for (const sourceFile of sourceFiles) {
+      const result = await this.transform(sourceFile, context);
+      results.set(sourceFile.fileName, result);
+      
+      totalErrors += result.errors.length;
+      totalWarnings += result.warnings.length;
+      totalDuration += result.metrics?.duration || 0;
     }
+
+    const success = totalErrors === 0;
 
     return {
       results,
-      success: totalErrors === 0,
+      success,
       totalErrors,
       totalWarnings,
       metrics: {
-        duration: Date.now() - startTime,
+        duration: totalDuration,
       },
     };
-  }
-
-  /**
-   * Default implementation - override in subclasses
-   */
-  canTransform(sourceFile: ts.SourceFile): boolean {
-    return true;
   }
 
   /**
    * Clean up resources
    */
   async dispose(): Promise<void> {
-    this.config = null;
-    this.logger = null;
-    this.initialized = false;
-    await this.onDispose();
+    // Default implementation - can be overridden
   }
 
   /**
-   * Hook for subclasses to perform custom cleanup
+   * Validate if a file can be transformed
    */
-  protected async onDispose(): Promise<void> {
-    // Override in subclasses
-  }
+  abstract canTransform(sourceFile: ts.SourceFile): boolean;
 
   /**
-   * Abstract method that subclasses must implement
+   * Perform the actual transformation - must be implemented by subclasses
    */
   protected abstract performTransform(
     sourceFile: ts.SourceFile,
@@ -200,69 +159,7 @@ export abstract class BaseTransformer<TConfig = any, TResult = any>
   }>;
 
   /**
-   * Helper to create a transform error
-   */
-  protected createError(
-    code: string,
-    message: string,
-    node?: ts.Node
-  ): TransformError {
-    const error: TransformError = {
-      code,
-      message,
-    };
-
-    if (node) {
-      const sourceFile = node.getSourceFile();
-      if (sourceFile) {
-        error.file = sourceFile.fileName;
-        const { line, character } = sourceFile.getLineAndCharacterOfPosition(
-          node.getStart()
-        );
-        error.location = {
-          line: line + 1,
-          column: character + 1,
-        };
-      }
-    }
-
-    return error;
-  }
-
-  /**
-   * Helper to create a transform warning
-   */
-  protected createWarning(
-    code: string,
-    message: string,
-    node?: ts.Node,
-    severity: 'info' | 'warning' = 'warning'
-  ): TransformWarning {
-    const warning: TransformWarning = {
-      code,
-      message,
-      severity,
-    };
-
-    if (node) {
-      const sourceFile = node.getSourceFile();
-      if (sourceFile) {
-        warning.file = sourceFile.fileName;
-        const { line, character } = sourceFile.getLineAndCharacterOfPosition(
-          node.getStart()
-        );
-        warning.location = {
-          line: line + 1,
-          column: character + 1,
-        };
-      }
-    }
-
-    return warning;
-  }
-
-  /**
-   * Helper to create a transform change
+   * Helper method to create a change record
    */
   protected createChange(
     type: TransformChange['type'],
@@ -282,56 +179,77 @@ export abstract class BaseTransformer<TConfig = any, TResult = any>
 
     if (node) {
       const sourceFile = node.getSourceFile();
-      if (sourceFile) {
-        const { line, character } = sourceFile.getLineAndCharacterOfPosition(
-          node.getStart()
-        );
-        change.location = {
-          line: line + 1,
-          column: character + 1,
-        };
-      }
+      const start = sourceFile.getLineAndCharacterOfPosition(node.getStart());
+      const end = sourceFile.getLineAndCharacterOfPosition(node.getEnd());
+      
+      change.location = {
+        line: start.line + 1,
+        column: start.character + 1,
+        endLine: end.line + 1,
+        endColumn: end.character + 1,
+      };
     }
 
     return change;
   }
 
   /**
-   * Helper to chunk an array
+   * Helper method to create an error
    */
-  private chunkArray<T>(array: T[], chunkSize: number): T[][] {
-    const chunks: T[][] = [];
-    for (let i = 0; i < array.length; i += chunkSize) {
-      chunks.push(array.slice(i, i + chunkSize));
+  protected createError(
+    code: string,
+    message: string,
+    file?: string,
+    node?: ts.Node,
+    suggestions?: string[]
+  ): TransformError {
+    const error: TransformError = {
+      code,
+      message,
+      file,
+      suggestions,
+    };
+
+    if (node) {
+      const sourceFile = node.getSourceFile();
+      const start = sourceFile.getLineAndCharacterOfPosition(node.getStart());
+      
+      error.location = {
+        line: start.line + 1,
+        column: start.character + 1,
+      };
     }
-    return chunks;
+
+    return error;
   }
 
   /**
-   * Log a debug message
+   * Helper method to create a warning
    */
-  protected debug(message: string, ...args: any[]): void {
-    this.logger?.debug(`[${this.name}] ${message}`, ...args);
-  }
+  protected createWarning(
+    code: string,
+    message: string,
+    severity: 'info' | 'warning' = 'warning',
+    file?: string,
+    node?: ts.Node
+  ): TransformWarning {
+    const warning: TransformWarning = {
+      code,
+      message,
+      severity,
+      file,
+    };
 
-  /**
-   * Log an info message
-   */
-  protected info(message: string, ...args: any[]): void {
-    this.logger?.info(`[${this.name}] ${message}`, ...args);
-  }
+    if (node) {
+      const sourceFile = node.getSourceFile();
+      const start = sourceFile.getLineAndCharacterOfPosition(node.getStart());
+      
+      warning.location = {
+        line: start.line + 1,
+        column: start.character + 1,
+      };
+    }
 
-  /**
-   * Log a warning message
-   */
-  protected warn(message: string, ...args: any[]): void {
-    this.logger?.warn(`[${this.name}] ${message}`, ...args);
-  }
-
-  /**
-   * Log an error message
-   */
-  protected error(message: string, ...args: any[]): void {
-    this.logger?.error(`[${this.name}] ${message}`, ...args);
+    return warning;
   }
 }

@@ -11,7 +11,7 @@ import {
   TransformContext,
   ConsoleLogger,
   LogLevel,
-} from '../src/transformer-api';
+} from '../src';
 
 describe('NamespaceAliasTransformer', () => {
   let transformer: NamespaceAliasTransformer;

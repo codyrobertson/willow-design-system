@@ -1,5 +1,5 @@
 /**
- * Registry for managing transformers
+ * Transformer Registry Implementation
  */
 
 import { Transformer, TransformerRegistry } from './index';
@@ -15,9 +15,7 @@ export class DefaultTransformerRegistry implements TransformerRegistry {
    */
   register(transformer: Transformer): void {
     if (this.transformers.has(transformer.name)) {
-      throw new Error(
-        `Transformer with name "${transformer.name}" is already registered`
-      );
+      throw new Error(`Transformer with name "${transformer.name}" is already registered`);
     }
     this.transformers.set(transformer.name, transformer);
   }
@@ -51,21 +49,16 @@ export class DefaultTransformerRegistry implements TransformerRegistry {
   }
 
   /**
-   * Clear all registered transformers
-   */
-  clear(): void {
-    this.transformers.clear();
-  }
-
-  /**
    * Get the number of registered transformers
    */
   get size(): number {
     return this.transformers.size;
   }
-}
 
-/**
- * Global transformer registry instance
- */
-export const globalTransformerRegistry = new DefaultTransformerRegistry();
+  /**
+   * Clear all transformers
+   */
+  clear(): void {
+    this.transformers.clear();
+  }
+}

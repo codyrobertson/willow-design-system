@@ -11,7 +11,7 @@ import {
   TransformContext,
   ConsoleLogger,
   LogLevel,
-} from '../src/transformer-api';
+} from '../src';
 
 describe('ImportTransformer', () => {
   let transformer: ImportTransformer;

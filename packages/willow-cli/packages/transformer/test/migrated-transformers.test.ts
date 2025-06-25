@@ -3,10 +3,12 @@
  */
 
 import * as ts from 'typescript';
-import { ImportParserTransformer } from '../src/transformers/import-parser-transformer';
-import { ImportPathResolverTransformer } from '../src/transformers/import-path-resolver-transformer';
-import { ImportTransformationEngineTransformer } from '../src/transformers/import-transformation-engine-transformer';
-import { PropNameTransformer } from '../src/transformers/prop-name-transformer';
+import { 
+  ImportParserTransformer,
+  ImportPathResolverTransformer,
+  ImportTransformationEngineTransformer,
+  PropNameTransformer 
+} from '../src/transformers';
 
 describe('Migrated Transformers', () => {
   describe('ImportParserTransformer', () => {

@@ -15,7 +15,7 @@ import {
   LogLevel,
   TransformResult,
   createRollbackHandler,
-} from '../src/transformer-api';
+} from '../src';
 
 describe('Transformer with Rollback Integration', () => {
   const testDir = path.join(process.cwd(), '.test-transform-rollback');

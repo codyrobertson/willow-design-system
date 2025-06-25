@@ -708,7 +708,6 @@ export * from './rollback-handler';
 export * from './transformation-validator';
 export * from './plugin-manager';
 export * from './logger';
-export * from './transformation-mode-handler';
 
-// Re-export transformers
+// Re-export all transformers
 export * from './transformers';

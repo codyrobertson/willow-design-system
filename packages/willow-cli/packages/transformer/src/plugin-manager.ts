@@ -1,89 +1,148 @@
 /**
- * Plugin manager for transformer plugins
+ * Plugin Manager Implementation
  */
 
-import { TransformerPlugin } from './index';
+import {
+  TransformerPlugin,
+  TransformContext,
+  TransformResult,
+  BatchTransformResult,
+} from './index';
+import * as ts from 'typescript';
 
 /**
- * Plugin manager for managing transformer plugins
+ * Manager for transformer plugins
  */
-export class TransformerPluginManager {
-  private plugins: Map<string, TransformerPlugin> = new Map();
-  private loadOrder: string[] = [];
+export class PluginManager {
+  private plugins: TransformerPlugin[] = [];
 
   /**
    * Register a plugin
    */
   register(plugin: TransformerPlugin): void {
-    if (this.plugins.has(plugin.name)) {
-      throw new Error(`Plugin "${plugin.name}" is already registered`);
-    }
-    
-    this.plugins.set(plugin.name, plugin);
-    this.loadOrder.push(plugin.name);
+    this.plugins.push(plugin);
   }
 
   /**
    * Unregister a plugin
    */
   unregister(name: string): boolean {
-    if (this.plugins.delete(name)) {
-      this.loadOrder = this.loadOrder.filter((n) => n !== name);
+    const index = this.plugins.findIndex(p => p.name === name);
+    if (index >= 0) {
+      this.plugins.splice(index, 1);
       return true;
     }
     return false;
   }
 
   /**
-   * Get a plugin by name
+   * Get all registered plugins
    */
-  get(name: string): TransformerPlugin | undefined {
-    return this.plugins.get(name);
+  getPlugins(): TransformerPlugin[] {
+    return [...this.plugins];
   }
 
   /**
-   * Get all plugins
+   * Call beforeTransform hook on all plugins
    */
-  getAll(): TransformerPlugin[] {
-    return this.loadOrder.map((name) => this.plugins.get(name)!);
+  async beforeTransform(context: TransformContext): Promise<void> {
+    for (const plugin of this.plugins) {
+      if (plugin.beforeTransform) {
+        await plugin.beforeTransform(context);
+      }
+    }
   }
 
   /**
-   * Check if a plugin is registered
+   * Call beforeTransformFile hook on all plugins
    */
-  has(name: string): boolean {
-    return this.plugins.has(name);
-  }
+  async beforeTransformFile(
+    sourceFile: ts.SourceFile,
+    context: TransformContext
+  ): Promise<ts.SourceFile> {
+    let currentFile = sourceFile;
 
-  /**
-   * Set plugin load order
-   */
-  setLoadOrder(order: string[]): void {
-    // Validate all plugins exist
-    for (const name of order) {
-      if (!this.plugins.has(name)) {
-        throw new Error(`Plugin "${name}" not found`);
+    for (const plugin of this.plugins) {
+      if (plugin.beforeTransformFile) {
+        const result = await plugin.beforeTransformFile(currentFile, context);
+        if (result) {
+          currentFile = result;
+        }
       }
     }
 
-    // Validate all plugins are included
-    if (order.length !== this.plugins.size) {
-      throw new Error('Load order must include all plugins');
+    return currentFile;
+  }
+
+  /**
+   * Call afterTransformFile hook on all plugins
+   */
+  async afterTransformFile(
+    sourceFile: ts.SourceFile,
+    result: TransformResult,
+    context: TransformContext
+  ): Promise<TransformResult> {
+    let currentResult = result;
+
+    for (const plugin of this.plugins) {
+      if (plugin.afterTransformFile) {
+        const pluginResult = await plugin.afterTransformFile(sourceFile, currentResult, context);
+        if (pluginResult) {
+          currentResult = pluginResult;
+        }
+      }
     }
 
-    this.loadOrder = [...order];
+    return currentResult;
+  }
+
+  /**
+   * Call afterTransform hook on all plugins
+   */
+  async afterTransform(
+    results: BatchTransformResult,
+    context: TransformContext
+  ): Promise<void> {
+    for (const plugin of this.plugins) {
+      if (plugin.afterTransform) {
+        await plugin.afterTransform(results, context);
+      }
+    }
+  }
+
+  /**
+   * Call onError hook on all plugins
+   */
+  async onError(error: Error, context: TransformContext): Promise<void> {
+    for (const plugin of this.plugins) {
+      if (plugin.onError) {
+        try {
+          await plugin.onError(error, context);
+        } catch (pluginError) {
+          console.error(`Plugin ${plugin.name} error handler failed:`, pluginError);
+        }
+      }
+    }
   }
 
   /**
    * Clear all plugins
    */
   clear(): void {
-    this.plugins.clear();
-    this.loadOrder = [];
+    this.plugins = [];
+  }
+
+  /**
+   * Get plugin by name
+   */
+  getPlugin(name: string): TransformerPlugin | undefined {
+    return this.plugins.find(p => p.name === name);
+  }
+
+  /**
+   * Check if a plugin is registered
+   */
+  hasPlugin(name: string): boolean {
+    return this.plugins.some(p => p.name === name);
   }
 }
-
-/**
- * Global plugin manager instance
- */
-export const globalPluginManager = new TransformerPluginManager();

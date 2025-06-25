@@ -1,101 +1,75 @@
 /**
- * Rollback handler for reverting transformations
+ * Rollback Handler Implementation
  */
 
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { createHash } from 'crypto';
+import * as crypto from 'crypto';
 import { RollbackHandler, BackupInfo } from './index';
 
 /**
  * Default implementation of rollback handler
  */
 export class DefaultRollbackHandler implements RollbackHandler {
-  private backupDir: string;
-  private backups = new Map<string, BackupInfo>();
-
-  constructor(backupDir: string = '.willow-backups') {
-    this.backupDir = backupDir;
-  }
-
-  /**
-   * Initialize the backup directory
-   */
-  private async ensureBackupDir(): Promise<void> {
-    try {
-      await fs.access(this.backupDir);
-    } catch {
-      await fs.mkdir(this.backupDir, { recursive: true });
-    }
-  }
+  constructor(private backupDir: string) {}
 
   /**
    * Create a backup before transformation
    */
   async createBackup(files: string[], description?: string): Promise<string> {
-    await this.ensureBackupDir();
-
-    const backupId = this.generateBackupId();
+    const timestamp = Date.now();
+    const hash = crypto.randomBytes(4).toString('hex');
+    const backupId = `backup-${timestamp}-${hash}`;
     const backupPath = path.join(this.backupDir, backupId);
-    const timestamp = new Date();
 
-    // Create backup directory
+    // Ensure backup directory exists
     await fs.mkdir(backupPath, { recursive: true });
 
-    // Copy files to backup
-    const backedUpFiles: string[] = [];
-    let totalSize = 0;
-
-    for (const file of files) {
-      try {
-        // Read file content
-        const content = await fs.readFile(file, 'utf-8');
-        const stats = await fs.stat(file);
-        totalSize += stats.size;
-
-        // Create backup file path
-        const relativePath = this.getRelativePath(file);
-        const backupFilePath = path.join(backupPath, relativePath);
-
-        // Ensure directory exists
-        await fs.mkdir(path.dirname(backupFilePath), { recursive: true });
-
-        // Write backup file
-        await fs.writeFile(backupFilePath, content, 'utf-8');
-
-        // Store metadata
-        const metadataPath = `${backupFilePath}.meta`;
-        await fs.writeFile(
-          metadataPath,
-          JSON.stringify({
-            originalPath: file,
-            permissions: stats.mode,
-            timestamp: stats.mtime,
-          }),
-          'utf-8'
-        );
-
-        backedUpFiles.push(file);
-      } catch (error) {
-        console.error(`Failed to backup file ${file}:`, error);
-      }
-    }
-
-    // Create backup info
     const backupInfo: BackupInfo = {
       id: backupId,
-      timestamp,
-      files: backedUpFiles,
-      size: totalSize,
+      timestamp: new Date(),
+      files: [],
+      size: 0,
       description,
     };
+
+    // Backup each file
+    for (const filePath of files) {
+      try {
+        const stats = await fs.stat(filePath);
+        if (stats.isFile()) {
+          const content = await fs.readFile(filePath);
+          const relativePath = path.relative(process.cwd(), filePath);
+          const backupFilePath = path.join(backupPath, relativePath);
+          
+          // Ensure directory structure exists
+          await fs.mkdir(path.dirname(backupFilePath), { recursive: true });
+          
+          // Save file content
+          await fs.writeFile(backupFilePath, content);
+          
+          // Save file metadata
+          const metadataPath = backupFilePath + '.meta';
+          const metadata = {
+            originalPath: filePath,
+            permissions: stats.mode,
+            timestamp: stats.mtime,
+            size: stats.size,
+          };
+          await fs.writeFile(metadataPath, JSON.stringify(metadata, null, 2));
+          
+          backupInfo.files.push(filePath);
+          backupInfo.size += stats.size;
+        }
+      } catch (error) {
+        // Skip files that don't exist or can't be read
+        console.warn(`Failed to backup ${filePath}:`, error);
+      }
+    }
 
     // Save backup metadata
     const metadataPath = path.join(backupPath, 'backup.json');
     await fs.writeFile(metadataPath, JSON.stringify(backupInfo, null, 2));
-
-    // Store in memory
-    this.backups.set(backupId, backupInfo);
 
     return backupId;
   }
@@ -107,49 +81,40 @@ export class DefaultRollbackHandler implements RollbackHandler {
     const backupPath = path.join(this.backupDir, backupId);
     const metadataPath = path.join(backupPath, 'backup.json');
 
-    // Load backup metadata
-    let backupInfo: BackupInfo;
     try {
       const metadataContent = await fs.readFile(metadataPath, 'utf-8');
-      backupInfo = JSON.parse(metadataContent);
+      const backupInfo: BackupInfo = JSON.parse(metadataContent);
+
+      for (const originalPath of backupInfo.files) {
+        const relativePath = path.relative(process.cwd(), originalPath);
+        const backupFilePath = path.join(backupPath, relativePath);
+        const metadataFilePath = backupFilePath + '.meta';
+
+        try {
+          // Restore file content
+          const content = await fs.readFile(backupFilePath);
+          
+          // Ensure directory exists
+          await fs.mkdir(path.dirname(originalPath), { recursive: true });
+          
+          // Write file
+          await fs.writeFile(originalPath, content);
+
+          // Restore file metadata if available
+          try {
+            const metadataContent = await fs.readFile(metadataFilePath, 'utf-8');
+            const metadata = JSON.parse(metadataContent);
+            await fs.chmod(originalPath, metadata.permissions);
+            await fs.utimes(originalPath, new Date(), new Date(metadata.timestamp));
+          } catch {
+            // Ignore metadata restore errors
+          }
+        } catch (error) {
+          console.warn(`Failed to restore ${originalPath}:`, error);
+        }
+      }
     } catch (error) {
       throw new Error(`Backup ${backupId} not found or corrupted`);
-    }
-
-    // Restore each file
-    for (const originalPath of backupInfo.files) {
-      try {
-        const relativePath = this.getRelativePath(originalPath);
-        const backupFilePath = path.join(backupPath, relativePath);
-
-        // Read backup content
-        const content = await fs.readFile(backupFilePath, 'utf-8');
-
-        // Read file metadata
-        const metadataPath = `${backupFilePath}.meta`;
-        const metadataContent = await fs.readFile(metadataPath, 'utf-8');
-        const metadata = JSON.parse(metadataContent);
-
-        // Ensure original directory exists
-        await fs.mkdir(path.dirname(originalPath), { recursive: true });
-
-        // Restore file
-        await fs.writeFile(originalPath, content, 'utf-8');
-
-        // Restore permissions
-        if (metadata.permissions) {
-          await fs.chmod(originalPath, metadata.permissions);
-        }
-
-        // Restore timestamp
-        if (metadata.timestamp) {
-          const timestamp = new Date(metadata.timestamp);
-          await fs.utimes(originalPath, timestamp, timestamp);
-        }
-      } catch (error) {
-        console.error(`Failed to restore file ${originalPath}:`, error);
-        throw error;
-      }
     }
   }
 
@@ -157,40 +122,29 @@ export class DefaultRollbackHandler implements RollbackHandler {
    * List available backups
    */
   async listBackups(): Promise<BackupInfo[]> {
-    await this.ensureBackupDir();
-
-    const backups: BackupInfo[] = [];
-    
     try {
       const entries = await fs.readdir(this.backupDir, { withFileTypes: true });
+      const backups: BackupInfo[] = [];
 
       for (const entry of entries) {
         if (entry.isDirectory()) {
+          const metadataPath = path.join(this.backupDir, entry.name, 'backup.json');
+          
           try {
-            const metadataPath = path.join(
-              this.backupDir,
-              entry.name,
-              'backup.json'
-            );
             const metadataContent = await fs.readFile(metadataPath, 'utf-8');
-            const backupInfo = JSON.parse(metadataContent);
+            const backupInfo: BackupInfo = JSON.parse(metadataContent);
             backups.push(backupInfo);
           } catch {
             // Skip invalid backups
           }
         }
       }
-    } catch (error) {
-      console.error('Failed to list backups:', error);
+
+      // Sort by timestamp, newest first
+      return backups.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+    } catch {
+      return [];
     }
-
-    // Sort by timestamp (newest first)
-    backups.sort(
-      (a, b) =>
-        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-    );
-
-    return backups;
   }
 
   /**
@@ -198,64 +152,27 @@ export class DefaultRollbackHandler implements RollbackHandler {
    */
   async deleteBackup(backupId: string): Promise<void> {
     const backupPath = path.join(this.backupDir, backupId);
-
-    try {
-      await fs.rm(backupPath, { recursive: true, force: true });
-      this.backups.delete(backupId);
-    } catch (error) {
-      throw new Error(`Failed to delete backup ${backupId}: ${error}`);
-    }
+    await fs.rm(backupPath, { recursive: true, force: true });
   }
 
   /**
-   * Delete old backups
+   * Cleanup old backups
    */
   async cleanupOldBackups(maxAge: number = 7 * 24 * 60 * 60 * 1000): Promise<void> {
     const backups = await this.listBackups();
-    const now = Date.now();
+    const cutoffTime = Date.now() - maxAge;
 
     for (const backup of backups) {
-      const age = now - new Date(backup.timestamp).getTime();
-      if (age > maxAge) {
+      if (new Date(backup.timestamp).getTime() < cutoffTime) {
         await this.deleteBackup(backup.id);
       }
     }
-  }
-
-  /**
-   * Generate a unique backup ID
-   */
-  private generateBackupId(): string {
-    const timestamp = Date.now();
-    const random = Math.random().toString(36).substring(2, 8);
-    const hash = createHash('sha256')
-      .update(`${timestamp}-${random}`)
-      .digest('hex')
-      .substring(0, 8);
-    return `backup-${timestamp}-${hash}`;
-  }
-
-  /**
-   * Get relative path for backup storage
-   */
-  private getRelativePath(filePath: string): string {
-    // Get relative path from current working directory
-    const relativePath = path.relative(process.cwd(), filePath);
-    
-    // If the file is outside cwd, use absolute path with drive letter replaced
-    if (relativePath.startsWith('..')) {
-      return filePath.replace(/^\//, '').replace(/^([A-Z]):/, '$1');
-    }
-    
-    return relativePath;
   }
 }
 
 /**
  * Factory function to create a rollback handler
  */
-export function createRollbackHandler(
-  backupDir?: string
-): RollbackHandler {
+export function createRollbackHandler(backupDir: string): DefaultRollbackHandler {
   return new DefaultRollbackHandler(backupDir);
 }
