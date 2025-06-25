@@ -607,7 +607,7 @@
             "dependencies": [
               1
             ],
-            "details": "Create mappings for all Willow components, establish patterns for prop conversion, and document the reference implementation approach that other adapters will follow.",
+            "details": "Create mappings for all Willow components, establish patterns for prop conversion, and document the reference implementation approach that other adapters will follow.\n<info added on 2025-06-25T07:49:26.307Z>\nThe Willow adapter should be removed as Willow serves as the canonical format that other UI libraries adapt to, not the reverse. Instead, implement example adapters that demonstrate bidirectional conversion between popular UI libraries (such as Material-UI to Ant Design, or Chakra UI to Mantine) to showcase the adapter system's capabilities for cross-library component migration and interoperability.\n</info added on 2025-06-25T07:49:26.307Z>",
             "status": "in-progress",
             "testStrategy": ""
           },
@@ -652,7 +652,7 @@
               1,
               2
             ],
-            "details": "Implement prop transformation rules, event handler mapping, children/slot conversion, ref forwarding strategies, and a plugin system for custom mappings.",
+            "details": "Implement prop transformation rules, event handler mapping, children/slot conversion, ref forwarding strategies, and a plugin system for custom mappings.\n<info added on 2025-06-25T07:49:58.415Z>\nStatus Update: Base adapter architecture implemented with mapComponent method and ComponentMapping interface established. Foundation is complete but core mapping functionality still requires implementation.\n\nRemaining Implementation Tasks:\n1. Prop transformation rules engine - Need to build dynamic property mapping system that can handle type conversions, name transformations, and conditional prop passing\n2. Event handler mapping system - Implement event name translation and handler wrapping to normalize different UI kit event patterns\n3. Children/slot conversion logic - Create system to handle different child content patterns (React children vs Vue slots vs Angular content projection)\n4. Ref forwarding strategies - Develop consistent ref handling across different component architectures and frameworks\n\nThe architectural foundation provides the structure, but the actual adaptation logic that makes components interoperable between UI kits is the next critical implementation phase.\n</info added on 2025-06-25T07:49:58.415Z>",
             "status": "pending",
             "testStrategy": ""
           },
@@ -664,7 +664,7 @@
               1,
               6
             ],
-            "details": "Build converters for CSS-in-JS to utility classes, theme token mapping, responsive breakpoint translation, animation/transition handling, and dark mode compatibility.",
+            "details": "Build converters for CSS-in-JS to utility classes, theme token mapping, responsive breakpoint translation, animation/transition handling, and dark mode compatibility.\n<info added on 2025-06-25T07:50:29.880Z>\nThe base adapter architecture is now in place with the translateStyles method and StyleConfig interface implemented. The transformer package provides extensive style transformation capabilities including parsers and transformers for Tailwind, CSS-in-JS, and styled-components. The key remaining work is to integrate the transformer's style transformation capabilities with the adapter's runtime style translation system. The token conversion system has been successfully implemented with type-safe helpers, providing a foundation for mapping design tokens between different UI kits. Next steps involve creating the integration layer between the static transformation capabilities and runtime style translation.\n</info added on 2025-06-25T07:50:29.880Z>",
             "status": "pending",
             "testStrategy": ""
           }

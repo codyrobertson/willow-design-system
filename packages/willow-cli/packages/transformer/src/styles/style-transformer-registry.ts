@@ -7,6 +7,7 @@ import { CssInJsTransformer } from './css-in-js/css-in-js-transformer';
 import { TailwindTransformer } from './tailwind/tailwind-transformer';
 import { CssModulesTransformer } from './css-modules/css-modules-transformer';
 import { StyledComponentsTransformer } from './styled-components/styled-components-transformer';
+import { EmotionTransformer } from './emotion/emotion-transformer';
 
 /**
  * Registry for managing style transformers
@@ -105,6 +106,7 @@ export class StyleTransformerRegistryImpl implements StyleTransformerRegistry {
     registry.register(new TailwindTransformer());
     registry.register(new CssModulesTransformer());
     registry.register(new StyledComponentsTransformer());
+    registry.register(new EmotionTransformer());
     
     return registry;
   }

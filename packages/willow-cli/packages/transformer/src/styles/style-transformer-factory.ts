@@ -8,6 +8,7 @@ import { CssInJsTransformer } from './css-in-js/css-in-js-transformer';
 import { TailwindTransformer } from './tailwind/tailwind-transformer';
 import { CssModulesTransformer } from './css-modules/css-modules-transformer';
 import { StyledComponentsTransformer } from './styled-components/styled-components-transformer';
+import { EmotionTransformer } from './emotion/emotion-transformer';
 
 /**
  * Factory for creating style transformers
@@ -24,6 +25,7 @@ export class StyleTransformerFactory {
     this.register('tailwind', TailwindTransformer as any);
     this.register('css-modules', CssModulesTransformer as any);
     this.register('styled-components', StyledComponentsTransformer as any);
+    this.register('emotion', EmotionTransformer as any);
   }
 
   /**

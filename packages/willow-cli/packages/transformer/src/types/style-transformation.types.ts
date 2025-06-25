@@ -238,4 +238,6 @@ export interface StyledComponentAnalysis {
   hasGlobalStyles: boolean;
   hasThemeProvider: boolean;
   hasKeyframes: boolean;
+  hasJsxPragma?: boolean;
+  hasCssImport?: boolean;
 }
