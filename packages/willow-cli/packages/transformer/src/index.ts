@@ -2,6 +2,9 @@ export * from './types';
 export * from './transformer';
 export * from './transformer-factory';
 
+// Transformer API exports
+export * from './transformer-api';
+
 // Style transformation exports
 export * from './styles/css-in-js/css-in-js-transformer';
 export * from './styles/tailwind/tailwind-transformer';
