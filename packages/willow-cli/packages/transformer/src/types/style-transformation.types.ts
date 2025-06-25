@@ -116,13 +116,56 @@ export interface StyleParser<T = any> {
  * Style validator interface
  */
 export interface StyleValidator {
+  getName(): string;
   validate(
     styles: any,
-    context: StyleTransformationContext
-  ): {
-    valid: boolean;
-    errors: string[];
-    warnings: string[];
+    context: StyleValidationContext
+  ): StyleValidationResult;
+  addRule?(rule: StyleValidationRule): void;
+  removeRule?(ruleName: string): void;
+}
+
+/**
+ * Style validation context
+ */
+export interface StyleValidationContext {
+  framework: string;
+  styleType: StyleType;
+  filePath?: string;
+  rawStyle?: string;
+  options?: Record<string, any>;
+}
+
+/**
+ * Style validation result
+ */
+export interface StyleValidationResult {
+  valid: boolean;
+  errors: any[];
+  warnings: any[];
+}
+
+/**
+ * Validation severity levels
+ */
+export enum ValidationSeverity {
+  ERROR = 'error',
+  WARNING = 'warning',
+  INFO = 'info',
+}
+
+/**
+ * Style validation rule
+ */
+export interface StyleValidationRule {
+  name: string;
+  description: string;
+  severity: ValidationSeverity;
+  frameworks?: string[];
+  styleTypes?: StyleType[];
+  validate(styles: any, context: StyleValidationContext): {
+    violations: any[];
+    severity: ValidationSeverity;
   };
 }
 
@@ -130,17 +173,52 @@ export interface StyleValidator {
  * Style optimizer interface
  */
 export interface StyleOptimizer {
+  getName(): string;
   optimize(
     styles: any,
-    context: StyleTransformationContext
-  ): {
-    optimized: any;
-    savings: {
-      originalSize: number;
-      optimizedSize: number;
-      percentage: number;
-    };
+    context: StyleOptimizationContext
+  ): StyleOptimizationResult;
+  addStrategy?(strategy: any): void;
+}
+
+/**
+ * Style optimization context
+ */
+export interface StyleOptimizationContext {
+  framework?: string;
+  styleType?: StyleType;
+  level?: OptimizationLevel;
+  options?: Record<string, any>;
+}
+
+/**
+ * Style optimization result
+ */
+export interface StyleOptimizationResult {
+  optimized: any;
+  savings: {
+    originalSize: number;
+    optimizedSize: number;
+    reduction: number;
+    percentage: number;
   };
+  metrics?: {
+    rulesRemoved?: number;
+    propertiesMerged?: number;
+    selectorsOptimized?: number;
+    [key: string]: any;
+  };
+  processingTime?: number;
+}
+
+/**
+ * Optimization levels
+ */
+export enum OptimizationLevel {
+  NONE = 0,
+  BASIC = 1,
+  STANDARD = 2,
+  AGGRESSIVE = 3,
 }
 
 /**

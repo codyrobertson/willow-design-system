@@ -354,33 +354,113 @@
         "id": 5,
         "title": "Create AST-Based Transformer Module",
         "description": "Replace regex-based transformations with reliable AST transformations for code modifications",
-        "details": "Implement AST transformers using TypeScript compiler API transformer functions. Create import path resolution and rewriting logic. Build component prop mapping transformations. Implement style transformation capabilities. Handle complex scenarios like default imports, namespace imports, and aliased imports. Create rollback mechanisms for failed transformations. Support both in-place and copy transformations.",
-        "testStrategy": "Test import transformations with various import patterns, verify component prop mapping accuracy, validate style transformations, test rollback mechanisms, and compare performance against regex-based approach",
-        "priority": "high",
+        "status": "in-progress",
         "dependencies": [
           4
         ],
-        "status": "in-progress",
+        "priority": "high",
+        "details": "Implement AST transformers using TypeScript compiler API transformer functions. Create import path resolution and rewriting logic. Build component prop mapping transformations. Implement style transformation capabilities. Handle complex scenarios like default imports, namespace imports, and aliased imports. Create rollback mechanisms for failed transformations. Support both in-place and copy transformations. Style transformation engine is significantly advanced with 8 out of 10 subtasks complete, including CSS-in-JS parsers/transformers, Tailwind class transformer, CSS modules handler, theme token migration, property renaming engine, styled-components transformer, emotion transformer, and style validation/optimization system (90% complete).",
+        "testStrategy": "Test import transformations with various import patterns, verify component prop mapping accuracy, validate style transformations, test rollback mechanisms, and compare performance against regex-based approach. Focus on completing style transformation test fixes and comprehensive end-to-end testing.",
         "subtasks": [
           {
             "id": 1,
             "title": "Design transformer API interface",
             "description": "Define the core API structure for transformation operations including method signatures, configuration options, and error handling patterns",
+            "status": "in-progress",
             "dependencies": [],
             "details": "Create TypeScript interfaces for transformer classes, define configuration schema, establish error handling patterns, and design plugin architecture for extensibility",
-            "status": "in-progress",
             "testStrategy": ""
           },
           {
             "id": 2,
             "title": "Implement import transformation logic",
             "description": "Build the core logic to parse and transform import statements using AST manipulation",
+            "status": "pending",
             "dependencies": [
               1
             ],
             "details": "Use TypeScript compiler API or Babel to parse import statements, identify source modules, transform import paths, and handle various import syntaxes (default, named, namespace)",
-            "status": "pending",
             "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement style transformation engine",
+            "description": "Build system to transform CSS-in-JS styles, class names, and style properties",
+            "status": "in-progress",
+            "dependencies": [
+              2
+            ],
+            "details": "Style transformation engine is significantly advanced with 8 out of 10 subtasks complete. All major components implemented: CSS-in-JS parsers/transformers, Tailwind class transformer, CSS modules handler, theme token migration, property renaming engine, styled-components transformer, emotion transformer, and style validation/optimization system (90% complete with robust architecture). Currently focused on completing test fixes for subtask 5.4.9 and then moving to 5.4.10 for comprehensive end-to-end style transformation tests.\n<info added on 2025-06-25T08:18:25.853Z>\nImplementation Status: Style validation and optimization system is 90% complete with robust architecture in place. Built BaseStyleValidator with pluggable validation rules covering CSS properties, values, colors, units, best practices, and accessibility checks. BaseStyleOptimizer implemented with comprehensive strategies: duplicate removal, rule merging, property sorting, shorthand conversion, color optimization, unit optimization, and aggressive optimizations. Factory functions created for custom validators and optimizers. System supports validation severity levels (ERROR, WARNING, INFO) and optimization levels (NONE, BASIC, STANDARD, AGGRESSIVE). Test suite contains 29 tests with 26 passing - only 3 minor failures remain for magic number detection, z-index warnings, and color optimization edge cases. Core architecture functional and ready for integration.\n</info added on 2025-06-25T08:18:25.853Z>",
+            "testStrategy": "Focus on completing the remaining 3 test failures in the validation/optimization system, then proceed with comprehensive end-to-end style transformation testing"
+          },
+          {
+            "id": 5,
+            "title": "Build namespace and alias handling",
+            "description": "Implement logic to handle import namespaces, aliases, and dynamic import patterns",
+            "status": "pending",
+            "dependencies": [
+              2
+            ],
+            "details": "Support star imports, aliased imports, re-exports, and barrel exports. Maintain import reference tracking across transformed files",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Develop rollback mechanism",
+            "description": "Create safe rollback system to undo transformations if issues occur",
+            "status": "pending",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Implement backup creation, change tracking, validation system, and restoration process. Include dry-run mode for preview before applying changes",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Build in-place vs copy transformation modes",
+            "description": "Implement options for transforming files in-place or creating copies",
+            "status": "pending",
+            "dependencies": [
+              6
+            ],
+            "details": "Add configuration for transformation mode, implement file copying logic, handle file permissions, and provide progress tracking for both modes",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Create transformer composition system",
+            "description": "Build system to chain and compose multiple transformers for complex migration scenarios",
+            "status": "pending",
+            "dependencies": [
+              1,
+              7
+            ],
+            "details": "Design transformer pipeline architecture, implement transformer ordering, handle inter-transformer dependencies, and provide composition configuration options",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Complete style validation/optimization test fixes",
+            "description": "Fix the remaining 3 failing tests in the style validation and optimization system",
+            "status": "pending",
+            "dependencies": [
+              4
+            ],
+            "details": "Address the minor test failures for magic number detection, z-index warnings, and color optimization edge cases. The system is 90% complete with 26 out of 29 tests passing. These fixes are needed to finalize the validation/optimization system before moving to end-to-end testing.",
+            "testStrategy": "Focus on the specific failing test cases: magic number detection accuracy, z-index warning generation, and color optimization edge case handling"
+          },
+          {
+            "id": 10,
+            "title": "Create comprehensive end-to-end style transformation tests",
+            "description": "Build complete test suite for the style transformation engine covering all transformation scenarios",
+            "status": "pending",
+            "dependencies": [
+              9
+            ],
+            "details": "Develop comprehensive end-to-end tests that validate the complete style transformation pipeline from input to output. Include tests for CSS-in-JS transformations, Tailwind class migrations, CSS modules handling, theme token migrations, and property renaming. Test integration between all components and validate performance under real-world scenarios.",
+            "testStrategy": "Create test scenarios covering all major transformation types, integration tests between components, performance benchmarks, and edge case handling across the entire style transformation pipeline"
           },
           {
             "id": 3,
@@ -517,64 +597,6 @@
                 "testStrategy": ""
               }
             ]
-          },
-          {
-            "id": 4,
-            "title": "Implement style transformation engine",
-            "description": "Build system to transform CSS-in-JS styles, class names, and style properties",
-            "dependencies": [
-              2
-            ],
-            "details": "Parse and transform styled-components, emotion styles, CSS modules, and Tailwind classes. Handle theme token migrations and style property renaming",
-            "status": "in-progress",
-            "testStrategy": ""
-          },
-          {
-            "id": 5,
-            "title": "Build namespace and alias handling",
-            "description": "Implement logic to handle import namespaces, aliases, and dynamic import patterns",
-            "dependencies": [
-              2
-            ],
-            "details": "Support star imports, aliased imports, re-exports, and barrel exports. Maintain import reference tracking across transformed files",
-            "status": "pending",
-            "testStrategy": ""
-          },
-          {
-            "id": 6,
-            "title": "Develop rollback mechanism",
-            "description": "Create safe rollback system to undo transformations if issues occur",
-            "dependencies": [
-              2,
-              3,
-              4
-            ],
-            "details": "Implement backup creation, change tracking, validation system, and restoration process. Include dry-run mode for preview before applying changes",
-            "status": "pending",
-            "testStrategy": ""
-          },
-          {
-            "id": 7,
-            "title": "Build in-place vs copy transformation modes",
-            "description": "Implement options for transforming files in-place or creating copies",
-            "dependencies": [
-              6
-            ],
-            "details": "Add configuration for transformation mode, implement file copying logic, handle file permissions, and provide progress tracking for both modes",
-            "status": "pending",
-            "testStrategy": ""
-          },
-          {
-            "id": 8,
-            "title": "Create transformer composition system",
-            "description": "Build system to chain and compose multiple transformers for complex migration scenarios",
-            "dependencies": [
-              1,
-              7
-            ],
-            "details": "Design transformer pipeline architecture, implement transformer ordering, handle inter-transformer dependencies, and provide composition configuration options",
-            "status": "pending",
-            "testStrategy": ""
           }
         ]
       },
@@ -582,15 +604,115 @@
         "id": 6,
         "title": "Implement UI Kit Adapter System",
         "description": "Create the UI kit abstraction layer with adapters for popular UI libraries",
-        "details": "Implement the UIKitAdapter interface defined in task 2. Create Willow adapter as reference implementation. Build adapters for Radix UI, Arco Design, and Ant Design with component mapping, style translation, and token conversion. Implement component mapping logic that handles prop differences, naming conventions, and API variations. Create style system translations between different CSS-in-JS and utility frameworks.",
-        "testStrategy": "Test each adapter with sample components, verify component mapping accuracy, validate style translations, test token conversions, and create integration tests with real UI kit components",
-        "priority": "medium",
+        "status": "pending",
         "dependencies": [
           2,
           5
         ],
-        "status": "pending",
+        "priority": "medium",
+        "details": "Implement the UIKitAdapter interface defined in task 2. Create comprehensive adapters for multiple UI libraries including Radix UI, Material-UI, AriaKit, BaseUI, Ant Design, and Bootstrap with component mapping, style translation, and token conversion. Implement component mapping logic that handles prop differences, naming conventions, and API variations. Create style system translations between different CSS-in-JS and utility frameworks. Continue development on ShadcnAdapter and complete remaining adapter implementations.",
+        "testStrategy": "Test each adapter with sample components, verify component mapping accuracy, validate style translations, test token conversions, and create integration tests with real UI kit components",
         "subtasks": [
+          {
+            "id": 2,
+            "title": "Build Willow reference adapter",
+            "description": "Implement the reference adapter for Willow Design System as the baseline implementation",
+            "status": "deferred",
+            "dependencies": [
+              1
+            ],
+            "details": "Create mappings for all Willow components, establish patterns for prop conversion, and document the reference implementation approach that other adapters will follow.\n<info added on 2025-06-25T07:49:26.307Z>\nThe Willow adapter should be removed as Willow serves as the canonical format that other UI libraries adapt to, not the reverse. Instead, implement example adapters that demonstrate bidirectional conversion between popular UI libraries (such as Material-UI to Ant Design, or Chakra UI to Mantine) to showcase the adapter system's capabilities for cross-library component migration and interoperability.\n</info added on 2025-06-25T07:49:26.307Z>\n<info added on 2025-06-25T08:16:03.880Z>\nStatus: Needs reconsideration. This subtask should pivot from creating a Willow-specific adapter to implementing example adapters that demonstrate bidirectional conversion between popular UI libraries (e.g., Material-UI ↔ Ant Design, Chakra UI ↔ Mantine). These examples will better showcase the adapter system's capabilities for cross-library component migration and interoperability, since Willow serves as the canonical format that other libraries adapt to.\n</info added on 2025-06-25T08:16:03.880Z>",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Complete ShadcnAdapter implementation",
+            "description": "Finish the ShadcnAdapter that was started and ensure full component coverage",
+            "status": "in-progress",
+            "dependencies": [
+              1
+            ],
+            "details": "Complete the ShadcnAdapter implementation building on the work already started. Ensure comprehensive component mapping for shadcn/ui components, handle Tailwind CSS class transformations, and implement proper integration with the existing adapter architecture.",
+            "testStrategy": "Test ShadcnAdapter with shadcn/ui components, verify Tailwind class transformations, and validate integration with base adapter architecture"
+          },
+          {
+            "id": 5,
+            "title": "Implement Material-UI adapter",
+            "description": "Create adapter for Material-UI (MUI) with comprehensive component coverage",
+            "status": "pending",
+            "dependencies": [
+              1
+            ],
+            "details": "Build comprehensive MUI adapter with component mapping for Material Design components, theme integration, sx prop handling, and Material-UI specific patterns like styled components and theme customization.",
+            "testStrategy": "Test MUI adapter with Material-UI components, verify theme integration and sx prop transformations"
+          },
+          {
+            "id": 6,
+            "title": "Develop AriaKit adapter",
+            "description": "Create adapter for AriaKit with focus on accessibility-first components",
+            "status": "pending",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement AriaKit adapter handling their headless component approach, accessibility patterns, and state management hooks. Map Willow components to AriaKit's accessibility-focused primitives.",
+            "testStrategy": "Test AriaKit adapter with accessibility compliance checks and state management validation"
+          },
+          {
+            "id": 7,
+            "title": "Build BaseUI adapter",
+            "description": "Implement adapter for MUI's BaseUI headless components",
+            "status": "pending",
+            "dependencies": [
+              1
+            ],
+            "details": "Create adapter for BaseUI components focusing on their headless, unstyled approach. Handle BaseUI's hook-based architecture and component composition patterns.",
+            "testStrategy": "Test BaseUI adapter with headless component patterns and hook integrations"
+          },
+          {
+            "id": 8,
+            "title": "Implement Ant Design adapter",
+            "description": "Develop adapter for Ant Design (antd) with comprehensive component coverage",
+            "status": "pending",
+            "dependencies": [
+              1
+            ],
+            "details": "Create mappings for Ant Design's extensive component library, handle Form.Item integration, manage ConfigProvider settings, and implement antd's theme customization.",
+            "testStrategy": "Test Ant Design adapter with Form.Item integration and ConfigProvider theme handling"
+          },
+          {
+            "id": 9,
+            "title": "Create Bootstrap adapter",
+            "description": "Build adapter for Bootstrap components with utility class handling",
+            "status": "pending",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement Bootstrap adapter handling utility classes, component variants, and Bootstrap's CSS framework approach. Map Willow components to Bootstrap's utility-first styling system.",
+            "testStrategy": "Test Bootstrap adapter with utility class transformations and component variant mappings"
+          },
+          {
+            "id": 10,
+            "title": "Complete component mapping engine",
+            "description": "Finish the dynamic mapping system that translates between different component APIs",
+            "status": "pending",
+            "dependencies": [
+              1
+            ],
+            "details": "Complete implementation of prop transformation rules, event handler mapping, children/slot conversion, ref forwarding strategies, and a plugin system for custom mappings. Build on the existing base architecture to create the core mapping functionality that makes components interoperable between UI kits.\n<info added on 2025-06-25T07:49:58.415Z>\nStatus Update: Base adapter architecture implemented with mapComponent method and ComponentMapping interface established. Foundation is complete but core mapping functionality still requires implementation.\n\nRemaining Implementation Tasks:\n1. Prop transformation rules engine - Need to build dynamic property mapping system that can handle type conversions, name transformations, and conditional prop passing\n2. Event handler mapping system - Implement event name translation and handler wrapping to normalize different UI kit event patterns\n3. Children/slot conversion logic - Create system to handle different child content patterns (React children vs Vue slots vs Angular content projection)\n4. Ref forwarding strategies - Develop consistent ref handling across different component architectures and frameworks\n\nThe architectural foundation provides the structure, but the actual adaptation logic that makes components interoperable between UI kits is the next critical implementation phase.\n</info added on 2025-06-25T07:49:58.415Z>",
+            "testStrategy": "Test prop transformation rules, event handler mappings, and children conversion with multiple UI kit combinations"
+          },
+          {
+            "id": 11,
+            "title": "Complete style system translation layer",
+            "description": "Finish the style transformation system to convert between different styling approaches",
+            "status": "pending",
+            "dependencies": [
+              1,
+              10
+            ],
+            "details": "Complete the integration between the transformer package's style transformation capabilities and the adapter's runtime style translation system. Build converters for CSS-in-JS to utility classes, theme token mapping, responsive breakpoint translation, animation/transition handling, and dark mode compatibility.\n<info added on 2025-06-25T07:50:29.880Z>\nThe base adapter architecture is now in place with the translateStyles method and StyleConfig interface implemented. The transformer package provides extensive style transformation capabilities including parsers and transformers for Tailwind, CSS-in-JS, and styled-components. The key remaining work is to integrate the transformer's style transformation capabilities with the adapter's runtime style translation system. The token conversion system has been successfully implemented with type-safe helpers, providing a foundation for mapping design tokens between different UI kits. Next steps involve creating the integration layer between the static transformation capabilities and runtime style translation.\n</info added on 2025-06-25T07:50:29.880Z>",
+            "testStrategy": "Test style transformations between different CSS approaches, validate theme token mappings, and verify dark mode compatibility"
+          },
           {
             "id": 1,
             "title": "Implement base adapter architecture",
@@ -601,71 +723,14 @@
             "testStrategy": ""
           },
           {
-            "id": 2,
-            "title": "Build Willow reference adapter",
-            "description": "Implement the reference adapter for Willow Design System as the baseline implementation",
-            "dependencies": [
-              1
-            ],
-            "details": "Create mappings for all Willow components, establish patterns for prop conversion, and document the reference implementation approach that other adapters will follow.\n<info added on 2025-06-25T07:49:26.307Z>\nThe Willow adapter should be removed as Willow serves as the canonical format that other UI libraries adapt to, not the reverse. Instead, implement example adapters that demonstrate bidirectional conversion between popular UI libraries (such as Material-UI to Ant Design, or Chakra UI to Mantine) to showcase the adapter system's capabilities for cross-library component migration and interoperability.\n</info added on 2025-06-25T07:49:26.307Z>",
-            "status": "in-progress",
-            "testStrategy": ""
-          },
-          {
             "id": 3,
             "title": "Develop Radix UI adapter",
             "description": "Create adapter for Radix UI primitives with focus on unstyled component mapping",
             "dependencies": [
               1
             ],
-            "details": "Map Willow components to Radix primitives, handle Radix's composition model, implement accessibility features, and manage controlled/uncontrolled component states.",
-            "status": "pending",
-            "testStrategy": ""
-          },
-          {
-            "id": 4,
-            "title": "Create Arco Design adapter",
-            "description": "Build adapter for ByteDance's Arco Design system with Chinese locale support",
-            "dependencies": [
-              1
-            ],
-            "details": "Map components to Arco's API, handle Arco-specific features like virtual scrolling, implement theme configuration translation, and manage i18n considerations.",
-            "status": "pending",
-            "testStrategy": ""
-          },
-          {
-            "id": 5,
-            "title": "Implement Ant Design adapter",
-            "description": "Develop adapter for Ant Design (antd) with comprehensive component coverage",
-            "dependencies": [
-              1
-            ],
-            "details": "Create mappings for Ant Design's extensive component library, handle Form.Item integration, manage ConfigProvider settings, and implement antd's theme customization.",
-            "status": "pending",
-            "testStrategy": ""
-          },
-          {
-            "id": 6,
-            "title": "Build component mapping engine",
-            "description": "Create the dynamic mapping system that translates between different component APIs",
-            "dependencies": [
-              1,
-              2
-            ],
-            "details": "Implement prop transformation rules, event handler mapping, children/slot conversion, ref forwarding strategies, and a plugin system for custom mappings.\n<info added on 2025-06-25T07:49:58.415Z>\nStatus Update: Base adapter architecture implemented with mapComponent method and ComponentMapping interface established. Foundation is complete but core mapping functionality still requires implementation.\n\nRemaining Implementation Tasks:\n1. Prop transformation rules engine - Need to build dynamic property mapping system that can handle type conversions, name transformations, and conditional prop passing\n2. Event handler mapping system - Implement event name translation and handler wrapping to normalize different UI kit event patterns\n3. Children/slot conversion logic - Create system to handle different child content patterns (React children vs Vue slots vs Angular content projection)\n4. Ref forwarding strategies - Develop consistent ref handling across different component architectures and frameworks\n\nThe architectural foundation provides the structure, but the actual adaptation logic that makes components interoperable between UI kits is the next critical implementation phase.\n</info added on 2025-06-25T07:49:58.415Z>",
-            "status": "pending",
-            "testStrategy": ""
-          },
-          {
-            "id": 7,
-            "title": "Develop style system translation layer",
-            "description": "Create the style transformation system to convert between different styling approaches",
-            "dependencies": [
-              1,
-              6
-            ],
-            "details": "Build converters for CSS-in-JS to utility classes, theme token mapping, responsive breakpoint translation, animation/transition handling, and dark mode compatibility.\n<info added on 2025-06-25T07:50:29.880Z>\nThe base adapter architecture is now in place with the translateStyles method and StyleConfig interface implemented. The transformer package provides extensive style transformation capabilities including parsers and transformers for Tailwind, CSS-in-JS, and styled-components. The key remaining work is to integrate the transformer's style transformation capabilities with the adapter's runtime style translation system. The token conversion system has been successfully implemented with type-safe helpers, providing a foundation for mapping design tokens between different UI kits. Next steps involve creating the integration layer between the static transformation capabilities and runtime style translation.\n</info added on 2025-06-25T07:50:29.880Z>",
-            "status": "pending",
+            "details": "Map Willow components to Radix primitives, handle Radix's composition model, implement accessibility features, and manage controlled/uncontrolled component states.\n<info added on 2025-06-25T07:55:20.145Z>\nSuccessfully implemented RadixAdapter with comprehensive component support including Dialog, Select, Accordion, Slider, Switch, Tooltip, Popover, and Form. The adapter handles Radix's unique patterns: compound components (Dialog.Root, Dialog.Content, etc.), asChild prop for composition, portal rendering, and dual controlled/uncontrolled state management. Created component registry system for mapping Willow components to appropriate Radix primitives and implemented Radix-specific prop transformations to bridge API differences.\n</info added on 2025-06-25T07:55:20.145Z>",
+            "status": "done",
             "testStrategy": ""
           }
         ]
@@ -1181,7 +1246,7 @@
     ],
     "metadata": {
       "created": "2025-06-24T18:43:23.772Z",
-      "updated": "2025-06-25T07:37:18.615Z",
+      "updated": "2025-06-25T07:55:29.650Z",
       "description": "Tasks for master context"
     }
   }
