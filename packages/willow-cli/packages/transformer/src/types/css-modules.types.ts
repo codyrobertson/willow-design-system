@@ -82,6 +82,10 @@ export interface CSSModulesTransformOptions {
   resolveImports?: boolean;
   /** Base directory for resolving imports */
   baseDir?: string;
+  /** Custom naming convention */
+  namingConvention?: 'camelCase' | 'kebab-case' | 'snake_case' | 'PascalCase';
+  /** Export style for TypeScript definitions */
+  exportType?: 'named' | 'default' | 'namespace';
 }
 
 /**
