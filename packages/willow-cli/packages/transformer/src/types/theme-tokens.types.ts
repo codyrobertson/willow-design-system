@@ -22,6 +22,8 @@ export enum TokenCategory {
   ANIMATION = 'animation',
   GRADIENT = 'gradient',
   ASSET = 'asset',
+  LAYOUT = 'layout',
+  MOTION = 'motion',
   CUSTOM = 'custom',
 }
 
@@ -383,6 +385,15 @@ export interface TokenTransformationResult {
     
     /** Applied strategy */
     strategy: string;
+    
+    /** Semantic relationships discovered */
+    semanticRelationships?: any;
+    
+    /** Conflict resolutions applied */
+    conflictResolutions?: any[];
+    
+    /** Additional metadata */
+    [key: string]: any;
   };
 }
 
@@ -494,16 +505,22 @@ export interface TokenConflict {
  */
 export interface TokenMigrationContext extends StyleTransformationContext {
   /** Source token format */
-  sourceTokenFormat: TokenFormat;
+  sourceTokenFormat?: TokenFormat;
   
   /** Target token format */
-  targetTokenFormat: TokenFormat;
+  targetTokenFormat?: TokenFormat;
   
   /** Migration strategy */
-  strategy: string;
+  strategy?: string;
   
   /** Migration options */
-  options: TokenMigrationOptions;
+  options?: TokenMigrationOptions;
+  
+  /** Preserve semantic relationships */
+  preserveSemantics?: boolean;
+  
+  /** Strict validation mode */
+  strictValidation?: boolean;
 }
 
 /**
@@ -539,4 +556,47 @@ export interface TokenMigrationOptions {
     /** Include comments */
     includeComments?: boolean;
   };
+}
+
+/**
+ * Semantic token context for framework-aware migrations
+ */
+export interface TokenSemanticContext {
+  /** Target framework name */
+  framework: string;
+  
+  /** Framework version */
+  version: string;
+  
+  /** Source framework (if migrating) */
+  sourceFramework?: string;
+  
+  /** Framework-specific configuration */
+  config?: Record<string, any>;
+  
+  /** Semantic rules to apply */
+  semanticRules?: string[];
+}
+
+/**
+ * Semantic mapping between token patterns
+ */
+export interface TokenSemanticMapping {
+  /** Source token pattern */
+  sourcePattern: RegExp;
+  
+  /** Target token pattern */
+  targetPattern: RegExp;
+  
+  /** Mapping confidence score */
+  confidence: number;
+  
+  /** Semantic role */
+  semanticRole: string;
+  
+  /** Transformation function */
+  transform?: (name: string, value: TokenValue) => string;
+  
+  /** Mapping notes */
+  notes?: string;
 }
