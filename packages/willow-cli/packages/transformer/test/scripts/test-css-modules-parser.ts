@@ -1,8 +1,8 @@
 #!/usr/bin/env npx tsx
 
-import { CSSModulesParser } from './src/styles/css-modules/css-modules-parser';
-import { StyleType } from './src/types/style-transformation.types';
-import type { StyleTransformationContext } from './src/types/style-transformation.types';
+import { CSSModulesParser } from '../../src/styles/css-modules/css-modules-parser';
+import { StyleType } from '../../src/types/style-transformation.types';
+import type { StyleTransformationContext } from '../../src/types/style-transformation.types';
 
 console.log('🧪 Testing CSS Modules Parser...\n');
 

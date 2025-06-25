@@ -5,9 +5,9 @@ import {
   ConditionOperator,
   type ConditionalMapperConfig,
   type ConditionEvaluator 
-} from './src/mappers/conditional-prop-mapper.js';
-import type { PropertyMapping } from './src/schemas/component-mapping.schema.js';
-import type { ComponentMappingContext } from './src/types/component-mapping.types.js';
+} from '../../src/mappers/conditional-prop-mapper.js';
+import type { PropertyMapping } from '../../src/schemas/component-mapping.schema.js';
+import type { ComponentMappingContext } from '../../src/types/component-mapping.types.js';
 
 async function runTests() {
   console.log('🧪 Testing ConditionalPropMapper...\n');

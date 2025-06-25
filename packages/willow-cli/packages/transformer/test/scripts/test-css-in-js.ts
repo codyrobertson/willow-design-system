@@ -1,14 +1,14 @@
 #!/usr/bin/env npx tsx
 
 import * as ts from 'typescript';
-import { CSSInJSParser } from './src/styles/css-in-js/css-in-js-parser';
-import { CSSInJSTransformer } from './src/styles/css-in-js/css-in-js-transformer';
-import { StyleTransformerFactory } from './src/styles/style-transformer-factory';
+import { CSSInJSParser } from '../../src/styles/css-in-js/css-in-js-parser';
+import { CSSInJSTransformer } from '../../src/styles/css-in-js/css-in-js-transformer';
+import { StyleTransformerFactory } from '../../src/styles/style-transformer-factory';
 import {
   StyleType,
   type StyleTransformationContext,
   type StyleTransformerConfig,
-} from './src/types/style-transformation.types';
+} from '../../src/types/style-transformation.types';
 
 console.log('🧪 Testing CSS-in-JS Parser and Transformer...\n');
 

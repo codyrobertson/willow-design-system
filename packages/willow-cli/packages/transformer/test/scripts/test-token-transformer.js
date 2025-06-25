@@ -3,12 +3,12 @@ import {
   BaseTokenTransformer,
   AdvancedTokenTransformer,
   TokenTransformerRegistry,
-} from './src/styles/theme-tokens/token-transformer.js';
+} from '../../src/styles/theme-tokens/token-transformer.js';
 import {
   TokenType,
   TokenCategory,
   TokenFormat,
-} from './src/types/theme-tokens.types.js';
+} from '../../src/types/theme-tokens.types.js';
 
 console.log('Running token transformer tests...');
 

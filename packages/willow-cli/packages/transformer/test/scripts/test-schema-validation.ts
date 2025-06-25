@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 
-import { ComponentMappingConfigSchema, PropertyMappingSchema, ValueTransformationSchema } from './src/schemas/component-mapping.schema.js';
+import { ComponentMappingConfigSchema, PropertyMappingSchema, ValueTransformationSchema } from '../../src/schemas/component-mapping.schema.js';
 
 async function runTests() {
   console.log('🧪 Testing Component Mapping Schema Validation...\n');

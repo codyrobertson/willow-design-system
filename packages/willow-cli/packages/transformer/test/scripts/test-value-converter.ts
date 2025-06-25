@@ -1,8 +1,8 @@
 #!/usr/bin/env tsx
 
-import { PropValueConverter, type ConverterConfig } from './src/converters/prop-value-converter.js';
-import type { ValueTransformation } from './src/schemas/component-mapping.schema.js';
-import type { ComponentMappingContext } from './src/types/component-mapping.types.js';
+import { PropValueConverter, type ConverterConfig } from '../../src/converters/prop-value-converter.js';
+import type { ValueTransformation } from '../../src/schemas/component-mapping.schema.js';
+import type { ComponentMappingContext } from '../../src/types/component-mapping.types.js';
 
 async function runTests() {
   console.log('🧪 Testing PropValueConverter...\n');

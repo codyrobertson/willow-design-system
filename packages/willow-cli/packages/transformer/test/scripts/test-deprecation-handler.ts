@@ -4,9 +4,9 @@ import {
   PropDeprecationHandler,
   DeprecationLevel,
   type DeprecationConfig 
-} from './src/handlers/prop-deprecation-handler.js';
-import type { PropertyMapping, ComponentMapping } from './src/schemas/component-mapping.schema.js';
-import type { ComponentMappingContext } from './src/types/component-mapping.types.js';
+} from '../../src/handlers/prop-deprecation-handler.js';
+import type { PropertyMapping, ComponentMapping } from '../../src/schemas/component-mapping.schema.js';
+import type { ComponentMappingContext } from '../../src/types/component-mapping.types.js';
 
 async function runTests() {
   console.log('🧪 Testing PropDeprecationHandler...\n');

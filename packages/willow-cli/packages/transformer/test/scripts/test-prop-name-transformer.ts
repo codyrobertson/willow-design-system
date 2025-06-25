@@ -1,6 +1,6 @@
 #!/usr/bin/env npx tsx
 
-import { PropNameTransformer } from './src/transformers/prop-name-transformer';
+import { PropNameTransformer } from '../../src/transformers/prop-name-transformer';
 
 console.log('🧪 Testing Prop Name Transformer...\n');
 

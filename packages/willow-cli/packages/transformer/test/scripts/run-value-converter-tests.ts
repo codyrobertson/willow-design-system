@@ -88,9 +88,9 @@ import {
   type ValueConverter, 
   type ConverterConfig,
   type ConversionResult 
-} from './src/converters/prop-value-converter.js';
-import type { ValueTransformation } from './src/schemas/component-mapping.schema.js';
-import type { ComponentMappingContext } from './src/types/component-mapping.types.js';
+} from '../../src/converters/prop-value-converter.js';
+import type { ValueTransformation } from '../../src/schemas/component-mapping.schema.js';
+import type { ComponentMappingContext } from '../../src/types/component-mapping.types.js';
 
 // PropValueConverter Tests
 describe('PropValueConverter', () => {

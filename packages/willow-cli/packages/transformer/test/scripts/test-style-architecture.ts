@@ -1,15 +1,15 @@
 #!/usr/bin/env npx tsx
 
-import { BaseStyleTransformer } from './src/styles/base-style-transformer';
-import { StyleTransformerRegistryImpl } from './src/styles/style-transformer-registry';
-import { StyleTransformationPipelineImpl } from './src/styles/style-transformation-pipeline';
-import { StyleTransformerFactory } from './src/styles/style-transformer-factory';
+import { BaseStyleTransformer } from '../../src/styles/base-style-transformer';
+import { StyleTransformerRegistryImpl } from '../../src/styles/style-transformer-registry';
+import { StyleTransformationPipelineImpl } from '../../src/styles/style-transformation-pipeline';
+import { StyleTransformerFactory } from '../../src/styles/style-transformer-factory';
 import {
   StyleType,
   type StyleTransformationContext,
   type StyleTransformerConfig,
   type StyleTransformationResult,
-} from './src/types/style-transformation.types';
+} from '../../src/types/style-transformation.types';
 
 console.log('🧪 Testing Style Transformation Architecture...\n');
 

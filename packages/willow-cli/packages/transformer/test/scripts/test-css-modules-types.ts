@@ -13,8 +13,8 @@ import type {
   CSSModuleValidationResult,
   CSSModuleValidationError,
   CSSModuleUsageContext,
-} from './src/types/css-modules.types';
-import { StyleType } from './src/types/style-transformation.types';
+} from '../../src/types/css-modules.types';
+import { StyleType } from '../../src/types/style-transformation.types';
 
 console.log('🧪 Testing CSS Modules Type Definitions...\n');
 

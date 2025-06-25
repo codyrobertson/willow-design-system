@@ -1,7 +1,7 @@
 #!/usr/bin/env npx tsx
 
-import { PropValidator } from './src/validators/prop-validator';
-import type { PropValidationRule } from './src/validators/prop-validator';
+import { PropValidator } from '../../src/validators/prop-validator';
+import type { PropValidationRule } from '../../src/validators/prop-validator';
 
 console.log('🧪 Testing Prop Validator...\n');
 

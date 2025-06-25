@@ -1,13 +1,13 @@
 #!/usr/bin/env npx tsx
 
-import { TailwindParser } from './src/styles/tailwind/tailwind-parser';
-import { TailwindTransformer } from './src/styles/tailwind/tailwind-transformer';
-import { tailwindToWillowMappings, tailwindToBootstrapMappings } from './src/styles/tailwind/tailwind-mappings';
+import { TailwindParser } from '../../src/styles/tailwind/tailwind-parser';
+import { TailwindTransformer } from '../../src/styles/tailwind/tailwind-transformer';
+import { tailwindToWillowMappings, tailwindToBootstrapMappings } from '../../src/styles/tailwind/tailwind-mappings';
 import {
   StyleType,
   type StyleTransformationContext,
   type StyleTransformerConfig,
-} from './src/types/style-transformation.types';
+} from '../../src/types/style-transformation.types';
 
 console.log('🧪 Testing Tailwind Transformer...\n');
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env npx tsx
 
 import * as ts from 'typescript';
-import { PropTypeConverter } from './src/converters/prop-type-converter';
+import { PropTypeConverter } from '../../src/converters/prop-type-converter';
 
 console.log('🧪 Testing Prop Type Converter...\n');
 

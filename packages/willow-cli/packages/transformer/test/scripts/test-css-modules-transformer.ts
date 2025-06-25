@@ -1,12 +1,12 @@
 #!/usr/bin/env npx tsx
 
-import { CSSModulesTransformer } from './src/styles/css-modules/css-modules-transformer';
-import { StyleType } from './src/types/style-transformation.types';
+import { CSSModulesTransformer } from '../../src/styles/css-modules/css-modules-transformer';
+import { StyleType } from '../../src/types/style-transformation.types';
 import type {
   StyleTransformationContext,
   StyleTransformerConfig,
-} from './src/types/style-transformation.types';
-import type { CSSModulesTransformOptions } from './src/types/css-modules.types';
+} from '../../src/types/style-transformation.types';
+import type { CSSModulesTransformOptions } from '../../src/types/css-modules.types';
 
 console.log('🧪 Testing CSS Modules Transformer...\n');
 

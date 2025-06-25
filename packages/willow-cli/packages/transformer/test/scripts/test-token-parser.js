@@ -4,12 +4,12 @@ import {
   CSSVariableParser,
   JSObjectParser,
   TailwindConfigParser,
-} from './src/styles/theme-tokens/token-parser.js';
+} from '../../src/styles/theme-tokens/token-parser.js';
 import {
   TokenFormat,
   TokenType,
   TokenCategory,
-} from './src/types/theme-tokens.types.js';
+} from '../../src/types/theme-tokens.types.js';
 
 console.log('Running token parser tests...');
 

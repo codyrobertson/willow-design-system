@@ -1,8 +1,8 @@
 #!/usr/bin/env npx tsx
 
 import * as ts from 'typescript';
-import { PropSpreadingHandler } from './src/handlers/prop-spreading-handler';
-import type { PropertyMapping } from './src/schemas/component-mapping.schema';
+import { PropSpreadingHandler } from '../../src/handlers/prop-spreading-handler';
+import type { PropertyMapping } from '../../src/schemas/component-mapping.schema';
 
 console.log('🧪 Testing Prop Spreading Handler...\n');
 

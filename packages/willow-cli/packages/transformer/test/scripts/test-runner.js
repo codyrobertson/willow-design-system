@@ -11,8 +11,8 @@ import {
   TokenUsage,
   TokenConflict,
   TokenMigrationContext,
-} from './src/types/theme-tokens.types.js';
-import { StyleType } from './src/types/style-transformation.types.js';
+} from '../../src/types/theme-tokens.types.js';
+import { StyleType } from '../../src/types/style-transformation.types.js';
 
 console.log('Running theme token types tests...');
 

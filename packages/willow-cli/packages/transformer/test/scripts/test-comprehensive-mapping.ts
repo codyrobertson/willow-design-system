@@ -7,17 +7,17 @@ import * as path from 'path';
 import { fileURLToPath } from 'url';
 
 // Import all the modules
-import { MappingConfigLoader } from './src/loaders/mapping-config-loader.js';
-import { PropTransformationEngine } from './src/engines/prop-transformation-engine.js';
-import { PropNameTransformer } from './src/transformers/prop-name-transformer.js';
-import { PropValueConverter } from './src/converters/prop-value-converter.js';
-import { PropTypeConverter } from './src/converters/prop-type-converter.js';
-import { PropDeprecationHandler } from './src/handlers/prop-deprecation-handler.js';
-import { ConditionalPropMapper } from './src/mappers/conditional-prop-mapper.js';
-import { PropSpreadingHandler } from './src/handlers/prop-spreading-handler.js';
-import { PropValidator } from './src/validators/prop-validator.js';
-import { MappingValidator } from './src/utils/mapping-validator.js';
-import type { ComponentMappingConfig } from './src/schemas/component-mapping.schema.js';
+import { MappingConfigLoader } from '../../src/loaders/mapping-config-loader.js';
+import { PropTransformationEngine } from '../../src/engines/prop-transformation-engine.js';
+import { PropNameTransformer } from '../../src/transformers/prop-name-transformer.js';
+import { PropValueConverter } from '../../src/converters/prop-value-converter.js';
+import { PropTypeConverter } from '../../src/converters/prop-type-converter.js';
+import { PropDeprecationHandler } from '../../src/handlers/prop-deprecation-handler.js';
+import { ConditionalPropMapper } from '../../src/mappers/conditional-prop-mapper.js';
+import { PropSpreadingHandler } from '../../src/handlers/prop-spreading-handler.js';
+import { PropValidator } from '../../src/validators/prop-validator.js';
+import { MappingValidator } from '../../src/utils/mapping-validator.js';
+import type { ComponentMappingConfig } from '../../src/schemas/component-mapping.schema.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

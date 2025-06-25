@@ -1,7 +1,7 @@
 #!/usr/bin/env npx tsx
 
-import { PropTransformationEngine } from './src/engines/prop-transformation-engine';
-import type { ComponentMappingConfig } from './src/schemas/component-mapping.schema';
+import { PropTransformationEngine } from '../../src/engines/prop-transformation-engine';
+import type { ComponentMappingConfig } from '../../src/schemas/component-mapping.schema';
 import * as ts from 'typescript';
 
 console.log('🧪 Testing Prop Transformation Engine...\n');

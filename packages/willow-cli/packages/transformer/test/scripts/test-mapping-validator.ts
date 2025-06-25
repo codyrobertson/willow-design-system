@@ -1,7 +1,7 @@
 #!/usr/bin/env tsx
 
-import { MappingValidator } from './src/utils/mapping-validator.js';
-import type { ComponentMappingConfig } from './src/schemas/component-mapping.schema.js';
+import { MappingValidator } from '../../src/utils/mapping-validator.js';
+import type { ComponentMappingConfig } from '../../src/schemas/component-mapping.schema.js';
 
 async function runTests() {
   console.log('🧪 Testing Mapping Validator...\n');

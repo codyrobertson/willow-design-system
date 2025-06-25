@@ -1,6 +1,6 @@
 #!/usr/bin/env npx tsx
 
-import { PropDeprecationHandler } from './src/handlers/prop-deprecation-handler';
+import { PropDeprecationHandler } from '../../src/handlers/prop-deprecation-handler';
 
 const handler = new PropDeprecationHandler();
 
