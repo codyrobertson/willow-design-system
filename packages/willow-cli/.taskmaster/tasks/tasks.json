@@ -368,7 +368,7 @@
             "description": "Define the core API structure for transformation operations including method signatures, configuration options, and error handling patterns",
             "dependencies": [],
             "details": "Create TypeScript interfaces for transformer classes, define configuration schema, establish error handling patterns, and design plugin architecture for extensibility",
-            "status": "pending",
+            "status": "in-progress",
             "testStrategy": ""
           },
           {
@@ -526,7 +526,7 @@
               2
             ],
             "details": "Parse and transform styled-components, emotion styles, CSS modules, and Tailwind classes. Handle theme token migrations and style property renaming",
-            "status": "pending",
+            "status": "in-progress",
             "testStrategy": ""
           },
           {
@@ -1181,7 +1181,7 @@
     ],
     "metadata": {
       "created": "2025-06-24T18:43:23.772Z",
-      "updated": "2025-06-25T00:15:46.492Z",
+      "updated": "2025-06-25T02:50:40.699Z",
       "description": "Tasks for master context"
     }
   }
