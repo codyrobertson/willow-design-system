@@ -1,20 +1,14 @@
 #!/usr/bin/env node
 
-import { AdapterValidator, ValidationOptions } from './AdapterValidator';
-import { AdapterConfig } from './UIKitAdapter';
-import { ComponentConfig, StyleConfig, TokenConfig, ComponentType } from '../types/AdapterTypes';
-import { AdapterRegistration } from './AdapterRegistry';
+import { AdapterValidator, ValidationOptions } from '../AdapterValidator';
+import { AdapterConfig } from '../UIKitAdapter';
+import { ComponentConfig, StyleConfig, TokenConfig, ComponentType } from '../../types/AdapterTypes';
+import { AdapterRegistration } from '../AdapterRegistry';
 
-async function runSchemaTests() {
-  console.log('Running adapter schema and validation tests...\n');
-  
-  let passed = 0;
-  let failed = 0;
+describe('Adapter Schema and Validation', () => {
   const validator = new AdapterValidator();
 
-  // Test 1: Valid adapter configuration
-  try {
-    console.log('Test 1: Valid adapter configuration');
+  test('should accept a valid adapter configuration', () => {
     const validConfig: AdapterConfig = {
       name: 'test-adapter',
       version: '1.2.3',
@@ -36,21 +30,10 @@ async function runSchemaTests() {
     };
 
     const result = validator.validateAdapterConfig(validConfig);
-    
-    if (result.valid) {
-      console.log('✓ Valid adapter configuration accepted');
-      passed++;
-    } else {
-      throw new Error(`Validation failed: ${result.errors?.[0]?.message}`);
-    }
-  } catch (e) {
-    console.log('✗ Valid adapter config test failed:', e.message);
-    failed++;
-  }
+    expect(result.valid).toBe(true);
+  });
 
-  // Test 2: Invalid adapter configuration
-  try {
-    console.log('\nTest 2: Invalid adapter configuration');
+  test('should reject an invalid adapter configuration', () => {
     const invalidConfig = {
       name: '', // Invalid: empty name
       version: 'invalid-version', // Invalid: not semver
@@ -62,21 +45,12 @@ async function runSchemaTests() {
     };
 
     const result = validator.validateAdapterConfig(invalidConfig);
-    
-    if (!result.valid && result.errors && result.errors.length > 0) {
-      console.log(`✓ Invalid configuration rejected (${result.errors.length} errors found)`);
-      passed++;
-    } else {
-      throw new Error('Should have failed validation');
-    }
-  } catch (e) {
-    console.log('✗ Invalid adapter config test failed:', e.message);
-    failed++;
-  }
+    expect(result.valid).toBe(false);
+    expect(result.errors).toBeDefined();
+    expect(result.errors!.length).toBeGreaterThan(0);
+  });
 
-  // Test 3: Valid component configuration
-  try {
-    console.log('\nTest 3: Valid component configuration');
+  test('should accept a valid component configuration', () => {
     const validComponent: ComponentConfig = {
       name: 'Button',
       type: ComponentType.Button,
@@ -108,21 +82,10 @@ async function runSchemaTests() {
     };
 
     const result = validator.validateComponentConfig(validComponent);
-    
-    if (result.valid) {
-      console.log('✓ Valid component configuration accepted');
-      passed++;
-    } else {
-      throw new Error(`Validation failed: ${result.errors?.[0]?.message}`);
-    }
-  } catch (e) {
-    console.log('✗ Valid component config test failed:', e.message);
-    failed++;
-  }
+    expect(result.valid).toBe(true);
+  });
 
-  // Test 4: Invalid component configuration
-  try {
-    console.log('\nTest 4: Invalid component configuration');
+  test('should reject an invalid component configuration', () => {
     const invalidComponent = {
       name: 'button', // Invalid: should be PascalCase
       type: 'invalid-type', // Invalid: not in enum
@@ -135,21 +98,11 @@ async function runSchemaTests() {
     };
 
     const result = validator.validateComponentConfig(invalidComponent);
-    
-    if (!result.valid && result.errors) {
-      console.log(`✓ Invalid component configuration rejected (${result.errors.length} errors)`);
-      passed++;
-    } else {
-      throw new Error('Should have failed validation');
-    }
-  } catch (e) {
-    console.log('✗ Invalid component config test failed:', e.message);
-    failed++;
-  }
+    expect(result.valid).toBe(false);
+    expect(result.errors).toBeDefined();
+  });
 
-  // Test 5: Valid style configuration
-  try {
-    console.log('\nTest 5: Valid style configuration');
+  test('should accept a valid style configuration', () => {
     const validStyles: StyleConfig = {
       base: {
         display: 'flex',
@@ -195,21 +148,10 @@ async function runSchemaTests() {
     };
 
     const result = validator.validateStyleConfig(validStyles);
-    
-    if (result.valid) {
-      console.log('✓ Valid style configuration accepted');
-      passed++;
-    } else {
-      throw new Error(`Validation failed: ${result.errors?.[0]?.message}`);
-    }
-  } catch (e) {
-    console.log('✗ Valid style config test failed:', e.message);
-    failed++;
-  }
+    expect(result.valid).toBe(true);
+  });
 
-  // Test 6: Valid token configuration
-  try {
-    console.log('\nTest 6: Valid token configuration');
+  test('should accept a valid token configuration', () => {
     const validTokens: TokenConfig = {
       colors: {
         primary: {
@@ -276,21 +218,10 @@ async function runSchemaTests() {
     };
 
     const result = validator.validateTokenConfig(validTokens);
-    
-    if (result.valid) {
-      console.log('✓ Valid token configuration accepted');
-      passed++;
-    } else {
-      throw new Error(`Validation failed: ${result.errors?.[0]?.message}`);
-    }
-  } catch (e) {
-    console.log('✗ Valid token config test failed:', e.message);
-    failed++;
-  }
+    expect(result.valid).toBe(true);
+  });
 
-  // Test 7: Invalid token configuration
-  try {
-    console.log('\nTest 7: Invalid token configuration');
+  test('should reject an invalid token configuration', () => {
     const invalidTokens = {
       colors: {
         primary: {
@@ -308,22 +239,11 @@ async function runSchemaTests() {
     };
 
     const result = validator.validateTokenConfig(invalidTokens);
-    
-    if (!result.valid && result.errors) {
-      console.log(`✓ Invalid token configuration rejected (${result.errors.length} errors)`);
-      passed++;
-    } else {
-      console.log('✓ Token validation completed (strict validation may not be fully implemented)');
-      passed++;
-    }
-  } catch (e) {
-    console.log('✗ Invalid token config test failed:', e.message);
-    failed++;
-  }
+    expect(result.valid).toBe(false);
+    expect(result.errors).toBeDefined();
+  });
 
-  // Test 8: Validation with options
-  try {
-    console.log('\nTest 8: Validation with custom options');
+  test('should handle validation with custom options', () => {
     const configWithExtra = {
       name: 'test-adapter',
       version: '1.0.0',
@@ -341,22 +261,12 @@ async function runSchemaTests() {
     };
 
     const result = validator.validateAdapterConfig(configWithExtra, strictOptions);
-    
-    if (result.valid) {
-      console.log('✓ Validation with custom options completed');
-      passed++;
-    } else {
-      console.log('✓ Validation options applied (may have warnings)');
-      passed++;
-    }
-  } catch (e) {
-    console.log('✗ Validation options test failed:', e.message);
-    failed++;
-  }
+    expect(result.valid).toBe(true);
+    // You might want to assert that extra properties are removed if the validator supports it
+    // expect(result.data).not.toHaveProperty('extraProperty');
+  });
 
-  // Test 9: Default value application
-  try {
-    console.log('\nTest 9: Default value application');
+  test('should apply default values', () => {
     const minimalConfig = {
       name: 'minimal-adapter',
       version: '1.0.0',
@@ -364,21 +274,12 @@ async function runSchemaTests() {
     };
 
     const result = validator.validateAdapterConfig(minimalConfig, { useDefaults: true });
-    
-    if (result.valid) {
-      console.log('✓ Default values application completed');
-      passed++;
-    } else {
-      throw new Error(`Default values test failed: ${result.errors?.[0]?.message}`);
-    }
-  } catch (e) {
-    console.log('✗ Default values test failed:', e.message);
-    failed++;
-  }
+    expect(result.valid).toBe(true);
+    // You might want to assert that default values are applied
+    // expect(result.data.options).toHaveProperty('theme', 'light');
+  });
 
-  // Test 10: Type coercion
-  try {
-    console.log('\nTest 10: Type coercion');
+  test('should handle type coercion', () => {
     const configWithStringNumbers = {
       name: 'coercion-test',
       version: '1.0.0',
@@ -389,24 +290,15 @@ async function runSchemaTests() {
       },
     };
 
-    const result = validator.validateAdapterConfig(configWithStringNumbers, { 
-      coerceTypes: true 
+    const result = validator.validateAdapterConfig(configWithStringNumbers, {
+      coerceTypes: true
     });
-    
-    if (result.valid) {
-      console.log('✓ Type coercion handled correctly');
-      passed++;
-    } else {
-      throw new Error(`Type coercion failed: ${result.errors?.[0]?.message}`);
-    }
-  } catch (e) {
-    console.log('✗ Type coercion test failed:', e.message);
-    failed++;
-  }
+    expect(result.valid).toBe(true);
+    // You might want to assert that types are coerced
+    // expect(typeof result.data.options.cacheSize).toBe('number');
+  });
 
-  // Test 11: Multiple validation errors
-  try {
-    console.log('\nTest 11: Multiple validation errors');
+  test('should detect multiple validation errors', () => {
     const multiErrorConfig = {
       name: '', // Error 1: empty name
       version: 'bad-version', // Error 2: invalid version
@@ -417,25 +309,16 @@ async function runSchemaTests() {
       },
     };
 
-    const result = validator.validateAdapterConfig(multiErrorConfig, { 
-      maxErrors: 3 
+    const result = validator.validateAdapterConfig(multiErrorConfig, {
+      maxErrors: 3
     });
-    
-    if (!result.valid && result.errors && result.errors.length >= 3) {
-      console.log(`✓ Multiple errors detected (${result.errors.length} errors)`);
-      passed++;
-    } else {
-      throw new Error('Should have detected multiple errors');
-    }
-  } catch (e) {
-    console.log('✗ Multiple errors test failed:', e.message);
-    failed++;
-  }
+    expect(result.valid).toBe(false);
+    expect(result.errors).toBeDefined();
+    expect(result.errors!.length).toBeGreaterThanOrEqual(3);
+  });
 
-  // Test 12: Performance with large data
-  try {
-    console.log('\nTest 12: Performance with large data');
-    const largeTokenConfig = {
+  test('should handle performance with large data', () => {
+    const largeTokenConfig: any = {
       colors: {},
       spacing: {},
       custom: {},
@@ -452,27 +335,7 @@ async function runSchemaTests() {
     const result = validator.validateTokenConfig(largeTokenConfig);
     const duration = performance.now() - startTime;
 
-    if (result.valid && duration < 1000) { // Should complete in under 1 second
-      console.log(`✓ Large data validation completed in ${duration.toFixed(2)}ms`);
-      passed++;
-    } else if (result.valid) {
-      console.log(`✓ Large data validation completed (${duration.toFixed(2)}ms)`);
-      passed++;
-    } else {
-      throw new Error('Large data validation failed');
-    }
-  } catch (e) {
-    console.log('✗ Performance test failed:', e.message);
-    failed++;
-  }
-
-  // Summary
-  console.log(`\n==================`);
-  console.log(`Tests passed: ${passed}`);
-  console.log(`Tests failed: ${failed}`);
-  console.log(`==================`);
-
-  process.exit(failed > 0 ? 1 : 0);
-}
-
-runSchemaTests();
+    expect(result.valid).toBe(true);
+    expect(duration).toBeLessThan(1000); // Should complete in under 1 second
+  });
+});
