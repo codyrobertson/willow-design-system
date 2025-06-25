@@ -1,0 +1,109 @@
+{
+	"meta": {
+		"generatedAt": "2025-06-24T18:44:28.553Z",
+		"tasksAnalyzed": 12,
+		"totalTasks": 12,
+		"analysisCount": 12,
+		"thresholdScore": 5,
+		"projectName": "Taskmaster",
+		"usedResearch": true
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 1,
+			"taskTitle": "Setup Monorepo Structure and Base Configuration",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Break down monorepo setup into: workspace configuration, package structure creation, TypeScript setup, linting/formatting setup, testing framework setup, and build tooling configuration",
+			"reasoning": "Complex due to multiple tool configurations, package interdependencies, and need for proper module resolution. Requires careful planning of package boundaries and shared configurations."
+		},
+		{
+			"taskId": 2,
+			"taskTitle": "Define Core Interfaces and Type System",
+			"complexityScore": 8,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Divide into: UIKitAdapter interface design, WillowConfig schema definition, component mapping interfaces, style/token mapping interfaces, AST node type definitions, transformation interfaces, and runtime validation setup",
+			"reasoning": "High complexity due to need for comprehensive type coverage, forward-thinking interface design, and integration with multiple UI kits. Requires deep understanding of various UI library patterns."
+		},
+		{
+			"taskId": 3,
+			"taskTitle": "Implement Configuration System",
+			"complexityScore": 6,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Split into: file loader implementation, configuration merging logic, environment variable support, validation integration, and caching mechanism",
+			"reasoning": "Moderate complexity with well-defined requirements. Main challenges are handling multiple file formats and implementing proper precedence rules."
+		},
+		{
+			"taskId": 4,
+			"taskTitle": "Build AST Parser Module",
+			"complexityScore": 9,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Break down into: TypeScript compiler API setup, component detection logic, JSX element parsing, import graph construction, scope analysis implementation, edge case handling, type stripping for JS, and parser optimization",
+			"reasoning": "Very complex due to TypeScript compiler API intricacies, need to handle various component patterns, and complex edge cases like dynamic imports and re-exports."
+		},
+		{
+			"taskId": 5,
+			"taskTitle": "Create AST-Based Transformer Module",
+			"complexityScore": 9,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Divide into: transformer API design, import transformation logic, component prop mapping, style transformation, namespace/alias handling, rollback mechanism, in-place vs copy transformation, and transformer composition",
+			"reasoning": "Highly complex due to need for reliable AST manipulation, handling various import patterns, and implementing safe rollback mechanisms. Core functionality that must be robust."
+		},
+		{
+			"taskId": 6,
+			"taskTitle": "Implement UI Kit Adapter System",
+			"complexityScore": 8,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Split into: base adapter implementation, Willow reference adapter, Radix UI adapter, Arco Design adapter, Ant Design adapter, component mapping engine, and style system translation",
+			"reasoning": "Complex due to need to understand multiple UI libraries deeply, handle API variations, and create flexible mapping system. Each adapter requires specific domain knowledge."
+		},
+		{
+			"taskId": 7,
+			"taskTitle": "Build Code Generator Module",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Break down into: AST to code conversion, file organization logic, template processing system, documentation generation, output format support, and Prettier integration",
+			"reasoning": "Moderately complex with clear requirements. Main challenges are maintaining code quality in generated output and handling various output formats."
+		},
+		{
+			"taskId": 8,
+			"taskTitle": "Create Validation Module",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Divide into: validation rules engine, design system compliance checks, dependency validation, performance checks, custom rule support, and validation reporting system",
+			"reasoning": "Complex due to need for extensible rule system and integration with multiple validation types. Requires careful API design for custom rules."
+		},
+		{
+			"taskId": 9,
+			"taskTitle": "Implement Plugin Architecture",
+			"complexityScore": 8,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Split into: plugin API definition, lifecycle hook implementation, plugin loader/discovery, plugin communication system, lifecycle management, async plugin support, and configuration/dependency handling",
+			"reasoning": "Complex due to need for flexible API, robust lifecycle management, and inter-plugin coordination. Must handle both sync and async operations gracefully."
+		},
+		{
+			"taskId": 10,
+			"taskTitle": "Build Error Handling and Recovery System",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Break down into: error boundary implementation, rollback mechanism design, error reporting system, dry-run mode implementation, operation logging, and recovery strategies",
+			"reasoning": "Moderately complex but critical for reliability. Requires careful design of rollback mechanisms and informative error messages."
+		},
+		{
+			"taskId": 11,
+			"taskTitle": "Create CLI Interface and Commands",
+			"complexityScore": 6,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Divide into: command structure implementation, argument parsing/validation, progress reporting, interactive prompts, and help system/documentation",
+			"reasoning": "Moderate complexity with well-established patterns. Main focus is on user experience and proper integration with core modules."
+		},
+		{
+			"taskId": 12,
+			"taskTitle": "Implement Comprehensive Testing Suite",
+			"complexityScore": 8,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Split into: unit test framework setup, integration test suite, performance benchmarks, snapshot testing setup, test fixture creation, code coverage configuration, and CI/CD pipeline setup",
+			"reasoning": "Complex due to breadth of testing required and need for realistic test fixtures. Performance benchmarking adds additional complexity."
+		}
+	]
+}

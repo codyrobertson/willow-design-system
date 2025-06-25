@@ -1,0 +1,92 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "import", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "project": ["./tsconfig.json", "./packages/*/tsconfig.json"]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "project": ["./tsconfig.json", "./packages/*/tsconfig.json"]
+      }
+    }
+  },
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling"],
+          "index"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "@willow-cli/**",
+            "group": "internal"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "import/no-unresolved": "error",
+    "import/no-cycle": "error",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "prettier/prettier": "error"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.ts", "**/*.spec.ts"],
+      "env": {
+        "jest": true
+      },
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    },
+    {
+      "files": ["packages/*/src/**/*.ts"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": ["../*", "./*"]
+          }
+        ]
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "dist",
+    "build",
+    "coverage",
+    "node_modules",
+    "*.config.js",
+    "*.config.ts"
+  ]
+}

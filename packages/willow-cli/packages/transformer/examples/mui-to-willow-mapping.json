@@ -1,0 +1,240 @@
+{
+  "version": "1.0.0",
+  "sourceUIKit": "material-ui",
+  "targetUIKit": "willow-ui",
+  "mappings": [
+    {
+      "sourceComponent": "Button",
+      "targetComponent": "WillowButton",
+      "importMapping": {
+        "source": "@mui/material/Button",
+        "target": "@willow/ui",
+        "namedImport": true,
+        "defaultImport": false
+      },
+      "props": [
+        {
+          "source": "variant",
+          "target": "variant",
+          "valueTransformation": {
+            "type": "map",
+            "map": {
+              "text": "ghost",
+              "outlined": "outline",
+              "contained": "solid"
+            }
+          }
+        },
+        {
+          "source": "color",
+          "target": "intent",
+          "valueTransformation": {
+            "type": "map",
+            "map": {
+              "primary": "primary",
+              "secondary": "secondary",
+              "error": "danger",
+              "warning": "warning",
+              "info": "info",
+              "success": "success"
+            }
+          }
+        },
+        {
+          "source": "size",
+          "target": "size",
+          "valueTransformation": {
+            "type": "map",
+            "map": {
+              "small": "sm",
+              "medium": "md",
+              "large": "lg"
+            }
+          }
+        },
+        {
+          "source": "disabled",
+          "target": "isDisabled"
+        },
+        {
+          "source": "fullWidth",
+          "target": "isFullWidth"
+        },
+        {
+          "source": "startIcon",
+          "target": "leftIcon"
+        },
+        {
+          "source": "endIcon",
+          "target": "rightIcon"
+        },
+        {
+          "source": "onClick",
+          "target": "onPress"
+        }
+      ]
+    },
+    {
+      "sourceComponent": "TextField",
+      "targetComponent": "Input",
+      "importMapping": {
+        "source": "@mui/material/TextField",
+        "target": "@willow/ui"
+      },
+      "props": [
+        {
+          "source": "variant",
+          "target": "variant",
+          "valueTransformation": {
+            "type": "map",
+            "map": {
+              "standard": "underline",
+              "filled": "filled",
+              "outlined": "outline"
+            }
+          }
+        },
+        {
+          "source": "error",
+          "target": "isInvalid"
+        },
+        {
+          "source": "helperText",
+          "target": "helpText",
+          "conditional": [
+            {
+              "condition": {
+                "prop": "error",
+                "operator": "equals",
+                "value": true
+              },
+              "target": "errorMessage"
+            }
+          ]
+        },
+        {
+          "source": "label",
+          "target": "label"
+        },
+        {
+          "source": "placeholder",
+          "target": "placeholder"
+        },
+        {
+          "source": "required",
+          "target": "isRequired"
+        },
+        {
+          "source": "disabled",
+          "target": "isDisabled"
+        },
+        {
+          "source": "multiline",
+          "target": "multiline"
+        },
+        {
+          "source": "rows",
+          "target": "rows",
+          "conditional": [
+            {
+              "condition": {
+                "prop": "multiline",
+                "operator": "equals",
+                "value": true
+              },
+              "target": "rows"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sourceComponent": "Select",
+      "targetComponent": "Dropdown",
+      "importMapping": {
+        "source": "@mui/material/Select",
+        "target": "@willow/ui"
+      },
+      "props": [
+        {
+          "source": "multiple",
+          "target": "selectionMode",
+          "valueTransformation": {
+            "type": "conditional",
+            "condition": {
+              "prop": "multiple",
+              "operator": "equals",
+              "value": true
+            },
+            "from": "true",
+            "to": "multiple"
+          }
+        },
+        {
+          "source": "value",
+          "target": "selectedKey",
+          "conditional": [
+            {
+              "condition": {
+                "prop": "multiple",
+                "operator": "equals",
+                "value": true
+              },
+              "target": "selectedKeys"
+            }
+          ]
+        },
+        {
+          "source": "onChange",
+          "target": "onSelectionChange"
+        },
+        {
+          "source": "MenuProps",
+          "target": "popoverProps",
+          "deprecated": true,
+          "deprecationMessage": "MenuProps is deprecated. Use popoverProps for menu configuration.",
+          "alternative": "popoverProps"
+        }
+      ]
+    }
+  ],
+  "globalPropMappings": [
+    {
+      "source": "className",
+      "target": "class"
+    },
+    {
+      "source": "sx",
+      "target": "css",
+      "valueTransformation": {
+        "type": "function",
+        "transform": "sxToCss"
+      }
+    },
+    {
+      "source": "ref",
+      "target": "ref"
+    },
+    {
+      "source": "key",
+      "target": "key"
+    },
+    {
+      "source": "children",
+      "target": "children"
+    },
+    {
+      "source": "style",
+      "target": "style"
+    }
+  ],
+  "valueTransformers": {
+    "sxToCss": "@willow/transformer-utils/sxToCss"
+  },
+  "options": {
+    "preserveUnmappedProps": false,
+    "warnOnUnmappedProps": true,
+    "strictMode": false,
+    "generateComments": true
+  }
+}
