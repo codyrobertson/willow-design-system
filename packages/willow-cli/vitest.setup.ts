@@ -2,16 +2,22 @@ import { beforeEach, afterEach, vi } from 'vitest';
 
 // Mock global browser APIs that are not available in Node.js test environment
 global.fetch = vi.fn();
-global.navigator = {
-  userAgent: 'test-user-agent',
-  platform: 'test-platform',
-  language: 'en-US',
-  connection: {
-    effectiveType: '4g',
-    downlink: 10,
-    rtt: 50,
+
+// Use Object.defineProperty for navigator to avoid read-only errors
+Object.defineProperty(global, 'navigator', {
+  value: {
+    userAgent: 'test-user-agent',
+    platform: 'test-platform',
+    language: 'en-US',
+    connection: {
+      effectiveType: '4g',
+      downlink: 10,
+      rtt: 50,
+    },
   },
-} as any;
+  writable: true,
+  configurable: true,
+});
 
 global.screen = {
   width: 1920,
@@ -44,6 +50,14 @@ global.performance = {
 
 global.document = {
   addEventListener: vi.fn(),
+  createElement: vi.fn((tagName: string) => ({
+    tagName,
+    setAttribute: vi.fn(),
+    getAttribute: vi.fn(),
+    appendChild: vi.fn(),
+    removeChild: vi.fn(),
+    style: {},
+  })),
 } as any;
 
 global.Intl = {
