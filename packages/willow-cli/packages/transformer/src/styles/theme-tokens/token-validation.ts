@@ -492,9 +492,17 @@ export class BaseTokenValidator implements TokenValidator {
           const hasUnit = validUnits.some(unit => token.value.toString().endsWith(unit));
           const isNumber = /^\d+(\.\d+)?$/.test(token.value);
           
+          // For unitless numbers, we want to generate a warning (not be valid)
+          if (isNumber && !hasUnit) {
+            return {
+              valid: false, // Generate warning for unitless numbers
+              message: 'Dimension value should include a valid unit (px, rem, em, %, etc.)',
+            };
+          }
+          
           return {
-            valid: hasUnit || isNumber,
-            message: 'Dimension value must include a valid unit or be a number',
+            valid: hasUnit,
+            message: 'Dimension value must include a valid unit',
           };
         }
         return { valid: typeof token.value === 'number' };
@@ -976,6 +984,11 @@ export class BaseTokenValidator implements TokenValidator {
   }
 
   private categorizeError(rule: TokenValidationRule, token: DesignToken): ValidationError['category'] {
+    // Special cases for specific rules
+    if (rule.name === 'token-value-required' || rule.name === 'token-name-required' || rule.name === 'token-type-required') {
+      return 'syntax';
+    }
+    
     if (rule.name.includes('name') || rule.name.includes('naming')) return 'syntax';
     if (rule.name.includes('value') || rule.name.includes('format')) return 'value';
     if (rule.name.includes('reference') || rule.name.includes('ref')) return 'reference';
