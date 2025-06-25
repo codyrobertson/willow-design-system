@@ -211,17 +211,18 @@ const comprehensiveConfig: ComponentMappingConfig = {
           assert(result.targetComponent === 'WillowButton', 'Should transform component name');
           assert(result.propResults.some(r => r.targetProp === 'variant' && r.transformedValue === 'brand'), 
             'Should transform color to variant with value mapping');
-          // Check for deprecation in prop results instead
+          // Check for deprecation in prop results or warnings instead
           const fullWidthResult = result.propResults.find(r => r.sourceProp === 'fullWidth');
           assert(fullWidthResult !== undefined, 'Should have fullWidth prop result');
           assert(fullWidthResult?.deprecated !== undefined || result.warnings.length > 0, 
             'Should have deprecation info or warnings');
         }
       }
-      return ts.visitEachChild(node, visitor, undefined);
+      node.forEachChild(visitor);
+      return node;
     };
     
-    ts.visitNode(sourceFile, visitor);
+    visitor(sourceFile);
     assert(transformed === true, 'Should find and transform component');
   });
 
@@ -379,10 +380,11 @@ const comprehensiveConfig: ComponentMappingConfig = {
         assert(result.warnings.some(w => w.includes('statically analyze')), 
           'Should warn about identifier spread');
       }
-      return ts.visitEachChild(node, visitor, undefined);
+      node.forEachChild(visitor);
+      return node;
     };
     
-    ts.visitNode(sourceFile, visitor);
+    visitor(sourceFile);
     assert(foundSpread === true, 'Should find spread attribute');
   });
 
@@ -499,10 +501,11 @@ const comprehensiveConfig: ComponentMappingConfig = {
           }
         }
       }
-      return ts.visitEachChild(node, visitor, undefined);
+      node.forEachChild(visitor);
+      return node;
     };
     
-    ts.visitNode(sourceFile, visitor);
+    visitor(sourceFile);
     assert(buttonTransformed && textFieldTransformed, 'Should transform both components');
   });
 

@@ -4,10 +4,10 @@
 export interface ComponentConfig {
   name: string;
   type: ComponentType;
-  props?: Record<string, any>;
-  children?: any;
+  props?: Record<string, unknown>;
+  children?: unknown;
   variants?: ComponentVariant[];
-  defaultProps?: Record<string, any>;
+  defaultProps?: Record<string, unknown>;
 }
 
 /**
@@ -47,7 +47,7 @@ export enum ComponentType {
  */
 export interface ComponentVariant {
   name: string;
-  props: Record<string, any>;
+  props: Record<string, unknown>;
   description?: string;
 }
 
@@ -55,23 +55,23 @@ export interface ComponentVariant {
  * Style configuration
  */
 export interface StyleConfig {
-  base?: Record<string, any>;
-  variants?: Record<string, Record<string, any>>;
-  states?: Record<string, Record<string, any>>;
+  base?: Record<string, unknown>;
+  variants?: Record<string, Record<string, unknown>>;
+  states?: Record<string, Record<string, unknown>>;
   responsive?: ResponsiveStyles;
-  dark?: Record<string, any>;
+  dark?: Record<string, unknown>;
 }
 
 /**
  * Responsive style breakpoints
  */
 export interface ResponsiveStyles {
-  xs?: Record<string, any>;
-  sm?: Record<string, any>;
-  md?: Record<string, any>;
-  lg?: Record<string, any>;
-  xl?: Record<string, any>;
-  '2xl'?: Record<string, any>;
+  xs?: Record<string, unknown>;
+  sm?: Record<string, unknown>;
+  md?: Record<string, unknown>;
+  lg?: Record<string, unknown>;
+  xl?: Record<string, unknown>;
+  '2xl'?: Record<string, unknown>;
 }
 
 /**
@@ -86,7 +86,7 @@ export interface TokenConfig {
   shadows?: ShadowTokens;
   animations?: AnimationTokens;
   breakpoints?: BreakpointTokens;
-  custom?: Record<string, any>;
+  custom?: Record<string, unknown>;
 }
 
 /**
