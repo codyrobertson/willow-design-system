@@ -125,25 +125,31 @@ export abstract class BaseStyleTransformer implements StyleTransformer {
     config: StyleTransformerConfig,
     context: StyleTransformationContext
   ): string {
-    if (!config.tokenMappings || !context.theme) {
+    if (!config.tokenMappings) {
       return value;
     }
 
     let transformed = value;
 
     for (const mapping of config.tokenMappings) {
-      const sourcePattern = new RegExp(
-        `\\$\\{?${mapping.sourceToken}\\}?|var\\(--${mapping.sourceToken}\\)`,
-        'g'
-      );
+      // Escape dots in the source token for regex
+      const escapedToken = mapping.sourceToken.replace(/\./g, '\\.');
+      
+      // Create patterns for different token formats
+      const patterns = [
+        new RegExp(`\\$\\{${escapedToken}\\}`, 'g'),
+        new RegExp(`var\\(--${mapping.sourceToken.replace(/\./g, '-')}\\)`, 'g'),
+      ];
 
-      if (sourcePattern.test(transformed)) {
-        const targetValue = mapping.targetToken;
-        const finalValue = mapping.transform
-          ? mapping.transform(targetValue)
-          : targetValue;
+      for (const pattern of patterns) {
+        if (pattern.test(transformed)) {
+          const targetValue = mapping.targetToken;
+          const finalValue = mapping.transform
+            ? mapping.transform(targetValue)
+            : targetValue;
 
-        transformed = transformed.replace(sourcePattern, finalValue);
+          transformed = transformed.replace(pattern, finalValue);
+        }
       }
     }
 
