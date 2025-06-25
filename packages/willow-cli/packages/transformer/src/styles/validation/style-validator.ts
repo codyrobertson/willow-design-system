@@ -50,6 +50,7 @@ export const CSS_PROPERTIES = new Set([
   // Other
   'cursor', 'pointer-events', 'user-select', 'z-index', 'content',
   'list-style', 'list-style-type', 'list-style-position', 'list-style-image',
+  'appearance', '-webkit-appearance', '-moz-appearance',
 ]);
 
 /**
@@ -232,7 +233,7 @@ class PropertyValidationRule implements StyleValidationRule {
 class ValueValidationRule implements StyleValidationRule {
   name = 'value-validation';
   description = 'Validates CSS property values';
-  severity = ValidationSeverity.WARNING;
+  severity = ValidationSeverity.ERROR;
 
   validate(styles: any, context: StyleValidationContext): any {
     const violations: any[] = [];

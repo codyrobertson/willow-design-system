@@ -102,7 +102,7 @@ describe('Style Validation', () => {
         styleType: StyleType.CSS_IN_JS,
       });
 
-      expect(result.warnings.some(w => w.message.includes('Invalid display value'))).toBe(true);
+      expect(result.errors.some(w => w.message.includes('Invalid display value'))).toBe(true);
     });
 
     it('should detect null or undefined values', () => {
@@ -116,7 +116,7 @@ describe('Style Validation', () => {
         styleType: StyleType.CSS_IN_JS,
       });
 
-      expect(result.warnings).toHaveLength(2);
+      expect(result.errors).toHaveLength(2);
     });
   });
 

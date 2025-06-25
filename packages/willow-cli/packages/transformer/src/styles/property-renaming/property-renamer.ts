@@ -2,6 +2,43 @@ import * as ts from 'typescript';
 import { StyleTransformationContext } from '../../types/style-transformation.types';
 
 /**
+ * Simple property renamer for styles
+ */
+export class PropertyRenamer {
+  rename(styles: any, config: { propertyMappings: Record<string, string> }): any {
+    if (!config.propertyMappings) {
+      return styles;
+    }
+
+    const renamed = JSON.parse(JSON.stringify(styles)); // Deep clone
+
+    const renameProperties = (obj: any) => {
+      if (typeof obj !== 'object' || obj === null) {
+        return obj;
+      }
+
+      for (const key of Object.keys(obj)) {
+        const value = obj[key];
+        
+        if (typeof value === 'object' && value !== null) {
+          renameProperties(value);
+        }
+        
+        // Check if this property should be renamed
+        if (config.propertyMappings[key]) {
+          const newKey = config.propertyMappings[key];
+          obj[newKey] = obj[key];
+          delete obj[key];
+        }
+      }
+    };
+
+    renameProperties(renamed);
+    return renamed;
+  }
+}
+
+/**
  * Property renaming configuration
  */
 export interface PropertyRenamingConfig {
