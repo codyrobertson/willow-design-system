@@ -1,4 +1,4 @@
-import type { StyleTransformationContext } from './style-transformation.types';
+import { StyleTransformationContext } from './style-transformation.types';
 
 /**
  * Theme token system types for design system migrations

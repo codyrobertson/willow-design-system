@@ -2,14 +2,14 @@ import {
   TokenCategory,
   TokenType,
   TokenFormat,
-  type DesignToken,
-  type TokenCollection,
-  type TokenMigrationMapping,
-  type TokenMigrationStrategy,
-  type TokenValidationRule,
-  type TokenUsage,
-  type TokenConflict,
-  type TokenMigrationContext,
+  DesignToken,
+  TokenCollection,
+  TokenMigrationMapping,
+  TokenMigrationStrategy,
+  TokenValidationRule,
+  TokenUsage,
+  TokenConflict,
+  TokenMigrationContext,
 } from '../src/types/theme-tokens.types';
 import { StyleType } from '../src/types/style-transformation.types';
 
