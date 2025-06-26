@@ -294,12 +294,10 @@ export class ShadcnAdapter implements AdapterInstance {
       return this.mapGenericComponent(name, props);
     }
 
-    // Apply plugin transformations
-    const transformedProps = this.pluginManager.executeBeforeComponentMapping(
-      this,
-      name,
-      props
-    );
+    // Since the plugin manager's executeBeforeComponentMapping is async but mapComponent
+    // is expected to be sync, we'll handle transformations directly here for now
+    // TODO: Consider making mapComponent async in the future
+    const transformedProps = props;
 
     // Build className from variants and props
     const className = this.buildClassName(componentConfig, transformedProps);
@@ -316,7 +314,7 @@ export class ShadcnAdapter implements AdapterInstance {
       component: componentConfig.baseComponent,
       props: {
         ...restProps,
-        className: this.mergeClassNames(userClassName as string, className),
+        className: this.mergeClassNames(className, userClassName as string),
       },
       metadata: {
         originalComponent: name,
@@ -336,14 +334,12 @@ export class ShadcnAdapter implements AdapterInstance {
 
     // Add variant classes
     if (config.classNames.variants) {
-      const variantKey = 'variant';
-      const variantValue = props[variantKey] || config.defaultProps?.[variantKey];
-      if (variantValue && config.classNames.variants[variantKey]) {
-        const variantClass = config.classNames.variants[variantKey][variantValue as string];
-        if (variantClass) {
-          classes.push(variantClass);
+      Object.entries(config.classNames.variants).forEach(([variantKey, variantOptions]) => {
+        const variantValue = props[variantKey] || config.defaultProps?.[variantKey] || 'default';
+        if (variantValue && variantOptions[variantValue as string]) {
+          classes.push(variantOptions[variantValue as string]);
         }
-      }
+      });
     }
 
     // Add size classes
@@ -364,10 +360,13 @@ export class ShadcnAdapter implements AdapterInstance {
     props: Record<string, unknown>,
     className: string
   ): ComponentMapping {
+    // Extract Radix props and include any additional props that should be passed through
+    const radixProps = this.extractRadixProps(props);
+    
     // For Radix-based components, we need to handle the compound structure
     const mapping: ComponentMapping = {
       component: config.radixRoot!,
-      props: this.extractRadixProps(props),
+      props: radixProps,
       children: this.transformRadixChildren(props.children, config, className),
       metadata: {
         originalComponent: name,
@@ -381,22 +380,8 @@ export class ShadcnAdapter implements AdapterInstance {
   }
 
   private extractRadixProps(props: Record<string, unknown>): Record<string, unknown> {
-    // Extract only Radix-compatible props
-    const radixProps: Record<string, unknown> = {};
-    const radixPropNames = [
-      'open', 'defaultOpen', 'onOpenChange',
-      'value', 'defaultValue', 'onValueChange',
-      'checked', 'defaultChecked', 'onCheckedChange',
-      'disabled', 'required', 'name',
-      'asChild', 'modal',
-    ];
-
-    Object.entries(props).forEach(([key, value]) => {
-      if (radixPropNames.includes(key)) {
-        radixProps[key] = value;
-      }
-    });
-
+    // Filter out Shadcn-specific props that shouldn't go to Radix
+    const { variant, size, className, children, ...radixProps } = props;
     return radixProps;
   }
 
