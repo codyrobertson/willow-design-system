@@ -354,7 +354,7 @@
         "id": 5,
         "title": "Create AST-Based Transformer Module",
         "description": "Replace regex-based transformations with reliable AST transformations for code modifications",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [
           4
         ],
@@ -408,7 +408,7 @@
             "id": 6,
             "title": "Develop rollback mechanism",
             "description": "Create safe rollback system to undo transformations if issues occur",
-            "status": "pending",
+            "status": "done",
             "dependencies": [
               2,
               3,
@@ -421,7 +421,7 @@
             "id": 7,
             "title": "Build in-place vs copy transformation modes",
             "description": "Implement options for transforming files in-place or creating copies",
-            "status": "pending",
+            "status": "done",
             "dependencies": [
               6
             ],
@@ -432,7 +432,7 @@
             "id": 8,
             "title": "Create transformer composition system",
             "description": "Build system to chain and compose multiple transformers for complex migration scenarios",
-            "status": "pending",
+            "status": "done",
             "dependencies": [
               1,
               7
@@ -455,7 +455,7 @@
             "id": 10,
             "title": "Create comprehensive end-to-end style transformation tests",
             "description": "Build complete test suite for the style transformation engine covering all transformation scenarios",
-            "status": "pending",
+            "status": "done",
             "dependencies": [
               9
             ],
@@ -745,7 +745,7 @@
         "dependencies": [
           5
         ],
-        "status": "pending",
+        "status": "in-progress",
         "subtasks": [
           {
             "id": 1,
@@ -1242,11 +1242,81 @@
             "testStrategy": ""
           }
         ]
+      },
+      {
+        "id": 13,
+        "title": "Set up comprehensive pre-commit hooks with husky, lint-staged, vitest, ts-prune, and typedoc",
+        "description": "Configure automated pre-commit hooks to enforce code quality, run tests, detect unused code, and generate documentation before each commit",
+        "details": "Install and configure husky for Git hooks management. Set up lint-staged to run targeted checks only on staged files. Configure ESLint and Prettier integration for code formatting and linting. Set up vitest to run affected tests based on changed files. Integrate ts-prune to detect and report unused exports and dead code. Configure typedoc to generate API documentation from TypeScript source files. Create .husky/pre-commit hook that orchestrates all tools. Configure lint-staged in package.json with file pattern matching for different tools. Ensure hooks are fast enough to not impede developer workflow (target <10s for average commits). Add bypass mechanism for emergencies (--no-verify flag documentation). Create npm scripts for manual execution of each tool. Document the pre-commit workflow in contributing guidelines.",
+        "testStrategy": "Test pre-commit hooks by making intentional code quality violations and verifying they're caught. Verify lint-staged only processes staged files, not entire codebase. Test vitest integration by breaking tests and confirming commit is blocked. Validate ts-prune catches unused exports by adding dead code. Confirm typedoc generates documentation correctly and catches documentation errors. Benchmark hook execution time on various commit sizes. Test bypass mechanism works when needed. Verify all tools work in CI environment as well as locally.",
+        "status": "done",
+        "dependencies": [
+          12
+        ],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Install and configure husky with initial Git hooks setup",
+            "description": "Install husky as a dev dependency and initialize Git hooks infrastructure",
+            "dependencies": [],
+            "details": "Install husky@latest using npm/yarn/pnpm. Run husky install to set up Git hooks. Configure package.json with prepare script to auto-install hooks. Create .husky directory structure. Verify hooks are properly installed by checking .git/hooks directory. Test basic hook functionality with a simple echo command.\n<info added on 2025-06-26T01:29:52.842Z>\nNano-task breakdown:\n\n1. Install husky package - Run `npm install --save-dev husky` or equivalent package manager command\n2. Run husky install command - Execute `npx husky install` to initialize husky in the project\n3. Add prepare script to package.json - Add `\"prepare\": \"husky install\"` to scripts section for automatic setup\n4. Create initial .husky directory structure - Ensure .husky folder exists with proper permissions and basic structure\n5. Verify Git hooks integration - Check that .git/hooks directory contains husky references and hooks are properly linked\n6. Create test pre-commit hook with echo - Add simple `echo \"Pre-commit hook working\"` test hook to validate setup before adding real linting rules\n</info added on 2025-06-26T01:29:52.842Z>",
+            "status": "done",
+            "testStrategy": "Create a test commit to verify husky is intercepting Git operations. Check that .husky directory exists and contains proper executable scripts."
+          },
+          {
+            "id": 2,
+            "title": "Set up lint-staged with ESLint and Prettier configuration",
+            "description": "Install and configure lint-staged to run code formatting and linting on staged files only",
+            "dependencies": [
+              1
+            ],
+            "details": "Install lint-staged, eslint, prettier, and related configs as dev dependencies. Create .lintstagedrc.json with file pattern matching rules. Configure ESLint with appropriate rules for TypeScript. Set up Prettier with project-specific formatting rules. Define lint-staged tasks for .ts, .tsx, .js, .jsx files to run eslint --fix and prettier --write. Ensure proper integration between ESLint and Prettier to avoid conflicts.\n<info added on 2025-06-26T01:30:20.502Z>\nNano-task breakdown for implementation:\n\n1. Install lint-staged, eslint, prettier packages - Run npm install --save-dev lint-staged eslint prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-prettier eslint-plugin-prettier\n\n2. Create .eslintrc.json with TypeScript rules - Set up extends array with @typescript-eslint/recommended and prettier, configure parser and parserOptions for TypeScript, add appropriate rules for code quality\n\n3. Create .prettierrc with formatting rules - Define consistent formatting: semi: true, singleQuote: true, tabWidth: 2, trailingComma: 'es5', printWidth: 80, endOfLine: 'lf'\n\n4. Create .lintstagedrc.json configuration - Structure with file pattern keys and command arrays as values\n\n5. Configure file pattern matching for different file types - Map \"*.{ts,tsx}\": [\"eslint --fix\", \"prettier --write\"], \"*.{js,jsx}\": [\"eslint --fix\", \"prettier --write\"], \"*.{json,md}\": [\"prettier --write\"]\n\n6. Test lint-staged with sample staged files - Create test files, stage them, run npx lint-staged to verify commands execute correctly on staged files only\n\n7. Add lint-staged to husky pre-commit hook - Update .husky/pre-commit to include npx lint-staged command after existing checks\n</info added on 2025-06-26T01:30:20.502Z>",
+            "status": "done",
+            "testStrategy": "Stage various file types and run lint-staged manually to verify correct tool execution. Test with intentionally malformed code to ensure linting catches errors."
+          },
+          {
+            "id": 3,
+            "title": "Configure vitest for pre-commit test execution",
+            "description": "Set up vitest to run only tests affected by staged changes",
+            "dependencies": [
+              2
+            ],
+            "details": "Configure vitest with --related flag to run only tests related to changed files. Create custom script that identifies test files based on staged changes. Set up vitest config to run in watch=false mode for pre-commit. Configure test coverage thresholds if applicable. Add lint-staged configuration to run vitest for test files and related source files. Optimize test execution time by using vitest's built-in parallelization.\n<info added on 2025-06-26T01:30:52.606Z>\n**Nano-tasks breakdown:**\n\n1. Create vitest pre-commit script for affected tests\n   - Write shell script or Node.js script to execute vitest commands\n   - Handle exit codes properly for pre-commit hook integration\n   - Add error handling and logging\n\n2. Configure vitest with --related flag setup\n   - Update vitest.config.ts to support related test detection\n   - Configure test file patterns and source file mappings\n   - Set up dependency graph analysis for accurate test selection\n\n3. Create custom test detection logic for staged files\n   - Implement logic to parse git staged files\n   - Map source files to corresponding test files\n   - Handle edge cases like renamed/moved files\n\n4. Add vitest configuration for non-watch mode\n   - Set watch: false in vitest config for CI/pre-commit contexts\n   - Configure reporter for concise output in hook environment\n   - Disable interactive features for automated execution\n\n5. Configure test coverage thresholds\n   - Set minimum coverage percentages (lines, functions, branches, statements)\n   - Configure coverage reporting format for pre-commit output\n   - Add coverage exclusion patterns for generated files\n\n6. Add vitest patterns to lint-staged config\n   - Define file patterns that should trigger vitest execution\n   - Configure vitest command with appropriate flags\n   - Set up conditional execution based on file types\n\n7. Optimize test execution with parallelization settings\n   - Configure maxConcurrency and pool settings\n   - Set up CPU core detection for optimal thread allocation\n   - Add memory usage optimization for large test suites\n</info added on 2025-06-26T01:30:52.606Z>",
+            "status": "done",
+            "testStrategy": "Create sample tests and verify that only related tests run when specific files are staged. Measure execution time with various numbers of changed files."
+          },
+          {
+            "id": 4,
+            "title": "Integrate ts-prune and typedoc into pre-commit workflow",
+            "description": "Configure ts-prune for dead code detection and typedoc for documentation generation",
+            "dependencies": [
+              2
+            ],
+            "details": "Install ts-prune and typedoc as dev dependencies. Configure ts-prune to scan the entire codebase for unused exports. Set up typedoc.json with input/output paths and theme configuration. Create scripts to run ts-prune and generate warnings for unused code. Configure typedoc to generate documentation only for changed modules to optimize performance. Add both tools to lint-staged configuration with appropriate file patterns.\n<info added on 2025-06-26T01:31:24.620Z>\nBreaking down implementation into specific nano-tasks:\n\n1. Install ts-prune and typedoc packages - Add both packages to devDependencies with npm install --save-dev ts-prune typedoc\n\n2. Create ts-prune configuration file - Generate .tsprunerc or tsconfig-prune.json with project-specific ignore patterns and scanning rules\n\n3. Write ts-prune detection script for unused exports - Create script that runs ts-prune and formats output for pre-commit consumption with appropriate exit codes\n\n4. Create typedoc.json configuration - Configure input directories, output path, theme selection, and module resolution settings\n\n5. Implement incremental doc generation for changed files - Build logic to detect changed TypeScript files and generate docs only for affected modules to improve performance\n\n6. Add ts-prune and typedoc to lint-staged - Configure lint-staged patterns to run ts-prune on .ts/.tsx files and typedoc on documentation-relevant changes\n\n7. Configure warning levels and error thresholds - Set up ts-prune to warn on unused exports but not fail commits, establish thresholds for when to block commits\n\n8. Create documentation template customization - Customize typedoc theme and templates to match project branding and documentation standards\n</info added on 2025-06-26T01:31:24.620Z>",
+            "status": "done",
+            "testStrategy": "Intentionally create unused exports and verify ts-prune detects them. Modify TypeScript files and confirm typedoc generates updated documentation."
+          },
+          {
+            "id": 5,
+            "title": "Create orchestrated pre-commit hook and documentation",
+            "description": "Build the final pre-commit hook that coordinates all tools and document the workflow",
+            "dependencies": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "details": "Create .husky/pre-commit script that runs lint-staged. Configure performance optimizations like running tools in parallel where possible. Implement execution time monitoring and logging. Add clear error messages and guidance for fixing common issues. Create bypass documentation explaining --no-verify flag usage. Write comprehensive CONTRIBUTING.md section explaining the pre-commit workflow. Create npm scripts for manual execution: lint, format, test:affected, check:unused, docs:generate. Add troubleshooting guide for common pre-commit failures.\n<info added on 2025-06-26T01:31:53.434Z>\nNano-task breakdown:\n\n1. Create main .husky/pre-commit script - Set up executable shell script that orchestrates all pre-commit checks with proper exit codes and error handling\n\n2. Implement parallel execution strategy for tools - Use background processes and job control to run independent tools simultaneously, reducing total execution time\n\n3. Add execution time monitoring and logging - Track and display timing for each tool, with colored output for performance insights and bottleneck identification\n\n4. Create error message formatting and guidance - Design clear, actionable error messages with specific fix suggestions and relevant file context\n\n5. Write CONTRIBUTING.md pre-commit section - Document the complete pre-commit workflow, expectations, and developer experience for new contributors\n\n6. Document --no-verify bypass mechanism - Explain when and how to safely bypass pre-commit hooks, with warnings about responsibility and best practices\n\n7. Create npm scripts for manual tool execution - Provide package.json scripts mirroring pre-commit tools for standalone developer use and CI integration\n\n8. Build troubleshooting guide with common issues - Catalog frequent pre-commit failures with step-by-step resolution procedures and prevention tips\n\n9. Implement performance optimization for large commits - Add file count thresholds, staged-only processing, and incremental checks to handle large changesets efficiently\n</info added on 2025-06-26T01:31:53.434Z>",
+            "status": "done",
+            "testStrategy": "Run full pre-commit hook with various scenarios: clean commits, linting errors, test failures, unused exports. Measure total execution time and ensure it stays under 10 seconds for typical commits."
+          }
+        ]
       }
     ],
     "metadata": {
       "created": "2025-06-24T18:43:23.772Z",
-      "updated": "2025-06-25T22:48:51.545Z",
+      "updated": "2025-06-26T02:37:42.558Z",
       "description": "Tasks for master context"
     }
   }
