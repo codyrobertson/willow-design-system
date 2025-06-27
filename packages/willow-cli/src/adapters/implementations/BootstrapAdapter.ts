@@ -21,7 +21,6 @@ import {
   AdapterMetadata,
 } from '../types';
 import { AdapterError } from '../errors';
-import { AdapterPluginManager } from '../plugins/AdapterPluginManager';
 
 /**
  * Bootstrap component configuration
@@ -69,14 +68,12 @@ export class BootstrapAdapter implements AdapterInstance {
   public config: AdapterConfig;
   public initialized = false;
 
-  private pluginManager: AdapterPluginManager;
   private componentRegistry: Map<string, BootstrapComponentConfig>;
   private utilityMappings: BootstrapUtilityMapping;
   private cssVariables: BootstrapCSSVariables;
 
   constructor(config?: Partial<AdapterConfig>) {
     this.config = this.createDefaultConfig(config);
-    this.pluginManager = new AdapterPluginManager(this.id);
     this.componentRegistry = this.initializeComponentRegistry();
     this.utilityMappings = this.initializeUtilityMappings();
     this.cssVariables = this.initializeCSSVariables();
@@ -720,29 +717,18 @@ export class BootstrapAdapter implements AdapterInstance {
       return;
     }
 
-    try {
-      // Initialize plugin manager
-      await this.pluginManager.initialize();
-
-      // Validate configuration
-      const validation = this.validateConfig();
-      if (!validation.valid) {
-        throw new AdapterError(
-          'Invalid adapter configuration',
-          'INVALID_CONFIG',
-          validation.errors
-        );
-      }
-
-      // Set initialized flag
-      this.initialized = true;
-    } catch (error) {
+    // Validate configuration
+    const validation = this.validateConfig();
+    if (!validation.valid) {
       throw new AdapterError(
-        'Failed to initialize Bootstrap adapter',
-        'INIT_ERROR',
-        error
+        'Invalid adapter configuration',
+        'INVALID_CONFIG',
+        validation.errors
       );
     }
+
+    // Set initialized flag
+    this.initialized = true;
   }
 
   mapComponent(name: ComponentName, props: Record<string, unknown>): ComponentMapping {
@@ -783,6 +769,35 @@ export class BootstrapAdapter implements AdapterInstance {
         classes.push(`${config.bsComponent}-${variant}`);
       }
       delete mappedProps.variant;
+    }
+
+    // Map style prop for Nav component
+    if (props.style && config.variants?.style) {
+      const style = props.style as string;
+      if (config.variants.style.includes(style)) {
+        classes.push(style);
+      }
+      delete mappedProps.style;
+    }
+
+    // Map expand prop for Navbar
+    if (props.expand && config.variants?.expand) {
+      const expand = props.expand as string;
+      const expandClass = config.variants.expand.find(cls => cls.endsWith(`-${expand}`));
+      if (expandClass) {
+        classes.push(expandClass);
+      }
+      delete mappedProps.expand;
+    }
+
+    // Map color prop for Navbar
+    if (props.color && config.variants?.color) {
+      const color = props.color as string;
+      const colorClass = config.variants.color.find(cls => cls.endsWith(`-${color}`));
+      if (colorClass) {
+        classes.push(colorClass);
+      }
+      delete mappedProps.color;
     }
 
     // Map outline variant
@@ -840,44 +855,68 @@ export class BootstrapAdapter implements AdapterInstance {
   }
 
   translateStyles(styles: StyleConfig): Record<string, unknown> {
-    const translated: Record<string, unknown> = {};
+    const classNames: string[] = [];
+    let inlineStyles: Record<string, any> = {};
+
+    // Helper function to merge results
+    const mergeResult = (result: Record<string, unknown>) => {
+      if (result.className) {
+        const classes = (result.className as string).trim();
+        if (classes) {
+          classNames.push(classes);
+        }
+      }
+      if (result.style) {
+        inlineStyles = { ...inlineStyles, ...(result.style as Record<string, any>) };
+      }
+    };
 
     // Translate layout styles
     if (styles.layout) {
-      Object.assign(translated, this.translateLayoutStyles(styles.layout));
+      mergeResult(this.translateLayoutStyles(styles.layout));
     }
 
     // Translate typography styles
     if (styles.typography) {
-      Object.assign(translated, this.translateTypographyStyles(styles.typography));
+      mergeResult(this.translateTypographyStyles(styles.typography));
     }
 
     // Translate color styles
     if (styles.colors) {
-      Object.assign(translated, this.translateColorStyles(styles.colors));
+      mergeResult(this.translateColorStyles(styles.colors));
     }
 
     // Translate spacing styles
     if (styles.spacing) {
-      Object.assign(translated, this.translateSpacingStyles(styles.spacing));
+      mergeResult(this.translateSpacingStyles(styles.spacing));
     }
 
     // Translate border styles
     if (styles.borders) {
-      Object.assign(translated, this.translateBorderStyles(styles.borders));
+      mergeResult(this.translateBorderStyles(styles.borders));
     }
 
     // Translate effects
     if (styles.effects) {
-      Object.assign(translated, this.translateEffectStyles(styles.effects));
+      mergeResult(this.translateEffectStyles(styles.effects));
     }
 
     // Handle responsive styles
     if (styles.responsive) {
-      translated.responsive = this.translateResponsiveStyles(styles.responsive);
+      mergeResult(this.translateResponsiveStyles(styles.responsive));
     }
 
-    return translated;
+    const result: Record<string, unknown> = {};
+    
+    if (classNames.length > 0) {
+      result.className = classNames.join(' ');
+    }
+    
+    if (Object.keys(inlineStyles).length > 0) {
+      result.style = inlineStyles;
+    }
+
+    return result;
   }
 
   private translateLayoutStyles(layout: any): Record<string, unknown> {
@@ -1181,32 +1220,37 @@ export class BootstrapAdapter implements AdapterInstance {
 
     Object.entries(responsive).forEach(([breakpoint, styles]) => {
       const bpPrefix = breakpointMap[breakpoint];
-      if (bpPrefix && styles && typeof styles === 'object') {
+      if (styles && typeof styles === 'object') {
         // Handle display utilities
         if ((styles as any).display) {
-          responsiveClasses.push(`d-${bpPrefix}-${(styles as any).display}`);
+          const displayClass = bpPrefix ? `d-${bpPrefix}-${(styles as any).display}` : `d-${(styles as any).display}`;
+          responsiveClasses.push(displayClass);
         }
 
         // Handle column utilities
         if ((styles as any).col) {
-          responsiveClasses.push(`col-${bpPrefix}-${(styles as any).col}`);
+          const colClass = bpPrefix ? `col-${bpPrefix}-${(styles as any).col}` : `col-${(styles as any).col}`;
+          responsiveClasses.push(colClass);
         }
 
         // Other responsive styles would need media queries
-        Object.entries(styles as any).forEach(([prop, value]) => {
-          if (!['display', 'col'].includes(prop)) {
-            if (!responsiveStyles[`@media (min-width: ${this.cssVariables.breakpoints[`--bs-breakpoint-${bpPrefix}`]})`]) {
-              responsiveStyles[`@media (min-width: ${this.cssVariables.breakpoints[`--bs-breakpoint-${bpPrefix}`]})`] = {};
+        if (bpPrefix) {
+          Object.entries(styles as any).forEach(([prop, value]) => {
+            if (!['display', 'col'].includes(prop)) {
+              const mediaQuery = `@media (min-width: ${this.cssVariables.breakpoints[`--bs-breakpoint-${bpPrefix}`]})`;
+              if (!responsiveStyles[mediaQuery]) {
+                responsiveStyles[mediaQuery] = {};
+              }
+              responsiveStyles[mediaQuery][prop] = value;
             }
-            responsiveStyles[`@media (min-width: ${this.cssVariables.breakpoints[`--bs-breakpoint-${bpPrefix}`]})`][prop] = value;
-          }
-        });
+          });
+        }
       }
     });
 
     return {
       className: responsiveClasses.join(' '),
-      style: responsiveStyles,
+      style: Object.keys(responsiveStyles).length > 0 ? responsiveStyles : undefined,
     };
   }
 
@@ -1369,13 +1413,13 @@ export class BootstrapAdapter implements AdapterInstance {
     }
 
     // Validate framework version
-    if (this.config.framework?.name !== 'Bootstrap') {
+    if (this.config.framework && this.config.framework.name !== 'Bootstrap') {
       errors.push({
         code: 'INVALID_FRAMEWORK',
         message: 'This adapter only supports Bootstrap framework',
         path: 'config.framework.name',
         expected: 'Bootstrap',
-        actual: this.config.framework?.name,
+        actual: this.config.framework.name,
         severity: 'critical',
       });
     }
@@ -1398,22 +1442,11 @@ export class BootstrapAdapter implements AdapterInstance {
   }
 
   async cleanup(): Promise<void> {
-    try {
-      // Cleanup plugin manager
-      await this.pluginManager.cleanup();
+    // Clear registries
+    this.componentRegistry.clear();
 
-      // Clear registries
-      this.componentRegistry.clear();
-
-      // Reset initialization state
-      this.initialized = false;
-    } catch (error) {
-      throw new AdapterError(
-        'Failed to cleanup Bootstrap adapter',
-        'CLEANUP_ERROR',
-        error
-      );
-    }
+    // Reset initialization state
+    this.initialized = false;
   }
 }
 
