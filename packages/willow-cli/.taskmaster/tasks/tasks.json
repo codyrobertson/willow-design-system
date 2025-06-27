@@ -479,7 +479,7 @@
                 "description": "Define JSON/YAML schema for prop mappings",
                 "dependencies": [],
                 "details": "Create a comprehensive schema that defines how component properties are mapped between different UI kits. Include support for one-to-one mappings, conditional mappings, value transformations, and deprecated property handling. Define TypeScript interfaces for type safety. Unit tests required: Schema validation tests with valid/invalid configurations, type checking tests for TypeScript interfaces, edge case handling tests. Git commit required: 'feat(transformer): complete component mapping schema design - 5.3.1'",
-                "status": "pending",
+                "status": "done",
                 "testStrategy": ""
               },
               {
@@ -490,7 +490,7 @@
                   1
                 ],
                 "details": "Develop the engine that transforms property names based on mapping rules. Support camelCase to kebab-case conversions, prefix/suffix additions, and custom transformation functions. Handle nested property paths and spread operators. Unit tests required: Name transformation accuracy tests, edge case handling (special characters, numbers), performance tests for bulk transformations, nested property path resolution tests. Git commit required: 'feat(transformer): complete prop name transformation engine - 5.3.2'",
-                "status": "pending",
+                "status": "done",
                 "testStrategy": ""
               },
               {
@@ -501,7 +501,7 @@
                   2
                 ],
                 "details": "Build converters for different value types: boolean to string, enum mappings, unit conversions (px to rem), color format conversions, and custom value transformers. Support async converters for complex transformations. Unit tests required: Type conversion accuracy tests, unit conversion tests with edge cases, color format conversion tests (hex, rgb, hsl), custom converter integration tests. Git commit required: 'feat(transformer): complete prop value converter system - 5.3.3'",
-                "status": "pending",
+                "status": "done",
                 "testStrategy": ""
               },
               {
@@ -513,7 +513,7 @@
                   3
                 ],
                 "details": "Implement system to detect deprecated properties, generate migration warnings, suggest alternatives, and optionally auto-migrate to new properties. Include deprecation timeline tracking and reporting. Unit tests required: Deprecation detection tests, warning message generation tests, auto-migration accuracy tests, deprecation report generation tests. Git commit required: 'feat(transformer): complete prop deprecation handler - 5.3.4'",
-                "status": "pending",
+                "status": "done",
                 "testStrategy": ""
               },
               {
@@ -524,7 +524,7 @@
                   3
                 ],
                 "details": "Create logic for conditional property mappings based on other prop values, component context, or external configuration. Support complex conditions with AND/OR logic and nested conditions. Unit tests required: Conditional logic evaluation tests, context-based mapping tests, complex condition resolution tests, performance tests with many conditions. Git commit required: 'feat(transformer): complete conditional prop mapping - 5.3.5'",
-                "status": "pending",
+                "status": "done",
                 "testStrategy": ""
               },
               {
@@ -537,7 +537,7 @@
                   5
                 ],
                 "details": "Build validation system that checks transformed properties against target component prop types, required props, and value constraints. Include runtime and compile-time validation options. Unit tests required: Prop type validation tests, required prop detection tests, value constraint validation tests, custom validator integration tests. Git commit required: 'feat(transformer): complete prop validation system - 5.3.6'",
-                "status": "pending",
+                "status": "done",
                 "testStrategy": ""
               },
               {
@@ -549,7 +549,7 @@
                   6
                 ],
                 "details": "Develop analyzer that examines existing component usage, suggests optimal prop mappings, identifies unmapped properties, and generates migration reports. Use AST analysis for accurate detection. Unit tests required: Component usage analysis tests, mapping suggestion accuracy tests, unmapped property detection tests, report generation tests. Git commit required: 'feat(transformer): complete prop migration analyzer - 5.3.7'",
-                "status": "pending",
+                "status": "done",
                 "testStrategy": ""
               },
               {
@@ -563,7 +563,7 @@
                   6
                 ],
                 "details": "Create efficient bulk transformation system that processes multiple components in parallel, maintains transformation context across files, and provides progress tracking. Include memory optimization for large codebases. Unit tests required: Bulk transformation accuracy tests, parallel processing tests, context preservation tests, memory usage tests with large datasets. Git commit required: 'feat(transformer): complete bulk prop transformation - 5.3.8'",
-                "status": "pending",
+                "status": "done",
                 "testStrategy": ""
               },
               {
@@ -581,7 +581,7 @@
                   8
                 ],
                 "details": "Build comprehensive test suite covering all prop mapping scenarios: edge cases, performance benchmarks, integration tests with real UI kit examples, and regression tests. Include test data generators and fixtures. Unit tests required: Edge case coverage tests, performance benchmark suite, integration test suite with multiple UI kits, regression test suite. Git commit required: 'feat(transformer): complete prop mapping test suite - 5.3.9'",
-                "status": "pending",
+                "status": "done",
                 "testStrategy": ""
               },
               {
@@ -593,7 +593,7 @@
                   7
                 ],
                 "details": "Create documentation generator that produces mapping guides, API documentation, migration examples, and interactive mapping visualizations. Support multiple output formats (Markdown, HTML, JSON). Unit tests required: Documentation accuracy tests, format generation tests, example code validation tests, visualization generation tests. Git commit required: 'feat(transformer): complete prop mapping documentation generator - 5.3.10'",
-                "status": "pending",
+                "status": "done",
                 "testStrategy": ""
               }
             ]
@@ -610,19 +610,30 @@
           5
         ],
         "priority": "medium",
-        "details": "Implement the UIKitAdapter interface defined in task 2. Create comprehensive adapters for multiple UI libraries including Radix UI, Material-UI, AriaKit, BaseUI, Ant Design, and Bootstrap with component mapping, style translation, and token conversion. Implement component mapping logic that handles prop differences, naming conventions, and API variations. Create style system translations between different CSS-in-JS and utility frameworks. Continue development on ShadcnAdapter and complete remaining adapter implementations.",
+        "details": "Implement the UIKitAdapter interface defined in task 2. Create comprehensive adapters for multiple UI libraries including Radix UI, Material-UI, AriaKit, BaseUI, Ant Design, and Bootstrap with component mapping, style translation, and token conversion. Implement component mapping logic that handles prop differences, naming conventions, and API variations. Create style system translations between different CSS-in-JS and utility frameworks. Complete Bootstrap adapter implementation with comprehensive component coverage.",
         "testStrategy": "Test each adapter with sample components, verify component mapping accuracy, validate style translations, test token conversions, and create integration tests with real UI kit components",
         "subtasks": [
           {
             "id": 2,
-            "title": "Build Willow reference adapter",
-            "description": "Implement the reference adapter for Willow Design System as the baseline implementation",
-            "status": "deferred",
+            "title": "Complete ShadcnAdapter implementation",
+            "description": "Finish the ShadcnAdapter that was started and ensure full component coverage",
+            "status": "done",
             "dependencies": [
               1
             ],
-            "details": "Create mappings for all Willow components, establish patterns for prop conversion, and document the reference implementation approach that other adapters will follow.\n<info added on 2025-06-25T07:49:26.307Z>\nThe Willow adapter should be removed as Willow serves as the canonical format that other UI libraries adapt to, not the reverse. Instead, implement example adapters that demonstrate bidirectional conversion between popular UI libraries (such as Material-UI to Ant Design, or Chakra UI to Mantine) to showcase the adapter system's capabilities for cross-library component migration and interoperability.\n</info added on 2025-06-25T07:49:26.307Z>\n<info added on 2025-06-25T08:16:03.880Z>\nStatus: Needs reconsideration. This subtask should pivot from creating a Willow-specific adapter to implementing example adapters that demonstrate bidirectional conversion between popular UI libraries (e.g., Material-UI ↔ Ant Design, Chakra UI ↔ Mantine). These examples will better showcase the adapter system's capabilities for cross-library component migration and interoperability, since Willow serves as the canonical format that other libraries adapt to.\n</info added on 2025-06-25T08:16:03.880Z>",
-            "testStrategy": ""
+            "details": "Complete the ShadcnAdapter implementation building on the work already started. Ensure comprehensive component mapping for shadcn/ui components, handle Tailwind CSS class transformations, and implement proper integration with the existing adapter architecture.",
+            "testStrategy": "Test ShadcnAdapter with shadcn/ui components, verify Tailwind class transformations, and validate integration with base adapter architecture"
+          },
+          {
+            "id": 9,
+            "title": "Complete style system translation layer",
+            "description": "Finish the style transformation system to convert between different styling approaches",
+            "status": "done",
+            "dependencies": [
+              1
+            ],
+            "details": "Complete the integration between the transformer package's style transformation capabilities and the adapter's runtime style translation system. Build converters for CSS-in-JS to utility classes, theme token mapping, responsive breakpoint translation, animation/transition handling, and dark mode compatibility.\n<info added on 2025-06-25T07:50:29.880Z>\nThe base adapter architecture is now in place with the translateStyles method and StyleConfig interface implemented. The transformer package provides extensive style transformation capabilities including parsers and transformers for Tailwind, CSS-in-JS, and styled-components. The key remaining work is to integrate the transformer's style transformation capabilities with the adapter's runtime style translation system. The token conversion system has been successfully implemented with type-safe helpers, providing a foundation for mapping design tokens between different UI kits. Next steps involve creating the integration layer between the static transformation capabilities and runtime style translation.\n</info added on 2025-06-25T07:50:29.880Z>\n<info added on 2025-06-27T20:16:13.179Z>\nCreate a comprehensive BootstrapAdapter that extends the BaseAdapter class to bridge Bootstrap components and utilities with the Willow design system. Implement component mappings for core Bootstrap elements including Button, Card, Modal, Alert, and Form controls, ensuring proper prop translation and event handling. Build a utility class translation system that converts Bootstrap's spacing (m-, p-), color (text-, bg-), display (d-), and flexbox utilities to equivalent Willow/Tailwind classes. Integrate Bootstrap's 12-column grid system by mapping container, row, and col-* classes to Willow's responsive grid utilities. Develop a CSS variable conversion system that transforms Bootstrap's custom properties (--bs-primary, --bs-secondary, etc.) into Willow design tokens. Handle Bootstrap's JavaScript-dependent components by creating adapter wrappers for modals, tooltips, popovers, and dropdowns that maintain functionality while using Willow's component API. Provide comprehensive TypeScript definitions for all Bootstrap component props and ensure type safety across the adapter interface. Include thorough unit tests for component mapping accuracy, integration tests for complex scenarios, and end-to-end tests validating the complete migration workflow. Document common migration patterns, gotchas, and best practices for teams transitioning from Bootstrap to Willow, including examples of before/after code comparisons and automated migration tooling recommendations.\n</info added on 2025-06-27T20:16:13.179Z>",
+            "testStrategy": "Test style transformations between different CSS approaches, validate theme token mappings, and verify dark mode compatibility"
           },
           {
             "id": 4,
@@ -650,7 +661,7 @@
             "id": 6,
             "title": "Develop AriaKit adapter",
             "description": "Create adapter for AriaKit with focus on accessibility-first components",
-            "status": "pending",
+            "status": "done",
             "dependencies": [
               1
             ],
@@ -661,7 +672,7 @@
             "id": 7,
             "title": "Build BaseUI adapter",
             "description": "Implement adapter for MUI's BaseUI headless components",
-            "status": "pending",
+            "status": "done",
             "dependencies": [
               1
             ],
@@ -672,7 +683,7 @@
             "id": 8,
             "title": "Implement Ant Design adapter",
             "description": "Develop adapter for Ant Design (antd) with comprehensive component coverage",
-            "status": "pending",
+            "status": "done",
             "dependencies": [
               1
             ],
@@ -680,21 +691,10 @@
             "testStrategy": "Test Ant Design adapter with Form.Item integration and ConfigProvider theme handling"
           },
           {
-            "id": 9,
-            "title": "Create Bootstrap adapter",
-            "description": "Build adapter for Bootstrap components with utility class handling",
-            "status": "pending",
-            "dependencies": [
-              1
-            ],
-            "details": "Implement Bootstrap adapter handling utility classes, component variants, and Bootstrap's CSS framework approach. Map Willow components to Bootstrap's utility-first styling system.",
-            "testStrategy": "Test Bootstrap adapter with utility class transformations and component variant mappings"
-          },
-          {
             "id": 10,
             "title": "Complete component mapping engine",
             "description": "Finish the dynamic mapping system that translates between different component APIs",
-            "status": "pending",
+            "status": "done",
             "dependencies": [
               1
             ],
@@ -705,7 +705,7 @@
             "id": 11,
             "title": "Complete style system translation layer",
             "description": "Finish the style transformation system to convert between different styling approaches",
-            "status": "pending",
+            "status": "done",
             "dependencies": [
               1,
               10
@@ -732,591 +732,1053 @@
             "details": "Map Willow components to Radix primitives, handle Radix's composition model, implement accessibility features, and manage controlled/uncontrolled component states.\n<info added on 2025-06-25T07:55:20.145Z>\nSuccessfully implemented RadixAdapter with comprehensive component support including Dialog, Select, Accordion, Slider, Switch, Tooltip, Popover, and Form. The adapter handles Radix's unique patterns: compound components (Dialog.Root, Dialog.Content, etc.), asChild prop for composition, portal rendering, and dual controlled/uncontrolled state management. Created component registry system for mapping Willow components to appropriate Radix primitives and implemented Radix-specific prop transformations to bridge API differences.\n</info added on 2025-06-25T07:55:20.145Z>",
             "status": "done",
             "testStrategy": ""
+          },
+          {
+            "id": 12,
+            "title": "Create Bootstrap adapter",
+            "description": "Build adapter for Bootstrap components with utility class handling and complete Bootstrap 5 support",
+            "details": "<info added on 2025-06-27T20:18:14.557Z>\nImplement comprehensive Bootstrap 5 adapter for Willow CLI migration system with full component coverage and utility mapping.\n\n**Core Implementation Tasks:**\n\n1. **BootstrapAdapter Class Foundation**\n   - Extend BaseAdapter with Bootstrap-specific configuration\n   - Initialize Bootstrap CSS framework detection\n   - Set up component registry and mapping tables\n   - Configure default Bootstrap theme variables\n\n2. **Component Mapping System**\n   - Button: Map btn, btn-primary/secondary/success/danger/warning/info/light/dark, btn-sm/lg, btn-outline-* variants\n   - Card: Map card, card-header, card-body, card-footer, card-title, card-text structures\n   - Modal: Map modal, modal-dialog, modal-content, modal-header/body/footer with backdrop and fade transitions\n   - Alert: Map alert, alert-primary/secondary/success/danger/warning/info/light/dark with alert-dismissible functionality\n   - Form Controls: Map form-control, form-select, form-check, form-switch with validation states (is-valid, is-invalid)\n\n3. **Utility Class Translation Engine**\n   - Spacing: m-0 to m-5, mt/mb/ms/me-*, p-0 to p-5, pt/pb/ps/pe-* → Willow spacing tokens\n   - Colors: text-primary/secondary/success/danger/warning/info/light/dark/muted, bg-* variants → Willow color system\n   - Display: d-none/block/inline/inline-block/flex/inline-flex/table/table-row/table-cell → Willow display utilities\n   - Flexbox: justify-content-*/align-items-*/flex-direction-*/flex-wrap-* → Willow flex system\n   - Position: position-static/relative/absolute/fixed/sticky with top/bottom/start/end-* → Willow position system\n\n4. **Grid System Integration**\n   - Container: .container/.container-fluid → Willow container components\n   - Row: .row with gutter system → Willow row with spacing\n   - Columns: .col/.col-{breakpoint}-{size} (1-12) → Willow responsive grid columns\n   - Breakpoint mapping: xs/sm/md/lg/xl/xxl → Willow breakpoint system\n\n5. **CSS Variable Conversion System**\n   - Primary color family: --bs-primary, --bs-primary-rgb → Willow primary tokens\n   - Secondary colors: --bs-secondary, --bs-success, --bs-info, --bs-warning, --bs-danger → Willow semantic colors\n   - Neutral colors: --bs-light, --bs-dark, --bs-body-bg, --bs-body-color → Willow surface and text tokens\n   - Spacing: --bs-gutter-x, --bs-gutter-y → Willow spacing scale\n   - Typography: --bs-font-family-base, --bs-font-size-base → Willow typography tokens\n\n6. **JavaScript Component Lifecycle Management**\n   - Modal: Handle show/hide events, backdrop clicks, keyboard navigation, focus management\n   - Tooltip/Popover: Manage positioning engine, show/hide delays, trigger events (hover, focus, click)\n   - Dropdown: Handle toggle states, keyboard navigation, outside click detection\n   - Collapse: Manage accordion behavior, transition animations, multiple target support\n   - Ensure proper cleanup and event listener removal\n\n7. **TypeScript Integration**\n   - Define BootstrapComponentProps interfaces for all mapped components\n   - Create utility type helpers for Bootstrap variant unions\n   - Implement strict typing for component mapping functions\n   - Add generic types for theme customization and extension\n   - Ensure full IntelliSense support for Bootstrap → Willow migrations\n\n8. **Testing Strategy**\n   - Unit tests: Each component mapping function with various prop combinations\n   - Integration tests: Complex nested component structures (Card with Modal, Forms with validation)\n   - Utility tests: All utility class translations with edge cases\n   - JavaScript component tests: Lifecycle management and event handling\n   - Snapshot tests: Generated Willow code output consistency\n\n9. **Migration Documentation**\n   - Component conversion examples: Bootstrap Button → Willow Button with all variants\n   - Utility class cheat sheet: Complete mapping reference\n   - Layout migration guide: Bootstrap grid → Willow grid system\n   - JavaScript component migration: Event handling and lifecycle differences\n   - Common patterns: Navigation bars, hero sections, card layouts, forms\n   - Troubleshooting guide: Common migration issues and solutions\n\n**Implementation Priority:**\nStart with core components (Button, Card, Alert) and utility classes, then expand to complex JavaScript components and comprehensive testing coverage.\n</info added on 2025-06-27T20:18:14.557Z>",
+            "status": "in-progress",
+            "dependencies": [],
+            "parentTaskId": 6
           }
         ]
       },
       {
         "id": 7,
         "title": "Build Code Generator Module",
-        "description": "Implement code generation capabilities from AST with support for templates and file organization",
-        "details": "Create code generator that converts transformed AST back to source code using TypeScript printer API. Implement file creation and organization logic with proper directory structure. Build template processing system for generating boilerplate code. Add documentation generation capabilities. Support different output formats (TypeScript, JavaScript, JSX). Implement code formatting integration with Prettier.",
-        "testStrategy": "Test code generation produces valid, compilable output, verify file organization follows expected structure, test template processing with various inputs, validate documentation generation, and test formatting integration",
-        "priority": "medium",
+        "description": "Implement code generation capabilities from AST with support for templates and file organization following Spec/Create/Test/Commit workflow",
+        "status": "pending",
         "dependencies": [
           5
         ],
-        "status": "done",
+        "priority": "medium",
+        "details": "Create code generator that converts transformed AST back to source code using TypeScript compiler API. Implement template processing engine with variable substitution and conditionals. Build file writer with directory creation and conflict resolution. Follow structured development phases: SPEC (define interfaces and architecture), CREATE (implement core functionality), TEST (comprehensive testing), COMMIT (documentation and finalization).",
+        "testStrategy": "Unit tests for code generation accuracy and syntax validity, integration tests for template processing with real templates, test file organization with various project structures, validate all generated code compiles and runs correctly",
         "subtasks": [
           {
             "id": 1,
-            "title": "Implement AST to code conversion engine",
-            "description": "Build core functionality to convert Abstract Syntax Tree representations into executable code",
+            "title": "Define code generation interfaces and contracts",
+            "description": "SPEC PHASE: Define ICodeGenerator, IGeneratorOptions, and IGeneratorOutput interfaces",
+            "status": "pending",
             "dependencies": [],
-            "details": "Create parsers and converters that can take AST nodes and generate corresponding code syntax. Handle different code constructs like functions, classes, variables, and control structures.",
-            "status": "done",
-            "testStrategy": ""
+            "details": "Create TypeScript interfaces that define the contracts for code generation functionality. Include ICodeGenerator for the main generator interface, IGeneratorOptions for configuration, and IGeneratorOutput for results.",
+            "testStrategy": "Validate interface definitions compile and provide proper type safety"
           },
           {
             "id": 2,
-            "title": "Design file organization logic system",
-            "description": "Implement logic to organize generated code files into proper directory structures",
-            "dependencies": [
-              1
-            ],
-            "details": "Create algorithms to determine file placement, naming conventions, and directory hierarchies based on code structure and project organization patterns.",
-            "status": "done",
-            "testStrategy": ""
+            "title": "Design template system architecture and registry structure",
+            "description": "SPEC PHASE: Architect the template processing system and template registry",
+            "status": "pending",
+            "dependencies": [],
+            "details": "Design the overall architecture for template processing including template registry structure, variable substitution mechanisms, and conditional logic handling.",
+            "testStrategy": "Review architecture design for extensibility and performance"
           },
           {
             "id": 3,
-            "title": "Build template processing system",
-            "description": "Develop a system to process and apply code templates during generation",
-            "dependencies": [
-              1
-            ],
-            "details": "Create template engine that can handle placeholders, conditional logic, and dynamic content insertion. Support various template formats and customization options.",
-            "status": "done",
-            "testStrategy": ""
+            "title": "Specify file organization patterns and directory structure conventions",
+            "description": "SPEC PHASE: Define conventions for file organization and directory structures",
+            "status": "pending",
+            "dependencies": [],
+            "details": "Establish patterns for organizing generated files, naming conventions, and directory hierarchies based on project types and code organization best practices.",
+            "testStrategy": "Validate conventions against common project structures"
           },
           {
             "id": 4,
-            "title": "Create documentation generation module",
-            "description": "Implement automatic documentation generation from code structures",
+            "title": "Implement TypeScript AST to code conversion using TS compiler API",
+            "description": "CREATE PHASE: Build core AST to code conversion functionality",
+            "status": "pending",
             "dependencies": [
-              1,
-              3
+              1
             ],
-            "details": "Build system to extract code comments, function signatures, and type information to generate comprehensive documentation in various formats.",
-            "status": "done",
-            "testStrategy": ""
+            "details": "Implement the core code generation engine using TypeScript compiler API to convert AST nodes back to source code. Handle all major language constructs and syntax elements.",
+            "testStrategy": "Test conversion accuracy for various AST node types"
           },
           {
             "id": 5,
-            "title": "Implement output format support",
-            "description": "Add support for multiple output formats and code styles",
+            "title": "Build template processing engine with variable substitution and conditionals",
+            "description": "CREATE PHASE: Implement template processing with dynamic content",
+            "status": "pending",
             "dependencies": [
-              1,
               2
             ],
-            "details": "Enable generation of code in different formats, languages, and coding standards. Include configuration options for output customization.",
-            "status": "done",
-            "testStrategy": ""
+            "details": "Create template engine that handles variable substitution, conditional logic, loops, and other dynamic content generation features. Support multiple template formats.",
+            "testStrategy": "Test template processing with various input scenarios"
           },
           {
             "id": 6,
-            "title": "Integrate Prettier for code formatting",
-            "description": "Add Prettier integration for automatic code formatting and style consistency",
+            "title": "Create file writer with directory creation and conflict resolution",
+            "description": "CREATE PHASE: Implement file writing system with organization logic",
+            "status": "pending",
             "dependencies": [
-              1,
+              3,
+              4
+            ],
+            "details": "Build file writer that creates directories as needed, handles file conflicts, and organizes output according to specified patterns. Include backup and rollback capabilities.",
+            "testStrategy": "Test file creation, directory organization, and conflict handling"
+          },
+          {
+            "id": 7,
+            "title": "Write unit tests for code generation accuracy and syntax validity",
+            "description": "TEST PHASE: Create comprehensive unit tests for code generation",
+            "status": "pending",
+            "dependencies": [
+              4
+            ],
+            "details": "Develop unit tests that verify generated code is syntactically correct, semantically valid, and matches expected output for various input scenarios.",
+            "testStrategy": "Ensure all generated code compiles and executes correctly"
+          },
+          {
+            "id": 8,
+            "title": "Create integration tests for template processing with real templates",
+            "description": "TEST PHASE: Build integration tests using actual template scenarios",
+            "status": "pending",
+            "dependencies": [
               5
             ],
-            "details": "Integrate Prettier to ensure all generated code follows consistent formatting rules. Configure Prettier options and handle formatting errors gracefully.",
-            "status": "done",
-            "testStrategy": ""
+            "details": "Develop integration tests that use real-world templates to verify the template processing engine works correctly with complex scenarios and edge cases.",
+            "testStrategy": "Test with various template complexities and data inputs"
+          },
+          {
+            "id": 9,
+            "title": "Test file organization with various project structures",
+            "description": "TEST PHASE: Validate file organization across different project types",
+            "status": "pending",
+            "dependencies": [
+              6
+            ],
+            "details": "Create tests that verify file organization works correctly across different project structures, frameworks, and organizational patterns.",
+            "testStrategy": "Test with monorepo, single-package, and multi-framework structures"
+          },
+          {
+            "id": 10,
+            "title": "Document code generator API and usage examples",
+            "description": "COMMIT PHASE: Create comprehensive API documentation",
+            "status": "pending",
+            "dependencies": [
+              7,
+              8,
+              9
+            ],
+            "details": "Write detailed documentation covering the code generator API, configuration options, and practical usage examples for different scenarios.",
+            "testStrategy": "Validate documentation accuracy through code examples"
+          },
+          {
+            "id": 11,
+            "title": "Create sample templates for common patterns",
+            "description": "COMMIT PHASE: Build template library for common use cases",
+            "status": "pending",
+            "dependencies": [
+              8
+            ],
+            "details": "Develop a collection of sample templates covering common code generation patterns like components, services, utilities, and configuration files.",
+            "testStrategy": "Test sample templates generate working code for intended use cases"
+          },
+          {
+            "id": 12,
+            "title": "Final review and commit with comprehensive tests",
+            "description": "COMMIT PHASE: Complete final review and integration",
+            "status": "pending",
+            "dependencies": [
+              10,
+              11
+            ],
+            "details": "Conduct final code review, ensure all tests pass, verify documentation completeness, and prepare for integration with the broader system.",
+            "testStrategy": "Full test suite execution and code quality validation"
           }
         ]
       },
       {
         "id": 8,
         "title": "Create Validation Module",
-        "description": "Implement comprehensive validation system for code quality, design system compliance, and dependency checks",
-        "details": "Build validation rules engine that checks design system compliance, component usage patterns, and code quality. Implement dependency validation to ensure proper import structure. Create performance checks for bundle size impact. Build extensible rule system that supports custom validation rules. Integrate with UI kit adapters for kit-specific validation. Add validation reporting with actionable suggestions.",
-        "testStrategy": "Test validation rules against known good/bad code examples, verify design system compliance checking, test dependency validation accuracy, benchmark performance checks, and validate custom rule integration",
-        "priority": "medium",
+        "description": "Implement comprehensive validation system for code quality, design system compliance, and dependency checks following Spec/Create/Test/Commit workflow",
+        "status": "pending",
         "dependencies": [
           4,
           6
         ],
-        "status": "pending",
+        "priority": "medium",
+        "details": "Build validation rules engine that checks design system compliance, component usage patterns, and code quality. Implement dependency validation to ensure proper import structure. Create performance checks for bundle size impact. Build extensible rule system that supports custom validation rules. Integrate with UI kit adapters for kit-specific validation. Add validation reporting with actionable suggestions. Follow structured development phases: Spec (define interfaces and architecture), Create (implement core functionality), Test (comprehensive testing), and Commit (documentation and finalization).",
+        "testStrategy": "Test validation rules against known good/bad code examples, verify design system compliance checking, test dependency validation accuracy, benchmark performance checks, validate custom rule integration, and ensure validation performance on large projects",
         "subtasks": [
           {
             "id": 1,
-            "title": "Implement Validation Rules Engine",
-            "description": "Build the core rules engine that processes and executes validation rules",
-            "dependencies": [],
-            "details": "Create a flexible engine that can load, parse, and execute different types of validation rules. Support rule chaining, conditional execution, and priority-based rule ordering. Include interfaces for rule definitions and execution contexts.",
+            "title": "SPEC: Define Validation Rule Interfaces",
+            "description": "Define core interfaces for validation system (IValidationRule, IRuleContext, IValidationResult)",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [],
+            "details": "Create TypeScript interfaces for validation rules, execution contexts, and results. Define rule metadata structure, severity levels, and error message formats. Specify rule configuration schema and plugin interface contracts.",
+            "testStrategy": "Validate interface completeness and type safety"
           },
           {
             "id": 2,
-            "title": "Add Design System Compliance Checks",
-            "description": "Create validators that ensure components follow design system guidelines",
+            "title": "SPEC: Design Validation Engine Architecture",
+            "description": "Design validation engine architecture with rule chains and priority ordering",
+            "status": "pending",
             "dependencies": [
               1
             ],
-            "details": "Implement checks for color tokens, spacing values, typography scales, component variants, and naming conventions. Validate against design tokens and component specifications defined in the design system.",
-            "status": "pending",
-            "testStrategy": ""
+            "details": "Architect rule execution pipeline with priority queues, conditional execution, and parallel processing support. Design rule chaining system for complex validations and failure handling strategies.",
+            "testStrategy": "Review architecture design for scalability and extensibility"
           },
           {
             "id": 3,
-            "title": "Implement Dependency Validation",
-            "description": "Build validators to check component dependencies and imports",
+            "title": "SPEC: Specify Design System Compliance Rules",
+            "description": "Specify design system compliance rules and validation patterns",
+            "status": "pending",
             "dependencies": [
               1
             ],
-            "details": "Validate import paths, check for circular dependencies, ensure proper dependency versioning, and verify that components only import allowed dependencies based on their layer in the architecture.",
-            "status": "pending",
-            "testStrategy": ""
+            "details": "Define validation patterns for color tokens, spacing values, typography scales, component variants, and naming conventions. Specify rule categories and their respective validation criteria.",
+            "testStrategy": "Validate rule specifications against design system requirements"
           },
           {
             "id": 4,
-            "title": "Create Performance Checks",
-            "description": "Develop performance-related validation rules",
-            "dependencies": [
-              1
-            ],
-            "details": "Implement checks for bundle size limits, component complexity metrics, render performance patterns, and memory usage patterns. Include static analysis for common performance anti-patterns.",
+            "title": "CREATE: Implement Core Validation Rules Engine",
+            "description": "Implement core validation rules engine with rule execution pipeline",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Build the rule execution engine with priority-based ordering, conditional execution, and error handling. Implement rule loading, parsing, and execution contexts with performance optimizations.",
+            "testStrategy": "Test rule engine with various rule configurations and execution scenarios"
           },
           {
             "id": 5,
-            "title": "Build Custom Rule Support System",
-            "description": "Create API and infrastructure for users to define custom validation rules",
-            "dependencies": [
-              1
-            ],
-            "details": "Design extensible API for custom rule creation, support rule configuration via JSON/YAML, implement rule plugin system, and provide helpers for common validation patterns. Include documentation generator for custom rules.",
+            "title": "CREATE: Build Design System Compliance Validators",
+            "description": "Build design system compliance validators for component usage",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Implement validators for color tokens, spacing values, typography usage, component variants, and naming conventions. Create checks against design tokens and component specifications.",
+            "testStrategy": "Test validators against compliant and non-compliant component examples"
           },
           {
             "id": 6,
-            "title": "Develop Validation Reporting System",
-            "description": "Build comprehensive reporting for validation results",
-            "dependencies": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ],
-            "details": "Create multiple output formats (JSON, HTML, Markdown), implement severity levels and error categorization, generate actionable fix suggestions, and provide progress tracking. Include CI/CD integration formats.",
+            "title": "CREATE: Implement Dependency Validation System",
+            "description": "Create dependency validation system for import structure analysis",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [
+              4
+            ],
+            "details": "Build validators for import paths, circular dependency detection, version compatibility, and architectural layer compliance. Implement static analysis for dependency patterns.",
+            "testStrategy": "Test with various import scenarios and dependency structures"
+          },
+          {
+            "id": 7,
+            "title": "TEST: Write Unit Tests for Validation Rules",
+            "description": "Write comprehensive unit tests for individual validation rules",
+            "status": "pending",
+            "dependencies": [
+              4,
+              5,
+              6
+            ],
+            "details": "Create unit tests for each validation rule, covering edge cases, error conditions, and performance scenarios. Test rule execution pipeline and error handling mechanisms.",
+            "testStrategy": "Achieve 100% code coverage for validation rule implementations"
+          },
+          {
+            "id": 8,
+            "title": "TEST: Create Integration Tests with Real Codebases",
+            "description": "Create integration tests with real codebases and violations",
+            "status": "pending",
+            "dependencies": [
+              7
+            ],
+            "details": "Test validation system against actual project codebases with known violations. Create test fixtures with various violation patterns and validate detection accuracy.",
+            "testStrategy": "Test against multiple real-world codebases with documented violations"
+          },
+          {
+            "id": 9,
+            "title": "TEST: Performance Impact Testing",
+            "description": "Test performance impact of validation on large projects",
+            "status": "pending",
+            "dependencies": [
+              7
+            ],
+            "details": "Benchmark validation performance on large codebases, measure memory usage, and optimize for scale. Test parallel execution and incremental validation strategies.",
+            "testStrategy": "Performance benchmarks on projects with 1000+ components"
+          },
+          {
+            "id": 10,
+            "title": "COMMIT: Document Validation Rules and Custom Rule Creation",
+            "description": "Document validation rules and custom rule creation process",
+            "status": "pending",
+            "dependencies": [
+              8,
+              9
+            ],
+            "details": "Create comprehensive documentation for built-in validation rules, custom rule development guide, and API reference. Include examples and best practices.",
+            "testStrategy": "Validate documentation completeness and accuracy"
+          },
+          {
+            "id": 11,
+            "title": "COMMIT: Create Validation Rule Templates and Examples",
+            "description": "Create validation rule templates and working examples",
+            "status": "pending",
+            "dependencies": [
+              10
+            ],
+            "details": "Build rule templates for common validation patterns, provide working examples for custom rules, and create starter configurations for different project types.",
+            "testStrategy": "Test templates and examples with new users"
+          },
+          {
+            "id": 12,
+            "title": "COMMIT: Final Review and Full Test Coverage",
+            "description": "Final review and commit with comprehensive test coverage",
+            "status": "pending",
+            "dependencies": [
+              10,
+              11
+            ],
+            "details": "Conduct final code review, ensure all tests pass, validate documentation accuracy, and prepare for production deployment. Verify complete test coverage and performance benchmarks.",
+            "testStrategy": "Complete system validation and deployment readiness check"
           }
         ]
       },
       {
         "id": 9,
         "title": "Implement Plugin Architecture",
-        "description": "Create a flexible plugin system with lifecycle hooks and third-party plugin support",
-        "details": "Define plugin API with lifecycle hooks (beforeTransform, afterTransform, beforeGenerate, afterGenerate). Implement plugin loader with discovery mechanisms (package.json, file system). Create plugin communication system for inter-plugin coordination. Build plugin lifecycle management with proper initialization and cleanup. Support both synchronous and asynchronous plugins. Implement plugin configuration and dependency management.",
-        "testStrategy": "Test plugin loading and initialization, verify lifecycle hooks execute correctly, test plugin communication, validate configuration handling, and create example plugins for integration testing",
-        "priority": "medium",
+        "description": "Create a flexible plugin system with lifecycle hooks and third-party plugin support following a structured Spec/Create/Test/Commit workflow",
+        "status": "pending",
         "dependencies": [
           3,
           7
         ],
-        "status": "pending",
+        "priority": "medium",
+        "details": "Implement a comprehensive plugin architecture using a phased approach: SPEC PHASE - Define core interfaces and architecture design; CREATE PHASE - Build the plugin system components; TEST PHASE - Comprehensive testing with sample plugins; COMMIT PHASE - Documentation and marketplace preparation. The system will support plugin discovery, lifecycle management, inter-plugin communication, and proper isolation.",
+        "testStrategy": "Follow structured testing approach with unit tests for core plugin functionality, integration tests using sample plugins, and comprehensive testing of plugin isolation and error handling boundaries",
         "subtasks": [
           {
             "id": 1,
-            "title": "Define plugin API and interface structure",
-            "description": "Create TypeScript interfaces and types for the plugin system API, including base plugin interface, metadata structure, and hook definitions",
-            "dependencies": [],
-            "details": "Design the core plugin interface with methods like initialize(), activate(), deactivate(), and cleanup(). Define metadata structure for plugin name, version, dependencies, and capabilities. Create type definitions for plugin hooks and extension points.",
+            "title": "Define plugin API interfaces (IPlugin, IPluginHooks, IPluginContext)",
+            "description": "Create core TypeScript interfaces that define the plugin contract and interaction patterns",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [],
+            "details": "Design IPlugin interface with initialize(), activate(), deactivate(), cleanup() methods. Define IPluginHooks for lifecycle events. Create IPluginContext for plugin runtime environment access. Include metadata structure for plugin identification and capabilities.",
+            "testStrategy": "Validate interface design through TypeScript compilation and contract testing"
           },
           {
             "id": 2,
-            "title": "Implement plugin lifecycle hooks",
-            "description": "Build the hook system that allows plugins to tap into various lifecycle events and extend functionality",
+            "title": "Design plugin lifecycle architecture with hook execution order",
+            "description": "Architect the plugin lifecycle flow and define the sequence and priority of hook execution",
+            "status": "pending",
             "dependencies": [
               1
             ],
-            "details": "Implement beforeLoad, afterLoad, beforeActivate, afterActivate, beforeDeactivate, afterDeactivate hooks. Create a hook registry system with priority ordering. Add error handling for hook failures.",
-            "status": "pending",
-            "testStrategy": ""
+            "details": "Design state transitions: installed → loaded → active → inactive → unloaded. Define hook execution order with priority levels. Plan error recovery and rollback strategies for failed lifecycle transitions.",
+            "testStrategy": "Create architectural diagrams and validate flow with sequence testing"
           },
           {
             "id": 3,
-            "title": "Create plugin loader and discovery mechanism",
-            "description": "Implement the system for discovering, loading, and registering plugins from various sources",
+            "title": "Specify plugin discovery and loading mechanisms",
+            "description": "Define how plugins will be discovered from various sources and loaded into the system",
+            "status": "pending",
             "dependencies": [
               1
             ],
-            "details": "Build plugin discovery from node_modules, local directories, and remote sources. Implement dynamic import for ES modules and CommonJS compatibility. Add plugin validation and verification before loading.",
-            "status": "pending",
-            "testStrategy": ""
+            "details": "Specify discovery from node_modules, local directories, and remote sources. Define package.json plugin declaration format. Plan dynamic import strategy for ES modules and CommonJS compatibility.",
+            "testStrategy": "Document discovery specifications and validate with mock plugin structures"
           },
           {
             "id": 4,
-            "title": "Build inter-plugin communication system",
-            "description": "Develop a messaging and event system for plugins to communicate with each other and the core system",
-            "dependencies": [
-              1,
-              2
-            ],
-            "details": "Create an event bus for plugin-to-plugin communication. Implement a service registry for plugins to expose APIs to other plugins. Add request/response patterns with timeout handling.",
+            "title": "Implement plugin loader with package.json and filesystem discovery",
+            "description": "Build the core plugin discovery and loading system",
             "status": "pending",
-            "testStrategy": ""
-          },
-          {
-            "id": 5,
-            "title": "Implement plugin lifecycle management",
-            "description": "Create the core system for managing plugin states, transitions, and runtime control",
             "dependencies": [
               2,
               3
             ],
-            "details": "Build state machine for plugin lifecycle (installed, loaded, active, inactive, unloaded). Implement hot-reload capability for development. Add graceful shutdown and cleanup procedures.",
+            "details": "Implement filesystem scanning for plugin directories. Add package.json parsing for plugin metadata. Build dynamic import system with module resolution. Include plugin validation and verification before loading.",
+            "testStrategy": "Test discovery of plugins in various locations and formats"
+          },
+          {
+            "id": 5,
+            "title": "Build lifecycle hook management system with priority ordering",
+            "description": "Create the hook registry and execution system with proper ordering and error handling",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [
+              2,
+              4
+            ],
+            "details": "Implement hook registry with priority-based execution order. Build async hook execution with proper error boundaries. Add timeout handling for long-running hooks. Create rollback mechanisms for failed hook chains.",
+            "testStrategy": "Test hook execution order, error propagation, and timeout scenarios"
           },
           {
             "id": 6,
-            "title": "Add async plugin operation support",
-            "description": "Ensure all plugin operations properly handle asynchronous initialization, activation, and communication",
+            "title": "Create inter-plugin communication system",
+            "description": "Develop messaging and service registry for plugin-to-plugin communication",
+            "status": "pending",
             "dependencies": [
               4,
               5
             ],
-            "details": "Convert all plugin operations to support Promises and async/await. Implement parallel plugin loading with dependency resolution. Add timeout handling for long-running plugin operations.",
-            "status": "pending",
-            "testStrategy": ""
+            "details": "Build event bus for plugin messaging. Implement service registry for API exposure between plugins. Add request/response patterns with timeout handling. Create plugin isolation boundaries for security.",
+            "testStrategy": "Test communication patterns and isolation boundaries between sample plugins"
           },
           {
             "id": 7,
-            "title": "Create plugin configuration and dependency resolution",
-            "description": "Build the system for managing plugin configuration, dependencies, and conflict resolution",
-            "dependencies": [
-              3,
-              5
-            ],
-            "details": "Implement plugin dependency graph resolution. Create configuration schema validation for plugins. Add version compatibility checking and conflict detection. Build plugin isolation for security.",
+            "title": "Write unit tests for plugin loading and lifecycle",
+            "description": "Create comprehensive unit test suite for core plugin system functionality",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [
+              5,
+              6
+            ],
+            "details": "Test plugin discovery mechanisms, lifecycle state transitions, hook execution, and error handling. Mock plugin implementations for isolated testing. Verify dependency resolution and conflict detection.",
+            "testStrategy": "Achieve 90%+ code coverage for plugin system core components"
+          },
+          {
+            "id": 8,
+            "title": "Create integration tests with sample plugins",
+            "description": "Build integration test suite using real sample plugins to validate end-to-end functionality",
+            "status": "pending",
+            "dependencies": [
+              6,
+              7
+            ],
+            "details": "Create sample plugins with various capabilities and interaction patterns. Test plugin loading, activation, communication, and cleanup in realistic scenarios. Validate hot-reload and dynamic plugin management.",
+            "testStrategy": "Test complete plugin lifecycle with multiple sample plugins and interaction scenarios"
+          },
+          {
+            "id": 9,
+            "title": "Test plugin isolation and error boundaries",
+            "description": "Validate that plugin failures don't affect the core system or other plugins",
+            "status": "pending",
+            "dependencies": [
+              8
+            ],
+            "details": "Test plugin crash isolation, memory leak prevention, and resource cleanup. Verify error boundaries prevent cascade failures. Test security isolation between plugins and core system access control.",
+            "testStrategy": "Create intentionally failing plugins to test isolation and recovery mechanisms"
+          },
+          {
+            "id": 10,
+            "title": "Document plugin API and development guide",
+            "description": "Create comprehensive documentation for plugin developers and API reference",
+            "status": "pending",
+            "dependencies": [
+              8,
+              9
+            ],
+            "details": "Write plugin development guide with examples and best practices. Create API reference documentation for all interfaces and hooks. Include troubleshooting guide and FAQ for common plugin development issues.",
+            "testStrategy": "Validate documentation by having developers create plugins using only the docs"
+          },
+          {
+            "id": 11,
+            "title": "Create starter plugin templates and examples",
+            "description": "Build template projects and example plugins to help developers get started quickly",
+            "status": "pending",
+            "dependencies": [
+              10
+            ],
+            "details": "Create plugin template with TypeScript configuration, build setup, and basic structure. Build example plugins demonstrating common use cases and patterns. Include CLI tools for generating new plugin projects.",
+            "testStrategy": "Test template generation and example plugin functionality"
+          },
+          {
+            "id": 12,
+            "title": "Final review and commit with plugin marketplace preparation",
+            "description": "Conduct final review of the plugin system and prepare infrastructure for plugin marketplace",
+            "status": "pending",
+            "dependencies": [
+              11
+            ],
+            "details": "Perform comprehensive code review and security audit. Set up plugin registry infrastructure for marketplace. Create plugin submission and review process. Prepare initial plugin ecosystem launch.",
+            "testStrategy": "Complete system integration testing and security review before marketplace launch"
           }
         ]
       },
       {
         "id": 10,
         "title": "Build Error Handling and Recovery System",
-        "description": "Implement comprehensive error handling with rollback mechanisms and detailed error reporting",
-        "details": "Create error boundaries for each module with proper error propagation. Implement rollback mechanisms that can restore original state on failures. Build detailed error reporting with context, suggestions, and recovery options. Add dry-run mode for all operations to preview changes. Implement operation logging for debugging and audit trails. Create error recovery strategies for common failure scenarios.",
-        "testStrategy": "Test error boundary functionality, verify rollback mechanisms restore correct state, validate error message quality and actionability, test dry-run mode accuracy, and benchmark error handling performance",
-        "priority": "medium",
+        "description": "Implement comprehensive error handling with rollback mechanisms and detailed error reporting following a structured Spec/Create/Test/Commit workflow",
+        "status": "pending",
         "dependencies": [
           5,
           7
         ],
-        "status": "pending",
+        "priority": "medium",
+        "details": "Create error boundaries for each module with proper error propagation. Implement rollback mechanisms that can restore original state on failures. Build detailed error reporting with context, suggestions, and recovery options. Add dry-run mode for all operations to preview changes. Implement operation logging for debugging and audit trails. Create error recovery strategies for common failure scenarios. Follow structured development phases: specification, creation, testing, and documentation/commit.",
+        "testStrategy": "Test error boundary functionality, verify rollback mechanisms restore correct state, validate error message quality and actionability, test dry-run mode accuracy, benchmark error handling performance, and conduct comprehensive failure scenario testing",
         "subtasks": [
           {
             "id": 1,
-            "title": "Implement Error Boundary Architecture",
-            "description": "Create a comprehensive error boundary system to catch and handle errors at different levels of the application",
-            "dependencies": [],
-            "details": "Design and implement error boundary components that can wrap critical sections of code. Include error state management, fallback UI components, and error context providers. Ensure proper error isolation to prevent cascading failures.",
+            "title": "Define Error Handling Interfaces (SPEC)",
+            "description": "Define core interfaces for error handling system components",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [],
+            "details": "Create TypeScript interfaces for IErrorBoundary, IRecoveryStrategy, and IErrorContext. Define error types, severity levels, and recovery action interfaces. Establish contracts for error propagation and handling across modules.",
+            "testStrategy": "Validate interface completeness and consistency"
           },
           {
             "id": 2,
-            "title": "Design Rollback Mechanism",
-            "description": "Create a transactional rollback system that can undo operations when errors occur",
-            "dependencies": [
-              1
-            ],
-            "details": "Implement a state snapshot system before critical operations. Design rollback strategies for different operation types (file changes, database updates, etc.). Include version control integration for file-based rollbacks and transaction management for database operations.",
+            "title": "Design Rollback Architecture with State Snapshots (SPEC)",
+            "description": "Architect the rollback system with state management and snapshot capabilities",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [],
+            "details": "Design state snapshot architecture for different operation types. Define rollback strategies for file operations, configuration changes, and database transactions. Create rollback validation and integrity checking specifications.",
+            "testStrategy": "Review architecture for completeness and edge cases"
           },
           {
             "id": 3,
-            "title": "Build Error Reporting System",
-            "description": "Develop a comprehensive error reporting and tracking system with detailed error information",
-            "dependencies": [
-              1
-            ],
-            "details": "Create error collection service with categorization (critical, warning, info). Include stack trace capture, user context, and operation history. Implement error aggregation and deduplication. Add integration points for external error tracking services.",
+            "title": "Specify Error Categorization and Recovery Patterns (SPEC)",
+            "description": "Define error classification system and recovery patterns",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [],
+            "details": "Categorize errors by type (transient, permanent, user, system), severity, and recovery potential. Define recovery patterns for each category. Specify automatic vs manual recovery triggers and escalation paths.",
+            "testStrategy": "Validate categorization covers all error scenarios"
           },
           {
             "id": 4,
-            "title": "Implement Dry-Run Mode",
-            "description": "Create a simulation mode that validates operations without executing them",
-            "dependencies": [
-              2
-            ],
-            "details": "Build operation simulation framework that validates all steps without side effects. Include comprehensive validation reporting showing what would happen. Create dry-run flags for CLI commands and API endpoints. Ensure accurate prediction of operation outcomes.",
+            "title": "Implement Error Boundary System with Module Isolation (CREATE)",
+            "description": "Build error boundary components with proper module isolation",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [
+              1
+            ],
+            "details": "Implement error boundary classes based on defined interfaces. Create module-specific error boundaries with isolation mechanisms. Build error context providers and fallback components. Ensure proper error propagation without cascading failures.",
+            "testStrategy": "Test error isolation and boundary effectiveness"
           },
           {
             "id": 5,
-            "title": "Create Operation Logging System",
-            "description": "Implement detailed logging for all operations with structured log format",
-            "dependencies": [
-              3
-            ],
-            "details": "Design structured logging with operation IDs, timestamps, and context. Include before/after states for critical operations. Implement log levels and filtering. Create log rotation and archival system. Ensure sensitive data is properly masked in logs.",
+            "title": "Build Rollback Mechanism with State Restoration (CREATE)",
+            "description": "Implement transactional rollback system with state restoration capabilities",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [
+              2,
+              4
+            ],
+            "details": "Create state snapshot service with before/after state capture. Implement rollback execution engine with validation. Build restoration verification system. Include file system, configuration, and database rollback handlers.",
+            "testStrategy": "Test rollback accuracy and state restoration integrity"
           },
           {
             "id": 6,
-            "title": "Develop Recovery Strategies",
-            "description": "Create automated and manual recovery procedures for different failure scenarios",
+            "title": "Create Comprehensive Error Reporting with Suggestions (CREATE)",
+            "description": "Build detailed error reporting system with actionable suggestions",
+            "status": "pending",
             "dependencies": [
-              2,
+              3,
+              4
+            ],
+            "details": "Implement error collection and aggregation service. Create suggestion engine based on error patterns. Build reporting dashboard with error context, stack traces, and recovery recommendations. Include integration points for external monitoring.",
+            "testStrategy": "Validate error report completeness and suggestion quality"
+          },
+          {
+            "id": 7,
+            "title": "Write Unit Tests for Error Boundaries and Recovery (TEST)",
+            "description": "Create comprehensive unit test suite for error handling components",
+            "status": "pending",
+            "dependencies": [
               4,
               5
             ],
-            "details": "Design recovery strategies for common failure patterns. Implement automated recovery for transient failures with retry logic. Create manual recovery tools and documentation. Include data consistency checks and repair utilities. Build recovery testing framework.",
+            "details": "Write unit tests for error boundary behavior, recovery strategy execution, and rollback mechanisms. Test error propagation, state restoration, and boundary isolation. Include edge cases and error boundary lifecycle testing.",
+            "testStrategy": "Achieve 100% code coverage for error handling components"
+          },
+          {
+            "id": 8,
+            "title": "Create Failure Scenario Integration Tests (TEST)",
+            "description": "Build integration tests simulating real-world failure scenarios",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [
+              6,
+              7
+            ],
+            "details": "Create test scenarios for network failures, disk errors, permission issues, and concurrent access problems. Test end-to-end error handling and recovery flows. Include stress testing for error boundary performance under load.",
+            "testStrategy": "Simulate and validate recovery from all critical failure modes"
+          },
+          {
+            "id": 9,
+            "title": "Test Rollback Reliability Under Various Failure Modes (TEST)",
+            "description": "Comprehensive testing of rollback mechanisms under different failure conditions",
+            "status": "pending",
+            "dependencies": [
+              5,
+              8
+            ],
+            "details": "Test rollback under partial failures, concurrent operations, and system interruptions. Validate data consistency after rollback operations. Test rollback performance and resource usage. Include corruption recovery scenarios.",
+            "testStrategy": "Verify rollback success rate and data integrity across all scenarios"
+          },
+          {
+            "id": 10,
+            "title": "Document Error Handling Patterns and Recovery Strategies (COMMIT)",
+            "description": "Create comprehensive documentation for error handling architecture",
+            "status": "pending",
+            "dependencies": [
+              6,
+              9
+            ],
+            "details": "Document error handling patterns, recovery strategies, and best practices. Create architecture diagrams and flow charts. Include troubleshooting guides and common error scenarios. Document API references and configuration options.",
+            "testStrategy": "Review documentation completeness and clarity"
+          },
+          {
+            "id": 11,
+            "title": "Create Error Handling Cookbook with Examples (COMMIT)",
+            "description": "Build practical cookbook with error handling examples and patterns",
+            "status": "pending",
+            "dependencies": [
+              10
+            ],
+            "details": "Create practical examples for common error scenarios. Include code samples for custom error boundaries and recovery strategies. Build cookbook sections for different application types and use cases. Include performance optimization tips.",
+            "testStrategy": "Validate examples work correctly and cover common use cases"
+          },
+          {
+            "id": 12,
+            "title": "Final Review with Error Recovery Playbook (COMMIT)",
+            "description": "Conduct final review and create operational playbook for error recovery",
+            "status": "pending",
+            "dependencies": [
+              11
+            ],
+            "details": "Create operational playbook for production error scenarios. Include escalation procedures, monitoring setup, and recovery checklists. Conduct final code review and architecture validation. Create deployment and rollout strategy.",
+            "testStrategy": "Validate playbook effectiveness through simulation exercises"
           }
         ]
       },
       {
         "id": 11,
         "title": "Create CLI Interface and Commands",
-        "description": "Build the command-line interface with intuitive commands and proper argument handling",
-        "details": "Implement CLI using Commander.js or similar with commands for transform, validate, migrate, and config. Add support for various input formats (single files, directories, globs). Implement progress reporting and interactive prompts. Create help system with examples and usage patterns. Add global and local configuration support. Implement verbose logging and debug modes.",
-        "testStrategy": "Test all CLI commands with various input combinations, verify argument parsing and validation, test progress reporting accuracy, validate help system completeness, and test configuration integration",
-        "priority": "medium",
+        "description": "Build the command-line interface with intuitive commands and proper argument handling following a structured Spec/Create/Test/Commit workflow",
+        "status": "pending",
         "dependencies": [
           3,
           8,
           9,
           10
         ],
-        "status": "pending",
+        "priority": "medium",
+        "details": "Implement CLI using a systematic approach: define specifications first, create implementation, test thoroughly, then commit with documentation. Use Commander.js or similar for command framework. Support various input formats (single files, directories, globs), progress reporting, interactive prompts, help system with examples, and global/local configuration. Follow CLI best practices throughout.",
+        "testStrategy": "Comprehensive testing including unit tests for command parsing/validation, integration tests for end-to-end flows, performance testing with large inputs, and validation of help system completeness and configuration integration",
         "subtasks": [
           {
             "id": 1,
-            "title": "Implement core command structure and registry",
-            "description": "Create the foundational command system with a registry for all available commands, including command metadata, aliases, and execution framework",
-            "dependencies": [],
-            "details": "Set up base command interface, command registry pattern, and command execution pipeline. Include support for command aliases, descriptions, and basic metadata. Implement command discovery and registration mechanisms.",
+            "title": "Define CLI command structure and argument schemas",
+            "description": "Specify the complete command structure, argument schemas, and CLI interface design before implementation",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [],
+            "details": "Define all CLI commands, their arguments, options, and relationships. Create schemas for argument validation, specify command hierarchies, aliases, and usage patterns. Document expected input/output formats and error scenarios.",
+            "testStrategy": "Validate schema completeness and consistency"
           },
           {
             "id": 2,
-            "title": "Build argument parsing and validation system",
-            "description": "Develop comprehensive argument parsing with type validation, required/optional flags, positional arguments, and error handling",
-            "dependencies": [
-              1
-            ],
-            "details": "Implement argument parser that handles flags, options, positional arguments, and subcommands. Add type validation, custom validators, default values, and comprehensive error messages. Support both short and long flag formats.",
+            "title": "Design configuration system architecture with config file formats",
+            "description": "Architect the configuration system including file formats, precedence rules, and validation schemas",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [],
+            "details": "Design configuration file formats (JSON/YAML/TOML), define configuration precedence (global vs local vs CLI args), create validation schemas, and specify configuration discovery and loading mechanisms.",
+            "testStrategy": "Validate configuration architecture against all use cases"
           },
           {
             "id": 3,
-            "title": "Create progress reporting and feedback mechanisms",
-            "description": "Implement progress bars, spinners, status messages, and real-time feedback for long-running operations",
-            "dependencies": [
-              1
-            ],
-            "details": "Build progress reporting utilities including progress bars for determinate operations, spinners for indeterminate tasks, and status message updates. Ensure proper terminal handling and cleanup on interruption.",
+            "title": "Specify progress reporting and interactive prompts patterns",
+            "description": "Define patterns and specifications for progress reporting, interactive prompts, and user feedback mechanisms",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [],
+            "details": "Specify progress bar behaviors, spinner usage patterns, interactive prompt flows, error handling patterns, and user feedback mechanisms. Define terminal interaction patterns and accessibility considerations.",
+            "testStrategy": "Validate UX specifications meet accessibility and usability requirements"
           },
           {
             "id": 4,
-            "title": "Develop interactive prompt system",
-            "description": "Build interactive prompts for user input including text input, selections, confirmations, and multi-step wizards",
-            "dependencies": [
-              1,
-              2
-            ],
-            "details": "Create prompt utilities for various input types: text input with validation, single/multi-select lists, yes/no confirmations, and password input. Support input history, autocomplete, and multi-step wizard flows.",
+            "title": "Implement core CLI framework with command routing",
+            "description": "Build the foundational CLI framework with command registration, routing, and execution pipeline",
             "status": "pending",
-            "testStrategy": ""
-          },
-          {
-            "id": 5,
-            "title": "Implement comprehensive help system and documentation",
-            "description": "Create auto-generated help documentation, usage examples, command discovery features, and integrated help command",
             "dependencies": [
               1,
               2,
-              3,
+              3
+            ],
+            "details": "Implement base command interface, command registry, routing system, and execution pipeline. Include command discovery, registration mechanisms, and basic error handling infrastructure.",
+            "testStrategy": "Test command registration, routing, and basic execution flows"
+          },
+          {
+            "id": 5,
+            "title": "Build argument parsing and validation system",
+            "description": "Develop comprehensive argument parsing with type validation, required/optional flags, and error handling",
+            "status": "pending",
+            "dependencies": [
               4
             ],
-            "details": "Build help system that auto-generates documentation from command metadata. Include usage examples, flag descriptions, subcommand listings, and contextual help. Add search functionality and 'did you mean' suggestions for typos.",
+            "details": "Implement argument parser handling flags, options, positional arguments, and subcommands. Add type validation, custom validators, default values, and comprehensive error messages with support for both short and long flag formats.",
+            "testStrategy": "Test all argument types, validation rules, and error scenarios"
+          },
+          {
+            "id": 6,
+            "title": "Create progress reporting and interactive UI components",
+            "description": "Implement progress bars, spinners, interactive prompts, and user feedback mechanisms",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [
+              4
+            ],
+            "details": "Build progress reporting utilities, interactive prompt system (text input, selections, confirmations, wizards), and real-time feedback components. Ensure proper terminal handling and cleanup on interruption.",
+            "testStrategy": "Test UI components across different terminal environments"
+          },
+          {
+            "id": 7,
+            "title": "Write unit tests for command parsing and validation",
+            "description": "Create comprehensive unit tests covering all command parsing, argument validation, and core CLI functionality",
+            "status": "pending",
+            "dependencies": [
+              5
+            ],
+            "details": "Write unit tests for argument parsing, validation logic, command routing, error handling, and configuration loading. Ensure high code coverage and test edge cases.",
+            "testStrategy": "Achieve >90% code coverage with comprehensive edge case testing"
+          },
+          {
+            "id": 8,
+            "title": "Create integration tests for end-to-end command flows",
+            "description": "Build integration tests that validate complete command execution flows from input to output",
+            "status": "pending",
+            "dependencies": [
+              6,
+              7
+            ],
+            "details": "Create end-to-end tests for all CLI commands, test command combinations, file processing workflows, interactive prompt flows, and error recovery scenarios. Include tests for different input formats and sizes.",
+            "testStrategy": "Test all supported workflows and user interaction patterns"
+          },
+          {
+            "id": 9,
+            "title": "Test CLI performance with large input sets",
+            "description": "Conduct performance testing with large datasets and high-volume operations to ensure CLI scalability",
+            "status": "pending",
+            "dependencies": [
+              8
+            ],
+            "details": "Test CLI performance with large files, directory trees, and bulk operations. Measure memory usage, execution time, and progress reporting accuracy. Identify and address performance bottlenecks.",
+            "testStrategy": "Validate performance benchmarks and resource usage limits"
+          },
+          {
+            "id": 10,
+            "title": "Document all CLI commands with examples",
+            "description": "Create comprehensive documentation for all CLI commands including usage examples and common patterns",
+            "status": "pending",
+            "dependencies": [
+              9
+            ],
+            "details": "Generate documentation for all commands, arguments, and options. Include practical examples, common use cases, and troubleshooting guides. Ensure documentation is auto-generated from command metadata where possible.",
+            "testStrategy": "Validate documentation completeness and accuracy"
+          },
+          {
+            "id": 11,
+            "title": "Create CLI usage tutorial and cookbook",
+            "description": "Develop user-friendly tutorials and a cookbook with real-world CLI usage scenarios and workflows",
+            "status": "pending",
+            "dependencies": [
+              10
+            ],
+            "details": "Create step-by-step tutorials for common workflows, a cookbook with practical recipes for different use cases, and getting-started guides. Include troubleshooting section and FAQ.",
+            "testStrategy": "Validate tutorials through user testing and feedback"
+          },
+          {
+            "id": 12,
+            "title": "Final review with CLI best practices guide",
+            "description": "Conduct comprehensive review of CLI implementation against industry best practices and create adherence guide",
+            "status": "pending",
+            "dependencies": [
+              11
+            ],
+            "details": "Review CLI against industry best practices for usability, accessibility, error handling, and documentation. Create best practices guide documenting decisions and rationale. Ensure CLI follows POSIX conventions where applicable.",
+            "testStrategy": "Validate against CLI best practices checklist and industry standards"
           }
         ]
       },
       {
         "id": 12,
         "title": "Implement Comprehensive Testing Suite",
-        "description": "Create extensive test coverage including unit tests, integration tests, and performance benchmarks",
-        "details": "Write unit tests for all modules achieving >90% code coverage. Create integration tests that test end-to-end workflows with real codebases. Build performance benchmarks comparing new implementation to existing regex-based approach. Implement snapshot testing for code generation consistency. Create test fixtures for various UI kits and component patterns. Set up continuous integration with automated testing.",
-        "testStrategy": "Verify >90% code coverage across all modules, validate integration tests cover main user workflows, confirm performance benchmarks show expected improvements, test snapshot consistency, and ensure CI pipeline catches regressions",
-        "priority": "high",
+        "description": "Create extensive test coverage including unit tests, integration tests, and performance benchmarks following Spec/Create/Test/Commit methodology",
+        "status": "pending",
         "dependencies": [
           11
         ],
-        "status": "pending",
+        "priority": "high",
+        "details": "Implement comprehensive testing suite with >90% code coverage using structured approach: SPEC PHASE - Define testing strategy and framework architecture. CREATE PHASE - Build test infrastructure and benchmarking systems. TEST PHASE - Write comprehensive test suites and execute performance analysis. COMMIT PHASE - Document testing practices and finalize CI/CD integration.",
+        "testStrategy": "Verify >90% code coverage across all modules, validate integration tests cover main user workflows, confirm performance benchmarks show expected improvements, test snapshot consistency, ensure CI pipeline catches regressions, and document testing best practices for maintainability",
         "subtasks": [
           {
             "id": 1,
-            "title": "Unit test framework setup",
-            "description": "Set up and configure the unit testing framework (Jest/Vitest) with TypeScript support",
-            "dependencies": [],
-            "details": "Install testing framework, configure test runners, set up test file patterns, configure TypeScript paths and module resolution for tests",
+            "title": "Define testing strategy and coverage requirements",
+            "description": "SPEC PHASE: Establish comprehensive testing strategy with >90% coverage target",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [],
+            "details": "Define testing categories (unit, integration, performance), establish code coverage requirements, specify test file organization patterns, document testing principles and standards",
+            "testStrategy": "Validate testing strategy document completeness and coverage target feasibility"
           },
           {
             "id": 2,
-            "title": "Integration test suite",
-            "description": "Create integration tests for CLI commands and component validation workflows",
+            "title": "Design test framework architecture",
+            "description": "SPEC PHASE: Design testing framework architecture with clear test categorization",
+            "status": "pending",
             "dependencies": [
               1
             ],
-            "details": "Test full command execution flows, file system operations, validation logic integration, and error handling scenarios",
-            "status": "pending",
-            "testStrategy": ""
+            "details": "Design test suite organization, plan test utilities and helpers, specify test data management approach, define test execution strategies for different test types",
+            "testStrategy": "Review architecture design for scalability and maintainability"
           },
           {
             "id": 3,
-            "title": "Performance benchmarks",
-            "description": "Implement performance benchmarking suite for validation and analysis operations",
+            "title": "Specify performance benchmark metrics",
+            "description": "SPEC PHASE: Define performance benchmark metrics and establish baselines",
+            "status": "pending",
             "dependencies": [
               1
             ],
-            "details": "Create benchmarks for file parsing speed, validation performance, memory usage tracking, and large codebase handling",
-            "status": "pending",
-            "testStrategy": ""
+            "details": "Define key performance indicators, establish baseline measurements, specify benchmark test scenarios, document performance regression thresholds",
+            "testStrategy": "Validate benchmark metrics align with performance requirements"
           },
           {
             "id": 4,
-            "title": "Snapshot testing setup",
-            "description": "Configure snapshot testing for CLI output and validation results",
-            "dependencies": [
-              1
-            ],
-            "details": "Set up snapshot testing for command outputs, error messages, validation reports, and formatted output consistency",
+            "title": "Implement unit test framework setup",
+            "description": "CREATE PHASE: Set up unit testing framework with utilities and TypeScript support",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [
+              2
+            ],
+            "details": "Install and configure Jest/Vitest, set up TypeScript integration, create test utilities and helpers, configure test file patterns and module resolution",
+            "testStrategy": "Verify framework setup works with sample tests"
           },
           {
             "id": 5,
-            "title": "Test fixture creation",
-            "description": "Create comprehensive test fixtures representing various component patterns and edge cases",
-            "dependencies": [
-              1
-            ],
-            "details": "Build fixtures for valid/invalid components, complex import scenarios, different framework patterns, and edge case handling",
+            "title": "Build integration test infrastructure",
+            "description": "CREATE PHASE: Create integration test infrastructure with comprehensive fixtures",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [
+              2
+            ],
+            "details": "Set up integration test environment, create test fixtures for various component patterns, build test data management system, configure end-to-end test scenarios",
+            "testStrategy": "Test infrastructure with sample integration scenarios"
           },
           {
             "id": 6,
-            "title": "Code coverage configuration",
-            "description": "Set up code coverage reporting and establish coverage thresholds",
-            "dependencies": [
-              1,
-              2
-            ],
-            "details": "Configure coverage tools, set minimum thresholds, exclude non-testable files, integrate coverage reports with development workflow",
+            "title": "Create performance benchmarking system",
+            "description": "CREATE PHASE: Implement performance benchmarking and monitoring system",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [
+              3
+            ],
+            "details": "Build benchmarking test suite, implement performance measurement tools, create baseline comparison system, set up performance regression detection",
+            "testStrategy": "Validate benchmarking system accuracy and consistency"
           },
           {
             "id": 7,
-            "title": "CI/CD pipeline setup",
-            "description": "Configure continuous integration pipeline for automated testing and validation",
+            "title": "Write comprehensive unit tests",
+            "description": "TEST PHASE: Implement unit tests for all modules targeting >90% coverage",
+            "status": "pending",
             "dependencies": [
-              1,
-              2,
-              3,
-              4,
-              5,
+              4
+            ],
+            "details": "Write unit tests for core modules, test edge cases and error conditions, implement test coverage for utility functions, create tests for validation logic",
+            "testStrategy": "Verify unit test coverage meets >90% target and tests are comprehensive"
+          },
+          {
+            "id": 8,
+            "title": "Create end-to-end integration scenarios",
+            "description": "TEST PHASE: Build comprehensive integration test scenarios covering main workflows",
+            "status": "pending",
+            "dependencies": [
+              5
+            ],
+            "details": "Create CLI command integration tests, test file system operations, validate complete user workflows, test error handling and edge cases",
+            "testStrategy": "Ensure integration tests cover all critical user paths"
+          },
+          {
+            "id": 9,
+            "title": "Execute performance benchmarks",
+            "description": "TEST PHASE: Run performance benchmarks and conduct analysis",
+            "status": "pending",
+            "dependencies": [
               6
             ],
-            "details": "Set up GitHub Actions workflows, configure test running on PRs, automate coverage reporting, integrate performance regression detection",
+            "details": "Execute benchmark test suites, analyze performance metrics, compare against baselines, identify performance bottlenecks, document performance characteristics",
+            "testStrategy": "Validate benchmark results show expected performance improvements"
+          },
+          {
+            "id": 10,
+            "title": "Document testing best practices",
+            "description": "COMMIT PHASE: Create comprehensive testing documentation and patterns",
             "status": "pending",
-            "testStrategy": ""
+            "dependencies": [
+              7,
+              8
+            ],
+            "details": "Document testing best practices, create testing pattern examples, write troubleshooting guides, establish testing workflow documentation",
+            "testStrategy": "Review documentation completeness and clarity"
+          },
+          {
+            "id": 11,
+            "title": "Create test writing guide",
+            "description": "COMMIT PHASE: Develop test writing guide with examples and templates",
+            "status": "pending",
+            "dependencies": [
+              7,
+              8
+            ],
+            "details": "Create test writing templates, provide code examples for different test types, document testing conventions, create quick reference guides",
+            "testStrategy": "Validate guide usefulness with sample test implementations"
+          },
+          {
+            "id": 12,
+            "title": "Final review and CI/CD pipeline setup",
+            "description": "COMMIT PHASE: Complete testing suite with CI/CD integration and final review",
+            "status": "pending",
+            "dependencies": [
+              9,
+              10,
+              11
+            ],
+            "details": "Set up GitHub Actions workflows, configure automated test execution, integrate coverage reporting, set up performance regression monitoring, conduct final testing suite review",
+            "testStrategy": "Verify CI/CD pipeline works correctly and all tests pass consistently"
           }
         ]
       },
       {
         "id": 13,
         "title": "Set up comprehensive pre-commit hooks with husky, lint-staged, vitest, ts-prune, and typedoc",
-        "description": "Configure automated pre-commit hooks to enforce code quality, run tests, detect unused code, and generate documentation before each commit",
-        "details": "Install and configure husky for Git hooks management. Set up lint-staged to run targeted checks only on staged files. Configure ESLint and Prettier integration for code formatting and linting. Set up vitest to run affected tests based on changed files. Integrate ts-prune to detect and report unused exports and dead code. Configure typedoc to generate API documentation from TypeScript source files. Create .husky/pre-commit hook that orchestrates all tools. Configure lint-staged in package.json with file pattern matching for different tools. Ensure hooks are fast enough to not impede developer workflow (target <10s for average commits). Add bypass mechanism for emergencies (--no-verify flag documentation). Create npm scripts for manual execution of each tool. Document the pre-commit workflow in contributing guidelines.",
-        "testStrategy": "Test pre-commit hooks by making intentional code quality violations and verifying they're caught. Verify lint-staged only processes staged files, not entire codebase. Test vitest integration by breaking tests and confirming commit is blocked. Validate ts-prune catches unused exports by adding dead code. Confirm typedoc generates documentation correctly and catches documentation errors. Benchmark hook execution time on various commit sizes. Test bypass mechanism works when needed. Verify all tools work in CI environment as well as locally.",
-        "status": "done",
+        "description": "Configure automated pre-commit hooks to enforce code quality, run tests, detect unused code, and generate documentation before each commit following Spec/Create/Test/Commit workflow",
+        "status": "pending",
         "dependencies": [
           12
         ],
         "priority": "medium",
+        "details": "Implement comprehensive pre-commit hooks using a structured approach: SPEC PHASE - Define requirements and design execution flow with <10s performance target. CREATE PHASE - Install and configure husky, lint-staged, ESLint, Prettier, vitest, ts-prune, and typedoc with proper file pattern mappings. TEST PHASE - Validate hooks with intentional violations, benchmark performance, and verify CI compatibility. COMMIT PHASE - Document workflow, create troubleshooting guides, and establish bypass mechanisms. The implementation will use nano-tasks to ensure systematic completion of each phase while maintaining developer workflow efficiency.",
+        "testStrategy": "Follow structured testing approach: Phase 1 - Test individual tool configurations in isolation. Phase 2 - Test integrated hook execution with various violation scenarios (linting errors, test failures, unused exports, documentation issues). Phase 3 - Benchmark execution time across different commit sizes (small: 1-3 files, medium: 4-10 files, large: 10+ files). Phase 4 - Verify bypass mechanism functionality and CI environment compatibility. Target: All tests pass with <10s execution time for typical commits.",
         "subtasks": [
           {
             "id": 1,
-            "title": "Install and configure husky with initial Git hooks setup",
-            "description": "Install husky as a dev dependency and initialize Git hooks infrastructure",
+            "title": "SPEC PHASE: Define pre-commit hook requirements and tool selection",
+            "description": "Establish comprehensive requirements for pre-commit hooks and finalize tool selection",
+            "status": "pending",
             "dependencies": [],
-            "details": "Install husky@latest using npm/yarn/pnpm. Run husky install to set up Git hooks. Configure package.json with prepare script to auto-install hooks. Create .husky directory structure. Verify hooks are properly installed by checking .git/hooks directory. Test basic hook functionality with a simple echo command.\n<info added on 2025-06-26T01:29:52.842Z>\nNano-task breakdown:\n\n1. Install husky package - Run `npm install --save-dev husky` or equivalent package manager command\n2. Run husky install command - Execute `npx husky install` to initialize husky in the project\n3. Add prepare script to package.json - Add `\"prepare\": \"husky install\"` to scripts section for automatic setup\n4. Create initial .husky directory structure - Ensure .husky folder exists with proper permissions and basic structure\n5. Verify Git hooks integration - Check that .git/hooks directory contains husky references and hooks are properly linked\n6. Create test pre-commit hook with echo - Add simple `echo \"Pre-commit hook working\"` test hook to validate setup before adding real linting rules\n</info added on 2025-06-26T01:29:52.842Z>",
-            "status": "done",
-            "testStrategy": "Create a test commit to verify husky is intercepting Git operations. Check that .husky directory exists and contains proper executable scripts."
+            "details": "Document specific requirements for each tool: husky for Git hooks management, lint-staged for targeted file processing, ESLint/Prettier for code quality, vitest for testing, ts-prune for dead code detection, and typedoc for documentation. Define performance targets (<10s for average commits), file pattern matching strategies, and tool integration points. Specify bypass mechanisms and error handling requirements.",
+            "testStrategy": "Review requirements document with development team to ensure all use cases are covered and performance targets are realistic."
           },
           {
             "id": 2,
-            "title": "Set up lint-staged with ESLint and Prettier configuration",
-            "description": "Install and configure lint-staged to run code formatting and linting on staged files only",
+            "title": "SPEC PHASE: Design hook execution flow with performance targets",
+            "description": "Design the execution flow and optimization strategy for pre-commit hooks",
+            "status": "pending",
             "dependencies": [
               1
             ],
-            "details": "Install lint-staged, eslint, prettier, and related configs as dev dependencies. Create .lintstagedrc.json with file pattern matching rules. Configure ESLint with appropriate rules for TypeScript. Set up Prettier with project-specific formatting rules. Define lint-staged tasks for .ts, .tsx, .js, .jsx files to run eslint --fix and prettier --write. Ensure proper integration between ESLint and Prettier to avoid conflicts.\n<info added on 2025-06-26T01:30:20.502Z>\nNano-task breakdown for implementation:\n\n1. Install lint-staged, eslint, prettier packages - Run npm install --save-dev lint-staged eslint prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-prettier eslint-plugin-prettier\n\n2. Create .eslintrc.json with TypeScript rules - Set up extends array with @typescript-eslint/recommended and prettier, configure parser and parserOptions for TypeScript, add appropriate rules for code quality\n\n3. Create .prettierrc with formatting rules - Define consistent formatting: semi: true, singleQuote: true, tabWidth: 2, trailingComma: 'es5', printWidth: 80, endOfLine: 'lf'\n\n4. Create .lintstagedrc.json configuration - Structure with file pattern keys and command arrays as values\n\n5. Configure file pattern matching for different file types - Map \"*.{ts,tsx}\": [\"eslint --fix\", \"prettier --write\"], \"*.{js,jsx}\": [\"eslint --fix\", \"prettier --write\"], \"*.{json,md}\": [\"prettier --write\"]\n\n6. Test lint-staged with sample staged files - Create test files, stage them, run npx lint-staged to verify commands execute correctly on staged files only\n\n7. Add lint-staged to husky pre-commit hook - Update .husky/pre-commit to include npx lint-staged command after existing checks\n</info added on 2025-06-26T01:30:20.502Z>",
-            "status": "done",
-            "testStrategy": "Stage various file types and run lint-staged manually to verify correct tool execution. Test with intentionally malformed code to ensure linting catches errors."
+            "details": "Create detailed execution flow diagram showing tool dependencies and parallel execution opportunities. Design performance optimization strategies including file pattern matching, incremental processing, and parallel tool execution. Specify error handling and recovery mechanisms. Document bypass procedures for emergency commits using --no-verify flag.",
+            "testStrategy": "Validate execution flow design through dry-run scenarios and performance modeling."
           },
           {
             "id": 3,
-            "title": "Configure vitest for pre-commit test execution",
-            "description": "Set up vitest to run only tests affected by staged changes",
+            "title": "SPEC PHASE: Specify tool configuration patterns for lint-staged",
+            "description": "Define specific configuration patterns and file matching rules for lint-staged",
+            "status": "pending",
             "dependencies": [
               2
             ],
-            "details": "Configure vitest with --related flag to run only tests related to changed files. Create custom script that identifies test files based on staged changes. Set up vitest config to run in watch=false mode for pre-commit. Configure test coverage thresholds if applicable. Add lint-staged configuration to run vitest for test files and related source files. Optimize test execution time by using vitest's built-in parallelization.\n<info added on 2025-06-26T01:30:52.606Z>\n**Nano-tasks breakdown:**\n\n1. Create vitest pre-commit script for affected tests\n   - Write shell script or Node.js script to execute vitest commands\n   - Handle exit codes properly for pre-commit hook integration\n   - Add error handling and logging\n\n2. Configure vitest with --related flag setup\n   - Update vitest.config.ts to support related test detection\n   - Configure test file patterns and source file mappings\n   - Set up dependency graph analysis for accurate test selection\n\n3. Create custom test detection logic for staged files\n   - Implement logic to parse git staged files\n   - Map source files to corresponding test files\n   - Handle edge cases like renamed/moved files\n\n4. Add vitest configuration for non-watch mode\n   - Set watch: false in vitest config for CI/pre-commit contexts\n   - Configure reporter for concise output in hook environment\n   - Disable interactive features for automated execution\n\n5. Configure test coverage thresholds\n   - Set minimum coverage percentages (lines, functions, branches, statements)\n   - Configure coverage reporting format for pre-commit output\n   - Add coverage exclusion patterns for generated files\n\n6. Add vitest patterns to lint-staged config\n   - Define file patterns that should trigger vitest execution\n   - Configure vitest command with appropriate flags\n   - Set up conditional execution based on file types\n\n7. Optimize test execution with parallelization settings\n   - Configure maxConcurrency and pool settings\n   - Set up CPU core detection for optimal thread allocation\n   - Add memory usage optimization for large test suites\n</info added on 2025-06-26T01:30:52.606Z>",
-            "status": "done",
-            "testStrategy": "Create sample tests and verify that only related tests run when specific files are staged. Measure execution time with various numbers of changed files."
+            "details": "Specify file pattern matching rules for different file types (.ts, .tsx, .js, .jsx, .json, .md). Define command sequences for each file type including ESLint, Prettier, vitest, ts-prune, and typedoc integration. Document configuration structure for .lintstagedrc.json including glob patterns and command arrays.",
+            "testStrategy": "Validate configuration patterns against project file structure and verify all relevant file types are covered."
           },
           {
             "id": 4,
-            "title": "Integrate ts-prune and typedoc into pre-commit workflow",
-            "description": "Configure ts-prune for dead code detection and typedoc for documentation generation",
+            "title": "CREATE PHASE: Install and configure husky for Git hooks",
+            "description": "Install husky and establish Git hooks infrastructure",
+            "status": "pending",
             "dependencies": [
-              2
+              3
             ],
-            "details": "Install ts-prune and typedoc as dev dependencies. Configure ts-prune to scan the entire codebase for unused exports. Set up typedoc.json with input/output paths and theme configuration. Create scripts to run ts-prune and generate warnings for unused code. Configure typedoc to generate documentation only for changed modules to optimize performance. Add both tools to lint-staged configuration with appropriate file patterns.\n<info added on 2025-06-26T01:31:24.620Z>\nBreaking down implementation into specific nano-tasks:\n\n1. Install ts-prune and typedoc packages - Add both packages to devDependencies with npm install --save-dev ts-prune typedoc\n\n2. Create ts-prune configuration file - Generate .tsprunerc or tsconfig-prune.json with project-specific ignore patterns and scanning rules\n\n3. Write ts-prune detection script for unused exports - Create script that runs ts-prune and formats output for pre-commit consumption with appropriate exit codes\n\n4. Create typedoc.json configuration - Configure input directories, output path, theme selection, and module resolution settings\n\n5. Implement incremental doc generation for changed files - Build logic to detect changed TypeScript files and generate docs only for affected modules to improve performance\n\n6. Add ts-prune and typedoc to lint-staged - Configure lint-staged patterns to run ts-prune on .ts/.tsx files and typedoc on documentation-relevant changes\n\n7. Configure warning levels and error thresholds - Set up ts-prune to warn on unused exports but not fail commits, establish thresholds for when to block commits\n\n8. Create documentation template customization - Customize typedoc theme and templates to match project branding and documentation standards\n</info added on 2025-06-26T01:31:24.620Z>",
-            "status": "done",
-            "testStrategy": "Intentionally create unused exports and verify ts-prune detects them. Modify TypeScript files and confirm typedoc generates updated documentation."
+            "details": "Install husky@latest as dev dependency. Execute husky install to initialize Git hooks. Configure package.json with prepare script for automatic setup. Create .husky directory structure with proper permissions. Set up basic pre-commit hook template. Verify Git hooks integration and test basic functionality.",
+            "testStrategy": "Create test commit to verify husky intercepts Git operations and .husky directory structure is properly established."
           },
           {
             "id": 5,
-            "title": "Create orchestrated pre-commit hook and documentation",
-            "description": "Build the final pre-commit hook that coordinates all tools and document the workflow",
+            "title": "CREATE PHASE: Set up lint-staged with file pattern mappings",
+            "description": "Install and configure lint-staged with comprehensive file pattern matching",
+            "status": "pending",
             "dependencies": [
-              1,
-              2,
-              3,
               4
             ],
-            "details": "Create .husky/pre-commit script that runs lint-staged. Configure performance optimizations like running tools in parallel where possible. Implement execution time monitoring and logging. Add clear error messages and guidance for fixing common issues. Create bypass documentation explaining --no-verify flag usage. Write comprehensive CONTRIBUTING.md section explaining the pre-commit workflow. Create npm scripts for manual execution: lint, format, test:affected, check:unused, docs:generate. Add troubleshooting guide for common pre-commit failures.\n<info added on 2025-06-26T01:31:53.434Z>\nNano-task breakdown:\n\n1. Create main .husky/pre-commit script - Set up executable shell script that orchestrates all pre-commit checks with proper exit codes and error handling\n\n2. Implement parallel execution strategy for tools - Use background processes and job control to run independent tools simultaneously, reducing total execution time\n\n3. Add execution time monitoring and logging - Track and display timing for each tool, with colored output for performance insights and bottleneck identification\n\n4. Create error message formatting and guidance - Design clear, actionable error messages with specific fix suggestions and relevant file context\n\n5. Write CONTRIBUTING.md pre-commit section - Document the complete pre-commit workflow, expectations, and developer experience for new contributors\n\n6. Document --no-verify bypass mechanism - Explain when and how to safely bypass pre-commit hooks, with warnings about responsibility and best practices\n\n7. Create npm scripts for manual tool execution - Provide package.json scripts mirroring pre-commit tools for standalone developer use and CI integration\n\n8. Build troubleshooting guide with common issues - Catalog frequent pre-commit failures with step-by-step resolution procedures and prevention tips\n\n9. Implement performance optimization for large commits - Add file count thresholds, staged-only processing, and incremental checks to handle large changesets efficiently\n</info added on 2025-06-26T01:31:53.434Z>",
-            "status": "done",
-            "testStrategy": "Run full pre-commit hook with various scenarios: clean commits, linting errors, test failures, unused exports. Measure total execution time and ensure it stays under 10 seconds for typical commits."
+            "details": "Install lint-staged as dev dependency. Create .lintstagedrc.json with file pattern matching rules for different file types. Configure command sequences for TypeScript files, JavaScript files, JSON files, and Markdown files. Set up proper tool integration points for ESLint, Prettier, vitest, ts-prune, and typedoc.",
+            "testStrategy": "Stage various file types and run lint-staged manually to verify correct tool execution and file pattern matching."
+          },
+          {
+            "id": 6,
+            "title": "CREATE PHASE: Integrate ESLint, Prettier, vitest, ts-prune, and typedoc",
+            "description": "Install and configure all quality tools with proper integration",
+            "status": "pending",
+            "dependencies": [
+              5
+            ],
+            "details": "Install ESLint, Prettier, vitest, ts-prune, and typedoc with required plugins and configurations. Create .eslintrc.json with TypeScript rules. Set up .prettierrc with project formatting standards. Configure vitest for --related flag usage. Set up ts-prune for unused export detection. Configure typedoc.json for documentation generation. Integrate all tools into lint-staged configuration.",
+            "testStrategy": "Test each tool individually and then in combination to ensure proper integration and no conflicts between tools."
+          },
+          {
+            "id": 7,
+            "title": "TEST PHASE: Test pre-commit hooks with intentional violations",
+            "description": "Validate hook functionality by testing with deliberate code quality violations",
+            "status": "pending",
+            "dependencies": [
+              6
+            ],
+            "details": "Create test scenarios with intentional linting errors, formatting issues, test failures, unused exports, and documentation problems. Verify each violation is properly caught and blocked. Test that valid commits pass through successfully. Validate error messages are clear and actionable.",
+            "testStrategy": "Execute comprehensive test suite covering all violation types and verify appropriate hook behavior for each scenario."
+          },
+          {
+            "id": 8,
+            "title": "TEST PHASE: Benchmark hook execution time on various commit sizes",
+            "description": "Measure and optimize pre-commit hook performance across different scenarios",
+            "status": "pending",
+            "dependencies": [
+              7
+            ],
+            "details": "Create benchmark scenarios with small (1-3 files), medium (4-10 files), and large (10+ files) commits. Measure execution time for each tool and total hook execution. Identify performance bottlenecks and implement optimizations. Verify <10s target is met for typical commits. Document performance characteristics.",
+            "testStrategy": "Run benchmark suite multiple times to establish baseline performance metrics and verify optimization effectiveness."
+          },
+          {
+            "id": 9,
+            "title": "TEST PHASE: Verify CI environment compatibility",
+            "description": "Ensure pre-commit hooks work correctly in CI/CD environments",
+            "status": "pending",
+            "dependencies": [
+              8
+            ],
+            "details": "Test hook execution in CI environments including proper environment variable handling, dependency availability, and performance characteristics. Verify hooks can be bypassed when appropriate in CI. Test integration with existing CI workflows. Document any CI-specific configuration requirements.",
+            "testStrategy": "Execute full test suite in CI environment and verify all hooks function correctly with proper error handling and reporting."
+          },
+          {
+            "id": 10,
+            "title": "COMMIT PHASE: Document pre-commit workflow in contributing guide",
+            "description": "Create comprehensive documentation for the pre-commit workflow",
+            "status": "pending",
+            "dependencies": [
+              9
+            ],
+            "details": "Update CONTRIBUTING.md with detailed pre-commit workflow documentation. Include tool descriptions, common workflows, troubleshooting steps, and bypass procedures. Document npm scripts for manual tool execution. Provide examples of typical commit scenarios and expected behavior.",
+            "testStrategy": "Review documentation with development team and verify all common use cases and workflows are clearly documented."
+          },
+          {
+            "id": 11,
+            "title": "COMMIT PHASE: Create troubleshooting guide for common issues",
+            "description": "Build comprehensive troubleshooting guide for pre-commit hook issues",
+            "status": "pending",
+            "dependencies": [
+              10
+            ],
+            "details": "Document common pre-commit hook failures and their solutions. Include step-by-step resolution procedures for linting errors, test failures, configuration issues, and performance problems. Create FAQ section with frequent developer questions. Provide escalation procedures for complex issues.",
+            "testStrategy": "Validate troubleshooting guide by attempting to resolve common issues using only the documented procedures."
+          },
+          {
+            "id": 12,
+            "title": "COMMIT PHASE: Final review with bypass mechanism documentation",
+            "description": "Complete final review and document bypass mechanisms for emergency commits",
+            "status": "pending",
+            "dependencies": [
+              11
+            ],
+            "details": "Conduct comprehensive review of entire pre-commit hook system. Document --no-verify bypass mechanism with clear guidelines on when and how to use safely. Create emergency commit procedures. Finalize all configuration files and documentation. Prepare deployment checklist for team rollout.",
+            "testStrategy": "Execute complete system review including all tools, documentation, and bypass mechanisms to ensure production readiness."
           }
         ]
       }
     ],
     "metadata": {
       "created": "2025-06-24T18:43:23.772Z",
-      "updated": "2025-06-26T03:03:04.393Z",
+      "updated": "2025-06-27T20:35:55.775Z",
       "description": "Tasks for master context"
     }
   }
