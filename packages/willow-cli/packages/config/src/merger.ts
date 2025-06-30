@@ -82,8 +82,8 @@ export class ConfigMerger {
       return this.mergeArrays(target, source);
     }
     
-    // Clone target if needed
-    const result = this.options.clone ? { ...target } : target;
+    // Clone target if needed, ensure it's an object
+    const result = this.options.clone ? { ...(target || {}) } : (target || {});
     
     // Merge object properties
     for (const key in source) {
@@ -95,7 +95,7 @@ export class ConfigMerger {
         if (this.isObject(targetValue) && this.isObject(sourceValue)) {
           result[key] = this.deepMerge(targetValue, sourceValue, newPath);
         } else {
-          result[key] = this.deepMerge({}, sourceValue, newPath);
+          result[key] = this.deepMerge(targetValue, sourceValue, newPath);
         }
       }
     }

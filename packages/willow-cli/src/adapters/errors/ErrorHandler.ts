@@ -130,7 +130,7 @@ export class ErrorHandler {
     result.error = lastError!;
 
     // Apply error handling strategy
-    return this.applyStrategy(lastError!, fullContext, result);
+    return await this.applyStrategy(lastError!, fullContext, result);
   }
 
   /**
@@ -169,18 +169,53 @@ export class ErrorHandler {
       result.duration = Date.now() - fullContext.startTime;
       result.error = adapterError;
 
-      return this.applyStrategy(adapterError, fullContext, result);
+      return this.applyStrategySync(adapterError, fullContext, result);
+    }
+  }
+
+  /**
+   * Apply the configured error handling strategy (sync version)
+   */
+  private applyStrategySync<T>(
+    error: AdapterError,
+    context: ErrorContext,
+    result: ErrorHandlingResult<T>
+  ): ErrorHandlingResult<T> {
+    switch (this.config.strategy) {
+      case 'throw':
+        throw error;
+
+      case 'log':
+        this.logError(error, context);
+        return result;
+
+      case 'ignore':
+        return result;
+
+      case 'fallback':
+        this.config.onFallback(error, this.config.fallbackValue, context);
+        result.success = true;
+        result.result = this.config.fallbackValue;
+        result.usedFallback = true;
+        return result;
+
+      case 'retry':
+        // Retry strategy not supported in sync mode
+        return result;
+
+      default:
+        throw error;
     }
   }
 
   /**
    * Apply the configured error handling strategy
    */
-  private applyStrategy<T>(
+  private async applyStrategy<T>(
     error: AdapterError,
     context: ErrorContext,
     result: ErrorHandlingResult<T>
-  ): ErrorHandlingResult<T> {
+  ): Promise<ErrorHandlingResult<T>> {
     switch (this.config.strategy) {
       case 'throw':
         throw error;

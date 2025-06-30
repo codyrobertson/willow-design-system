@@ -9,7 +9,7 @@ import type {
   PropertyMappingResult,
   ComponentMappingResult,
 } from '../types/component-mapping.types';
-import { PropNameTransformer } from '../transformers/prop-name-transformer';
+import { PropNameTransformer } from '../transformers/core/prop-name-transformer';
 
 /**
  * Main engine for transforming component properties

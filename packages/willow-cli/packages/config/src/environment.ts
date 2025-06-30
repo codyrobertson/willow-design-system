@@ -69,14 +69,23 @@ export class EnvironmentLoader {
     const withoutPrefix = key.slice(this.prefix.length);
     if (!withoutPrefix) return null;
     
-    // Split by delimiter and convert case
+    // Split by delimiter
     const parts = withoutPrefix.split(this.delimiter);
     
-    if (this.options.convertCase) {
-      return parts.map(part => this.toCamelCase(part));
+    // Process each part
+    const processedParts: string[] = [];
+    for (const part of parts) {
+      if (this.options.convertCase) {
+        // Convert to camelCase
+        processedParts.push(this.toCamelCase(part));
+      } else {
+        // Split by underscore for nested structure
+        const subParts = part.split('_').map(p => p.toLowerCase());
+        processedParts.push(...subParts);
+      }
     }
     
-    return parts.map(part => part.toLowerCase());
+    return processedParts;
   }
   
   /**

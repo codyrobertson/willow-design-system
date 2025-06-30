@@ -226,14 +226,14 @@ export class ConditionalPropMapper {
         return {
           matched: propValue === conditionValue,
           value: propValue,
-          reason: `${propValue} ${propValue === conditionValue ? '===' : '!=='} ${conditionValue}`,
+          reason: `${this.formatValue(propValue)} ${propValue === conditionValue ? '===' : '!=='} ${this.formatValue(conditionValue)}`,
         };
 
       case ConditionOperator.NOT_EQUALS:
         return {
           matched: propValue !== conditionValue,
           value: propValue,
-          reason: `${propValue} ${propValue !== conditionValue ? '!==' : '==='} ${conditionValue}`,
+          reason: `${this.formatValue(propValue)} ${propValue !== conditionValue ? '!==' : '==='} ${this.formatValue(conditionValue)}`,
         };
 
       case ConditionOperator.CONTAINS:
@@ -423,6 +423,16 @@ export class ConditionalPropMapper {
   supportsOperator(operator: string): boolean {
     return Object.values(ConditionOperator).includes(operator as ConditionOperator) ||
            this.customOperators.has(operator);
+  }
+
+  /**
+   * Format value for display in reason strings
+   */
+  private formatValue(value: any): string {
+    if (typeof value === 'string') {
+      return `"${value}"`;
+    }
+    return String(value);
   }
 
   /**

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { AdapterRegistry, AdapterRegistration } from './AdapterRegistry';
-import { AdapterFactory, AdapterCreationRequest } from './AdapterFactory';
-import { UIKitAdapter, AdapterConfig, ComponentMapping, ValidationResult } from './UIKitAdapter';
-import { StyleConfig, TokenConfig } from '../types/AdapterTypes';
+import { AdapterRegistry, AdapterRegistration } from '../AdapterRegistry';
+import { AdapterFactory, AdapterCreationRequest } from '../AdapterFactory';
+import { UIKitAdapter, AdapterConfig, ComponentMapping, ValidationResult } from '../UIKitAdapter';
+import { StyleConfig, TokenConfig } from '../../types/AdapterTypes';
 
 // Mock adapter for testing
 class MockTestAdapter extends UIKitAdapter {

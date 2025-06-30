@@ -1,4 +1,4 @@
-import { beforeEach, afterEach, vi } from 'vitest';
+import { beforeEach, afterEach, vi, expect } from 'vitest';
 
 // Mock global browser APIs that are not available in Node.js test environment
 global.fetch = vi.fn();
@@ -36,6 +36,13 @@ global.window = {
 } as any;
 
 global.performance = {
+  now: () => Date.now(),
+  mark: vi.fn(),
+  measure: vi.fn(),
+  clearMarks: vi.fn(),
+  clearMeasures: vi.fn(),
+  getEntriesByName: vi.fn(() => []),
+  getEntriesByType: vi.fn(() => []),
   memory: {
     usedJSHeapSize: 50000000,
     totalJSHeapSize: 100000000,
@@ -96,4 +103,34 @@ afterEach(() => {
   console.error = originalConsole.error;
   console.warn = originalConsole.warn;
   console.info = originalConsole.info;
+});
+
+// Add custom matchers
+expect.extend({
+  toHaveBeenCalledExactlyOnceWith(received: any, ...expectedArgs: any[]) {
+    const pass = 
+      vi.isMockFunction(received) &&
+      received.mock.calls.length === 1 &&
+      JSON.stringify(received.mock.calls[0]) === JSON.stringify(expectedArgs);
+    
+    if (pass) {
+      return {
+        message: () => `expected ${received} not to have been called exactly once with ${expectedArgs}`,
+        pass: true,
+      };
+    } else {
+      return {
+        message: () => {
+          if (!vi.isMockFunction(received)) {
+            return `expected ${received} to be a mock function`;
+          }
+          if (received.mock.calls.length !== 1) {
+            return `expected ${received} to have been called exactly once, but was called ${received.mock.calls.length} times`;
+          }
+          return `expected ${received} to have been called with ${JSON.stringify(expectedArgs)}, but was called with ${JSON.stringify(received.mock.calls[0])}`;
+        },
+        pass: false,
+      };
+    }
+  },
 });

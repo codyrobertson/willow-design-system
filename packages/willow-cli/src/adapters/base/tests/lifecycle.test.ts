@@ -5,10 +5,10 @@ import {
   AdapterLifecyclePhase, 
   AdapterLifecycleHooks,
   LifecycleAwareAdapter 
-} from './AdapterLifecycle';
-import { AdapterHooks } from './AdapterHooks';
-import { UIKitAdapter, AdapterConfig, ComponentMapping, ValidationResult } from './UIKitAdapter';
-import { StyleConfig, TokenConfig } from '../types/AdapterTypes';
+} from '../AdapterLifecycle';
+import { AdapterHooks } from '../AdapterHooks';
+import { UIKitAdapter, AdapterConfig, ComponentMapping, ValidationResult } from '../UIKitAdapter';
+import { StyleConfig, TokenConfig } from '../../types/AdapterTypes';
 
 // Test adapter implementation
 class TestLifecycleAdapter extends LifecycleAwareAdapter {

@@ -34,7 +34,7 @@ describe('ConditionalPropMapper', () => {
 
       expect(result.matched).toBe(true);
       expect(result.value).toBe('primary');
-      expect(result.reason).toContain('primary === primary');
+      expect(result.reason).toContain('"primary" === "primary"');
     });
 
     it('should evaluate not equals condition correctly', () => {
@@ -43,7 +43,7 @@ describe('ConditionalPropMapper', () => {
 
       expect(result.matched).toBe(true);
       expect(result.value).toBe('primary');
-      expect(result.reason).toContain('primary !== secondary');
+      expect(result.reason).toContain('"primary" !== "secondary"');
     });
 
     it('should evaluate exists condition correctly', () => {
@@ -67,7 +67,7 @@ describe('ConditionalPropMapper', () => {
       const result = mapper.evaluateCondition(condition, context);
 
       expect(result.matched).toBe(true);
-      expect(result.reason).toContain('primary contains prim');
+      expect(result.reason).toContain('"primary" contains "prim"');
     });
 
     it('should evaluate not contains condition correctly', () => {
@@ -75,7 +75,7 @@ describe('ConditionalPropMapper', () => {
       const result = mapper.evaluateCondition(condition, context);
 
       expect(result.matched).toBe(true);
-      expect(result.reason).toContain('primary does not contain secondary');
+      expect(result.reason).toContain('"primary" does not contain "secondary"');
     });
   });
 
@@ -85,7 +85,7 @@ describe('ConditionalPropMapper', () => {
       const result = mapper.evaluateCondition(condition, context);
 
       expect(result.matched).toBe(true);
-      expect(result.reason).toContain('primary starts with prim');
+      expect(result.reason).toContain('"primary" starts with "prim"');
     });
 
     it('should evaluate ends with condition', () => {
@@ -93,7 +93,7 @@ describe('ConditionalPropMapper', () => {
       const result = mapper.evaluateCondition(condition, context);
 
       expect(result.matched).toBe(true);
-      expect(result.reason).toContain('primary ends with ary');
+      expect(result.reason).toContain('"primary" ends with "ary"');
     });
 
     it('should evaluate regex matches condition', () => {
@@ -101,7 +101,7 @@ describe('ConditionalPropMapper', () => {
       const result = mapper.evaluateCondition(condition, context);
 
       expect(result.matched).toBe(true);
-      expect(result.reason).toContain('primary matches pattern');
+      expect(result.reason).toContain('"primary" matches pattern');
     });
 
     it('should handle invalid regex gracefully', () => {

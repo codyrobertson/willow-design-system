@@ -604,7 +604,7 @@
         "id": 6,
         "title": "Implement UI Kit Adapter System",
         "description": "Create the UI kit abstraction layer with adapters for popular UI libraries",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [
           2,
           5
@@ -738,7 +738,7 @@
             "title": "Create Bootstrap adapter",
             "description": "Build adapter for Bootstrap components with utility class handling and complete Bootstrap 5 support",
             "details": "<info added on 2025-06-27T20:18:14.557Z>\nImplement comprehensive Bootstrap 5 adapter for Willow CLI migration system with full component coverage and utility mapping.\n\n**Core Implementation Tasks:**\n\n1. **BootstrapAdapter Class Foundation**\n   - Extend BaseAdapter with Bootstrap-specific configuration\n   - Initialize Bootstrap CSS framework detection\n   - Set up component registry and mapping tables\n   - Configure default Bootstrap theme variables\n\n2. **Component Mapping System**\n   - Button: Map btn, btn-primary/secondary/success/danger/warning/info/light/dark, btn-sm/lg, btn-outline-* variants\n   - Card: Map card, card-header, card-body, card-footer, card-title, card-text structures\n   - Modal: Map modal, modal-dialog, modal-content, modal-header/body/footer with backdrop and fade transitions\n   - Alert: Map alert, alert-primary/secondary/success/danger/warning/info/light/dark with alert-dismissible functionality\n   - Form Controls: Map form-control, form-select, form-check, form-switch with validation states (is-valid, is-invalid)\n\n3. **Utility Class Translation Engine**\n   - Spacing: m-0 to m-5, mt/mb/ms/me-*, p-0 to p-5, pt/pb/ps/pe-* → Willow spacing tokens\n   - Colors: text-primary/secondary/success/danger/warning/info/light/dark/muted, bg-* variants → Willow color system\n   - Display: d-none/block/inline/inline-block/flex/inline-flex/table/table-row/table-cell → Willow display utilities\n   - Flexbox: justify-content-*/align-items-*/flex-direction-*/flex-wrap-* → Willow flex system\n   - Position: position-static/relative/absolute/fixed/sticky with top/bottom/start/end-* → Willow position system\n\n4. **Grid System Integration**\n   - Container: .container/.container-fluid → Willow container components\n   - Row: .row with gutter system → Willow row with spacing\n   - Columns: .col/.col-{breakpoint}-{size} (1-12) → Willow responsive grid columns\n   - Breakpoint mapping: xs/sm/md/lg/xl/xxl → Willow breakpoint system\n\n5. **CSS Variable Conversion System**\n   - Primary color family: --bs-primary, --bs-primary-rgb → Willow primary tokens\n   - Secondary colors: --bs-secondary, --bs-success, --bs-info, --bs-warning, --bs-danger → Willow semantic colors\n   - Neutral colors: --bs-light, --bs-dark, --bs-body-bg, --bs-body-color → Willow surface and text tokens\n   - Spacing: --bs-gutter-x, --bs-gutter-y → Willow spacing scale\n   - Typography: --bs-font-family-base, --bs-font-size-base → Willow typography tokens\n\n6. **JavaScript Component Lifecycle Management**\n   - Modal: Handle show/hide events, backdrop clicks, keyboard navigation, focus management\n   - Tooltip/Popover: Manage positioning engine, show/hide delays, trigger events (hover, focus, click)\n   - Dropdown: Handle toggle states, keyboard navigation, outside click detection\n   - Collapse: Manage accordion behavior, transition animations, multiple target support\n   - Ensure proper cleanup and event listener removal\n\n7. **TypeScript Integration**\n   - Define BootstrapComponentProps interfaces for all mapped components\n   - Create utility type helpers for Bootstrap variant unions\n   - Implement strict typing for component mapping functions\n   - Add generic types for theme customization and extension\n   - Ensure full IntelliSense support for Bootstrap → Willow migrations\n\n8. **Testing Strategy**\n   - Unit tests: Each component mapping function with various prop combinations\n   - Integration tests: Complex nested component structures (Card with Modal, Forms with validation)\n   - Utility tests: All utility class translations with edge cases\n   - JavaScript component tests: Lifecycle management and event handling\n   - Snapshot tests: Generated Willow code output consistency\n\n9. **Migration Documentation**\n   - Component conversion examples: Bootstrap Button → Willow Button with all variants\n   - Utility class cheat sheet: Complete mapping reference\n   - Layout migration guide: Bootstrap grid → Willow grid system\n   - JavaScript component migration: Event handling and lifecycle differences\n   - Common patterns: Navigation bars, hero sections, card layouts, forms\n   - Troubleshooting guide: Common migration issues and solutions\n\n**Implementation Priority:**\nStart with core components (Button, Card, Alert) and utility classes, then expand to complex JavaScript components and comprehensive testing coverage.\n</info added on 2025-06-27T20:18:14.557Z>",
-            "status": "in-progress",
+            "status": "done",
             "dependencies": [],
             "parentTaskId": 6
           }
@@ -748,7 +748,7 @@
         "id": 7,
         "title": "Build Code Generator Module",
         "description": "Implement code generation capabilities from AST with support for templates and file organization following Spec/Create/Test/Commit workflow",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [
           5
         ],
@@ -760,7 +760,7 @@
             "id": 1,
             "title": "Define code generation interfaces and contracts",
             "description": "SPEC PHASE: Define ICodeGenerator, IGeneratorOptions, and IGeneratorOutput interfaces",
-            "status": "pending",
+            "status": "done",
             "dependencies": [],
             "details": "Create TypeScript interfaces that define the contracts for code generation functionality. Include ICodeGenerator for the main generator interface, IGeneratorOptions for configuration, and IGeneratorOutput for results.",
             "testStrategy": "Validate interface definitions compile and provide proper type safety"
@@ -1778,7 +1778,7 @@
     ],
     "metadata": {
       "created": "2025-06-24T18:43:23.772Z",
-      "updated": "2025-06-27T20:35:55.775Z",
+      "updated": "2025-06-30T20:43:24.894Z",
       "description": "Tasks for master context"
     }
   }
