@@ -243,6 +243,30 @@ describe('Semantic Token Migration', () => {
 
     describe('generateSemanticMappings', () => {
       it('should generate mappings between frameworks', () => {
+        // Set up framework rules first
+        const tailwindRules: TokenValidationRule[] = [
+          {
+            name: 'color-scale',
+            validate: () => ({ isValid: true }),
+            semanticRole: 'color-scale-value',
+            category: TokenCategory.Color,
+            priority: 1
+          }
+        ];
+        
+        const chakraRules: TokenValidationRule[] = [
+          {
+            name: 'color-palette',
+            validate: () => ({ isValid: true }),
+            semanticRole: 'color-palette-value',
+            category: TokenCategory.Color,
+            priority: 1
+          }
+        ];
+        
+        migrator['frameworkRules'].set('tailwind', tailwindRules);
+        migrator['frameworkRules'].set('chakra', chakraRules);
+        
         const mappings = migrator.generateSemanticMappings('tailwind', 'chakra');
 
         expect(mappings).toBeDefined();

@@ -671,14 +671,14 @@ describe('Token Usage Tracker', () => {
         for (let i = 1; i < suggestions.length; i++) {
           const prev = suggestions[i - 1];
           const curr = suggestions[i];
-          const prevPriority = prev.confidence * this.getImpactWeight(prev.impact);
-          const currPriority = curr.confidence * this.getImpactWeight(curr.impact);
+          const prevPriority = prev.confidence * getImpactWeight(prev.impact);
+          const currPriority = curr.confidence * getImpactWeight(curr.impact);
           expect(prevPriority).toBeGreaterThanOrEqual(currPriority);
         }
       });
 
-      // Helper method for test
-      getImpactWeight(impact: string): number {
+      // Helper function for test
+      function getImpactWeight(impact: string): number {
         switch (impact) {
           case 'high': return 3;
           case 'medium': return 2;

@@ -1,0 +1,69 @@
+{
+  "id": "angular-component",
+  "name": "Angular Component",
+  "description": "An Angular component with TypeScript and reactive features",
+  "framework": "angular",
+  "category": "component",
+  "language": "typescript",
+  "templatePath": "./component.ts.template",
+  "variables": [
+    {
+      "name": "componentName",
+      "description": "The name of the component (PascalCase)",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "selector",
+      "description": "Component selector (kebab-case)",
+      "type": "string",
+      "required": false,
+      "default": ""
+    },
+    {
+      "name": "inputs",
+      "description": "Array of @Input properties",
+      "type": "array",
+      "required": false,
+      "default": []
+    },
+    {
+      "name": "outputs",
+      "description": "Array of @Output events",
+      "type": "array",
+      "required": false,
+      "default": []
+    },
+    {
+      "name": "services",
+      "description": "Array of services to inject",
+      "type": "array",
+      "required": false,
+      "default": []
+    },
+    {
+      "name": "standalone",
+      "description": "Whether to create a standalone component",
+      "type": "boolean",
+      "required": false,
+      "default": true
+    },
+    {
+      "name": "changeDetection",
+      "description": "Change detection strategy",
+      "type": "string",
+      "required": false,
+      "default": "Default"
+    },
+    {
+      "name": "styling",
+      "description": "Styling approach (css, scss, tailwind)",
+      "type": "string",
+      "required": false,
+      "default": "scss"
+    }
+  ],
+  "dependencies": ["@angular/core", "@angular/common"],
+  "devDependencies": ["@angular/cli"],
+  "tags": ["angular", "component", "typescript"]
+}
