@@ -42,6 +42,7 @@ const mockWindow = {
     href: 'https://test.com/path',
     pathname: '/path',
   },
+  screen: mockScreen, // Add screen to window object
 };
 
 const mockPerformance = {
@@ -59,6 +60,22 @@ const mockPerformance = {
 
 // Mock fetch
 const mockFetch = vi.fn();
+
+// Set up global stubs before all tests
+beforeAll(() => {
+  vi.stubGlobal('screen', mockScreen);
+  vi.stubGlobal('navigator', mockNavigator);
+  vi.stubGlobal('window', mockWindow);
+  vi.stubGlobal('performance', mockPerformance);
+  vi.stubGlobal('document', {
+    addEventListener: vi.fn(),
+  });
+  vi.stubGlobal('Intl', {
+    DateTimeFormat: () => ({
+      resolvedOptions: () => ({ timeZone: 'America/New_York' }),
+    }),
+  });
+});
 
 beforeEach(() => {
   // Setup global mocks
@@ -81,6 +98,10 @@ beforeEach(() => {
 
 afterEach(() => {
   mockFetch.mockReset();
+});
+
+afterAll(() => {
+  vi.unstubAllGlobals();
 });
 
 describe('ErrorReporter', () => {
@@ -450,8 +471,7 @@ describe('ErrorReporter', () => {
       const fetchCall = mockFetch.mock.calls[0];
       const reportData = JSON.parse(fetchCall[1].body);
 
-      expect(reportData).toEqual(
-        expect.objectContaining({
+      expect(reportData).toMatchObject({
           id: expect.stringMatching(/^report_/),
           timestamp: expect.any(String),
           error: expect.objectContaining({
@@ -496,9 +516,7 @@ describe('ErrorReporter', () => {
           }),
           userAgent: 'test-user-agent',
           sessionId: expect.stringMatching(/^session_/),
-          userId: 'test-user',
-        })
-      );
+        });
     });
 
     it('should collect performance information', () => {

@@ -142,6 +142,14 @@ export class AdapterPluginManager {
     plugin: AdapterPlugin,
     options: PluginRegistrationOptions = {}
   ): Promise<void> {
+    // Check for null/undefined plugin first
+    if (!plugin) {
+      throw new AdapterError(
+        'Plugin must have a valid name',
+        'INVALID_PLUGIN_NAME'
+      );
+    }
+
     const fullOptions: Required<PluginRegistrationOptions> = {
       priority: 0,
       enabled: true,
@@ -194,6 +202,8 @@ export class AdapterPluginManager {
       try {
         await entry.plugin.cleanup();
       } catch (error) {
+        entry.state.lastError = error as Error;
+        entry.state.errorCount++;
         console.warn(`Plugin "${pluginName}" cleanup failed:`, error);
       }
     }
@@ -607,6 +617,7 @@ export class AdapterPluginManager {
         entry.state.initialized = false;
         console.debug(`Plugin "${entry.plugin.name}" cleaned up`);
       } catch (error) {
+        // executeWithTiming already handled error tracking, just log the warning
         console.warn(`Plugin "${entry.plugin.name}" cleanup failed:`, error);
       }
     }

@@ -116,17 +116,17 @@ module.exports = {
       
       // First load
       const loaded1 = await cachedLoader.load('config.json');
+      expect(loaded1).toEqual({ name: 'test', version: '1.0.0' });
       
-      // Modify file
-      config.version = '2.0.0';
-      await fs.writeFile(configPath, JSON.stringify(config));
-      
-      // Second load should return cached value
+      // Second load without file changes should return cached value
       const loaded2 = await cachedLoader.load('config.json');
       expect(loaded2).toEqual({ name: 'test', version: '1.0.0' });
       
-      // Clear cache and reload
-      cachedLoader.clearCache();
+      // Modify file - cache should be invalidated
+      config.version = '2.0.0';
+      await fs.writeFile(configPath, JSON.stringify(config));
+      
+      // Load after file modification should return new value
       const loaded3 = await cachedLoader.load('config.json');
       expect(loaded3).toEqual({ name: 'test', version: '2.0.0' });
     });

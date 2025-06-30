@@ -108,15 +108,25 @@ export class ErrorHandler {
         lastError = this.normalizeError(error);
         this.recordError(lastError);
 
-        // Call error callback
-        this.config.onError(lastError, fullContext);
+        // Call error callback (safely)
+        try {
+          this.config.onError(lastError, fullContext);
+        } catch (callbackError) {
+          // Ignore errors in callbacks to prevent infinite loops
+          console.error('Error in onError callback:', callbackError);
+        }
 
-        // Check if we should retry
+        // Check if we should retry (only for retry strategy)
         if (
+          this.config.strategy === 'retry' &&
           attempt <= this.config.maxRetries &&
           this.config.shouldRetry(lastError, attempt)
         ) {
-          this.config.onRetry(lastError, attempt, fullContext);
+          try {
+            this.config.onRetry(lastError, attempt, fullContext);
+          } catch (callbackError) {
+            console.error('Error in onRetry callback:', callbackError);
+          }
           await this.delay(attempt);
           continue;
         }
@@ -193,7 +203,11 @@ export class ErrorHandler {
         return result;
 
       case 'fallback':
-        this.config.onFallback(error, this.config.fallbackValue, context);
+        try {
+          this.config.onFallback(error, this.config.fallbackValue, context);
+        } catch (callbackError) {
+          console.error('Error in onFallback callback:', callbackError);
+        }
         result.success = true;
         result.result = this.config.fallbackValue;
         result.usedFallback = true;
@@ -228,7 +242,11 @@ export class ErrorHandler {
         return result;
 
       case 'fallback':
-        this.config.onFallback(error, this.config.fallbackValue, context);
+        try {
+          this.config.onFallback(error, this.config.fallbackValue, context);
+        } catch (callbackError) {
+          console.error('Error in onFallback callback:', callbackError);
+        }
         result.success = true;
         result.result = this.config.fallbackValue;
         result.usedFallback = true;

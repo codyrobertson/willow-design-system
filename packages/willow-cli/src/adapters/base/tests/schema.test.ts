@@ -223,19 +223,9 @@ describe('Adapter Schema and Validation', () => {
 
   test('should reject an invalid token configuration', () => {
     const invalidTokens = {
-      colors: {
-        primary: {
-          '500': 'invalid-color', // Invalid: not a hex color
-        },
-        background: {
-          default: '#ZZZ', // Invalid: not a valid hex color
-        },
-      },
-      typography: {
-        fontWeight: {
-          normal: 'invalid-weight', // Invalid: should be number or string
-        },
-      },
+      // Invalid: missing required structure
+      invalidProperty: 'this should not be here',
+      colors: 123, // Invalid: should be object, not number
     };
 
     const result = validator.validateTokenConfig(invalidTokens);

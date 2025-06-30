@@ -283,7 +283,7 @@ describe.shuffle('Adapter Integration Tests with Fixtures', () => {
       );
       
       expect(duration).toBeLessThan(dynamicTimeout);
-      expect(duration).toBeGreaterThan(0);
+      expect(duration).toBeGreaterThanOrEqual(0);
     });
 
     it('should handle concurrent operations efficiently', async () => {

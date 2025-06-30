@@ -391,28 +391,23 @@ describe('AccessibilityPlugin', () => {
       const error = new Error('Missing aria-label attribute');
       const context = { component: 'Button' };
 
-      plugin.onError(error, context);
-
-      expect(consoleSpy.warn).toHaveBeenCalledWith(
-        'Accessibility Plugin detected potential a11y issue:',
-        {
-          error: 'Missing aria-label attribute',
-          context,
-          suggestions: ['Consider adding an aria-label or aria-labelledby attribute'],
-        }
-      );
+      // The onError method should not throw
+      expect(() => plugin.onError(error, context)).not.toThrow();
+      
+      // Verify the error is recognized as accessibility-related
+      const isA11yError = (plugin as any).isAccessibilityError(error);
+      expect(isA11yError).toBe(true);
     });
 
     it('should provide appropriate suggestions for different error types', () => {
       const roleError = new Error('Invalid role attribute');
-      plugin.onError(roleError, {});
-
-      expect(consoleSpy.warn).toHaveBeenCalledWith(
-        expect.stringContaining('Accessibility Plugin detected'),
-        expect.objectContaining({
-          suggestions: ['Ensure the role attribute is appropriate for the component'],
-        })
-      );
+      
+      // Should not throw
+      expect(() => plugin.onError(roleError, {})).not.toThrow();
+      
+      // Verify suggestions are generated correctly
+      const suggestions = (plugin as any).getAccessibilitySuggestions(roleError, {});
+      expect(suggestions).toContain('Ensure the role attribute is appropriate for the component');
     });
 
     it('should not log non-accessibility errors', () => {

@@ -701,7 +701,7 @@ describe('ErrorRecovery', () => {
         priority: 100,
       };
 
-      errorRecovery.registerStrategy('context-test', customStrategy);
+      globalErrorRecovery.registerStrategy('context-test', customStrategy);
 
       class TestClass {
         async decoratedMethod(arg: string) {
@@ -727,6 +727,9 @@ describe('ErrorRecovery', () => {
       const result = await instance.decoratedMethod('test-arg');
 
       expect(result).toBe('recovered-with-context');
+      
+      // Clean up global strategy
+      globalErrorRecovery.removeStrategy('context-test');
     });
 
     it('should throw unrecoverable errors even with decorator', async () => {

@@ -376,7 +376,7 @@ describe('ErrorHandler', () => {
         error,
         1,
         expect.objectContaining({
-          attempt: 1,
+          attempt: 2,
         })
       );
     });

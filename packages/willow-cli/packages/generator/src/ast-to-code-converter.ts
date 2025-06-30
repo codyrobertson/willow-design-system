@@ -95,6 +95,11 @@ export class ASTToCodeConverter implements IASTToCodeConverter {
     // For single nodes, we need to consider the context
     const sourceFile = this.getSourceFile(node);
     
+    // If converting to JavaScript and the node contains types, strip them first
+    if (this.shouldStripTypes(sourceFile.fileName, mergedOptions.format)) {
+      node = this.stripTypesFromNode(node, mergedOptions);
+    }
+    
     // Print the node
     let code = this.printer.printNode(
       ts.EmitHint.Unspecified,
@@ -171,6 +176,15 @@ export class ASTToCodeConverter implements IASTToCodeConverter {
   ): ts.SourceFile {
     const transformer = (context: ts.TransformationContext) => {
       const visit: ts.Visitor = (node) => {
+        // Skip type-only imports/exports
+        if (ts.isImportDeclaration(node) && node.importClause?.isTypeOnly) {
+          return undefined;
+        }
+        
+        if (ts.isExportDeclaration(node) && node.isTypeOnly) {
+          return undefined;
+        }
+        
         // Remove type annotations
         if (ts.isTypeNode(node)) {
           return undefined;
@@ -187,13 +201,128 @@ export class ASTToCodeConverter implements IASTToCodeConverter {
         }
         
         // Strip type parameters from functions and classes
-        if (ts.isFunctionDeclaration(node) || ts.isClassDeclaration(node)) {
-          return this.stripTypeParameters(node);
+        if (ts.isFunctionDeclaration(node)) {
+          return ts.factory.createFunctionDeclaration(
+            node.modifiers,
+            node.asteriskToken,
+            node.name,
+            undefined, // Remove type parameters
+            node.parameters.map(p => ts.factory.createParameterDeclaration(
+              p.modifiers,
+              p.dotDotDotToken,
+              p.name,
+              p.questionToken,
+              undefined, // Remove type annotation
+              p.initializer
+            )),
+            undefined, // Remove return type
+            node.body
+          );
+        }
+        
+        // Strip type parameters from arrow functions
+        if (ts.isArrowFunction(node)) {
+          return ts.factory.createArrowFunction(
+            node.modifiers,
+            undefined, // Remove type parameters
+            node.parameters.map(p => ts.factory.createParameterDeclaration(
+              p.modifiers,
+              p.dotDotDotToken,
+              p.name,
+              p.questionToken,
+              undefined, // Remove type annotation
+              p.initializer
+            )),
+            undefined, // Remove return type
+            node.equalsGreaterThanToken,
+            node.body
+          );
+        }
+        
+        // Strip type parameters from function expressions
+        if (ts.isFunctionExpression(node)) {
+          return ts.factory.createFunctionExpression(
+            node.modifiers,
+            node.asteriskToken,
+            node.name,
+            undefined, // Remove type parameters
+            node.parameters.map(p => ts.factory.createParameterDeclaration(
+              p.modifiers,
+              p.dotDotDotToken,
+              p.name,
+              p.questionToken,
+              undefined, // Remove type annotation
+              p.initializer
+            )),
+            undefined, // Remove return type
+            node.body
+          );
+        }
+        
+        if (ts.isClassDeclaration(node)) {
+          return ts.factory.createClassDeclaration(
+            node.modifiers,
+            node.name,
+            undefined, // Remove type parameters
+            node.heritageClauses,
+            node.members
+          );
         }
         
         // Strip type assertions
         if (ts.isAsExpression(node) || ts.isTypeAssertionExpression(node)) {
           return node.expression;
+        }
+        
+        // Strip type annotations from variable declarations
+        if (ts.isVariableDeclaration(node)) {
+          // Handle arrow functions in variable declarations specially
+          let initializer = node.initializer;
+          if (initializer && ts.isArrowFunction(initializer)) {
+            initializer = ts.factory.createArrowFunction(
+              initializer.modifiers,
+              undefined, // Remove type parameters
+              initializer.parameters.map(p => ts.factory.createParameterDeclaration(
+                p.modifiers,
+                p.dotDotDotToken,
+                p.name,
+                p.questionToken,
+                undefined, // Remove type annotation
+                p.initializer
+              )),
+              undefined, // Remove return type
+              initializer.equalsGreaterThanToken,
+              initializer.body
+            );
+          }
+          
+          return ts.factory.createVariableDeclaration(
+            node.name,
+            node.exclamationToken,
+            undefined, // Remove type annotation
+            initializer
+          );
+        }
+        
+        // Strip type annotations from method signatures
+        if (ts.isMethodDeclaration(node)) {
+          return ts.factory.createMethodDeclaration(
+            node.modifiers,
+            node.asteriskToken,
+            node.name,
+            node.questionToken,
+            undefined, // Remove type parameters
+            node.parameters.map(p => ts.factory.createParameterDeclaration(
+              p.modifiers,
+              p.dotDotDotToken,
+              p.name,
+              p.questionToken,
+              undefined, // Remove type annotation
+              p.initializer
+            )),
+            undefined, // Remove return type
+            node.body
+          );
         }
         
         return ts.visitEachChild(node, visit, context);
@@ -515,6 +644,30 @@ export class ASTToCodeConverter implements IASTToCodeConverter {
     });
     
     return count;
+  }
+
+  /**
+   * Strip types from a single node
+   */
+  private stripTypesFromNode(node: ts.Node, options: CodeGeneratorOptions): ts.Node {
+    // Create a temporary source file with just this node for transformation
+    const tempSourceText = this.printer.printNode(ts.EmitHint.Unspecified, node, this.getSourceFile(node));
+    const tempSourceFile = ts.createSourceFile(
+      'temp.ts',
+      tempSourceText,
+      ts.ScriptTarget.Latest,
+      true
+    );
+    
+    // Apply the type stripping transformation to the temporary source file
+    const strippedSourceFile = this.stripTypes(tempSourceFile, options);
+    
+    // Return the first statement/declaration from the stripped source file
+    if (strippedSourceFile.statements.length > 0) {
+      return strippedSourceFile.statements[0];
+    }
+    
+    return node;
   }
 
   /**

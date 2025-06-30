@@ -186,7 +186,8 @@ export class PropValueConverter {
       // Find appropriate converter
       for (const [name, converter] of this.converters) {
         if (converter.supports(targetType)) {
-          result.value = await converter.convert(value, context);
+          const convertedValue = converter.convert(value, context);
+          result.value = convertedValue instanceof Promise ? await convertedValue : convertedValue;
           result.converter = name;
           break;
         }
@@ -223,7 +224,7 @@ class BooleanConverter implements ValueConverter {
   constructor(private config: ConverterConfig) {}
 
   supports(type: string): boolean {
-    return type === 'boolean' || type === 'string';
+    return type === 'boolean';
   }
 
   convert(value: any): any {

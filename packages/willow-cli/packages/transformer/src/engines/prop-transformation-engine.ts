@@ -9,18 +9,30 @@ import type {
   PropertyMappingResult,
   ComponentMappingResult,
 } from '../types/component-mapping.types';
-import { PropNameTransformer } from '../transformers/core/prop-name-transformer';
+// import { PropNameTransformer } from '../transformers/core/prop-name-transformer';
+
+/**
+ * Simple prop name transformer
+ */
+class SimplePropNameTransformer {
+  transform(propName: string, mapping?: PropertyMapping): string {
+    if (mapping && mapping.target) {
+      return mapping.target;
+    }
+    return propName;
+  }
+}
 
 /**
  * Main engine for transforming component properties
  */
 export class PropTransformationEngine {
-  private propNameTransformer: PropNameTransformer;
+  private propNameTransformer: SimplePropNameTransformer;
   private componentMappings: Map<string, ComponentMapping>;
   private globalPropMappings: Map<string, PropertyMapping>;
 
   constructor(private config: ComponentMappingConfig) {
-    this.propNameTransformer = new PropNameTransformer();
+    this.propNameTransformer = new SimplePropNameTransformer();
     this.componentMappings = new Map();
     this.globalPropMappings = new Map();
     
@@ -100,7 +112,9 @@ export class PropTransformationEngine {
 
     // Identify unmapped props
     const mappedProps = new Set(result.propResults.map(r => r.sourceProp));
-    const allProps = attributes.map(attr => this.getAttributeName(attr));
+    const allProps = attributes
+      .filter(attr => ts.isJsxAttribute(attr))
+      .map(attr => this.getAttributeName(attr as ts.JsxAttribute));
     result.unmappedProps = allProps.filter(prop => !mappedProps.has(prop));
 
     return result;
