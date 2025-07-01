@@ -40,4 +40,12 @@ export default defineConfig({
       '@willow-cli/plugins': resolve(__dirname, './packages/plugins/src'),
     },
   },
+  define: {
+    // Handle Node.js built-in modules in tests
+    global: 'globalThis',
+  },
+  // Explicitly handle Node.js built-ins
+  optimizeDeps: {
+    exclude: ['fs', 'path', 'os', 'crypto', 'buffer', 'stream'],
+  },
 });
