@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+# Validate conventional commit format
+echo "📋 Validating commit message format..."
+
+# Check for conventional commit format: type(scope): description
+if ! grep -qE "^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?: .{1,50}" "$1"; then
+  echo "❌ Invalid commit message format!"
+  echo ""
+  echo "Please use conventional commit format:"
+  echo "  type(scope): description"
+  echo ""
+  echo "Examples:"
+  echo "  feat(auth): add user authentication"
+  echo "  fix: resolve memory leak in parser"
+  echo "  docs: update API documentation"
+  echo ""
+  echo "Valid types: feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert"
+  exit 1
+fi
+
+echo "✅ Commit message format is valid!"

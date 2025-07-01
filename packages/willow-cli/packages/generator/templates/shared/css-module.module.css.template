@@ -1,0 +1,303 @@
+/* {{componentName}} CSS Module */
+
+/* Base container styles */
+.container {
+  box-sizing: border-box;
+  width: 100%;
+  {{#each baseStyles}}
+  {{property}}: {{value}};
+  {{/each}}
+}
+
+/* Typography */
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 1rem 0;
+  {{#if (eq colorScheme 'dark')}}
+  color: #f0f0f0;
+  {{else}}
+  color: #1a1a1a;
+  {{/if}}
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0 0 0.5rem 0;
+  {{#if (eq colorScheme 'dark')}}
+  color: #d0d0d0;
+  {{else}}
+  color: #4a4a4a;
+  {{/if}}
+}
+
+.text {
+  font-size: 1rem;
+  line-height: 1.6;
+  {{#if (eq colorScheme 'dark')}}
+  color: #b0b0b0;
+  {{else}}
+  color: #666666;
+  {{/if}}
+}
+
+/* Layout utilities */
+.flex {
+  display: flex;
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.alignCenter {
+  align-items: center;
+}
+
+.justifyCenter {
+  justify-content: center;
+}
+
+.justifyBetween {
+  justify-content: space-between;
+}
+
+.gap {
+  gap: 1rem;
+}
+
+.gapSmall {
+  gap: 0.5rem;
+}
+
+.gapLarge {
+  gap: 2rem;
+}
+
+/* Spacing */
+.padding {
+  padding: 1rem;
+}
+
+.paddingSmall {
+  padding: 0.5rem;
+}
+
+.paddingLarge {
+  padding: 2rem;
+}
+
+.margin {
+  margin: 1rem;
+}
+
+.marginTop {
+  margin-top: 1rem;
+}
+
+.marginBottom {
+  margin-bottom: 1rem;
+}
+
+/* Interactive elements */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  {{#if (eq colorScheme 'dark')}}
+  background-color: #4a5568;
+  color: #f7fafc;
+  {{else}}
+  background-color: #3182ce;
+  color: #ffffff;
+  {{/if}}
+}
+
+.button:hover {
+  {{#if (eq colorScheme 'dark')}}
+  background-color: #5a6578;
+  {{else}}
+  background-color: #2c5aa0;
+  {{/if}}
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.buttonSecondary {
+  composes: button;
+  {{#if (eq colorScheme 'dark')}}
+  background-color: transparent;
+  color: #4a5568;
+  border: 1px solid #4a5568;
+  {{else}}
+  background-color: transparent;
+  color: #3182ce;
+  border: 1px solid #3182ce;
+  {{/if}}
+}
+
+.buttonSecondary:hover {
+  {{#if (eq colorScheme 'dark')}}
+  background-color: #4a5568;
+  color: #f7fafc;
+  {{else}}
+  background-color: #3182ce;
+  color: #ffffff;
+  {{/if}}
+}
+
+/* Cards and surfaces */
+.card {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  {{#if (eq colorScheme 'dark')}}
+  background-color: #2d3748;
+  border: 1px solid #4a5568;
+  {{else}}
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  {{/if}}
+}
+
+{{#if includeAnimations}}
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.slideIn {
+  animation: slideIn 0.3s ease-out;
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+{{/if}}
+
+{{#if includeResponsive}}
+/* Responsive breakpoints */
+@media (max-width: 640px) {
+  .container {
+    padding: 0.5rem;
+  }
+  
+  .title {
+    font-size: 1.25rem;
+  }
+  
+  .hideOnMobile {
+    display: none;
+  }
+  
+  .stackOnMobile {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .hideOnTablet {
+    display: none;
+  }
+}
+
+@media (min-width: 1025px) {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .hideOnDesktop {
+    display: none;
+  }
+}
+{{/if}}
+
+/* Utility classes */
+.hidden {
+  display: none;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rounded {
+  border-radius: 0.25rem;
+}
+
+.roundedLarge {
+  border-radius: 0.5rem;
+}
+
+.shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.shadowLarge {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}

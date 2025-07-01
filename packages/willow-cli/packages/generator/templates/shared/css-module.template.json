@@ -1,0 +1,48 @@
+{
+  "id": "shared-css-module",
+  "name": "CSS Module Template",
+  "description": "CSS module file with common patterns and utilities",
+  "framework": "shared",
+  "category": "style",
+  "language": "css",
+  "templatePath": "./css-module.module.css.template",
+  "variables": [
+    {
+      "name": "componentName",
+      "description": "Component name for the styles",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "includeResponsive",
+      "description": "Include responsive breakpoints",
+      "type": "boolean",
+      "required": false,
+      "default": true
+    },
+    {
+      "name": "includeAnimations",
+      "description": "Include animation classes",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "name": "colorScheme",
+      "description": "Color scheme (light, dark, auto)",
+      "type": "string",
+      "required": false,
+      "default": "light"
+    },
+    {
+      "name": "baseStyles",
+      "description": "Additional base styles to include",
+      "type": "array",
+      "required": false,
+      "default": []
+    }
+  ],
+  "dependencies": [],
+  "devDependencies": [],
+  "tags": ["css", "styling", "css-modules"]
+}

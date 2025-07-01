@@ -1,0 +1,28 @@
+# Build outputs
+dist/
+build/
+.next/
+out/
+storybook-static/
+coverage/
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Generated files
+*.tsbuildinfo
+registry.json
+components.json
+
+# IDE
+.vscode/
+.idea/
+
+# Other
+*.min.js
+*.min.css
+public/fonts/
+.husky/_/

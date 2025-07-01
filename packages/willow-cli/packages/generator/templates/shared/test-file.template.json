@@ -1,0 +1,54 @@
+{
+  "id": "shared-test-file",
+  "name": "Test File Template",
+  "description": "A test file template supporting various testing frameworks",
+  "framework": "shared",
+  "category": "test",
+  "language": "typescript",
+  "templatePath": "./test-file.test.ts.template",
+  "variables": [
+    {
+      "name": "testName",
+      "description": "Name of the test suite",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "testFramework",
+      "description": "Testing framework (jest, vitest, mocha, jasmine)",
+      "type": "string",
+      "required": false,
+      "default": "vitest"
+    },
+    {
+      "name": "targetFile",
+      "description": "The file being tested",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "imports",
+      "description": "Items to import from target file",
+      "type": "array",
+      "required": false,
+      "default": []
+    },
+    {
+      "name": "setupCode",
+      "description": "Additional setup code",
+      "type": "string",
+      "required": false,
+      "default": ""
+    },
+    {
+      "name": "testCases",
+      "description": "Array of test cases to generate",
+      "type": "array",
+      "required": false,
+      "default": []
+    }
+  ],
+  "dependencies": [],
+  "devDependencies": ["vitest", "@types/node"],
+  "tags": ["test", "unit-test", "shared"]
+}

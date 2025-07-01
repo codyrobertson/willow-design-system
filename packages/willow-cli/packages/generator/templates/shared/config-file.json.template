@@ -1,0 +1,143 @@
+{{#if (eq configType 'package')}}
+{
+  "name": "{{kebabCase projectName}}",
+  "version": "{{projectVersion}}",
+  "description": "",
+  "main": "{{#if useTypeScript}}dist/index.js{{else}}index.js{{/if}}",
+  {{#if useTypeScript}}
+  "types": "dist/index.d.ts",
+  {{/if}}
+  "scripts": {
+    "dev": "{{#if (eq framework 'react')}}vite{{else if (eq framework 'vue')}}vite{{else if (eq framework 'angular')}}ng serve{{else}}node index.js{{/if}}",
+    "build": "{{#if useTypeScript}}tsc{{#if (or (eq framework 'react') (eq framework 'vue'))}} && vite build{{/if}}{{else}}echo 'No build step'{{/if}}",
+    "test": "{{#if (includes features 'testing')}}vitest{{else}}echo 'No tests'{{/if}}",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "format": "prettier --write ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    {{#if (eq framework 'react')}}
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"{{#if (includes features 'routing')}},
+    "react-router-dom": "^6.0.0"{{/if}}
+    {{else if (eq framework 'vue')}}
+    "vue": "^3.3.0"{{#if (includes features 'routing')}},
+    "vue-router": "^4.0.0"{{/if}}{{#if (includes features 'state')}},
+    "pinia": "^2.1.0"{{/if}}
+    {{else if (eq framework 'angular')}}
+    "@angular/animations": "^17.0.0",
+    "@angular/common": "^17.0.0",
+    "@angular/compiler": "^17.0.0",
+    "@angular/core": "^17.0.0",
+    "@angular/forms": "^17.0.0",
+    "@angular/platform-browser": "^17.0.0",
+    "@angular/platform-browser-dynamic": "^17.0.0",
+    "@angular/router": "^17.0.0",
+    "rxjs": "^7.8.0",
+    "tslib": "^2.6.0",
+    "zone.js": "^0.14.0"
+    {{/if}}
+  },
+  "devDependencies": {
+    {{#if useTypeScript}}
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"{{#if (eq framework 'react')}},
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0"{{/if}},
+    {{/if}}
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0"{{#if (includes features 'testing')}},
+    "vitest": "^1.0.0"{{/if}}{{#if (or (eq framework 'react') (eq framework 'vue')}},
+    "vite": "^5.0.0"{{/if}}
+  }
+}
+{{else if (eq configType 'tsconfig')}}
+{
+  "compilerOptions": {
+    "target": "{{#if (includes features 'modern')}}ES2022{{else}}ES2020{{/if}}",
+    "module": "{{#if (includes features 'esm')}}ESNext{{else}}CommonJS{{/if}}",
+    "lib": [{{#if (eq framework 'react')}}"DOM", "DOM.Iterable", {{/if}}"ES2020"],
+    "jsx": "{{#if (eq framework 'react')}}react-jsx{{else}}preserve{{/if}}",
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true{{#if (includes features 'paths')}},
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"],
+      "@types/*": ["src/types/*"]
+    }{{/if}}
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
+}
+{{else if (eq configType 'eslint')}}
+{
+  "root": true,
+  "env": {
+    "browser": {{#if (or (eq framework 'react') (eq framework 'vue') (eq framework 'angular'))}}true{{else}}false{{/if}},
+    "es2020": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended"{{#if useTypeScript}},
+    "plugin:@typescript-eslint/recommended"{{/if}}{{#if (eq framework 'react')}},
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"{{else if (eq framework 'vue')}},
+    "plugin:vue/vue3-recommended"{{/if}}
+  ],
+  "parser": "{{#if useTypeScript}}@typescript-eslint/parser{{else}}@babel/eslint-parser{{/if}}",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"{{#if (eq framework 'react')}},
+    "ecmaFeatures": {
+      "jsx": true
+    }{{/if}}
+  },
+  "plugins": [{{#if useTypeScript}}"@typescript-eslint"{{/if}}{{#if (eq framework 'react')}}, "react", "react-hooks"{{else if (eq framework 'vue')}}, "vue"{{/if}}],
+  "rules": {
+    {{#if useTypeScript}}
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/no-explicit-any": "warn",
+    {{/if}}
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "prefer-const": "error"{{#if (eq framework 'react')}},
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off"{{/if}}
+  }{{#if (eq framework 'react')}},
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }{{/if}}
+}
+{{else if (eq configType 'prettier')}}
+{
+  "semi": {{#if (includes features 'no-semicolons')}}false{{else}}true{{/if}},
+  "trailingComma": "{{#if (includes features 'trailing-comma')}}all{{else}}es5{{/if}}",
+  "singleQuote": {{#if (includes features 'single-quotes')}}true{{else}}false{{/if}},
+  "printWidth": {{#if (includes features 'long-lines')}}120{{else}}80{{/if}},
+  "tabWidth": {{#if (includes features 'tabs')}}4{{else}}2{{/if}},
+  "useTabs": {{#if (includes features 'tabs')}}true{{else}}false{{/if}},
+  "bracketSpacing": true,
+  "arrowParens": "{{#if (includes features 'avoid-parens')}}avoid{{else}}always{{/if}}",
+  "endOfLine": "lf"{{#if (eq framework 'vue')}},
+  "vueIndentScriptAndStyle": true{{/if}}
+}
+{{/if}}

@@ -1,0 +1,55 @@
+{
+  "id": "shared-config-file",
+  "name": "Configuration File Template",
+  "description": "Generate various configuration files (tsconfig, package.json, etc.)",
+  "framework": "shared",
+  "category": "config",
+  "language": "json",
+  "templatePath": "./config-file.json.template",
+  "variables": [
+    {
+      "name": "configType",
+      "description": "Type of configuration file (tsconfig, package, eslint, prettier)",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "projectName",
+      "description": "Name of the project",
+      "type": "string",
+      "required": false,
+      "default": "my-project"
+    },
+    {
+      "name": "projectVersion",
+      "description": "Project version",
+      "type": "string",
+      "required": false,
+      "default": "1.0.0"
+    },
+    {
+      "name": "useTypeScript",
+      "description": "Whether the project uses TypeScript",
+      "type": "boolean",
+      "required": false,
+      "default": true
+    },
+    {
+      "name": "framework",
+      "description": "Framework being used",
+      "type": "string",
+      "required": false,
+      "default": ""
+    },
+    {
+      "name": "features",
+      "description": "Additional features to configure",
+      "type": "array",
+      "required": false,
+      "default": []
+    }
+  ],
+  "dependencies": [],
+  "devDependencies": [],
+  "tags": ["config", "setup", "tooling"]
+}

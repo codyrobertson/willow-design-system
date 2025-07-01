@@ -1,0 +1,33 @@
+#!/usr/bin/env sh
+
+echo "🚀 Running pre-commit hooks..."
+
+# Exit on any error
+set -e
+
+# Phase 1: Lint, format, and test staged files
+echo "📝 Running lint-staged (ESLint + Prettier + Tests)..."
+if ! npx lint-staged; then
+  echo "❌ lint-staged failed!"
+  exit 1
+fi
+
+# Phase 2: TypeScript type checking
+echo "🔍 Running TypeScript type checking..."
+if ! npx tsc --noEmit --skipLibCheck; then
+  echo "❌ TypeScript compilation failed!"
+  echo "💡 Fix type errors before committing or use --no-verify to bypass"
+  exit 1
+fi
+
+# Phase 3: Dead code detection (warning only)
+echo "🔍 Checking for dead code..."
+if command -v ts-prune >/dev/null 2>&1; then
+  if ! npx ts-prune --project tsconfig.json --ignore '**/*.test.ts,**/*.spec.ts,**/index.ts' | head -10; then
+    echo "⚠️ Potential dead code detected (non-blocking)"
+  fi
+else
+  echo "⚠️ ts-prune not available, skipping dead code check"
+fi
+
+echo "✅ All pre-commit checks passed!"

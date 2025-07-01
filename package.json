@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A modern design system for React applications built with Tailwind CSS",
   "private": false,
+  "type": "module",
   "author": "Willow Design System Team",
   "license": "MIT",
   "repository": {
@@ -39,6 +40,7 @@
     "./styles": "./dist/index.css"
   },
   "scripts": {
+    "prepare": "husky",
     "dev": "next dev --turbopack",
     "prebuild": "npm run prepare-fonts && npm run build-registry && npm run build:storybook-local && node scripts/ensure-registry-utils.js",
     "build": "next build",
@@ -66,7 +68,14 @@
     "build:all": "npm run prepare-fonts && npm run build && npm run build:storybook-local && npm run build-registry",
     "deploy": "netlify deploy --prod",
     "deploy:preview": "netlify deploy",
-    "registry:build": "shadcn build"
+    "registry:build": "shadcn build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint:fix": "eslint . --fix",
+    "unused:check": "ts-prune",
+    "docs:generate": "typedoc",
+    "docs:validate": "typedoc --emit none",
+    "pre-commit:test": "sh .husky/pre-commit"
   },
   "dependencies": {
     "@radix-ui/react-popover": "^1.1.14",
@@ -82,7 +91,8 @@
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -98,13 +108,19 @@
     "@types/node": "^20.19.1",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@typescript-eslint/eslint-plugin": "^8.35.0",
+    "@typescript-eslint/parser": "^8.35.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.5.1",
     "eslint-plugin-storybook": "^9.0.12",
     "fs-extra": "^11.3.0",
     "jest": "^30.0.2",
     "jest-environment-jsdom": "^30.0.2",
+    "lint-staged": "^16.1.2",
     "postcss": "^8.5.6",
+    "prettier": "^3.6.1",
     "shadcn": "^2.7.0-canary.0",
     "storybook": "^9.0.12",
     "tailwindcss": "^3.4.17",
