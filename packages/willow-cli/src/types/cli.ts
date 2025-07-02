@@ -30,6 +30,10 @@ export type UIKit = z.infer<typeof UIKitSchema>;
 export const StyleSchema = z.enum(['tailwind', 'css-modules', 'styled-components', 'emotion', 'scss']);
 export type Style = z.infer<typeof StyleSchema>;
 
+// Component category types
+export const ComponentCategorySchema = z.enum(['ui', 'layout', 'form', 'navigation', 'data', 'utility']);
+export type ComponentCategory = z.infer<typeof ComponentCategorySchema>;
+
 // Init command options
 export const InitOptionsSchema = z.object({
   framework: FrameworkSchema.optional(),
@@ -56,6 +60,26 @@ export const AddOptionsSchema = z.object({
 });
 
 export type AddOptions = z.infer<typeof AddOptionsSchema>;
+
+// Import command options  
+export const ImportOptionsSchema = z.object({
+  all: z.boolean().optional(),
+  category: z.string().optional(),
+  essential: z.boolean().optional(),
+  dryRun: z.boolean().optional(),
+  overwrite: z.boolean().optional(),
+  noDeps: z.boolean().optional(),
+  noRollback: z.boolean().optional(),
+  path: z.string().optional(),
+  registry: z.string().url().optional(),
+  filter: z.string().optional(),
+  batchSize: z.string().optional(),
+  timeout: z.string().optional(),
+  force: z.boolean().optional(),
+  quiet: z.boolean().optional(),
+});
+
+export type ImportOptions = z.infer<typeof ImportOptionsSchema>;
 
 // Remove command options
 export const RemoveOptionsSchema = z.object({
@@ -306,6 +330,7 @@ export const ExitCodes = {
   NETWORK_ERROR: 5,
   VALIDATION_ERROR: 6,
   PERMISSION_ERROR: 7,
+  UNKNOWN_ERROR: 99,
 } as const;
 
 export type ExitCode = typeof ExitCodes[keyof typeof ExitCodes];
