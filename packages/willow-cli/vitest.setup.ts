@@ -94,8 +94,30 @@ const originalConsole = {
 beforeEach(() => {
   console.log = () => {};
   console.info = () => {};
-  console.warn = originalConsole.warn;
-  console.error = originalConsole.error;
+  
+  // Only show warnings/errors in verbose mode or when VERBOSE_TESTS is set
+  if (process.env.VERBOSE_TESTS === 'true' || process.argv.includes('--verbose')) {
+    console.warn = originalConsole.warn;
+    console.error = originalConsole.error;
+  } else {
+    // In normal test runs, suppress expected error logs from error handling tests
+    console.warn = (...args: any[]) => {
+      const message = args.join(' ');
+      // Only suppress expected plugin/adapter errors during tests
+      if (message.includes('Plugin') || message.includes('execution failed') || message.includes('initialization failed')) {
+        return;
+      }
+      originalConsole.warn(...args);
+    };
+    console.error = (...args: any[]) => {
+      const message = args.join(' ');
+      // Only suppress expected errors from error handling tests
+      if (message.includes('Plugin') || message.includes('execution failed') || message.includes('initialization failed')) {
+        return;
+      }
+      originalConsole.error(...args);
+    };
+  }
 });
 
 afterEach(() => {

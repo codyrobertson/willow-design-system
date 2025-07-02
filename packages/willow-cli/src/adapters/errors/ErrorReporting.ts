@@ -57,6 +57,18 @@ export interface PerformanceInfo {
 }
 
 /**
+ * Breadcrumb for tracking user actions and events
+ */
+export interface Breadcrumb {
+  timestamp: Date;
+  category: string;
+  message?: string;
+  level: 'info' | 'warning' | 'error' | 'debug';
+  data?: Record<string, any>;
+  type?: 'navigation' | 'user' | 'http' | 'error' | 'default';
+}
+
+/**
  * Environment information
  */
 export interface EnvironmentInfo {

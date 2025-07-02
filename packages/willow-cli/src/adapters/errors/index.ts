@@ -19,7 +19,7 @@ export {
   isAdapterErrorType,
   getErrorCode,
   toAdapterError,
-} from './AdapterError';
+} from './AdapterError.js';
 
 // Error handling
 export {
@@ -32,7 +32,7 @@ export {
   handleAsync,
   handleSync,
   withErrorHandling,
-} from './ErrorHandler';
+} from './ErrorHandler.js';
 
 // Error recovery
 export {
@@ -43,7 +43,7 @@ export {
   globalErrorRecovery,
   executeWithRecovery,
   withErrorRecovery,
-} from './ErrorRecovery';
+} from './ErrorRecovery.js';
 
 // Error reporting
 export {
@@ -60,4 +60,4 @@ export {
   reportError,
   addBreadcrumb,
   ErrorFilters,
-} from './ErrorReporting';
+} from './ErrorReporting.js';

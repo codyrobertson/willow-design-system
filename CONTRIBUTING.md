@@ -106,6 +106,122 @@ willow-design-system/
 - **develop**: Main development branch - merges from feature branches
 - **feature/**: Feature branches - merge into develop only
 
+### Pre-commit Hooks
+
+We use automated pre-commit hooks to maintain code quality and consistency. These hooks run automatically before each commit to catch issues early.
+
+#### 🚀 Quick Setup
+
+```bash
+# Install dependencies (includes husky setup)
+npm install
+
+# Verify hooks are working
+npm run hooks:verify
+
+# Test hooks without committing
+npm run hooks:test
+```
+
+#### 🔧 Available Hook Commands
+
+```bash
+# Hook management
+npm run hooks:install      # Install/reinstall Git hooks
+npm run hooks:disable      # Disable hooks permanently
+npm run hooks:enable       # Re-enable hooks
+npm run hooks:test         # Test all hooks without committing
+npm run hooks:bypass       # Show bypass instructions
+npm run hooks:verify       # Comprehensive verification
+npm run hooks:benchmark    # Performance benchmarking
+npm run hooks:ci-setup     # Configure for CI environment
+
+# Quality checks (can be run manually)
+npm run lint               # ESLint with auto-fix
+npm run format             # Prettier formatting
+npm run type-check         # TypeScript compilation
+npm run deadcode:check     # Dead code detection
+npm run quality:full       # Run all quality checks
+npm run quality:report     # Generate comprehensive report
+```
+
+#### 🎯 What Hooks Do
+
+**Pre-commit Hook** (runs on `git commit`):
+1. **ESLint** - Lints and auto-fixes staged `.ts` and `.tsx` files
+2. **Prettier** - Formats all staged files (code, JSON, Markdown)
+3. **Vitest** - Runs tests related to changed files
+4. **TypeScript** - Validates types (syntax check)
+5. **Dead Code** - Warns about unused exports (non-blocking)
+
+**Commit Message Hook** (validates commit format):
+- Enforces [Conventional Commits](https://conventionalcommits.org/) format
+- Format: `type(scope): description`
+- Valid types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`, `ci`, `build`, `revert`
+
+**Pre-push Hook** (runs on `git push`):
+1. **Full Test Suite** - All unit tests must pass
+2. **Build Verification** - Project must build successfully
+3. **Type Checking** - All packages must type-check
+
+#### ⚡ Performance
+
+Our hooks are optimized for speed:
+- Small commits (3 files): ~900ms
+- Medium commits (8 files): ~1s
+- Large commits (15 files): ~1.1s
+- Very large commits (25 files): ~1.2s
+
+Target: All hooks complete in <10 seconds
+
+#### 🚨 Emergency Bypass
+
+When you need to bypass hooks (use sparingly!):
+
+```bash
+# Single commit bypass
+git commit -m "hotfix: critical fix" --no-verify
+
+# Temporary disable for session
+export HUSKY=0
+git commit -m "emergency fix"
+unset HUSKY
+
+# Show all bypass options
+npm run hooks:bypass
+```
+
+**Important**: Document why you bypassed hooks in your commit message.
+
+#### 🔍 Troubleshooting
+
+Common issues and solutions:
+
+```bash
+# Hooks not running?
+npm run hooks:install
+npm run hooks:verify
+
+# ESLint errors?
+npm run lint:fix          # Auto-fix what's possible
+npm run lint             # See remaining issues
+
+# Prettier conflicts?
+npm run format           # Format all files
+npm run format:check     # Check without changing
+
+# TypeScript errors?
+npm run type-check       # See all type errors
+npx tsc --noEmit        # Check specific files
+
+# Tests failing?
+npm test                 # Run all tests
+npm run test:watch      # Debug interactively
+
+# Performance issues?
+npm run hooks:benchmark  # Measure hook performance
+```
+
 ### Workflow Steps
 
 1. **Create Feature Branch**
@@ -134,14 +250,39 @@ willow-design-system/
    git commit -m "feat: add new component X"
    ```
    
+   Our pre-commit hooks will automatically:
+   - ✅ Fix linting issues with ESLint
+   - ✅ Format code with Prettier
+   - ✅ Run tests for changed files
+   - ✅ Validate TypeScript types
+   - ✅ Check commit message format
+   
    Follow [Conventional Commits](https://conventionalcommits.org/):
    - `feat:` - New features
    - `fix:` - Bug fixes
    - `docs:` - Documentation changes
-   - `style:` - Code style changes
-   - `refactor:` - Code refactoring
+   - `style:` - Code style changes (formatting, missing semicolons, etc.)
+   - `refactor:` - Code refactoring (no functional changes)
    - `test:` - Test changes
    - `chore:` - Build/tool changes
+   - `perf:` - Performance improvements
+   - `ci:` - CI/CD changes
+   - `build:` - Build system changes
+   - `revert:` - Revert previous commit
+   
+   Examples:
+   ```bash
+   # Good commit messages
+   git commit -m "feat(button): add size variant prop"
+   git commit -m "fix: resolve memory leak in tooltip component"
+   git commit -m "docs: update installation guide"
+   git commit -m "test(card): add accessibility tests"
+   
+   # Bad commit messages (will be rejected)
+   git commit -m "fixed stuff"              # No type prefix
+   git commit -m "feat add button"          # Missing colon
+   git commit -m "FEAT: add button"         # Wrong case
+   ```
 
 5. **Push and Create PR**
    ```bash
@@ -282,12 +423,19 @@ export { Component };
 
 ### PR Requirements
 
+Before submitting a PR, ensure:
+
+- [ ] **Pre-commit Hooks Pass**: All automated checks pass during commit
 - [ ] **Tests**: All tests pass (`npm test`)
 - [ ] **Type Safety**: No TypeScript errors (`npm run typecheck`)
 - [ ] **Code Style**: Follows linting rules (`npm run lint`)
 - [ ] **Build**: Successful build (`npm run build`)
 - [ ] **Documentation**: Updated if needed
 - [ ] **Storybook**: Stories added/updated for UI changes
+- [ ] **Commit Messages**: Follow conventional commit format
+- [ ] **No Bypassed Hooks**: Avoid using `--no-verify` unless documented
+
+If you had to bypass hooks, document why in the PR description.
 
 ### PR Template
 

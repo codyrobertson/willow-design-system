@@ -81,26 +81,26 @@ export class CLI {
         // Configure logger and progress reporter
         setLoggerOptions({
           level: this.globalOptions.verbose ? 'debug' : 'info',
-          colors: this.globalOptions.color !== false,
+          colors: !this.globalOptions.noColor,
         });
         
         setGlobalReporterOptions({
           verbose: this.globalOptions.verbose,
           quiet: this.globalOptions.quiet,
-          noColor: this.globalOptions.color === false,
+          noColor: this.globalOptions.noColor,
           json: this.globalOptions.json,
         });
         
         // Update instances
         this.logger = new Logger({
           level: this.globalOptions.verbose ? 'debug' : 'info',
-          colors: this.globalOptions.color !== false,
+          colors: !this.globalOptions.noColor,
         });
         
         this.progress = new ProgressReporter({
           verbose: this.globalOptions.verbose,
           quiet: this.globalOptions.quiet,
-          noColor: this.globalOptions.color === false,
+          noColor: this.globalOptions.noColor,
           json: this.globalOptions.json,
         });
       });

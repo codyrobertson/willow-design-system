@@ -5,6 +5,7 @@
 import { commandRegistry } from '../core/CommandRegistry.js';
 import { InitCommand } from './init/InitCommand.js';
 import { AddCommand } from './add/AddCommand.js';
+import { ImportCommand } from './import/ImportCommand.js';
 import { ListCommand } from './list/ListCommand.js';
 import { RemoveCommand } from './remove/RemoveCommand.js';
 import { UpdateCommand } from './update/UpdateCommand.js';
@@ -27,6 +28,12 @@ export function registerCommands(): void {
     name: AddCommand.command,
     description: AddCommand.description,
     action: AddCommand.action.bind(AddCommand),
+  });
+  
+  commandRegistry.register({
+    name: ImportCommand.command,
+    description: ImportCommand.description,
+    action: ImportCommand.action.bind(ImportCommand),
   });
   
   commandRegistry.register({
@@ -81,6 +88,7 @@ export function registerCommands(): void {
 // Export individual commands for direct use
 export { InitCommand } from './init/InitCommand.js';
 export { AddCommand } from './add/AddCommand.js';
+export { ImportCommand } from './import/ImportCommand.js';
 export { ListCommand } from './list/ListCommand.js';
 export { RemoveCommand } from './remove/RemoveCommand.js';
 export { UpdateCommand } from './update/UpdateCommand.js';

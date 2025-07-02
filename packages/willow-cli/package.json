@@ -1,13 +1,13 @@
 {
   "name": "willow-cli",
-  "version": "0.6.22",
+  "version": "0.7.0-canary.4",
   "description": "CLI for installing Willow Design System components",
   "type": "module",
   "workspaces": [
     "packages/*"
   ],
   "bin": {
-    "willow": "bin/index.js"
+    "willow": "bin/willow"
   },
   "publishConfig": {
     "access": "public"
@@ -16,19 +16,26 @@
     "bin",
     "dist",
     "templates",
-    "README.md"
+    "README.md",
+    "src",
+    "cli.js"
   ],
   "scripts": {
     "build": "tsc && npm run build:packages",
     "build:packages": "npm run build --workspaces --if-present",
     "build:all": "npm run build:packages && npm run build",
     "build:watch": "npm run build:watch --workspaces --if-present",
-    "dev": "tsx src/cli.ts",
-    "test": "vitest",
-    "test:unit": "vitest run --exclude '**/*.integration.test.{ts,tsx}'",
-    "test:integration": "vitest run --config vitest.config.integration.ts",
-    "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest watch",
+    "dev": "tsx src/cli-main.ts",
+    "start": "node bin/index.js",
+    "canary": "npm version prerelease --preid=canary && npm run build:all",
+    "publish:canary": "npm run canary && npm publish --tag canary",
+    "install:global": "npm run build:all && npm install -g .",
+    "test": "vitest --maxWorkers=8",
+    "test:unit": "vitest run --exclude='**/*.integration.test.{ts,tsx}' --exclude='**/integration/**' --exclude='**/*.improved.test.ts' --maxWorkers=8",
+    "test:integration": "vitest run --include='**/*.integration.test.{ts,tsx}' --include='**/integration/**' --include='**/*.improved.test.ts' --maxWorkers=4",
+    "test:fast": "vitest run --config vitest.config.fast.ts",
+    "test:coverage": "vitest run --coverage --maxWorkers=8",
+    "test:watch": "vitest watch --maxWorkers=8",
     "test:all": "npm run test --workspaces",
     "test:ci": "npm run test:unit && npm run test:integration",
     "type-check": "tsc --noEmit",

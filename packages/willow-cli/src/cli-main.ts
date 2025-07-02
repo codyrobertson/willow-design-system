@@ -56,8 +56,8 @@ async function main() {
       registry,
     });
 
-    // Run CLI
-    await cli.run();
+    // Parse CLI arguments
+    await cli.parse();
   } catch (error) {
     console.error('Fatal error:', error);
     process.exit(1);

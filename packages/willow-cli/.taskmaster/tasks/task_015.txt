@@ -1,0 +1,11 @@
+# Task ID: 15
+# Title: Implement Bulk Component Import (willow import)
+# Status: pending
+# Dependencies: 14
+# Priority: high
+# Description: Create import command for bulk component operations with dependency resolution and progress tracking
+# Details:
+Implement `willow import` with flags: --all (import all stable components), --category=<name> (import by category), --essential (import core component set), support comma-separated component lists, implement dependency resolution algorithm to handle component interdependencies, add progress bar for bulk operations, implement dry-run capability with --dry-run flag, add rollback mechanism for failed imports, track and prevent duplicate imports, support filtering by UI kit compatibility, and provide detailed import summary with success/failure counts.
+
+# Test Strategy:
+Test importing all components, test category-based imports, test dependency resolution with complex component trees, test dry-run functionality, test rollback on failures, verify no duplicate imports, and test progress tracking accuracy

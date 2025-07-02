@@ -140,7 +140,7 @@ export class Logger {
   log(style: string, ...args: any[]): void {
     const message = args.join(' ');
     // eslint-disable-next-line no-console
-    console.log(chalk.keyword(style)(message));
+    console.log(chalk.hex(style)(message));
   }
 
   /**
@@ -330,6 +330,7 @@ export class Logger {
       [CLIErrorCode.NETWORK_ERROR]: 'Check your internet connection and try again',
       [CLIErrorCode.VALIDATION_ERROR]: 'Run "willow validate" to see what needs fixing',
       [CLIErrorCode.PERMISSION_ERROR]: 'Check file permissions or run with appropriate privileges',
+      [CLIErrorCode.FILE_EXISTS]: 'Use --force to overwrite existing files',
       [CLIErrorCode.UNKNOWN_ERROR]: 'Try running with --verbose for more details',
     };
     

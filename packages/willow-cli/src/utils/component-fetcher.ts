@@ -157,8 +157,11 @@ export class ComponentFetcher {
    * TODO: Replace with actual registry API integration
    */
   private async createMockMetadata(componentName: string): Promise<ComponentMeta> {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, Math.random() * 100));
+    // Simulate network delay (reduced in test environment)
+    const delay = process.env.NODE_ENV === 'test' ? 0 : Math.random() * 100;
+    if (delay > 0) {
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
 
     // Define mock dependencies for realistic testing
     const dependencyMap: Record<string, string[]> = {
@@ -228,8 +231,9 @@ export class ComponentFetcher {
     // TODO: Implement actual file download logic in later subtasks
     console.log(chalk.blue(`📁 Would download ${component.name} to ${targetPath}`));
     
-    // Simulate download time
-    await new Promise(resolve => setTimeout(resolve, 100));
+    // Simulate download time (reduced in test environment)
+    const delay = process.env.NODE_ENV === 'test' ? 10 : 100;
+    await new Promise(resolve => setTimeout(resolve, delay));
   }
 
   /**
