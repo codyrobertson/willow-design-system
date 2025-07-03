@@ -1,0 +1,88 @@
+{
+  "version": "1.0.0",
+  "tokens": {
+    "colors": {
+      "primary": {
+        "100": { "value": "#e3f2fd", "type": "color" },
+        "300": { "value": "#64b5f6", "type": "color" },
+        "500": { "value": "#2196f3", "type": "color" },
+        "700": { "value": "#1976d2", "type": "color" },
+        "900": { "value": "#0d47a1", "type": "color" }
+      },
+      "secondary": {
+        "500": { "value": "#9c27b0", "type": "color" }
+      },
+      "semantic": {
+        "error": { "value": "{colors.red.500}", "type": "color" },
+        "success": { "value": "{colors.green.500}", "type": "color" },
+        "warning": { "value": "{colors.yellow.500}", "type": "color" }
+      }
+    },
+    "spacing": {
+      "xs": { "value": "4px", "type": "dimension" },
+      "sm": { "value": "8px", "type": "dimension" },
+      "md": { "value": "16px", "type": "dimension" },
+      "lg": { "value": "24px", "type": "dimension" },
+      "xl": { "value": "32px", "type": "dimension" }
+    },
+    "typography": {
+      "fontFamily": {
+        "sans": {
+          "value": ["Inter", "system-ui", "sans-serif"],
+          "type": "fontFamily"
+        },
+        "mono": {
+          "value": ["Fira Code", "monospace"],
+          "type": "fontFamily"
+        }
+      },
+      "fontSize": {
+        "xs": { "value": "12px", "type": "dimension" },
+        "sm": { "value": "14px", "type": "dimension" },
+        "base": { "value": "16px", "type": "dimension" },
+        "lg": { "value": "18px", "type": "dimension" },
+        "xl": { "value": "20px", "type": "dimension" }
+      },
+      "lineHeight": {
+        "tight": { "value": "1.25", "type": "number" },
+        "normal": { "value": "1.5", "type": "number" },
+        "relaxed": { "value": "1.75", "type": "number" }
+      }
+    },
+    "shadows": {
+      "sm": {
+        "value": {
+          "x": "0",
+          "y": "1px",
+          "blur": "2px",
+          "spread": "0",
+          "color": "rgba(0, 0, 0, 0.05)"
+        },
+        "type": "shadow"
+      },
+      "md": {
+        "value": {
+          "x": "0",
+          "y": "4px",
+          "blur": "6px",
+          "spread": "-1px",
+          "color": "rgba(0, 0, 0, 0.1)"
+        },
+        "type": "shadow"
+      }
+    },
+    "borders": {
+      "radius": {
+        "sm": { "value": "4px", "type": "dimension" },
+        "md": { "value": "8px", "type": "dimension" },
+        "lg": { "value": "16px", "type": "dimension" },
+        "full": { "value": "9999px", "type": "dimension" }
+      },
+      "width": {
+        "thin": { "value": "1px", "type": "dimension" },
+        "medium": { "value": "2px", "type": "dimension" },
+        "thick": { "value": "4px", "type": "dimension" }
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "@willow-cli/core",
+  "version": "0.1.0",
+  "description": "Core functionality and orchestration for Willow CLI",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "type-check": "tsc --noEmit",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@willow-cli/types": "file:../types",
+    "@willow-cli/parser": "file:../parser",
+    "@willow-cli/transformer": "file:../transformer",
+    "@willow-cli/generator": "file:../generator",
+    "@willow-cli/validator": "file:../validator",
+    "@willow-cli/config": "file:../config"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

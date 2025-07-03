@@ -1,0 +1,503 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 14,
+        "title": "Implement Environment Setup Command (willow setup)",
+        "description": "Create comprehensive setup command that configures entire development environment including Tailwind CSS, shadcn/ui utilities, TypeScript, and framework-specific configurations",
+        "details": "Implement `willow setup` command with auto-detection of framework (React/Vue/Angular), install and configure Tailwind CSS with optimal defaults, set up shadcn/ui utility functions (cn helper), configure TypeScript with framework-specific optimizations, install development dependencies (ESLint, Prettier, testing frameworks), set up PostCSS configuration, configure Vite/Next.js/CRA specific files, install and configure testing environment (Vitest/Jest), set up Storybook configuration and dependencies, create necessary directory structure (/components, /lib, /styles), and install framework-specific dependencies based on detected configuration. Use package manager detection (npm/yarn/pnpm/bun) and provide detailed progress feedback.",
+        "testStrategy": "Test setup command across different frameworks (React, Vue, Angular), verify all configurations are properly generated, test with different package managers, ensure TypeScript compilation works, verify Tailwind CSS integration, test Storybook startup, and validate all dependencies are correctly installed",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Package Manager Detection",
+            "description": "Create a module to detect and handle npm, yarn, pnpm, and bun package managers",
+            "dependencies": [],
+            "details": "Build detection logic that checks for lock files (package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb) and available binaries. Create a unified interface for executing install commands across different package managers.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Create Framework Detection Module",
+            "description": "Build logic to detect Next.js, React, Vue, Svelte, and other supported frameworks",
+            "dependencies": [],
+            "details": "Analyze package.json dependencies, configuration files (next.config.js, vite.config.js, etc.), and project structure to determine the framework. Support detection of multiple frameworks in monorepos.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implement Tailwind CSS Installation",
+            "description": "Create installer for Tailwind CSS with framework-specific configurations",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Install tailwindcss, postcss, and autoprefixer. Generate tailwind.config.js with appropriate content paths for detected framework. Handle existing Tailwind installations gracefully.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Setup PostCSS Configuration",
+            "description": "Generate and configure PostCSS for each supported framework",
+            "dependencies": [
+              3
+            ],
+            "details": "Create postcss.config.js with Tailwind CSS plugin and autoprefixer. Handle framework-specific PostCSS requirements (Next.js built-in support, Vite integration, etc.).",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Configure TypeScript for Each Framework",
+            "description": "Generate or update TypeScript configurations for detected frameworks",
+            "dependencies": [
+              2
+            ],
+            "details": "Create/update tsconfig.json with framework-specific compiler options, path mappings for @/ alias, and appropriate lib/target settings. Handle JSX/TSX configuration for React/Next.js.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Implement shadcn/ui Utilities Setup",
+            "description": "Install and configure shadcn/ui components and utilities",
+            "dependencies": [
+              3,
+              5
+            ],
+            "details": "Install class-variance-authority, clsx, tailwind-merge. Create cn() utility function. Setup components.json configuration. Prepare for component installation workflow.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Create Directory Structure",
+            "description": "Generate standardized directory structure for components and utilities",
+            "dependencies": [
+              2
+            ],
+            "details": "Create src/components, src/lib, src/utils directories. Setup @/ path alias. Create index files and barrel exports. Handle existing directory structures without overwriting.",
+            "status": "in-progress",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Setup Build Tool Configurations",
+            "description": "Configure Vite, Webpack, or other build tools for optimal Willow usage",
+            "dependencies": [
+              2,
+              4,
+              5
+            ],
+            "details": "Update vite.config.js, webpack.config.js, or next.config.js with alias configurations, CSS processing, and optimization settings. Ensure hot reload works with Tailwind JIT.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Install Development Dependencies",
+            "description": "Install ESLint, Prettier, and other development tools with Willow presets",
+            "dependencies": [
+              1,
+              5
+            ],
+            "details": "Install and configure ESLint with TypeScript and Tailwind plugins. Setup Prettier with Tailwind class sorting. Add husky and lint-staged for pre-commit hooks.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 10,
+            "title": "Configure Testing Framework",
+            "description": "Setup Jest or Vitest with React Testing Library and component testing utilities",
+            "dependencies": [
+              2,
+              5,
+              9
+            ],
+            "details": "Install testing dependencies based on framework. Configure jest.config.js or vitest.config.js with TypeScript and module resolution. Setup testing utilities for component testing.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 11,
+            "title": "Setup Storybook Configuration",
+            "description": "Install and configure Storybook with Willow theme and addons",
+            "dependencies": [
+              2,
+              3,
+              6
+            ],
+            "details": "Run Storybook init for detected framework. Configure Tailwind CSS in Storybook. Add essential addons (controls, actions, a11y). Create example stories for Willow components.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 12,
+            "title": "Implement Progress Feedback System",
+            "description": "Create CLI progress indicators and success/error messaging",
+            "dependencies": [],
+            "details": "Build spinner/progress bar components for long-running tasks. Implement colored console output for success/warning/error states. Create summary report of installed features and next steps.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "title": "Implement Bulk Component Import (willow import)",
+        "description": "Create import command for bulk component operations with dependency resolution and progress tracking",
+        "details": "Implement `willow import` with flags: --all (import all stable components), --category=<name> (import by category), --essential (import core component set), support comma-separated component lists, implement dependency resolution algorithm to handle component interdependencies, add progress bar for bulk operations, implement dry-run capability with --dry-run flag, add rollback mechanism for failed imports, track and prevent duplicate imports, support filtering by UI kit compatibility, and provide detailed import summary with success/failure counts.",
+        "testStrategy": "Test importing all components, test category-based imports, test dependency resolution with complex component trees, test dry-run functionality, test rollback on failures, verify no duplicate imports, and test progress tracking accuracy",
+        "priority": "high",
+        "dependencies": [
+          14
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Parse command arguments and flags",
+            "description": "Implement argument parsing for the willow import command with support for all required flags",
+            "dependencies": [],
+            "details": "Parse and validate command arguments including component names, --prefix, --types, --overwrite, --dry-run, --all, --force flags. Use yargs or commander for robust CLI argument handling. Validate that at least one component is specified or --all flag is used.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement dependency resolution algorithm",
+            "description": "Create a dependency resolver that identifies and orders component dependencies correctly",
+            "dependencies": [
+              1
+            ],
+            "details": "Build a graph-based dependency resolver that analyzes component imports, identifies transitive dependencies, detects circular dependencies, and produces a topologically sorted list of components to import in the correct order.",
+            "status": "in-progress",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Create component fetching logic",
+            "description": "Implement the core logic to fetch components from the registry or remote source",
+            "dependencies": [
+              2
+            ],
+            "details": "Build fetching mechanism that retrieves component files, handles authentication if needed, manages caching for performance, validates component integrity, and supports both individual and bulk fetching operations.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement progress tracking",
+            "description": "Create a progress tracking system with visual feedback for import operations",
+            "dependencies": [
+              3
+            ],
+            "details": "Implement progress bars using libraries like ora or cli-progress, track individual component import status, provide real-time updates on download/copy progress, and display summary statistics during bulk operations.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Build dry-run functionality",
+            "description": "Implement dry-run mode to preview import operations without making changes",
+            "dependencies": [
+              3
+            ],
+            "details": "Create simulation mode that shows what components would be imported, displays file changes that would occur, identifies potential conflicts, and provides a detailed preview report without modifying any files.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Create rollback mechanism",
+            "description": "Implement a rollback system to undo import operations on failure",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Build transaction-like import system that backs up existing files before overwriting, tracks all file operations, can restore original state on error, and provides atomic import guarantees for bulk operations.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Handle duplicate detection",
+            "description": "Implement logic to detect and handle duplicate component imports",
+            "dependencies": [
+              3
+            ],
+            "details": "Create duplicate detection that compares file hashes or content, identifies naming conflicts with prefixes, provides merge strategies for --overwrite flag, and warns users about potential conflicts before proceeding.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Generate import summaries",
+            "description": "Create comprehensive import summary reports after operations complete",
+            "dependencies": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "details": "Generate detailed reports showing imported components list, dependency tree visualization, file changes made, conflicts resolved, errors encountered, and actionable next steps for the user.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "title": "Implement Advanced Dependency Management (willow deps)",
+        "description": "Create comprehensive dependency management system with install, update, audit, and cleanup capabilities",
+        "details": "Implement `willow deps` subcommands: install (resolve and install all component dependencies), update (update component dependencies with conflict resolution), audit (security vulnerability scanning), outdated (check for outdated packages), clean (remove unused dependencies), tree (show dependency tree visualization). Add support for different package managers (npm, yarn, pnpm, bun), implement peer dependency conflict detection and resolution, add workspace/monorepo support, and integrate with security audit tools. Provide clear upgrade paths and version conflict warnings.",
+        "testStrategy": "Test dependency installation across package managers, test update functionality with version conflicts, test security audit integration, test unused dependency cleanup, verify workspace support, and test dependency tree visualization",
+        "priority": "high",
+        "dependencies": [
+          14
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 17,
+        "title": "Implement Theme Management System (willow theme)",
+        "description": "Create comprehensive theme management with creation, application, export/import, and design token support",
+        "details": "Implement `willow theme` subcommands: create (generate new theme), apply (apply existing theme), export (export current theme to JSON), import (import theme from file), list (show available themes), tokens (manage design tokens). Generate CSS custom properties from themes, support theme inheritance and composition, implement theme validation for completeness, add theme preview capabilities, generate theme documentation, and support complex theme hierarchies with fallback mechanisms.",
+        "testStrategy": "Test theme creation and application across components, test theme export/import functionality, verify CSS custom property generation, test theme inheritance patterns, test theme validation, and verify theme documentation generation",
+        "priority": "medium",
+        "dependencies": [
+          14,
+          15
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 18,
+        "title": "Implement Component Update System (willow update)",
+        "description": "Create update system for components with version management, breaking change detection, and rollback capabilities",
+        "details": "Implement `willow update` with functionality to update all components or specific components, check for available updates with --check flag, display breaking changes with --breaking flag, show changelogs with --changelog flag, implement backup mechanism before updates with --backup flag, add interactive update selection interface, implement rollback capability for failed updates, support version pinning and constraints, and provide update impact analysis. Include migration path suggestions for breaking changes.",
+        "testStrategy": "Test component updates with version constraints, test breaking change detection, test backup and rollback functionality, test interactive update selection, verify changelog integration, and test update impact analysis accuracy",
+        "priority": "medium",
+        "dependencies": [
+          15,
+          16
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 19,
+        "title": "Implement Workspace and Monorepo Support (willow workspace)",
+        "description": "Add monorepo and workspace support with cross-package component management and shared dependency handling",
+        "details": "Implement `willow workspace` subcommands: init (initialize in monorepo), sync (sync components across packages), manage shared dependencies across workspace packages, implement cross-package component resolution, add workspace-aware configuration with package-specific overrides, support shared theme and token management, coordinate builds across packages, implement workspace-wide testing capabilities, and generate unified documentation for entire workspace. Support popular monorepo tools (Lerna, Nx, Rush).",
+        "testStrategy": "Test workspace initialization in monorepo environments, test component synchronization across packages, test shared dependency management, verify cross-package component resolution, test workspace-wide configuration, and test documentation generation",
+        "priority": "medium",
+        "dependencies": [
+          14,
+          16
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 20,
+        "title": "Implement Development Server Integration (willow dev)",
+        "description": "Create development server integration with build, preview, and Storybook integration capabilities",
+        "details": "Implement `willow dev` subcommands: start development server with hot module replacement, build component library with optimization, preview built component library, integrate with Storybook for component development, add development environment optimization, implement build performance monitoring, add asset optimization and bundle analysis tools, support multiple build targets, and provide development server configuration options.",
+        "testStrategy": "Test development server startup and HMR functionality, test build process optimization, test preview capabilities, verify Storybook integration, test asset optimization, and test bundle analysis accuracy",
+        "priority": "low",
+        "dependencies": [
+          14,
+          17
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 21,
+        "title": "Implement Command Infrastructure and Error Handling",
+        "description": "Create robust command infrastructure with comprehensive error handling, logging, and recovery mechanisms",
+        "details": "Implement modular command structure maintaining backward compatibility, add comprehensive error handling with recovery mechanisms, implement detailed logging and debugging capabilities, add support for multiple package managers with auto-detection, handle network failures gracefully with retry logic, provide offline capabilities where possible, implement operation cancellation for long-running commands, add comprehensive help system and command documentation, and create consistent command structure with standardized options.",
+        "testStrategy": "Test error handling across all commands, test network failure recovery, test operation cancellation, verify logging accuracy, test offline capabilities, test help system completeness, and verify backward compatibility",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 22,
+        "title": "Implement Performance Optimization and Progress Tracking",
+        "description": "Add performance optimization, progress tracking, and user experience enhancements across all commands",
+        "details": "Implement progress indicators for all long-running operations, optimize bulk operations to complete within 2 minutes for 20+ components, add efficient dependency resolution algorithms, implement operation cancellation support, add performance monitoring and benchmarking, optimize setup command to complete within 1 minute, implement caching mechanisms for frequently accessed data, add batch processing for bulk operations, and provide detailed timing information for performance analysis.",
+        "testStrategy": "Test performance benchmarks for bulk operations, verify progress tracking accuracy, test operation cancellation, test caching effectiveness, verify setup command timing, and test batch processing efficiency",
+        "priority": "medium",
+        "dependencies": [
+          21
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 23,
+        "title": "Implement CI/CD Integration and Non-Interactive Mode",
+        "description": "Add CI/CD support with non-interactive mode, automated testing, and deployment integration",
+        "details": "Implement non-interactive mode for CI/CD environments with --ci flag, add environment variable configuration support, implement automated testing integration, add deployment pipeline support, create configuration validation for CI environments, implement headless operation modes, add JSON output format for programmatic consumption, support environment-specific configurations, and provide comprehensive exit codes for different scenarios.",
+        "testStrategy": "Test non-interactive mode in CI environments, test environment variable configuration, verify automated testing integration, test deployment pipeline compatibility, test JSON output format, and verify exit code accuracy",
+        "priority": "medium",
+        "dependencies": [
+          21,
+          22
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 24,
+        "title": "Setup Project Structure and Dependencies",
+        "description": "Initialize the project with Node.js, Express, and core dependencies for the Rubylith component registry",
+        "details": "Create package.json with Express, SQLite3, Zod, JSON Schema validation, multer for file uploads, and CLI dependencies. Set up basic folder structure with /src/api, /src/cli, /src/db, /src/validation directories. Initialize TypeScript configuration for type safety.",
+        "testStrategy": "Verify package installation, TypeScript compilation, and basic project structure exists with proper imports",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 25,
+        "title": "Implement SQLite Database Schema and Models",
+        "description": "Create SQLite database with components and versions tables as specified in the PRD",
+        "details": "Implement the exact schema from PRD: components table (id, name, description, author, license, timestamps) and versions table (id, component_id, version, contract JSON, tarball_path, download_count, timestamps). Use sqlite3 package with proper migrations and database initialization scripts.",
+        "testStrategy": "Unit tests for database operations, verify table creation, foreign key constraints, and unique constraints work correctly",
+        "priority": "high",
+        "dependencies": [
+          24
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 26,
+        "title": "Create Contract Validation System",
+        "description": "Implement JSON Schema validation for component contracts using Zod",
+        "details": "Build validation system for the contract format specified in PRD. Validate framework compatibility (react@18, vue@3), styleEngine options (tailwind, css-modules, styled-components), props schema validation, and dependencies format. Use Zod for runtime validation and JSON Schema for interface validation.",
+        "testStrategy": "Comprehensive unit tests with valid/invalid contract examples, edge cases for version ranges, and malformed JSON handling",
+        "priority": "high",
+        "dependencies": [
+          24
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 27,
+        "title": "Implement File Storage System",
+        "description": "Create tarball storage and retrieval system for component files",
+        "details": "Implement local filesystem storage for component tarballs. Create organized directory structure /storage/components/:name/:version/. Handle tarball upload, validation, and secure retrieval. Implement file cleanup and basic security measures to prevent directory traversal attacks.",
+        "testStrategy": "Test file upload/download, verify tarball integrity, test storage path security, and cleanup operations",
+        "priority": "medium",
+        "dependencies": [
+          25
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 28,
+        "title": "Build Core API Endpoints",
+        "description": "Implement Express.js REST API endpoints for component registry operations",
+        "details": "Implement all 5 endpoints from PRD: POST /components (upload), GET /components (list/search), GET /components/:name (details), GET /components/:name/:version (download), POST /components/:name/validate. Include proper error handling, request validation, and response formatting.",
+        "testStrategy": "Integration tests for all endpoints, test with valid/invalid requests, verify file upload/download works, and error scenarios",
+        "priority": "high",
+        "dependencies": [
+          26,
+          27
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 29,
+        "title": "Create CLI Foundation and Command Parser",
+        "description": "Build the CLI tool foundation with command parsing and configuration",
+        "details": "Create CLI entry point using commander.js or yargs. Implement configuration management for registry URL, authentication. Set up command structure for publish, install, search, and validate commands. Include help system and error handling.",
+        "testStrategy": "Test CLI command parsing, help output, configuration loading, and basic command registration",
+        "priority": "medium",
+        "dependencies": [
+          24
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 30,
+        "title": "Implement CLI Publish Command",
+        "description": "Build 'rubylith publish ./dist' command to upload components",
+        "details": "Read contract.json from component directory, validate contract locally, create tarball from component files, upload to registry API. Include progress indicators, validation feedback, and error handling for network issues or validation failures.",
+        "testStrategy": "Test with valid/invalid components, network error scenarios, malformed contracts, and missing files",
+        "priority": "high",
+        "dependencies": [
+          28,
+          29
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 31,
+        "title": "Implement CLI Install Command",
+        "description": "Build 'rubylith install button' command to download and install components",
+        "details": "Query registry for component, check compatibility with local project (framework version, dependencies), download tarball, extract to appropriate directory. Include dependency resolution, version selection, and installation verification.",
+        "testStrategy": "Test component installation, compatibility checking, version resolution, extraction verification, and dependency conflicts",
+        "priority": "high",
+        "dependencies": [
+          28,
+          29
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 32,
+        "title": "Implement CLI Search and Validate Commands",
+        "description": "Build 'rubylith search' and 'rubylith validate' commands",
+        "details": "Search command queries registry API with filters and displays formatted results. Validate command reads local contract.json and validates against schema without uploading. Include formatted output, search filters, and local validation feedback.",
+        "testStrategy": "Test search functionality with various queries, validate command with valid/invalid local contracts, and output formatting",
+        "priority": "medium",
+        "dependencies": [
+          28,
+          29
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 33,
+        "title": "End-to-End Integration and MVP Workflow Validation",
+        "description": "Test complete workflow from publish to install with real component examples",
+        "details": "Create test React button component with contract.json following PRD specification. Test full workflow: publish component, search for it, install in new project, verify functionality. Test framework compatibility validation, dependency checking, and error scenarios.",
+        "testStrategy": "Complete end-to-end test with React button component, test compatibility validation, verify installed component works, and test failure scenarios",
+        "priority": "high",
+        "dependencies": [
+          30,
+          31,
+          32
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-06-24T18:43:23.772Z",
+      "updated": "2025-07-02T00:12:08.717Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

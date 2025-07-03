@@ -1,0 +1,55 @@
+{
+  "id": "react-functional-component",
+  "name": "React Functional Component",
+  "description": "A modern React functional component with TypeScript and hooks support",
+  "framework": "react",
+  "category": "component",
+  "language": "typescript",
+  "templatePath": "./functional-component.tsx.template",
+  "variables": [
+    {
+      "name": "componentName",
+      "description": "The name of the component (PascalCase)",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "props",
+      "description": "Array of prop definitions",
+      "type": "array",
+      "required": false,
+      "default": []
+    },
+    {
+      "name": "useState",
+      "description": "Whether to include useState hook",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "name": "useEffect",
+      "description": "Whether to include useEffect hook",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "name": "styling",
+      "description": "Styling approach to use",
+      "type": "string",
+      "required": false,
+      "default": "css-modules"
+    },
+    {
+      "name": "exportDefault",
+      "description": "Whether to use default export",
+      "type": "boolean",
+      "required": false,
+      "default": true
+    }
+  ],
+  "dependencies": ["react"],
+  "devDependencies": ["@types/react"],
+  "tags": ["functional", "hooks", "typescript"]
+}

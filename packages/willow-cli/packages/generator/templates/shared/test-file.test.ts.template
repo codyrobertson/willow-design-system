@@ -1,0 +1,79 @@
+{{#if (eq testFramework 'vitest')}}import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';{{else if (eq testFramework 'jest')}}// Jest imports are global{{else}}import { describe, it, expect, beforeEach, afterEach } from '{{testFramework}}';{{/if}}
+import { {{#each imports}}{{this}}{{#unless @last}}, {{/unless}}{{/each}} } from '{{targetFile}}';
+{{#if setupCode}}
+
+{{setupCode}}
+{{/if}}
+
+describe('{{testName}}', () => {
+  {{#if (or (eq testFramework 'vitest') (eq testFramework 'jest'))}}
+  // Setup and teardown
+  beforeEach(() => {
+    // Reset mocks
+    {{#if (eq testFramework 'vitest')}}vi.clearAllMocks();{{else}}jest.clearAllMocks();{{/if}}
+  });
+  
+  afterEach(() => {
+    // Cleanup
+    {{#if (eq testFramework 'vitest')}}vi.resetAllMocks();{{else}}jest.resetAllMocks();{{/if}}
+  });
+  {{/if}}
+  
+  {{#if testCases.length}}
+  {{#each testCases}}
+  describe('{{name}}', () => {
+    it('{{description}}', {{#if async}}async {{/if}}() => {
+      // Arrange
+      {{#if arrange}}
+      {{arrange}}
+      {{else}}
+      const input = {{#if input}}{{json input}}{{else}}{}{{/if}};
+      {{/if}}
+      
+      // Act
+      {{#if act}}
+      {{act}}
+      {{else}}
+      const result = {{#if async}}await {{/if}}{{../imports.[0]}}(input);
+      {{/if}}
+      
+      // Assert
+      {{#if assert}}
+      {{assert}}
+      {{else}}
+      expect(result).{{#if expectation}}{{expectation}}{{else}}toBeDefined(){{/if}};
+      {{/if}}
+    });
+  });
+  {{/each}}
+  {{else}}
+  it('should be defined', () => {
+    expect({{imports.[0]}}).toBeDefined();
+  });
+  
+  it('should work correctly', () => {
+    // Add your test implementation here
+    expect(true).toBe(true);
+  });
+  {{/if}}
+  
+  {{#if (or (eq testFramework 'vitest') (eq testFramework 'jest'))}}
+  // Mock example
+  {{#if (includes imports 'axios')}}
+  it('should handle API calls', async () => {
+    const mockData = { id: 1, name: 'Test' };
+    
+    // Mock the API call
+    {{#if (eq testFramework 'vitest')}}
+    vi.spyOn(axios, 'get').mockResolvedValue({ data: mockData });
+    {{else}}
+    jest.spyOn(axios, 'get').mockResolvedValue({ data: mockData });
+    {{/if}}
+    
+    // Your test here
+    
+    expect(axios.get).toHaveBeenCalled();
+  });
+  {{/if}}
+  {{/if}}
+});

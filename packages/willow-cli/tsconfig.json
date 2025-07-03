@@ -1,29 +1,26 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2022",
     "module": "NodeNext",
-    "lib": ["ES2022"],
     "moduleResolution": "NodeNext",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "allowJs": false,
     "noEmit": false,
     "outDir": "./dist",
     "rootDir": "./src",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "types": ["node"],
-    "declaration": true,
-    "declarationMap": true
+    "composite": true,
+    "types": ["node"]
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "bin"],
+  "exclude": ["node_modules", "dist", "bin", "packages"],
+  "references": [
+    { "path": "./packages/types" },
+    { "path": "./packages/config" },
+    { "path": "./packages/parser" },
+    { "path": "./packages/transformer" },
+    { "path": "./packages/generator" },
+    { "path": "./packages/validator" },
+    { "path": "./packages/core" },
+    { "path": "./packages/plugins" }
+  ],
   "ts-node": {
     "esm": true,
     "experimentalSpecifierResolution": "node"

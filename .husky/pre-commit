@@ -1,0 +1,68 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+echo "${BLUE}🚀 Running pre-commit hooks...${NC}"
+
+# 1. Run lint-staged for code formatting and linting
+echo "${YELLOW}📝 Running lint-staged (ESLint + Prettier + TypeScript checks)...${NC}"
+npx lint-staged
+if [ $? -ne 0 ]; then
+  echo "${RED}❌ Lint-staged failed. Please fix the issues and try again.${NC}"
+  exit 1
+fi
+
+# 2. Run focused tests (only for changed files if possible)
+echo "${YELLOW}🧪 Running tests...${NC}"
+# Run vitest with pre-commit config for speed
+npx vitest run --config vitest.config.precommit.ts
+if [ $? -ne 0 ]; then
+  echo "${RED}❌ Tests failed. Please fix the failing tests and try again.${NC}"
+  exit 1
+fi
+
+# 3. Check for unused exports
+echo "${YELLOW}🔍 Checking for unused exports with ts-prune...${NC}"
+npx ts-prune 2>/dev/null | grep -v "used in module" > .ts-prune-results.tmp
+if [ -s .ts-prune-results.tmp ]; then
+  echo "${YELLOW}⚠️  Warning: Found unused exports:${NC}"
+  cat .ts-prune-results.tmp
+  # Don't fail on unused exports, just warn
+fi
+rm -f .ts-prune-results.tmp
+
+# 4. Update documentation if TypeScript files changed
+if git diff --cached --name-only | grep -E '\.(ts|tsx)$' > /dev/null; then
+  echo "${YELLOW}📚 Updating API documentation with TypeDoc...${NC}"
+  npx typedoc --emit none 2>/dev/null
+  if [ $? -eq 0 ]; then
+    # Only generate docs if typedoc validation passes
+    npx typedoc
+    # Add generated docs to commit if they exist
+    if [ -d "docs/api" ]; then
+      git add docs/api/
+    fi
+  else
+    echo "${YELLOW}⚠️  Warning: TypeDoc validation had issues. Skipping documentation generation.${NC}"
+  fi
+fi
+
+# 5. Run type checking one more time to be safe
+echo "${YELLOW}🔧 Final TypeScript type check...${NC}"
+npm run typecheck
+if [ $? -ne 0 ]; then
+  echo "${RED}❌ Type checking failed. Please fix the type errors and try again.${NC}"
+  exit 1
+fi
+
+# 6. Check bundle size (optional - add if you have size limits)
+# echo "${YELLOW}📦 Checking bundle size...${NC}"
+# npm run build:size-check
+
+echo "${GREEN}✅ All pre-commit checks passed!${NC}"

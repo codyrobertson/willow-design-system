@@ -1,0 +1,13 @@
+{
+  "ignore": [
+    "src/index.ts",
+    "src/cli.ts",
+    "bin/index.js",
+    "packages/*/src/index.ts",
+    "**/*.d.ts",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/vitest.config.ts",
+    "**/tsup.config.ts"
+  ]
+}

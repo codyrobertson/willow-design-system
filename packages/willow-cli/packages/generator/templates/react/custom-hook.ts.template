@@ -1,0 +1,71 @@
+import { {{#each dependencies}}{{this}}{{#unless @last}}, {{/unless}}{{/each}} } from 'react';
+
+{{#if parameters.length}}
+interface {{capitalize hookName}}Options {
+  {{#each parameters}}
+  {{name}}{{#if optional}}?{{/if}}: {{type}};
+  {{/each}}
+}
+{{/if}}
+
+{{#if (and returnType (ne returnType 'void'))}}
+interface {{capitalize hookName}}Return {
+  {{#if (includes returnType '{')}}
+  {{returnType}}
+  {{else}}
+  value: {{returnType}};
+  {{/if}}
+}
+{{/if}}
+
+/**
+ * {{#if description}}{{description}}{{else}}Custom hook: {{hookName}}{{/if}}
+ * {{#if parameters.length}}
+ * @param options - Hook configuration options
+ * {{/if}}
+ * @returns {{#if (and returnType (ne returnType 'void'))}}{{returnType}}{{else}}void{{/if}}
+ */
+export function {{hookName}}({{#if parameters.length}}options: {{capitalize hookName}}Options{{/if}}){{#if (and returnType (ne returnType 'void'))}}: {{#if (includes returnType '{')}}{{capitalize hookName}}Return{{else}}{{returnType}}{{/if}}{{/if}} {
+  {{#if parameters.length}}
+  const { {{#each parameters}}{{name}}{{#unless @last}}, {{/unless}}{{/each}} } = options;
+  {{/if}}
+  
+  {{#if (includes dependencies 'useState')}}
+  const [value, setValue] = useState{{#if (and returnType (ne returnType 'void'))}}{{#unless (includes returnType '{')}}{{#unless (eq returnType 'any')}}<{{returnType}}>{{/unless}}{{/unless}}{{/if}}({{#if (eq returnType 'string')}}''{{else if (eq returnType 'number')}}0{{else if (eq returnType 'boolean')}}false{{else if (includes returnType '[]')}}[]{{else}}null{{/if}});
+  {{/if}}
+  
+  {{#if (includes dependencies 'useEffect')}}
+  useEffect(() => {
+    // Effect logic here
+    {{#if parameters.length}}
+    console.log('Hook initialized with:', { {{#each parameters}}{{name}}{{#unless @last}}, {{/unless}}{{/each}} });
+    {{/if}}
+    
+    return () => {
+      // Cleanup logic here
+    };
+  }, [{{#each parameters}}{{#unless optional}}{{name}}{{#unless @last}}, {{/unless}}{{/unless}}{{/each}}]);
+  {{/if}}
+  
+  {{#if (includes dependencies 'useCallback')}}
+  const handleAction = useCallback(() => {
+    // Callback logic here
+  }, []);
+  {{/if}}
+  
+  {{#if (includes dependencies 'useMemo')}}
+  const computedValue = useMemo(() => {
+    // Expensive computation here
+    return value;
+  }, [value]);
+  {{/if}}
+  
+  {{#if (and returnType (ne returnType 'void'))}}
+  return {{#if (includes returnType '{')}} {
+    value,
+    setValue,
+    {{#if (includes dependencies 'useCallback')}}handleAction,{{/if}}
+    {{#if (includes dependencies 'useMemo')}}computedValue,{{/if}}
+  }{{else}}value{{/if}};
+  {{/if}}
+}

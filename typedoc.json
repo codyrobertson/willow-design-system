@@ -1,0 +1,47 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "./src",
+    "./lib",
+    "./packages/willow-cli/packages/*/src"
+  ],
+  "entryPointStrategy": "expand",
+  "out": "./docs/api",
+  "plugin": ["typedoc-plugin-markdown"],
+  "exclude": [
+    "**/node_modules/**",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/dist/**",
+    "**/build/**",
+    "**/.next/**"
+  ],
+  "excludeExternals": true,
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "includeVersion": true,
+  "readme": "README.md",
+  "name": "Willow Design System API Documentation",
+  "navigationLinks": {
+    "GitHub": "https://github.com/your-org/willow-design-system",
+    "Documentation": "https://iridescent-brigadeiros-fe4174.netlify.app"
+  },
+  "categorizeByGroup": true,
+  "categoryOrder": [
+    "Components",
+    "Hooks",
+    "Utils",
+    "Types",
+    "*"
+  ],
+  "searchInComments": true,
+  "skipErrorChecking": false,
+  "validation": {
+    "notExported": true,
+    "invalidLink": true,
+    "notDocumented": false
+  }
+}

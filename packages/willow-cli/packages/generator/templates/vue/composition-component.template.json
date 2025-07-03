@@ -1,0 +1,55 @@
+{
+  "id": "vue-composition-component",
+  "name": "Vue Composition API Component",
+  "description": "A Vue 3 component using Composition API with TypeScript",
+  "framework": "vue",
+  "category": "component",
+  "language": "typescript",
+  "templatePath": "./composition-component.vue.template",
+  "variables": [
+    {
+      "name": "componentName",
+      "description": "The name of the component (PascalCase)",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "props",
+      "description": "Array of prop definitions",
+      "type": "array",
+      "required": false,
+      "default": []
+    },
+    {
+      "name": "emits",
+      "description": "Array of event emissions",
+      "type": "array",
+      "required": false,
+      "default": []
+    },
+    {
+      "name": "useRouter",
+      "description": "Whether to include Vue Router",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "name": "useStore",
+      "description": "Whether to include Vuex/Pinia store",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "name": "styling",
+      "description": "Styling approach (scoped, module, tailwind)",
+      "type": "string",
+      "required": false,
+      "default": "scoped"
+    }
+  ],
+  "dependencies": ["vue"],
+  "devDependencies": ["@vue/runtime-core"],
+  "tags": ["composition-api", "vue3", "typescript", "sfc"]
+}
