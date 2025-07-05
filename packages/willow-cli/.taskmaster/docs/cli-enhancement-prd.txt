@@ -1,0 +1,232 @@
+# Willow CLI Enhancement - Missing Features PRD
+
+## Project Overview
+The Willow CLI currently provides basic functionality for component management but is missing several critical features required for a complete design system development experience. This PRD outlines the implementation of missing features to make the CLI production-ready.
+
+## Current State
+The CLI currently supports:
+- Project initialization (`willow init`)
+- Component addition (`willow add`)
+- Component generation (`willow generate`)
+- Test generation (`willow test`)
+- Story generation (`willow story`)
+- Component listing (`willow list`)
+- Configuration management (`willow config`)
+- Health checks (`willow doctor`)
+- Basic transformation (`willow transform`)
+
+## Missing Critical Features
+
+### 1. Environment Setup Command (`willow setup`)
+**Priority: Critical**
+The CLI needs a comprehensive setup command that configures the entire development environment:
+
+#### Requirements:
+- Install and configure Tailwind CSS with optimal defaults
+- Set up shadcn/ui utility functions (cn, etc.)
+- Configure TypeScript with framework-specific optimizations
+- Install development dependencies (ESLint, Prettier, testing frameworks)
+- Set up PostCSS configuration
+- Configure Vite/Next.js/CRA specific files
+- Install and configure testing environment (Vitest/Jest)
+- Set up Storybook configuration and dependencies
+- Create necessary directory structure
+- Install framework-specific dependencies based on configuration
+
+#### Acceptance Criteria:
+- Single command sets up complete development environment
+- Works with React, Vue, and Angular frameworks
+- Configures TypeScript properly for each framework
+- Sets up testing with appropriate framework integrations
+- Creates optimized build configurations
+- Installs all necessary peer dependencies
+- Provides clear feedback on what was installed/configured
+
+### 2. Bulk Component Import (`willow import`)
+**Priority: High**
+Users need to import multiple components efficiently rather than one at a time:
+
+#### Requirements:
+- Import all stable components from registry (`willow import --all`)
+- Import by category (`willow import --category=forms`)
+- Import essential component set (`willow import --essential`)
+- Import specific component lists (`willow import button,card,dialog`)
+- Show progress during bulk imports
+- Handle dependency resolution between components
+- Provide dry-run capability (`willow import --all --dry-run`)
+- Support filtering by UI kit compatibility
+- Track and avoid duplicate imports
+
+#### Acceptance Criteria:
+- Can import 20+ components in a single command
+- Resolves component dependencies automatically
+- Shows clear progress during import process
+- Handles failures gracefully with rollback capability
+- Provides detailed summary of imported components
+- Respects existing components (no overwrites without --force)
+
+### 3. Advanced Dependency Management (`willow deps`)
+**Priority: High**
+Current dependency handling is minimal. Need comprehensive dependency management:
+
+#### Requirements:
+- Install all required dependencies (`willow deps install`)
+- Update component dependencies (`willow deps update`)
+- Audit for security vulnerabilities (`willow deps audit`)
+- Check for outdated packages (`willow deps outdated`)
+- Clean unused dependencies (`willow deps clean`)
+- Show dependency tree (`willow deps tree`)
+- Handle peer dependency conflicts
+- Support different package managers (npm, yarn, pnpm, bun)
+- Integration with framework-specific dependency requirements
+
+#### Acceptance Criteria:
+- Automatically resolves and installs all component dependencies
+- Detects and warns about version conflicts
+- Provides clear upgrade paths for outdated dependencies
+- Integrates with security audit tools
+- Supports workspace/monorepo dependency management
+- Works across different package managers
+
+### 4. Theme Management System (`willow theme`)
+**Priority: Medium**
+Design systems require comprehensive theme management:
+
+#### Requirements:
+- Create new themes (`willow theme create dark`)
+- Apply existing themes (`willow theme apply corporate`)
+- Export current theme (`willow theme export`)
+- Import theme from file (`willow theme import theme.json`)
+- List available themes (`willow theme list`)
+- Manage design tokens (`willow theme tokens`)
+- Generate CSS custom properties
+- Support theme inheritance and composition
+- Validate theme completeness
+- Generate theme documentation
+
+#### Acceptance Criteria:
+- Can create and apply themes that affect all components
+- Generates proper CSS custom properties
+- Validates theme consistency and completeness
+- Provides theme preview capabilities
+- Supports complex theme inheritance patterns
+- Generates comprehensive theme documentation
+
+### 5. Component Update System (`willow update`)
+**Priority: Medium**
+Components need update mechanisms for new versions:
+
+#### Requirements:
+- Update all components (`willow update`)
+- Update specific component (`willow update Button`)
+- Show available updates (`willow update --check`)
+- Display breaking changes (`willow update --breaking`)
+- Update with changelog (`willow update --changelog`)
+- Backup before updates (`willow update --backup`)
+- Interactive update selection
+- Rollback capability for failed updates
+- Version pinning and constraints
+- Update impact analysis
+
+#### Acceptance Criteria:
+- Safely updates components with backup/rollback
+- Clearly shows breaking changes and migration paths
+- Provides interactive selection for updates
+- Respects version constraints and customizations
+- Generates update reports and changelogs
+- Handles dependency chain updates
+
+### 6. Workspace and Monorepo Support (`willow workspace`)
+**Priority: Medium**
+Modern projects often use monorepos and need proper workspace support:
+
+#### Requirements:
+- Initialize in monorepo (`willow workspace init`)
+- Sync components across packages (`willow workspace sync`)
+- Manage shared dependencies
+- Cross-package component resolution
+- Workspace-aware configuration
+- Package-specific overrides
+- Shared theme and token management
+- Build coordination across packages
+- Testing across workspace
+- Documentation generation for entire workspace
+
+#### Acceptance Criteria:
+- Works seamlessly in monorepo environments
+- Handles complex workspace dependency management
+- Provides unified component management across packages
+- Supports workspace-specific configurations
+- Generates workspace-wide documentation
+
+### 7. Development Server Integration (`willow dev`)
+**Priority: Low**
+Integration with development tooling:
+
+#### Requirements:
+- Start development server (`willow dev`)
+- Build component library (`willow build`)
+- Preview component library (`willow preview`)
+- Integration with Storybook
+- Hot module replacement support
+- Development environment optimization
+- Build performance monitoring
+- Asset optimization
+- Bundle analysis tools
+
+#### Acceptance Criteria:
+- Provides optimized development experience
+- Fast hot reload for component changes
+- Integrated build and preview capabilities
+- Performance monitoring and optimization suggestions
+- Seamless Storybook integration
+
+## Technical Implementation Requirements
+
+### Architecture Considerations:
+- Maintain current modular command structure
+- Ensure backward compatibility
+- Implement proper error handling and recovery
+- Add comprehensive logging and debugging
+- Support multiple package managers
+- Handle network failures gracefully
+- Provide offline capabilities where possible
+
+### Performance Requirements:
+- Bulk operations should complete within 2 minutes for 20+ components
+- Setup command should complete within 1 minute
+- All commands should provide progress feedback
+- Support cancellation of long-running operations
+- Efficient dependency resolution algorithms
+
+### User Experience Requirements:
+- Interactive prompts with sensible defaults
+- Clear progress indicators for long operations
+- Comprehensive help and documentation
+- Error messages with actionable suggestions
+- Consistent command structure and options
+- Support for CI/CD environments (non-interactive mode)
+
+### Integration Requirements:
+- Work with existing project structures
+- Support multiple UI frameworks (React, Vue, Angular)
+- Integration with popular build tools (Vite, Webpack, etc.)
+- Support for different UI kit ecosystems (shadcn, Material, etc.)
+- Compatible with existing package managers
+- Integration with popular IDEs and editors
+
+## Success Metrics
+- Complete development environment setup in under 1 minute
+- Ability to import 20+ components in under 2 minutes
+- 95% successful dependency resolution rate
+- Zero data loss during updates (with backup/rollback)
+- Support for 90% of common project configurations
+- Positive user feedback on ease of use and completeness
+
+## Timeline and Priority
+1. **Phase 1 (Critical)**: `willow setup` command - Complete environment setup
+2. **Phase 2 (High)**: `willow import` and `willow deps` commands - Bulk operations
+3. **Phase 3 (Medium)**: `willow theme` and `willow update` commands - Advanced features
+4. **Phase 4 (Low)**: `willow workspace` and `willow dev` commands - Ecosystem integration
+
+This enhancement will transform the Willow CLI from a basic component manager into a comprehensive design system development platform.

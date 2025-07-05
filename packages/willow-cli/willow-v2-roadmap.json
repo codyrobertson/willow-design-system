@@ -1,0 +1,432 @@
+{
+  "project": "Willow CLI v2.0 - Complete Implementation Roadmap",
+  "description": "Remaining work to complete the simplified 40-file architecture",
+  "totalFilesTarget": 40,
+  "filesCompleted": 19,
+  "filesRemaining": 21,
+  "phases": [
+    {
+      "id": "phase-1",
+      "name": "Core Infrastructure Completion",
+      "description": "Complete the core component management and support modules",
+      "status": "in_progress",
+      "epics": [
+        {
+          "id": "epic-1.1",
+          "name": "Component Management Core",
+          "description": "Build the core functionality for installing, updating, and managing components",
+          "tasks": [
+            {
+              "id": "task-1.1.1",
+              "name": "Component Installer Implementation",
+              "description": "Create the main component installation logic",
+              "units": [
+                {
+                  "id": "unit-1.1.1.1",
+                  "file": "src-v2/core/component-installer.ts",
+                  "description": "Main installer class with install/remove/update methods",
+                  "estimatedLines": 300,
+                  "dependencies": ["types/index.ts", "registry/client.ts"]
+                },
+                {
+                  "id": "unit-1.1.1.2",
+                  "file": "src-v2/core/dependency-resolver.ts",
+                  "description": "Resolve component dependencies and handle conflicts",
+                  "estimatedLines": 200,
+                  "dependencies": ["types/index.ts", "component-installer.ts"]
+                },
+                {
+                  "id": "unit-1.1.1.3",
+                  "file": "src-v2/core/package-manager.ts",
+                  "description": "Detect and interface with npm/yarn/pnpm",
+                  "estimatedLines": 150,
+                  "dependencies": ["types/index.ts"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "epic-1.2",
+          "name": "Registry Storage & Analytics",
+          "description": "Complete the registry backend functionality",
+          "tasks": [
+            {
+              "id": "task-1.2.1",
+              "name": "Storage Layer Implementation",
+              "description": "Create storage abstraction for components",
+              "units": [
+                {
+                  "id": "unit-1.2.1.1",
+                  "file": "src-v2/registry/storage.ts",
+                  "description": "Component storage with SQLite/PostgreSQL support",
+                  "estimatedLines": 250,
+                  "dependencies": ["types/index.ts"]
+                },
+                {
+                  "id": "unit-1.2.1.2",
+                  "file": "src-v2/registry/validators.ts",
+                  "description": "Validate component data and requests",
+                  "estimatedLines": 100,
+                  "dependencies": ["types/index.ts"]
+                }
+              ]
+            },
+            {
+              "id": "task-1.2.2",
+              "name": "Analytics Implementation",
+              "description": "Track component usage and statistics",
+              "units": [
+                {
+                  "id": "unit-1.2.2.1",
+                  "file": "src-v2/registry/analytics.ts",
+                  "description": "Analytics tracker for downloads, publishes, searches",
+                  "estimatedLines": 150,
+                  "dependencies": ["storage.ts"]
+                },
+                {
+                  "id": "unit-1.2.2.2",
+                  "file": "src-v2/registry/search.ts",
+                  "description": "Search router for registry API",
+                  "estimatedLines": 100,
+                  "dependencies": ["search-engine.ts", "validators.ts"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "name": "Documentation & Code Analysis",
+      "description": "Implement AST parsing and documentation generation",
+      "status": "pending",
+      "epics": [
+        {
+          "id": "epic-2.1",
+          "name": "AST Parser & Analysis",
+          "description": "Parse components to extract metadata and documentation",
+          "tasks": [
+            {
+              "id": "task-2.1.1",
+              "name": "AST Parser Implementation",
+              "description": "Use TypeScript compiler API for component analysis",
+              "units": [
+                {
+                  "id": "unit-2.1.1.1",
+                  "file": "src-v2/docs/ast-parser.ts",
+                  "description": "Parse React/Vue/Svelte components for props, methods, JSDoc",
+                  "estimatedLines": 400,
+                  "dependencies": ["types/index.ts", "typescript"]
+                },
+                {
+                  "id": "unit-2.1.1.2",
+                  "file": "src-v2/docs/component-analyzer.ts",
+                  "description": "Analyze component patterns and extract metadata",
+                  "estimatedLines": 200,
+                  "dependencies": ["ast-parser.ts"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "epic-2.2",
+          "name": "Documentation Generation",
+          "description": "Generate markdown/HTML docs and Storybook stories",
+          "tasks": [
+            {
+              "id": "task-2.2.1",
+              "name": "Documentation Generator",
+              "description": "Convert component metadata to documentation",
+              "units": [
+                {
+                  "id": "unit-2.2.1.1",
+                  "file": "src-v2/docs/doc-generator.ts",
+                  "description": "Generate markdown/HTML documentation from components",
+                  "estimatedLines": 300,
+                  "dependencies": ["ast-parser.ts", "component-analyzer.ts"]
+                },
+                {
+                  "id": "unit-2.2.1.2",
+                  "file": "src-v2/docs/markdown-renderer.ts",
+                  "description": "Render component docs as markdown with examples",
+                  "estimatedLines": 150,
+                  "dependencies": ["doc-generator.ts"]
+                }
+              ]
+            },
+            {
+              "id": "task-2.2.2",
+              "name": "Storybook Integration",
+              "description": "Auto-generate Storybook stories",
+              "units": [
+                {
+                  "id": "unit-2.2.2.1",
+                  "file": "src-v2/docs/story-generator.ts",
+                  "description": "Generate Storybook stories from component analysis",
+                  "estimatedLines": 250,
+                  "dependencies": ["ast-parser.ts", "component-analyzer.ts"]
+                },
+                {
+                  "id": "unit-2.2.2.2",
+                  "file": "src-v2/docs/story-templates.ts",
+                  "description": "Templates for different component types",
+                  "estimatedLines": 100,
+                  "dependencies": ["story-generator.ts"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "name": "Utilities & Framework Support",
+      "description": "Create utility modules and framework detection",
+      "status": "pending",
+      "epics": [
+        {
+          "id": "epic-3.1",
+          "name": "Core Utilities",
+          "description": "Essential utility functions for CLI operations",
+          "tasks": [
+            {
+              "id": "task-3.1.1",
+              "name": "File System Utilities",
+              "description": "File management and manipulation",
+              "units": [
+                {
+                  "id": "unit-3.1.1.1",
+                  "file": "src-v2/utils/file-manager.ts",
+                  "description": "Safe file operations with rollback support",
+                  "estimatedLines": 200,
+                  "dependencies": ["types/index.ts"]
+                },
+                {
+                  "id": "unit-3.1.1.2",
+                  "file": "src-v2/utils/template-engine.ts",
+                  "description": "Simple template engine for code generation",
+                  "estimatedLines": 100,
+                  "dependencies": ["file-manager.ts"]
+                }
+              ]
+            },
+            {
+              "id": "task-3.1.2",
+              "name": "Progress & UI Utilities",
+              "description": "User interface helpers",
+              "units": [
+                {
+                  "id": "unit-3.1.2.1",
+                  "file": "src-v2/utils/progress-tracker.ts",
+                  "description": "Track and display operation progress",
+                  "estimatedLines": 150,
+                  "dependencies": ["ora", "chalk"]
+                },
+                {
+                  "id": "unit-3.1.2.2",
+                  "file": "src-v2/utils/prompts.ts",
+                  "description": "Interactive prompts for user input",
+                  "estimatedLines": 100,
+                  "dependencies": ["inquirer"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "epic-3.2",
+          "name": "Framework Detection & Support",
+          "description": "Detect and support different frameworks",
+          "tasks": [
+            {
+              "id": "task-3.2.1",
+              "name": "Framework Detection",
+              "description": "Auto-detect project framework and configuration",
+              "units": [
+                {
+                  "id": "unit-3.2.1.1",
+                  "file": "src-v2/utils/framework-detector.ts",
+                  "description": "Detect Next.js, Vite, Remix, CRA, etc.",
+                  "estimatedLines": 200,
+                  "dependencies": ["types/index.ts", "file-manager.ts"]
+                },
+                {
+                  "id": "unit-3.2.1.2",
+                  "file": "src-v2/utils/path-resolver.ts",
+                  "description": "Resolve component paths for different frameworks",
+                  "estimatedLines": 100,
+                  "dependencies": ["framework-detector.ts"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-4",
+      "name": "Build Configuration & Testing",
+      "description": "Set up TypeScript, build system, and testing",
+      "status": "pending",
+      "epics": [
+        {
+          "id": "epic-4.1",
+          "name": "Build Configuration",
+          "description": "Configure TypeScript and build pipeline",
+          "tasks": [
+            {
+              "id": "task-4.1.1",
+              "name": "TypeScript Configuration",
+              "description": "Set up TypeScript for the new architecture",
+              "units": [
+                {
+                  "id": "unit-4.1.1.1",
+                  "file": "tsconfig.v2.json",
+                  "description": "TypeScript config for v2 architecture",
+                  "estimatedLines": 30,
+                  "dependencies": []
+                },
+                {
+                  "id": "unit-4.1.1.2",
+                  "file": "build-v2.js",
+                  "description": "Build script for v2 CLI",
+                  "estimatedLines": 50,
+                  "dependencies": ["tsconfig.v2.json"]
+                }
+              ]
+            },
+            {
+              "id": "task-4.1.2",
+              "name": "Package Configuration",
+              "description": "Update package.json and dependencies",
+              "units": [
+                {
+                  "id": "unit-4.1.2.1",
+                  "file": "package.v2.json",
+                  "description": "New package.json with simplified dependencies",
+                  "estimatedLines": 50,
+                  "dependencies": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "epic-4.2",
+          "name": "Testing Infrastructure",
+          "description": "Set up testing for the new architecture",
+          "tasks": [
+            {
+              "id": "task-4.2.1",
+              "name": "Test Configuration",
+              "description": "Configure testing framework",
+              "units": [
+                {
+                  "id": "unit-4.2.1.1",
+                  "file": "vitest.config.v2.ts",
+                  "description": "Vitest configuration for v2",
+                  "estimatedLines": 30,
+                  "dependencies": []
+                },
+                {
+                  "id": "unit-4.2.1.2",
+                  "file": "src-v2/test-utils/index.ts",
+                  "description": "Testing utilities and mocks",
+                  "estimatedLines": 100,
+                  "dependencies": ["vitest"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-5",
+      "name": "Migration & Integration",
+      "description": "Migrate from v1 to v2 and ensure compatibility",
+      "status": "pending",
+      "epics": [
+        {
+          "id": "epic-5.1",
+          "name": "Migration Tools",
+          "description": "Tools to help users migrate from v1 to v2",
+          "tasks": [
+            {
+              "id": "task-5.1.1",
+              "name": "Migration Script",
+              "description": "Automated migration from v1 to v2",
+              "units": [
+                {
+                  "id": "unit-5.1.1.1",
+                  "file": "scripts/migrate-to-v2.js",
+                  "description": "Migration script for existing projects",
+                  "estimatedLines": 200,
+                  "dependencies": []
+                },
+                {
+                  "id": "unit-5.1.1.2",
+                  "file": "MIGRATION.md",
+                  "description": "Migration guide documentation",
+                  "estimatedLines": 500,
+                  "dependencies": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "totalPhases": 5,
+    "totalEpics": 10,
+    "totalTasks": 14,
+    "totalUnits": 30,
+    "estimatedTotalLines": 4530,
+    "priorityOrder": [
+      "phase-1",
+      "phase-3",
+      "phase-4",
+      "phase-2",
+      "phase-5"
+    ],
+    "criticalPath": [
+      "unit-1.1.1.1",
+      "unit-1.1.1.2",
+      "unit-1.1.1.3",
+      "unit-3.2.1.1",
+      "unit-3.1.1.1",
+      "unit-4.1.1.1"
+    ]
+  },
+  "timeline": {
+    "estimatedDays": 10,
+    "breakdown": {
+      "phase-1": 2,
+      "phase-2": 3,
+      "phase-3": 2,
+      "phase-4": 1,
+      "phase-5": 2
+    }
+  },
+  "dependencies": {
+    "external": [
+      "commander",
+      "chalk",
+      "ora",
+      "glob",
+      "express",
+      "typescript",
+      "inquirer",
+      "vitest"
+    ],
+    "removed": [
+      "100+ unnecessary dependencies from v1"
+    ]
+  }
+}

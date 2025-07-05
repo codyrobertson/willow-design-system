@@ -1,0 +1,85 @@
+# Task ID: 14
+# Title: Implement Environment Setup Command (willow setup)
+# Status: pending
+# Dependencies: None
+# Priority: high
+# Description: Create comprehensive setup command that configures entire development environment including Tailwind CSS, shadcn/ui utilities, TypeScript, and framework-specific configurations
+# Details:
+Implement `willow setup` command with auto-detection of framework (React/Vue/Angular), install and configure Tailwind CSS with optimal defaults, set up shadcn/ui utility functions (cn helper), configure TypeScript with framework-specific optimizations, install development dependencies (ESLint, Prettier, testing frameworks), set up PostCSS configuration, configure Vite/Next.js/CRA specific files, install and configure testing environment (Vitest/Jest), set up Storybook configuration and dependencies, create necessary directory structure (/components, /lib, /styles), and install framework-specific dependencies based on detected configuration. Use package manager detection (npm/yarn/pnpm/bun) and provide detailed progress feedback.
+
+# Test Strategy:
+Test setup command across different frameworks (React, Vue, Angular), verify all configurations are properly generated, test with different package managers, ensure TypeScript compilation works, verify Tailwind CSS integration, test Storybook startup, and validate all dependencies are correctly installed
+
+# Subtasks:
+## 1. Implement Package Manager Detection [done]
+### Dependencies: None
+### Description: Create a module to detect and handle npm, yarn, pnpm, and bun package managers
+### Details:
+Build detection logic that checks for lock files (package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb) and available binaries. Create a unified interface for executing install commands across different package managers.
+
+## 2. Create Framework Detection Module [done]
+### Dependencies: None
+### Description: Build logic to detect Next.js, React, Vue, Svelte, and other supported frameworks
+### Details:
+Analyze package.json dependencies, configuration files (next.config.js, vite.config.js, etc.), and project structure to determine the framework. Support detection of multiple frameworks in monorepos.
+
+## 3. Implement Tailwind CSS Installation [done]
+### Dependencies: 14.1, 14.2
+### Description: Create installer for Tailwind CSS with framework-specific configurations
+### Details:
+Install tailwindcss, postcss, and autoprefixer. Generate tailwind.config.js with appropriate content paths for detected framework. Handle existing Tailwind installations gracefully.
+
+## 4. Setup PostCSS Configuration [done]
+### Dependencies: 14.3
+### Description: Generate and configure PostCSS for each supported framework
+### Details:
+Create postcss.config.js with Tailwind CSS plugin and autoprefixer. Handle framework-specific PostCSS requirements (Next.js built-in support, Vite integration, etc.).
+
+## 5. Configure TypeScript for Each Framework [done]
+### Dependencies: 14.2
+### Description: Generate or update TypeScript configurations for detected frameworks
+### Details:
+Create/update tsconfig.json with framework-specific compiler options, path mappings for @/ alias, and appropriate lib/target settings. Handle JSX/TSX configuration for React/Next.js.
+
+## 6. Implement shadcn/ui Utilities Setup [done]
+### Dependencies: 14.3, 14.5
+### Description: Install and configure shadcn/ui components and utilities
+### Details:
+Install class-variance-authority, clsx, tailwind-merge. Create cn() utility function. Setup components.json configuration. Prepare for component installation workflow.
+
+## 7. Create Directory Structure [in-progress]
+### Dependencies: 14.2
+### Description: Generate standardized directory structure for components and utilities
+### Details:
+Create src/components, src/lib, src/utils directories. Setup @/ path alias. Create index files and barrel exports. Handle existing directory structures without overwriting.
+
+## 8. Setup Build Tool Configurations [pending]
+### Dependencies: 14.2, 14.4, 14.5
+### Description: Configure Vite, Webpack, or other build tools for optimal Willow usage
+### Details:
+Update vite.config.js, webpack.config.js, or next.config.js with alias configurations, CSS processing, and optimization settings. Ensure hot reload works with Tailwind JIT.
+
+## 9. Install Development Dependencies [pending]
+### Dependencies: 14.1, 14.5
+### Description: Install ESLint, Prettier, and other development tools with Willow presets
+### Details:
+Install and configure ESLint with TypeScript and Tailwind plugins. Setup Prettier with Tailwind class sorting. Add husky and lint-staged for pre-commit hooks.
+
+## 10. Configure Testing Framework [pending]
+### Dependencies: 14.2, 14.5, 14.9
+### Description: Setup Jest or Vitest with React Testing Library and component testing utilities
+### Details:
+Install testing dependencies based on framework. Configure jest.config.js or vitest.config.js with TypeScript and module resolution. Setup testing utilities for component testing.
+
+## 11. Setup Storybook Configuration [pending]
+### Dependencies: 14.2, 14.3, 14.6
+### Description: Install and configure Storybook with Willow theme and addons
+### Details:
+Run Storybook init for detected framework. Configure Tailwind CSS in Storybook. Add essential addons (controls, actions, a11y). Create example stories for Willow components.
+
+## 12. Implement Progress Feedback System [pending]
+### Dependencies: None
+### Description: Create CLI progress indicators and success/error messaging
+### Details:
+Build spinner/progress bar components for long-running tasks. Implement colored console output for success/warning/error states. Create summary report of installed features and next steps.
+

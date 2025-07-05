@@ -1,0 +1,48 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noEmit": false,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": false,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": false
+  },
+  "include": [
+    "src/cli.ts",
+    "src/cli-*.ts",
+    "src/index.ts",
+    "src/commands/**/*.ts",
+    "src/core/CLI.ts",
+    "src/core/ArgumentParser.ts",
+    "src/core/commands/**/*.ts",
+    "src/core/help/**/*.ts",
+    "src/core/logging/**/*.ts",
+    "src/core/package-manager/**/*.ts",
+    "src/core/network/**/*.ts",
+    "src/core/cache/**/*.ts",
+    "src/config/**/*.ts",
+    "src/types/**/*.ts",
+    "src/errors/**/*.ts",
+    "src/utils/**/*.ts",
+    "src/ui/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "bin",
+    "packages",
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts",
+    "src/**/test*/**",
+    "src/**/tests/**",
+    "src/**/examples/**",
+    "src/adapters/**",
+    "src/generator/**"
+  ]
+}

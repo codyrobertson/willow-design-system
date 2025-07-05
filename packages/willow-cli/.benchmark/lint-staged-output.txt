@@ -1,0 +1,80 @@
+npm info using npm@11.3.0
+npm info using node@v24.1.0
+[STARTED] Backing up original state...
+[COMPLETED] Backed up original state in git stash (e330811b)
+[STARTED] Running tasks for staged files...
+[STARTED] .lintstagedrc.json — 25 files
+[STARTED] *.{ts,tsx} — 25 files
+[STARTED] *.{js,jsx} — 0 files
+[STARTED] *.{json,md,yml,yaml} — 0 files
+[STARTED] package.json — 0 files
+[STARTED] *.config.{ts,js,mjs} — 0 files
+[SKIPPED] *.{js,jsx} — no files
+[SKIPPED] *.{json,md,yml,yaml} — no files
+[SKIPPED] package.json — no files
+[SKIPPED] *.config.{ts,js,mjs} — no files
+[STARTED] eslint --fix --max-warnings=0
+[COMPLETED] eslint --fix --max-warnings=0
+[STARTED] prettier --write
+[COMPLETED] prettier --write
+[STARTED] vitest related --run --reporter=verbose
+[FAILED] vitest related --run --reporter=verbose [FAILED]
+[FAILED] vitest related --run --reporter=verbose [FAILED]
+[COMPLETED] Running tasks for staged files...
+[STARTED] Applying modifications from tasks...
+[SKIPPED] Skipped because of errors from tasks.
+[STARTED] Reverting to original state because of errors...
+[COMPLETED] Reverting to original state because of errors...
+[STARTED] Cleaning up temporary files...
+[COMPLETED] Cleaning up temporary files...
+
+→ prettier --write:
+[warn] jsxBracketSameLine is deprecated.
+.benchmark/test-file-1.ts 45ms (unchanged)
+.benchmark/test-file-10.ts 16ms (unchanged)
+.benchmark/test-file-11.ts 12ms (unchanged)
+.benchmark/test-file-12.ts 6ms (unchanged)
+.benchmark/test-file-13.ts 5ms (unchanged)
+.benchmark/test-file-14.ts 5ms (unchanged)
+.benchmark/test-file-15.ts 4ms (unchanged)
+.benchmark/test-file-16.ts 4ms (unchanged)
+.benchmark/test-file-17.ts 8ms (unchanged)
+.benchmark/test-file-18.ts 7ms (unchanged)
+.benchmark/test-file-19.ts 4ms (unchanged)
+.benchmark/test-file-2.ts 6ms (unchanged)
+.benchmark/test-file-20.ts 5ms (unchanged)
+.benchmark/test-file-21.ts 6ms (unchanged)
+.benchmark/test-file-22.ts 3ms (unchanged)
+.benchmark/test-file-23.ts 3ms (unchanged)
+.benchmark/test-file-24.ts 6ms (unchanged)
+.benchmark/test-file-25.ts 6ms (unchanged)
+.benchmark/test-file-3.ts 4ms (unchanged)
+.benchmark/test-file-4.ts 5ms (unchanged)
+.benchmark/test-file-5.ts 4ms (unchanged)
+.benchmark/test-file-6.ts 3ms (unchanged)
+.benchmark/test-file-7.ts 3ms (unchanged)
+.benchmark/test-file-8.ts 3ms (unchanged)
+.benchmark/test-file-9.ts 3ms (unchanged)
+
+✖ vitest related --run --reporter=verbose:
+
+⎯⎯⎯⎯⎯⎯ Unhandled Error ⎯⎯⎯⎯⎯⎯⎯
+Error: Failed to resolve entry for package "fs". The package may have incorrect main/module/exports specified in its package.json.
+ ❯ packageEntryFailure node_modules/vite/dist/node/chunks/dep-C6uTJdX2.js:46638:15
+ ❯ resolvePackageEntry node_modules/vite/dist/node/chunks/dep-C6uTJdX2.js:46635:3
+ ❯ tryNodeResolve node_modules/vite/dist/node/chunks/dep-C6uTJdX2.js:46451:16
+ ❯ ResolveIdContext.resolveId node_modules/vite/dist/node/chunks/dep-C6uTJdX2.js:46201:19
+ ❯ PluginContainer.resolveId node_modules/vite/dist/node/chunks/dep-C6uTJdX2.js:49018:17
+ ❯ async file:/Users/Cody/code_projects/willow-design-system/packages/willow-cli/node_modules/vitest/dist/vendor/cli-api.OdDWuB7Y.js:11141:22
+ ❯ addImports node_modules/vitest/dist/vendor/cli-api.OdDWuB7Y.js:11140:7
+ ❯ Vitest.getTestDependencies node_modules/vitest/dist/vendor/cli-api.OdDWuB7Y.js:11147:5
+ ❯ async file:/Users/Cody/code_projects/willow-design-system/packages/willow-cli/node_modules/vitest/dist/vendor/cli-api.OdDWuB7Y.js:11174:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'ERR_RESOLVE_PACKAGE_ENTRY_FAIL' }
+
+
+
+
+ RUN  v1.6.1 /Users/Cody/code_projects/willow-design-system/packages/willow-cli
+

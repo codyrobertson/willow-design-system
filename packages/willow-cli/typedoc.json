@@ -1,0 +1,29 @@
+{
+  "entryPoints": [
+    "src/index.ts",
+    "packages/*/src/index.ts"
+  ],
+  "out": "docs/api",
+  "theme": "default",
+  "readme": "README.md",
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/test/**/*",
+    "**/tests/**/*",
+    "**/node_modules/**/*"
+  ],
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeInternal": true,
+  "includeVersion": true,
+  "sort": ["source-order"],
+  "validation": {
+    "notExported": true,
+    "invalidLink": true,
+    "notDocumented": false
+  },
+  "treatWarningsAsErrors": false,
+  "skipErrorChecking": true,
+  "gitRevision": "main"
+}

@@ -1,0 +1,21 @@
+{
+  "*.{ts,tsx}": [
+    "eslint --fix --max-warnings=0",
+    "prettier --write",
+    "vitest related --run --reporter=verbose"
+  ],
+  "*.{js,jsx}": [
+    "eslint --fix --max-warnings=0", 
+    "prettier --write"
+  ],
+  "*.{json,md,yml,yaml}": [
+    "prettier --write"
+  ],
+  "package.json": [
+    "prettier --write"
+  ],
+  "*.config.{ts,js,mjs}": [
+    "eslint --fix --max-warnings=0",
+    "prettier --write"
+  ]
+}

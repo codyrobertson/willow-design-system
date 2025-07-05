@@ -1,6 +1,6 @@
 # Willow CLI
 
-A modular TypeScript CLI for installing Willow Design System components.
+A powerful CLI tool for managing and transforming UI components across different frameworks.
 
 ## Architecture
 

@@ -1,0 +1,28 @@
+# Build outputs
+dist/
+build/
+coverage/
+.next/
+
+# Dependencies
+node_modules/
+
+# Cache
+.cache/
+.willow-cache/
+
+# Generated files
+*.generated.*
+*.min.js
+*.min.css
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Misc
+.DS_Store
+*.log
+.env*
+!.env.example

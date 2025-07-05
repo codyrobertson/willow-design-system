@@ -1,0 +1,84 @@
+{{#if useState}}import React, { useState{{#if useEffect}}, useEffect{{/if}} } from 'react';{{else if useEffect}}import React, { useEffect } from 'react';{{else}}import React from 'react';{{/if}}
+{{#if (eq styling 'css-modules')}}import styles from './{{componentName}}.module.css';{{/if}}
+{{#if (eq styling 'styled-components')}}import styled from 'styled-components';{{/if}}
+{{#if (eq styling 'emotion')}}import styled from '@emotion/styled';{{/if}}
+
+{{#if props.length}}
+interface {{componentName}}Props {
+  {{#each props}}
+  {{name}}{{#if optional}}?{{/if}}: {{type}};
+  {{/each}}
+}
+{{/if}}
+
+{{#if (eq styling 'styled-components')}}
+const Container = styled.div`
+  /* Add your styles here */
+`;
+{{/if}}
+
+{{#if (eq styling 'emotion')}}
+const Container = styled.div`
+  /* Add your styles here */
+`;
+{{/if}}
+
+{{#if exportDefault}}export default function {{componentName}}{{else}}export const {{componentName}}{{#if props.length}}: React.FC<{{componentName}}Props>{{else}}: React.FC{{/if}} = {{/if}}({{#if props.length}}{ {{#each props}}{{name}}{{#unless @last}}, {{/unless}}{{/each}} }{{/if}}) {{#unless exportDefault}}=> {{/unless}}{
+  {{#if useState}}
+  const [state, setState] = useState<string>('');
+  {{/if}}
+  
+  {{#if useEffect}}
+  useEffect(() => {
+    // Component mount/update logic
+    
+    return () => {
+      // Cleanup
+    };
+  }, []);
+  {{/if}}
+  
+  return (
+    {{#if (or (eq styling 'styled-components') (eq styling 'emotion'))}}
+    <Container>
+      <h1>{{componentName}} Component</h1>
+      {{#if props.length}}
+      {/* Props: {{#each props}}{{name}}{{#unless @last}}, {{/unless}}{{/each}} */}
+      {{/if}}
+      {{#if useState}}
+      <p>State: {state}</p>
+      {{/if}}
+    </Container>
+    {{else if (eq styling 'css-modules')}}
+    <div className={styles.container}>
+      <h1 className={styles.title}>{{componentName}} Component</h1>
+      {{#if props.length}}
+      {/* Props: {{#each props}}{{name}}{{#unless @last}}, {{/unless}}{{/each}} */}
+      {{/if}}
+      {{#if useState}}
+      <p className={styles.text}>State: {state}</p>
+      {{/if}}
+    </div>
+    {{else if (eq styling 'tailwind')}}
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">{{componentName}} Component</h1>
+      {{#if props.length}}
+      {/* Props: {{#each props}}{{name}}{{#unless @last}}, {{/unless}}{{/each}} */}
+      {{/if}}
+      {{#if useState}}
+      <p className="text-gray-600">State: {state}</p>
+      {{/if}}
+    </div>
+    {{else}}
+    <div>
+      <h1>{{componentName}} Component</h1>
+      {{#if props.length}}
+      {/* Props: {{#each props}}{{name}}{{#unless @last}}, {{/unless}}{{/each}} */}
+      {{/if}}
+      {{#if useState}}
+      <p>State: {state}</p>
+      {{/if}}
+    </div>
+    {{/if}}
+  );
+}{{#unless exportDefault}};{{/unless}}

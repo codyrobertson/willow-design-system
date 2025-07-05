@@ -1,10 +1,13 @@
 {
   "name": "willow-cli",
-  "version": "0.6.22",
+  "version": "0.7.0-canary.6",
   "description": "CLI for installing Willow Design System components",
   "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
   "bin": {
-    "willow": "bin/index.js"
+    "willow": "bin/willow-dist"
   },
   "publishConfig": {
     "access": "public"
@@ -13,14 +16,50 @@
     "bin",
     "dist",
     "templates",
-    "README.md"
+    "README.md",
+    "src",
+    "cli.js"
   ],
   "scripts": {
-    "build": "tsc",
-    "dev": "tsx src/cli.ts",
-    "test": "tsx src/cli.ts add button",
+    "build": "tsc && npm run build:packages",
+    "build:packages": "npm run build --workspaces --if-present",
+    "build:all": "npm run build:packages && npm run build",
+    "build:watch": "npm run build:watch --workspaces --if-present",
+    "dev": "tsx src/cli-main.ts",
+    "start": "node bin/index.js",
+    "canary": "npm version prerelease --preid=canary && npm run build:all",
+    "publish:canary": "npm run canary && npm publish --tag canary",
+    "install:global": "npm run build:all && npm install -g .",
+    "test": "vitest",
+    "test:unit": "vitest run",
+    "test:integration": "vitest run --config vitest.config.integration.ts",
+    "test:all": "npm run test:unit && npm run test:integration",
+    "test:fast": "vitest run --config vitest.config.fast.ts",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest watch",
+    "test:ci": "npm run test:unit && npm run test:integration",
     "type-check": "tsc --noEmit",
-    "prepublishOnly": "npm run build"
+    "type-check:all": "npm run type-check --workspaces",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "prepare": "husky install",
+    "prepublishOnly-disabled": "npm run build:all",
+    "hooks:install": "scripts/setup-hooks.sh install",
+    "hooks:disable": "scripts/setup-hooks.sh disable",
+    "hooks:enable": "scripts/setup-hooks.sh enable",
+    "hooks:test": "scripts/setup-hooks.sh test",
+    "hooks:bypass": "scripts/setup-hooks.sh bypass",
+    "deadcode:check": "ts-prune --project tsconfig.json",
+    "deadcode:report": "ts-prune --project tsconfig.json > .reports/dead-code-analysis.txt",
+    "docs:generate": "typedoc --out docs/api src/index.ts",
+    "docs:markdown": "typedoc --plugin typedoc-plugin-markdown --out docs/markdown src/index.ts",
+    "quality:full": "npm run lint && npm run type-check && npm run deadcode:check && npm run test:unit",
+    "quality:report": "scripts/quality-check.sh",
+    "hooks:benchmark": "scripts/benchmark-hooks.sh",
+    "hooks:verify": "scripts/verify-hooks.sh",
+    "hooks:ci-setup": "scripts/ci-setup.sh"
   },
   "keywords": [
     "willow",
@@ -33,18 +72,42 @@
   "author": "Willow Design System Team",
   "license": "MIT",
   "dependencies": {
+    "@anthropic-ai/claude-code": "^1.0.33",
+    "@types/js-yaml": "^4.0.9",
+    "@types/prompts": "^2.4.9",
+    "@types/semver": "^7.7.0",
     "chalk": "^5.3.0",
     "commander": "^11.0.0",
     "didyoumean": "^1.2.2",
     "glob": "^10.3.10",
-    "ora": "^7.0.1"
+    "js-yaml": "^4.1.0",
+    "ora": "^7.0.1",
+    "prompts": "^2.4.2",
+    "semver": "^7.7.2",
+    "zod": "^3.23.0"
   },
   "engines": {
     "node": ">=16.0.0"
   },
   "devDependencies": {
     "@types/node": "^24.0.3",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitest/coverage-v8": "^1.0.0",
+    "abort-controller": "^3.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-import-resolver-typescript": "^3.0.0",
+    "eslint-plugin-import": "^2.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.0.0",
+    "prettier": "^3.0.0",
+    "ts-prune": "^0.10.3",
     "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
+    "typedoc": "^0.28.5",
+    "typedoc-plugin-markdown": "^4.7.0",
+    "typescript": "^5.8.3",
+    "vitest": "^1.0.0"
   }
 }

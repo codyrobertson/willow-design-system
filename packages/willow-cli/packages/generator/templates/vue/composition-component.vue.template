@@ -1,0 +1,154 @@
+<template>
+  <div {{#if (eq styling 'module')}}:class="$style.container"{{else if (eq styling 'tailwind')}}class="container mx-auto p-4"{{else}}class="{{kebabCase componentName}}-container"{{/if}}>
+    <h1 {{#if (eq styling 'module')}}:class="$style.title"{{else if (eq styling 'tailwind')}}class="text-2xl font-bold mb-4"{{else}}class="title"{{/if}}>
+      {{ componentName }}
+    </h1>
+    
+    {{#if props.length}}
+    <div {{#if (eq styling 'module')}}:class="$style.content"{{else if (eq styling 'tailwind')}}class="space-y-2"{{else}}class="content"{{/if}}>
+      <!-- Props: {{#each props}}{{name}}{{#unless @last}}, {{/unless}}{{/each}} -->
+      {{#each props}}
+      <p {{#if (eq ../styling 'tailwind')}}class="text-gray-600"{{/if}}>{{ {{name}} }}</p>
+      {{/each}}
+    </div>
+    {{/if}}
+    
+    <div {{#if (eq styling 'module')}}:class="$style.actions"{{else if (eq styling 'tailwind')}}class="mt-4 space-x-2"{{else}}class="actions"{{/if}}>
+      <button
+        {{#if (eq styling 'module')}}:class="$style.button"{{else if (eq styling 'tailwind')}}class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"{{else}}class="button"{{/if}}
+        @click="handleClick"
+      >
+        Click Me
+      </button>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, onMounted{{#if useRouter}}, useRouter{{/if}} } from 'vue'
+{{#if useStore}}import { useStore } from 'vuex' // or 'pinia'{{/if}}
+
+{{#if props.length}}
+// Props definition
+interface Props {
+  {{#each props}}
+  {{name}}{{#if optional}}?{{/if}}: {{type}}
+  {{/each}}
+}
+
+const props = defineProps<Props>()
+{{/if}}
+
+{{#if emits.length}}
+// Emits definition
+const emit = defineEmits<{
+  {{#each emits}}
+  {{name}}: [{{#if payload}}{{payload}}{{/if}}]
+  {{/each}}
+}>()
+{{/if}}
+
+{{#if useRouter}}
+// Router
+const router = useRouter()
+{{/if}}
+
+{{#if useStore}}
+// Store
+const store = useStore()
+{{/if}}
+
+// Reactive state
+const count = ref(0)
+const message = ref('Hello from {{componentName}}')
+
+// Computed properties
+const computedMessage = computed(() => {
+  return `${message.value} - Count: ${count.value}`
+})
+
+// Methods
+const handleClick = () => {
+  count.value++
+  {{#if emits.length}}
+  emit('{{first emits.name}}')
+  {{/if}}
+}
+
+// Lifecycle
+onMounted(() => {
+  console.log('{{componentName}} mounted')
+})
+</script>
+
+{{#if (eq styling 'scoped')}}
+<style scoped>
+.{{kebabCase componentName}}-container {
+  padding: 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.content {
+  margin-bottom: 1rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  background-color: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background-color: #3182ce;
+}
+</style>
+{{else if (eq styling 'module')}}
+<style module>
+.container {
+  padding: 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.content {
+  margin-bottom: 1rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  background-color: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background-color: #3182ce;
+}
+</style>
+{{/if}}

@@ -1,0 +1,5 @@
+Scenario,FileCount,LinesPerFile,DurationMs
+Small commit,3,20,-1
+Medium commit,8,50,-1
+Large commit,15,100,-1
+Very large commit,25,150,-1

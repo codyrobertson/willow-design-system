@@ -1,0 +1,208 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Setup Core Project Structure",
+        "description": "Create the simplified 40-file architecture structure with organized directories and core entry points",
+        "details": "Create new directory structure: src/commands/ (8 files), src/registry/ (8 files), src/docs/ (6 files), src/core/ (12 files), src/types/ (4 files), src/utils/ (6 files). Create entry points: cli.ts, server.ts, index.ts. Set up TypeScript configuration and build system. Initialize package.json with proper dependencies including commander.js.",
+        "testStrategy": "Verify directory structure exists, entry points compile successfully, and TypeScript configuration is valid. Test that build process generates expected output.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "in-progress",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create workspace configuration and package structure",
+            "description": "Set up monorepo workspace configuration with proper package.json structure, workspace definitions, and package boundaries",
+            "dependencies": [],
+            "details": "Configure root package.json with workspaces, create individual package directories, establish package naming conventions, and set up shared dependencies management\n<info added on 2025-07-05T04:53:18.969Z>\nCreate directory structure for src-v2 with organized folders: commands/ for CLI command implementations, registry/ for component registry management, docs/ for documentation generation, core/ for fundamental CLI functionality, types/ for TypeScript definitions, and utils/ for shared utility functions. Ensure proper separation of concerns and clear module boundaries between each directory.\n</info added on 2025-07-05T04:53:18.969Z>",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Configure TypeScript monorepo setup with path mapping",
+            "description": "Implement TypeScript configuration with proper module resolution, path mapping, and cross-package type definitions",
+            "dependencies": [
+              1
+            ],
+            "details": "Create root tsconfig.json with path mapping, individual package tsconfig files, establish type definitions structure, and configure module resolution for cross-package imports",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Set up linting and formatting configuration",
+            "description": "Configure ESLint, Prettier, and other code quality tools with shared configurations across all packages",
+            "dependencies": [
+              2
+            ],
+            "details": "Create shared ESLint config, Prettier configuration, set up pre-commit hooks, configure VS Code settings, and establish code quality standards",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement testing framework setup",
+            "description": "Configure Jest/Vitest testing framework with proper test utilities, coverage reporting, and cross-package test support",
+            "dependencies": [
+              3
+            ],
+            "details": "Set up test framework configuration, create test utilities and helpers, configure coverage reporting, establish testing patterns, and set up test scripts",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Configure build tooling and scripts",
+            "description": "Set up build system with proper compilation order, bundling, and distribution preparation",
+            "dependencies": [
+              4
+            ],
+            "details": "Configure build tools (tsc, rollup, webpack), create build scripts with proper dependency order, set up watch mode, and configure distribution packaging",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Create development workflow and CI/CD integration",
+            "description": "Establish development scripts, CI/CD pipeline configuration, and deployment workflows for the monorepo",
+            "dependencies": [
+              5
+            ],
+            "details": "Create development scripts for running packages, set up CI/CD configuration, configure automated testing and deployment, and establish release workflow",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Consolidate Type System",
+        "description": "Merge 100+ interfaces into ~10 essential TypeScript types for components, registry, and CLI operations",
+        "details": "Create consolidated types in src/types/: ComponentMetadata, RegistryConfig, CLIOptions, DocumentationConfig. Remove redundant interfaces and abstract base classes. Define core types for component publishing, versioning, and dependency resolution. Use TypeScript utility types for DRY principle.",
+        "testStrategy": "Ensure all type definitions compile without errors. Verify type coverage across codebase. Test that existing functionality maintains type safety with new consolidated types.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Implement Simplified HTTP Client",
+        "description": "Replace complex HTTPClient with fetch-based solution and simple retry mechanism",
+        "details": "Create HTTPClient class in src/core/ using native fetch API. Implement exponential backoff retry logic (3 attempts). Add request/response logging, timeout handling, and error parsing. Remove circuit breaker pattern and complex abstraction layers. Support JSON/form-data requests for registry API.",
+        "testStrategy": "Unit tests for retry logic, timeout handling, and error scenarios. Integration tests with mock registry API endpoints. Verify performance improvements over existing implementation.",
+        "priority": "medium",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Refactor Command Structure",
+        "description": "Remove BaseCommand abstraction and implement direct commander.js commands for all CLI operations",
+        "details": "Create 8 command files in src/commands/: add.ts, remove.ts, update.ts, publish.ts, create.ts, import.ts, search.ts, docs.ts. Use commander.js directly without abstraction layers. Implement progress indicators, colorful output, and error recovery. Add dry-run mode and caching mechanisms.",
+        "testStrategy": "Test each command individually with various parameter combinations. Verify progress indicators work correctly. Test error recovery and dry-run functionality. Ensure commands integrate properly with registry system.",
+        "priority": "high",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Build Registry API System",
+        "description": "Create REST API endpoints for component metadata, publishing, versioning, and search functionality",
+        "details": "Implement registry server in src/server.ts with endpoints: GET /components, POST /components, GET /search, GET /analytics. Use Express.js with TypeScript. Implement semantic versioning, dependency resolution, and conflict handling. Add authentication for private registries. Include offline sync capabilities with local mirror.",
+        "testStrategy": "Unit tests for all API endpoints. Integration tests for component publishing workflow. Test version management and dependency resolution. Verify authentication and private registry functionality.",
+        "priority": "high",
+        "dependencies": [
+          2,
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Implement Component Management Core",
+        "description": "Build core functionality for installing, updating, and removing components with dependency resolution",
+        "details": "Create core component management in src/core/: ComponentInstaller, DependencyResolver, PackageManager. Auto-detect frameworks (Next.js, Vite, Remix). Implement bulk import functionality. Add component caching and update mechanisms. Handle file operations with proper error recovery.",
+        "testStrategy": "Test component installation across different frameworks. Verify dependency resolution with various scenarios. Test bulk import and update operations. Ensure caching works correctly and improves performance.",
+        "priority": "high",
+        "dependencies": [
+          4,
+          5
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Create AST Parser for Documentation",
+        "description": "Build AST parser to extract component metadata, JSDoc comments, and TypeScript types for documentation generation",
+        "details": "Create AST parser in src/docs/ using TypeScript compiler API. Extract component props, methods, JSDoc comments, and type definitions. Parse React components for story generation. Create markdown documentation from extracted metadata. Generate API documentation from TypeScript types.",
+        "testStrategy": "Test parser with various React component patterns. Verify JSDoc extraction accuracy. Test TypeScript type parsing for complex interfaces. Ensure generated documentation matches component reality.",
+        "priority": "medium",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Implement Storybook Auto-Generation",
+        "description": "Create system to automatically generate Storybook stories from component analysis and metadata",
+        "details": "Build Storybook generator in src/docs/: StoryGenerator, ComponentAnalyzer, StoryTemplates. Create story templates for different component types. Generate interactive previews with prop controls. Implement component playground functionality. Support multiple Storybook configurations.",
+        "testStrategy": "Test story generation with various component types. Verify generated stories load correctly in Storybook. Test interactive controls and component playground. Ensure stories accurately represent component behavior.",
+        "priority": "medium",
+        "dependencies": [
+          7
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Add Search and Analytics System",
+        "description": "Implement full-text search with filtering and analytics tracking for component usage and popularity",
+        "details": "Create search system in src/registry/: SearchEngine, FilterManager, AnalyticsTracker. Implement full-text search with fuzzy matching. Add filtering by category, framework, popularity. Track component downloads, usage patterns, and popularity metrics. Create analytics dashboard endpoints.",
+        "testStrategy": "Test search accuracy with various queries. Verify filtering works correctly. Test analytics data collection and reporting. Ensure search performance is acceptable with large component datasets.",
+        "priority": "medium",
+        "dependencies": [
+          5
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Integrate All Systems and Performance Optimization",
+        "description": "Connect all components, optimize performance through caching and parallelization, and finalize CLI integration",
+        "details": "Integrate registry, documentation, and component management systems. Implement caching layer for registry data and component metadata. Add parallelization for bulk operations. Optimize command execution times. Create comprehensive error handling and recovery mechanisms. Generate TypeScript types for installed components.",
+        "testStrategy": "End-to-end testing of complete workflows. Performance benchmarking against current implementation. Test error scenarios and recovery mechanisms. Verify all commands work together seamlessly. Load testing with large component sets.",
+        "priority": "high",
+        "dependencies": [
+          6,
+          8,
+          9
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-07-05T04:48:44.475Z",
+      "updated": "2025-07-05T04:52:34.772Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

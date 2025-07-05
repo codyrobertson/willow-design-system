@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["ES2022"],
+    "moduleResolution": "node",
+    "allowJs": false,
+    "strict": false,
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "noImplicitThis": false,
+    "strictNullChecks": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "incremental": true,
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@willow-cli/types": ["./packages/types/src"],
+      "@willow-cli/core": ["./packages/core/src"],
+      "@willow-cli/parser": ["./packages/parser/src"],
+      "@willow-cli/transformer": ["./packages/transformer/src"],
+      "@willow-cli/generator": ["./packages/generator/src"],
+      "@willow-cli/validator": ["./packages/validator/src"],
+      "@willow-cli/config": ["./packages/config/src"],
+      "@willow-cli/plugins": ["./packages/plugins/src"]
+    }
+  },
+  "exclude": ["node_modules", "dist", "build", "coverage"]
+}

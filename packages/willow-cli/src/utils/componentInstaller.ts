@@ -230,7 +230,7 @@ export async function updateBarrelExport(
     const exports = componentFiles
       .map(file => {
         const name = file.replace(/\.(tsx?|jsx?)$/, '');
-        return `export * from './${name}';`;
+        return `export * from './${name}.js';`;
       })
       .join('\n');
     

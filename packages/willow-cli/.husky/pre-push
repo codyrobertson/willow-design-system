@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+
+echo "🚀 Running pre-push hooks..."
+
+# Exit on any error
+set -e
+
+# Phase 1: Full test suite
+echo "🧪 Running full test suite..."
+if ! npm run test:unit; then
+  echo "❌ Tests failed!"
+  echo "💡 Fix failing tests before pushing or use --no-verify to bypass"
+  exit 1
+fi
+
+# Phase 2: Build check
+echo "🔨 Verifying build..."
+if ! npm run build 2>/dev/null; then
+  echo "❌ Build failed!"
+  echo "💡 Fix build errors before pushing"
+  exit 1
+fi
+
+# Phase 3: Type checking all packages
+echo "🔍 Running comprehensive type check..."
+if ! npm run type-check:all 2>/dev/null; then
+  echo "❌ Type checking failed across packages!"
+  exit 1
+fi
+
+echo "✅ All pre-push checks passed!"

@@ -1,0 +1,136 @@
+import { Component{{#if (ne changeDetection 'Default')}}, ChangeDetectionStrategy{{/if}}{{#if inputs.length}}, Input{{/if}}{{#if outputs.length}}, Output, EventEmitter{{/if}}{{#if lifecycle}}, {{#each lifecycle}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}{{/if}} } from '@angular/core';
+{{#if standalone}}import { CommonModule } from '@angular/common';{{/if}}
+{{#if services.length}}
+{{#each services}}
+import { {{name}} } from '{{path}}';
+{{/each}}
+{{/if}}
+
+@Component({
+  selector: '{{#if selector}}{{selector}}{{else}}{{kebabCase componentName}}{{/if}}',
+  {{#if standalone}}standalone: true,
+  imports: [CommonModule],{{/if}}
+  {{#if (ne changeDetection 'Default')}}changeDetection: ChangeDetectionStrategy.{{changeDetection}},{{/if}}
+  template: `
+    <div class="{{kebabCase componentName}}-container">
+      <h1>{{componentName}} Component</h1>
+      
+      {{#if inputs.length}}
+      <div class="inputs">
+        {{#each inputs}}
+        <p>{{capitalize name}}: {{ {{name}} }}</p>
+        {{/each}}
+      </div>
+      {{/if}}
+      
+      <div class="content">
+        <p>Count: {{ count }}</p>
+        <button (click)="increment()">Increment</button>
+        {{#if outputs.length}}
+        <button (click)="emitEvent()">Emit Event</button>
+        {{/if}}
+      </div>
+    </div>
+  `,
+  {{#if (eq styling 'scss')}}styleUrls: ['./{{kebabCase componentName}}.component.scss']{{else if (eq styling 'css')}}styleUrls: ['./{{kebabCase componentName}}.component.css']{{else if (eq styling 'tailwind')}}styles: []{{else}}styles: [`
+    .{{kebabCase componentName}}-container {
+      padding: 1rem;
+    }
+    
+    h1 {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    
+    .inputs {
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      background-color: #f5f5f5;
+      border-radius: 0.25rem;
+    }
+    
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    button {
+      padding: 0.5rem 1rem;
+      background-color: #4299e1;
+      color: white;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    button:hover {
+      background-color: #3182ce;
+    }
+  `]{{/if}}
+})
+export class {{componentName}}Component{{#if lifecycle}} implements {{#each lifecycle}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}{{/if}} {
+  {{#if inputs.length}}
+  // Input properties
+  {{#each inputs}}
+  @Input() {{name}}{{#if optional}}?{{/if}}: {{type}}{{#if default}} = {{default}}{{/if}};
+  {{/each}}
+  {{/if}}
+  
+  {{#if outputs.length}}
+  // Output events
+  {{#each outputs}}
+  @Output() {{name}} = new EventEmitter<{{#if type}}{{type}}{{else}}void{{/if}}>();
+  {{/each}}
+  {{/if}}
+  
+  // Component state
+  count = 0;
+  
+  {{#if services.length}}
+  constructor(
+    {{#each services}}
+    private {{camelCase name}}: {{name}}{{#unless @last}},{{/unless}}
+    {{/each}}
+  ) {}
+  {{/if}}
+  
+  {{#if (includes lifecycle 'OnInit')}}
+  ngOnInit(): void {
+    console.log('{{componentName}} initialized');
+    {{#if services.length}}
+    // Initialize services
+    {{#each services}}
+    // this.{{camelCase name}}.initialize();
+    {{/each}}
+    {{/if}}
+  }
+  {{/if}}
+  
+  {{#if (includes lifecycle 'OnDestroy')}}
+  ngOnDestroy(): void {
+    console.log('{{componentName}} destroyed');
+    // Cleanup subscriptions
+  }
+  {{/if}}
+  
+  {{#if (includes lifecycle 'OnChanges')}}
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('{{componentName}} inputs changed:', changes);
+  }
+  {{/if}}
+  
+  increment(): void {
+    this.count++;
+  }
+  
+  {{#if outputs.length}}
+  emitEvent(): void {
+    {{#each outputs}}
+    this.{{name}}.emit({{#if type}}/* value */{{/if}});
+    {{/each}}
+  }
+  {{/if}}
+}

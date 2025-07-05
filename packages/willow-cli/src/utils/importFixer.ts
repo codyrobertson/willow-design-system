@@ -116,7 +116,7 @@ export async function fixWillowImports(baseDir: string = process.cwd()): Promise
         (match, componentName) => {
           const kebabCase = componentName.toLowerCase();
           console.log(chalk.yellow(`   ⚠️  Found incorrect casing in ${file}: ${match}`));
-          const replacement = `from "./${kebabCase}";`;
+          const replacement = `from './${kebabCase}.js';`;
           console.log(chalk.green(`   ✅ Fixed to: ${replacement}`));
           return replacement;
         }

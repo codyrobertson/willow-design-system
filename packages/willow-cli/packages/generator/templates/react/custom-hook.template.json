@@ -1,0 +1,49 @@
+{
+  "id": "react-custom-hook",
+  "name": "React Custom Hook",
+  "description": "A custom React hook with TypeScript support",
+  "framework": "react",
+  "category": "hook",
+  "language": "typescript",
+  "templatePath": "./custom-hook.ts.template",
+  "variables": [
+    {
+      "name": "hookName",
+      "description": "The name of the hook (should start with 'use')",
+      "type": "string",
+      "required": true,
+      "validator": "return value.startsWith('use');"
+    },
+    {
+      "name": "parameters",
+      "description": "Array of hook parameters",
+      "type": "array",
+      "required": false,
+      "default": []
+    },
+    {
+      "name": "returnType",
+      "description": "The return type of the hook",
+      "type": "string",
+      "required": false,
+      "default": "void"
+    },
+    {
+      "name": "dependencies",
+      "description": "React hooks this hook depends on",
+      "type": "array",
+      "required": false,
+      "default": ["useState", "useEffect"]
+    },
+    {
+      "name": "description",
+      "description": "JSDoc description for the hook",
+      "type": "string",
+      "required": false,
+      "default": ""
+    }
+  ],
+  "dependencies": ["react"],
+  "devDependencies": ["@types/react"],
+  "tags": ["hook", "custom", "typescript"]
+}

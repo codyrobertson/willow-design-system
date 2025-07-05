@@ -1,0 +1,142 @@
+# Willow CLI v2.0 - Architecture Simplification PRD
+
+## Executive Summary
+
+Refactor the Willow CLI from an over-engineered 258-file architecture to a clean, maintainable ~40-file structure while enhancing core features including a robust component registry system and automatic documentation generation.
+
+## Problem Statement
+
+The current Willow CLI suffers from extreme over-engineering with enterprise patterns applied to simple operations. This creates:
+- High maintenance burden (15+ files to add a simple command)
+- Steep learning curve for new developers
+- Excessive abstraction layers making debugging difficult
+- 30,000 lines of code for what should be ~8,000 lines
+
+## Goals
+
+1. Simplify architecture while maintaining all features
+2. Add robust component registry system
+3. Implement automatic documentation and Storybook generation
+4. Improve developer experience and maintainability
+5. Support scale through smart design, not complex patterns
+
+## Core Features
+
+### 1. Component Registry System
+- **Registry API**: REST API for component metadata, versions, dependencies
+- **Publishing Workflow**: Publish components with `willow publish`
+- **Version Management**: Semantic versioning with history
+- **Search**: Full-text search with filtering
+- **Analytics**: Track usage and popularity
+- **Private Registries**: Enterprise support
+- **Offline Sync**: Mirror registry locally
+
+### 2. Auto-Documentation
+- **Storybook Integration**: Auto-generate stories from components
+- **Documentation Generation**: Extract JSDoc, generate markdown
+- **Component Playground**: Interactive previews
+- **API Documentation**: From TypeScript types
+- **Changelog Generation**: From git history
+
+### 3. Component Management
+- **Install**: `willow add button card`
+- **Bulk Import**: `willow import --all`
+- **Update**: `willow update button`
+- **Remove**: `willow remove button`
+- **Dependency Resolution**: Automatic with conflict handling
+- **Framework Support**: Next.js, Vite, Remix auto-detection
+
+### 4. Developer Experience
+- **Component Scaffolding**: `willow create button`
+- **Progress Indicators**: For long operations
+- **Dry-run Mode**: Preview changes
+- **Recovery**: From failed operations
+- **Caching**: For performance
+- **Type Generation**: For TypeScript
+
+## Technical Architecture
+
+### Simplified Structure
+```
+src/
+├── commands/       # 8 CLI command files
+├── registry/       # 8 registry system files  
+├── docs/           # 6 documentation generation files
+├── core/           # 12 core functionality files
+├── types/          # 4 TypeScript definition files
+├── utils/          # 6 utility files
+├── cli.ts          # CLI entry point
+├── server.ts       # Registry server
+└── index.ts        # Package exports
+
+Total: ~40 files, ~8,000 lines
+```
+
+### Key Architectural Changes
+
+#### Remove
+- Command Registry pattern → Direct commander.js
+- Plugin system → No plugins needed
+- Adapter pattern → Components copied as-is
+- Abstract base classes → Simple functions
+- Manual DI → Direct imports
+- Circuit breakers → Simple retry
+- 100+ interfaces → ~10 types
+
+#### Keep & Enhance
+- TypeScript for type safety
+- Commander.js for CLI
+- Progress indicators
+- Colorful output
+- Error recovery
+- Component caching
+- Package manager detection
+
+## Implementation Tasks
+
+### Phase 1: Core Refactoring
+1. **Flatten Command Structure**: Remove BaseCommand abstraction, use direct commander.js
+2. **Simplify HTTP Client**: Replace complex HTTPClient with fetch + simple retry
+3. **Consolidate Types**: Merge 100+ interfaces into ~10 essential types
+4. **Remove Unused Abstractions**: Delete plugin system, adapters, registries
+
+### Phase 2: Registry System
+1. **Build Registry API**: REST endpoints for components
+2. **Implement Publishing**: Component upload and versioning
+3. **Add Search**: Full-text search with filters
+4. **Create Analytics**: Usage tracking and stats
+
+### Phase 3: Documentation System
+1. **AST Parser**: Parse components for docs
+2. **Storybook Generation**: Auto-create stories
+3. **Markdown Docs**: Generate from JSDoc
+4. **API Documentation**: Extract from types
+
+### Phase 4: Integration
+1. **Update Commands**: Refactor all commands
+2. **Migrate Tests**: Simplify test structure
+3. **Performance Optimization**: Caching, parallelization
+4. **Documentation**: User and developer docs
+
+## Success Metrics
+
+1. **Code Reduction**: 75% fewer files, 70% less code
+2. **Developer Onboarding**: From weeks to hours
+3. **Performance**: 2x faster operations
+4. **Maintainability**: Add features in hours not days
+5. **Test Coverage**: Maintain >90% coverage
+
+## Risks & Mitigation
+
+1. **Breaking Changes**: Version as 2.0, provide migration guide
+2. **Feature Parity**: Comprehensive testing ensures no regression
+3. **Registry Downtime**: Implement offline fallback
+4. **Documentation Accuracy**: Automated testing of generated docs
+
+## Future Enhancements
+
+1. **VSCode Extension**: IntelliSense for components
+2. **Component Marketplace**: UI for browsing
+3. **Team Collaboration**: Component sharing
+4. **CI/CD Integration**: Automated publishing
+5. **Component Analytics**: Usage dashboards

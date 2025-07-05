@@ -1,0 +1,40 @@
+{
+  "timestamp": 1751589119571,
+  "components": [
+    {
+      "name": "button",
+      "files": [
+        "src/components/button"
+      ],
+      "timestamp": 1751589119548
+    },
+    {
+      "name": "card",
+      "files": [
+        "src/components/card"
+      ],
+      "timestamp": 1751589119548
+    },
+    {
+      "name": "dialog",
+      "files": [
+        "src/components/dialog"
+      ],
+      "timestamp": 1751589119559
+    },
+    {
+      "name": "select",
+      "files": [
+        "src/components/select"
+      ],
+      "timestamp": 1751589119559
+    },
+    {
+      "name": "input",
+      "files": [
+        "src/components/input"
+      ],
+      "timestamp": 1751589119571
+    }
+  ]
+}
