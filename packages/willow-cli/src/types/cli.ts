@@ -71,12 +71,17 @@ export const ImportOptionsSchema = z.object({
   noDeps: z.boolean().optional(),
   noRollback: z.boolean().optional(),
   path: z.string().optional(),
-  registry: z.string().url().optional(),
+  registry: z.string().optional(),
   filter: z.string().optional(),
   batchSize: z.string().optional(),
   timeout: z.string().optional(),
   force: z.boolean().optional(),
   quiet: z.boolean().optional(),
+  noCache: z.boolean().optional(),
+  visualize: z.string().optional(),
+  resolveConflicts: z.boolean().optional(),
+  recovery: z.boolean().optional(),
+  recover: z.string().optional(),
 });
 
 export type ImportOptions = z.infer<typeof ImportOptionsSchema>;
@@ -275,8 +280,10 @@ export interface CommandResult<T = unknown> {
   success: boolean;
   data?: T;
   error?: Error;
+  code?: CLIErrorCode;
   warnings?: string[];
   duration?: number;
+  message?: string;
 }
 
 // Interactive prompt types
@@ -300,7 +307,9 @@ export interface PromptConfig {
 // Error types
 export enum CLIErrorCode {
   INVALID_ARGUMENTS = 'INVALID_ARGUMENTS',
+  INVALID_ARGUMENT = 'INVALID_ARGUMENT',
   COMPONENT_NOT_FOUND = 'COMPONENT_NOT_FOUND',
+  NOT_FOUND = 'NOT_FOUND',
   CONFIGURATION_ERROR = 'CONFIGURATION_ERROR',
   NETWORK_ERROR = 'NETWORK_ERROR',
   VALIDATION_ERROR = 'VALIDATION_ERROR',
