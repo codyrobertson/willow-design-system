@@ -3,8 +3,8 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
-import { HTTPClientFactory } from '../HTTPClientFactory';
-import { HTTPClient } from '../HTTPClient';
+import { HTTPClientFactory } from '../HTTPClientFactory.js';
+import { HTTPClient } from '../HTTPClient.js';
 
 describe('HTTPClientFactory', () => {
   beforeEach(() => {

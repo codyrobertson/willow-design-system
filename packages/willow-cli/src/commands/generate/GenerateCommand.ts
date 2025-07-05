@@ -139,8 +139,8 @@ Types:
 
     // Generate index file
     const indexFile = path.join(componentDir, `index.${isTypescript ? 'ts' : 'js'}`);
-    const indexContent = `export { default } from './${name}';
-export * from './${name}';
+    const indexContent = `export { default } from './${name}.js';
+export * from './${name}.js';
 `;
     await fs.writeFile(indexFile, indexContent);
     logger.success(`Created: ${indexFile}`);
@@ -250,7 +250,7 @@ export * from './${name}';
 
     // Create index file
     const indexFile = path.join(adapterDir, 'index.ts');
-    const indexContent = `export { ${name}Adapter } from './${name}Adapter';\n`;
+    const indexContent = `export { ${name}Adapter } from './${name}Adapter.js';\n`;
     await fs.writeFile(indexFile, indexContent);
     logger.success(`Created: ${indexFile}`);
   }
@@ -260,7 +260,7 @@ export * from './${name}';
     
     if (config.framework === 'react') {
       return `import React${isTypescript ? ', { FC }' : ''} from 'react';
-${config.style === 'css-modules' ? `import styles from './${name}.module.css';\n` : ''}
+${config.style === 'css-modules' ? `import styles from './${name}.module.css.js';\n` : ''}
 ${isTypescript ? `
 export interface ${name}Props {
   children?: React.ReactNode;
@@ -324,7 +324,7 @@ export class ${name}Component {
     if (config.framework === 'react') {
       return `import React from 'react';
 import { render, screen } from '@testing-library/react';
-import ${name} from './${name}';
+import ${name} from './${name}.js';
 
 describe('${name}', () => {
   it('renders children', () => {
@@ -340,7 +340,7 @@ describe('${name}', () => {
 `;
     } else if (config.framework === 'vue') {
       return `import { mount } from '@vue/test-utils';
-import ${name} from './${name}.vue';
+import ${name} from './${name}.vue.js';
 
 describe('${name}', () => {
   it('renders slot content', () => {
@@ -364,7 +364,7 @@ describe('${name}', () => {
 `;
     } else {
       return `import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ${name}Component } from './${name}.component';
+import { ${name}Component } from './${name}.component.js';
 
 describe('${name}Component', () => {
   let component: ${name}Component;
@@ -399,7 +399,7 @@ describe('${name}Component', () => {
   private static getStoryTemplate(name: string, config: any): string {
     if (config.framework === 'react') {
       return `import type { Meta, StoryObj } from '@storybook/react';
-import ${name} from './${name}';
+import ${name} from './${name}.js';
 
 const meta = {
   title: 'Components/${name}',
@@ -489,7 +489,7 @@ export interface ${functionName}Result {
     
     if (config.framework === 'react') {
       return `import { renderHook${isTypescript ? ', act' : ''} } from '@testing-library/react';
-import { ${functionName} } from './${name}';
+import { ${functionName} } from './${name}.js';
 
 describe('${functionName}', () => {
   it('should initialize with default state', () => {
@@ -516,7 +516,7 @@ describe('${functionName}', () => {
   }
 
   private static getUtilityTestTemplate(name: string, isTypescript: boolean): string {
-    return `import { ${name} } from './${name}';
+    return `import { ${name} } from './${name}.js';
 
 describe('${name}', () => {
   it('should work correctly', () => {
@@ -570,7 +570,7 @@ export class ${name}Adapter implements UIKitAdapter {
   }
 
   private static getAdapterTestTemplate(name: string): string {
-    return `import { ${name}Adapter } from './${name}Adapter';
+    return `import { ${name}Adapter } from './${name}Adapter.js';
 
 describe('${name}Adapter', () => {
   let adapter: ${name}Adapter;

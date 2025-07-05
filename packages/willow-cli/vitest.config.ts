@@ -25,7 +25,16 @@ export default defineConfig({
       },
     },
     include: ['packages/*/src/**/*.{test,spec}.ts', 'src/**/*.{test,spec}.ts'],
-    exclude: ['node_modules', 'dist', 'build'],
+    exclude: [
+      'node_modules', 
+      'dist', 
+      'build',
+      // Exclude slow integration tests - run them separately
+      'src/**/*.integration.test.ts',
+      'src/core/network/__tests__/integration.test.ts',
+      'src/core/network/__tests__/HTTPClient.test.ts',
+      'src/utils/__tests__/component-fetcher.test.ts'
+    ],
     setupFiles: ['./vitest.setup.ts'],
   },
   resolve: {

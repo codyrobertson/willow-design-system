@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { AdapterPluginManager } from './AdapterPluginManager';
+import { AdapterPluginManager } from './AdapterPluginManager.js';
 import { 
   createMockPlugin,
   createFailingPlugin,
@@ -12,8 +12,8 @@ import {
   createMockAdapterInstance,
   createTimingHelpers,
   createAssertionHelpers,
-} from '../test-fixtures';
-import { AdapterError } from '../errors';
+} from '../test-fixtures/index.js';
+import { AdapterError } from '../errors/index.js';
 
 // Randomize test execution order
 describe.shuffle('AdapterPluginManager - Improved Tests', () => {

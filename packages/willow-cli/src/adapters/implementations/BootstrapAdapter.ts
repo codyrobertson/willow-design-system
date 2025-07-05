@@ -19,8 +19,8 @@ import {
   ComponentName,
   AdapterCapability,
   AdapterMetadata,
-} from '../types';
-import { AdapterError } from '../errors';
+} from '../types/index.js';
+import { AdapterError } from '../errors/index.js';
 
 /**
  * Bootstrap component configuration

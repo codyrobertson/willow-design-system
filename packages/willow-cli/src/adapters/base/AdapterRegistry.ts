@@ -1,5 +1,5 @@
-import { UIKitAdapter, AdapterConfig } from './UIKitAdapter';
-import { AdapterLifecycleHooks } from './AdapterLifecycle';
+import { UIKitAdapter, AdapterConfig } from './UIKitAdapter.js';
+import { AdapterLifecycleHooks } from './AdapterLifecycle.js';
 
 /**
  * Adapter registration information

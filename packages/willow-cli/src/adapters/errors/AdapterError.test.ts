@@ -15,7 +15,7 @@ import {
   isAdapterErrorType,
   getErrorCode,
   toAdapterError,
-} from './AdapterError';
+} from './AdapterError.js';
 
 describe('AdapterError', () => {
   beforeEach(() => {

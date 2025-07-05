@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { AccessibilityPlugin } from './AccessibilityPlugin';
-import { AdapterInstance, ComponentMapping, StyleConfig } from '../../types';
+import { AccessibilityPlugin } from './AccessibilityPlugin.js';
+import { AdapterInstance, ComponentMapping, StyleConfig } from '../../types.js';
 
 // Mock console methods
 const consoleSpy = {

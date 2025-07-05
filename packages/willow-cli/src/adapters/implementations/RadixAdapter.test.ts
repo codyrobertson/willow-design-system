@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { RadixAdapter } from './RadixAdapter';
-import { AdapterError } from '../errors';
-import { ComponentMapping } from '../types';
+import { RadixAdapter } from './RadixAdapter.js';
+import { AdapterError } from '../errors/index.js';
+import { ComponentMapping } from '../types/index.js';
 
 describe('RadixAdapter', () => {
   let adapter: RadixAdapter;

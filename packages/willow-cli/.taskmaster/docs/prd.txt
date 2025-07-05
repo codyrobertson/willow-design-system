@@ -1,188 +1,142 @@
-# Willow CLI Refactor - Product Requirements Document
+# Willow CLI v2.0 - Architecture Simplification PRD
 
-## Overview
-Refactor the Willow CLI to create a more modular, reliable, and extensible system that can support multiple UI kits and design systems while maintaining the core Willow Design System logic.
+## Executive Summary
+
+Refactor the Willow CLI from an over-engineered 258-file architecture to a clean, maintainable ~40-file structure while enhancing core features including a robust component registry system and automatic documentation generation.
+
+## Problem Statement
+
+The current Willow CLI suffers from extreme over-engineering with enterprise patterns applied to simple operations. This creates:
+- High maintenance burden (15+ files to add a simple command)
+- Steep learning curve for new developers
+- Excessive abstraction layers making debugging difficult
+- 30,000 lines of code for what should be ~8,000 lines
 
 ## Goals
-1. Create a highly modular architecture with clear separation of concerns
-2. Implement AST-based transformations for more reliable code modifications
-3. Make the system configurable to support different UI kits and design systems
-4. Reduce error-prone string manipulations and regex operations
-5. Enable the Willow Design logic to be applied to other design systems
-6. Improve error handling and recovery mechanisms
-7. Create a plugin-based architecture for extensibility
 
-## Core Requirements
+1. Simplify architecture while maintaining all features
+2. Add robust component registry system
+3. Implement automatic documentation and Storybook generation
+4. Improve developer experience and maintainability
+5. Support scale through smart design, not complex patterns
 
-### 1. Modular Architecture
-- Separate core logic into distinct modules (parser, transformer, generator, validator)
-- Create a plugin system for UI kit adapters
-- Implement a provider pattern for different design systems
-- Use dependency injection for better testability
-- Create clear interfaces between modules
+## Core Features
 
-### 2. AST-Based Transformations
-- Replace regex-based import fixing with AST transformations
-- Use TypeScript compiler API for reliable code analysis
-- Implement proper scope analysis for import resolution
-- Handle edge cases like dynamic imports and re-exports
-- Support both TypeScript and JavaScript with proper type stripping
+### 1. Component Registry System
+- **Registry API**: REST API for component metadata, versions, dependencies
+- **Publishing Workflow**: Publish components with `willow publish`
+- **Version Management**: Semantic versioning with history
+- **Search**: Full-text search with filtering
+- **Analytics**: Track usage and popularity
+- **Private Registries**: Enterprise support
+- **Offline Sync**: Mirror registry locally
 
-### 3. Configuration System
-- Create a comprehensive configuration schema
-- Support project-level and global configurations
-- Allow UI kit selection and customization
-- Enable feature toggles for different capabilities
-- Support configuration inheritance and overrides
+### 2. Auto-Documentation
+- **Storybook Integration**: Auto-generate stories from components
+- **Documentation Generation**: Extract JSDoc, generate markdown
+- **Component Playground**: Interactive previews
+- **API Documentation**: From TypeScript types
+- **Changelog Generation**: From git history
 
-### 4. UI Kit Abstraction
-- Define a standard interface for UI kit adapters
-- Create adapters for popular UI kits (Radix, Arco, Ant Design, etc.)
-- Allow custom UI kit definitions
-- Support component mapping and translation
-- Enable style system translations
+### 3. Component Management
+- **Install**: `willow add button card`
+- **Bulk Import**: `willow import --all`
+- **Update**: `willow update button`
+- **Remove**: `willow remove button`
+- **Dependency Resolution**: Automatic with conflict handling
+- **Framework Support**: Next.js, Vite, Remix auto-detection
 
-### 5. Design System Agnostic
-- Extract Willow's design logic into reusable modules
-- Create a design token translation system
-- Support different color systems and naming conventions
-- Enable custom design system definitions
-- Provide migration tools between design systems
+### 4. Developer Experience
+- **Component Scaffolding**: `willow create button`
+- **Progress Indicators**: For long operations
+- **Dry-run Mode**: Preview changes
+- **Recovery**: From failed operations
+- **Caching**: For performance
+- **Type Generation**: For TypeScript
 
-### 6. Error Handling and Recovery
-- Implement comprehensive error boundaries
-- Create rollback mechanisms for failed operations
-- Add detailed error messages with recovery suggestions
-- Implement dry-run mode for all operations
-- Add operation logging and debugging capabilities
+## Technical Architecture
 
-### 7. Plugin Architecture
-- Define plugin API and lifecycle hooks
-- Support pre/post operation hooks
-- Enable custom transformers and validators
-- Allow third-party plugin development
-- Implement plugin discovery and loading
+### Simplified Structure
+```
+src/
+├── commands/       # 8 CLI command files
+├── registry/       # 8 registry system files  
+├── docs/           # 6 documentation generation files
+├── core/           # 12 core functionality files
+├── types/          # 4 TypeScript definition files
+├── utils/          # 6 utility files
+├── cli.ts          # CLI entry point
+├── server.ts       # Registry server
+└── index.ts        # Package exports
 
-### 8. Testing and Validation
-- Create comprehensive test suites for all modules
-- Implement integration tests for common scenarios
-- Add performance benchmarks
-- Create validation rules for different UI kits
-- Support custom validation rules
-
-## Technical Specifications
-
-### Core Modules
-
-1. **Parser Module**
-   - AST parsing for TypeScript/JavaScript
-   - Component analysis and dependency resolution
-   - Import graph construction
-   - Style extraction and analysis
-
-2. **Transformer Module**
-   - AST-based code transformations
-   - Import path resolution and rewriting
-   - Component prop mapping
-   - Style transformation
-
-3. **Generator Module**
-   - Code generation from AST
-   - File creation and organization
-   - Template processing
-   - Documentation generation
-
-4. **Validator Module**
-   - Code validation rules
-   - Design system compliance checks
-   - Dependency validation
-   - Performance checks
-
-5. **Configuration Module**
-   - Config loading and merging
-   - Schema validation
-   - Environment variable support
-   - Runtime configuration
-
-6. **Plugin Module**
-   - Plugin loading and initialization
-   - Hook management
-   - Plugin communication
-   - Lifecycle management
-
-### UI Kit Adapter Interface
-```typescript
-interface UIKitAdapter {
-  name: string;
-  version: string;
-  components: ComponentMap;
-  styles: StyleMap;
-  tokens: TokenMap;
-  
-  transformComponent(ast: AST, component: Component): AST;
-  transformStyles(styles: Styles): Styles;
-  transformTokens(tokens: Tokens): Tokens;
-  validate(component: Component): ValidationResult;
-}
+Total: ~40 files, ~8,000 lines
 ```
 
-### Configuration Schema
-```typescript
-interface WillowConfig {
-  version: string;
-  uiKit: string | UIKitAdapter;
-  designSystem: DesignSystemConfig;
-  features: FeatureFlags;
-  paths: PathConfig;
-  transforms: TransformConfig;
-  validation: ValidationConfig;
-  plugins: PluginConfig[];
-}
-```
+### Key Architectural Changes
 
-## Implementation Plan
+#### Remove
+- Command Registry pattern → Direct commander.js
+- Plugin system → No plugins needed
+- Adapter pattern → Components copied as-is
+- Abstract base classes → Simple functions
+- Manual DI → Direct imports
+- Circuit breakers → Simple retry
+- 100+ interfaces → ~10 types
 
-### Phase 1: Core Architecture
-- Set up monorepo structure for modular development
-- Implement base interfaces and types
-- Create AST parsing and transformation infrastructure
-- Build configuration system
+#### Keep & Enhance
+- TypeScript for type safety
+- Commander.js for CLI
+- Progress indicators
+- Colorful output
+- Error recovery
+- Component caching
+- Package manager detection
 
-### Phase 2: AST Transformations
-- Replace existing regex-based import fixing
-- Implement comprehensive AST transformers
-- Add support for complex import scenarios
-- Create AST-based validation
+## Implementation Tasks
 
-### Phase 3: UI Kit Abstraction
-- Define UI kit adapter interface
-- Create Willow adapter as reference
-- Implement adapters for 2-3 popular UI kits
-- Build component mapping system
+### Phase 1: Core Refactoring
+1. **Flatten Command Structure**: Remove BaseCommand abstraction, use direct commander.js
+2. **Simplify HTTP Client**: Replace complex HTTPClient with fetch + simple retry
+3. **Consolidate Types**: Merge 100+ interfaces into ~10 essential types
+4. **Remove Unused Abstractions**: Delete plugin system, adapters, registries
 
-### Phase 4: Plugin System
-- Design plugin API
-- Implement plugin loader
-- Create plugin lifecycle hooks
-- Build example plugins
+### Phase 2: Registry System
+1. **Build Registry API**: REST endpoints for components
+2. **Implement Publishing**: Component upload and versioning
+3. **Add Search**: Full-text search with filters
+4. **Create Analytics**: Usage tracking and stats
 
-### Phase 5: Testing and Documentation
-- Write comprehensive test suites
-- Create performance benchmarks
-- Write developer documentation
-- Create migration guides
+### Phase 3: Documentation System
+1. **AST Parser**: Parse components for docs
+2. **Storybook Generation**: Auto-create stories
+3. **Markdown Docs**: Generate from JSDoc
+4. **API Documentation**: Extract from types
+
+### Phase 4: Integration
+1. **Update Commands**: Refactor all commands
+2. **Migrate Tests**: Simplify test structure
+3. **Performance Optimization**: Caching, parallelization
+4. **Documentation**: User and developer docs
 
 ## Success Metrics
-- 90% reduction in string-based code modifications
-- Support for at least 5 different UI kits
-- Zero regression in existing functionality
-- 50% improvement in error recovery
-- Plugin ecosystem with at least 10 community plugins
-- Comprehensive test coverage (>90%)
 
-## Future Considerations
-- AI-powered component translation
-- Visual component mapping tools
-- Design system migration automation
-- Multi-framework support (Vue, Angular, etc.)
-- Cloud-based component registry
+1. **Code Reduction**: 75% fewer files, 70% less code
+2. **Developer Onboarding**: From weeks to hours
+3. **Performance**: 2x faster operations
+4. **Maintainability**: Add features in hours not days
+5. **Test Coverage**: Maintain >90% coverage
+
+## Risks & Mitigation
+
+1. **Breaking Changes**: Version as 2.0, provide migration guide
+2. **Feature Parity**: Comprehensive testing ensures no regression
+3. **Registry Downtime**: Implement offline fallback
+4. **Documentation Accuracy**: Automated testing of generated docs
+
+## Future Enhancements
+
+1. **VSCode Extension**: IntelliSense for components
+2. **Component Marketplace**: UI for browsing
+3. **Team Collaboration**: Component sharing
+4. **CI/CD Integration**: Automated publishing
+5. **Component Analytics**: Usage dashboards

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { UIKitAdapter, AdapterConfig, ComponentMapping, ValidationResult } from '../UIKitAdapter';
-import { ComponentConfig, StyleConfig, TokenConfig } from '../../types/AdapterTypes';
+import { UIKitAdapter, AdapterConfig, ComponentMapping, ValidationResult } from '../UIKitAdapter.js';
+import { ComponentConfig, StyleConfig, TokenConfig } from '../../types/AdapterTypes.js';
 
 // Edge case test adapter
 class EdgeCaseAdapter extends UIKitAdapter {

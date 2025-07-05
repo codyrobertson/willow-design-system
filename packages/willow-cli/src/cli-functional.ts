@@ -201,13 +201,13 @@ export function ${name}(${useTypeScript ? `{ className, children, ...props }: ${
       // Index file
       writeFileSync(
         join(componentDir, 'index.ts'),
-        `export { ${name} } from './${name}';\n`
+        `export { ${name} } from './${name}.js';\n`
       );
       
       // Test file
       if (options.test) {
         const testTemplate = `import { render, screen } from '@testing-library/react';
-import { ${name} } from './${name}';
+import { ${name} } from './${name}.js';
 
 describe('${name}', () => {
   it('renders children', () => {
@@ -225,7 +225,7 @@ describe('${name}', () => {
       // Storybook story
       if (options.story) {
         const storyTemplate = `import type { Meta, StoryObj } from '@storybook/react';
-import { ${name} } from './${name}';
+import { ${name} } from './${name}.js';
 
 const meta: Meta<typeof ${name}> = {
   title: 'Components/${name}',
@@ -487,7 +487,7 @@ export function ${component}({
       // Write index file
       writeFileSync(
         join(componentPath, 'index.ts'),
-        `export { ${component} } from './${component}';\nexport type { ${component}Props } from './${component}';\n`
+        `export { ${component} } from './${component}.js';\nexport type { ${component}Props } from './${component}.js';\n`
       );
       
       spinner.succeed(`Component ${component} installed successfully!`);
@@ -631,7 +631,7 @@ program
       // Generate test based on component structure
       let testTemplate = `import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ${component} } from './${component}';
+import { ${component} } from './${component}.js';
 
 describe('${component}', () => {
   it('renders without crashing', () => {
@@ -781,7 +781,7 @@ program
       
       // Generate story
       let storyTemplate = `import type { Meta, StoryObj } from '@storybook/react';
-import { ${component} } from './${component}';
+import { ${component} } from './${component}.js';
 
 const meta: Meta<typeof ${component}> = {
   title: 'Components/${component}',

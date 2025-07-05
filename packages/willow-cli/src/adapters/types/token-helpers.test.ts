@@ -23,8 +23,8 @@ import {
   tokensToCSSString,
   TokenPath,
   TokenValue,
-} from './token-helpers';
-import { createCompleteTokenConfig, createMinimalTokenConfig } from '../test-fixtures';
+} from './token-helpers.js';
+import { createCompleteTokenConfig, createMinimalTokenConfig } from '../test-fixtures/index.js';
 
 describe.shuffle('Token Helpers', () => {
   describe('Type Safety', () => {

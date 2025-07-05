@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { AriaKitAdapter } from './AriaKitAdapter';
-import { AdapterError } from '../errors';
+import { AriaKitAdapter } from './AriaKitAdapter.js';
+import { AdapterError } from '../errors/index.js';
 
 describe('AriaKitAdapter', () => {
   let adapter: AriaKitAdapter;

@@ -5,9 +5,9 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { createServer, Server } from 'http';
 import { AddressInfo } from 'net';
-import { HTTPClient, HTTPClientConfig } from '../HTTPClient';
-import { NetworkError, TimeoutError, HTTPError } from '../NetworkError';
-import { CircuitState } from '../CircuitBreaker';
+import { HTTPClient, HTTPClientConfig } from '../HTTPClient.js';
+import { NetworkError, TimeoutError, HTTPError } from '../NetworkError.js';
+import { CircuitState } from '../CircuitBreaker.js';
 
 describe('HTTPClient', () => {
   let server: Server;

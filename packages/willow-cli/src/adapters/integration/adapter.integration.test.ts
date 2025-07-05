@@ -5,10 +5,10 @@ import {
   createTimingHelpers,
   createMockPlugin,
   createSlowPlugin,
-} from '../test-fixtures';
-import { AdapterConfig, AdapterInstance } from '../types';
-import { AdapterError } from '../errors';
-import { AdapterPluginManager } from '../plugins/AdapterPluginManager';
+} from '../test-fixtures/index.js';
+import { AdapterConfig, AdapterInstance } from '../types/index.js';
+import { AdapterError } from '../errors/index.js';
+import { AdapterPluginManager } from '../plugins/AdapterPluginManager.js';
 
 // Mark as integration test for CI
 describe('Adapter Integration Tests', { timeout: 30000, tag: 'integration' }, () => {

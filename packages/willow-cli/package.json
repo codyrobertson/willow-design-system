@@ -1,13 +1,13 @@
 {
   "name": "willow-cli",
-  "version": "0.7.0-canary.4",
+  "version": "0.7.0-canary.6",
   "description": "CLI for installing Willow Design System components",
   "type": "module",
   "workspaces": [
     "packages/*"
   ],
   "bin": {
-    "willow": "bin/willow"
+    "willow": "bin/willow-dist"
   },
   "publishConfig": {
     "access": "public"
@@ -30,22 +30,22 @@
     "canary": "npm version prerelease --preid=canary && npm run build:all",
     "publish:canary": "npm run canary && npm publish --tag canary",
     "install:global": "npm run build:all && npm install -g .",
-    "test": "vitest --maxWorkers=8",
-    "test:unit": "vitest run --exclude='**/*.integration.test.{ts,tsx}' --exclude='**/integration/**' --exclude='**/*.improved.test.ts' --maxWorkers=8",
-    "test:integration": "vitest run --include='**/*.integration.test.{ts,tsx}' --include='**/integration/**' --include='**/*.improved.test.ts' --maxWorkers=4",
+    "test": "vitest",
+    "test:unit": "vitest run",
+    "test:integration": "vitest run --config vitest.config.integration.ts",
+    "test:all": "npm run test:unit && npm run test:integration",
     "test:fast": "vitest run --config vitest.config.fast.ts",
-    "test:coverage": "vitest run --coverage --maxWorkers=8",
-    "test:watch": "vitest watch --maxWorkers=8",
-    "test:all": "npm run test --workspaces",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest watch",
     "test:ci": "npm run test:unit && npm run test:integration",
     "type-check": "tsc --noEmit",
     "type-check:all": "npm run type-check --workspaces",
-    "lint": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "prepare": "husky install",
-    "prepublishOnly": "npm run build:all",
+    "prepublishOnly-disabled": "npm run build:all",
     "hooks:install": "scripts/setup-hooks.sh install",
     "hooks:disable": "scripts/setup-hooks.sh disable",
     "hooks:enable": "scripts/setup-hooks.sh enable",
@@ -75,13 +75,16 @@
     "@anthropic-ai/claude-code": "^1.0.33",
     "@types/js-yaml": "^4.0.9",
     "@types/prompts": "^2.4.9",
+    "@types/semver": "^7.7.0",
     "chalk": "^5.3.0",
     "commander": "^11.0.0",
     "didyoumean": "^1.2.2",
     "glob": "^10.3.10",
     "js-yaml": "^4.1.0",
     "ora": "^7.0.1",
-    "prompts": "^2.4.2"
+    "prompts": "^2.4.2",
+    "semver": "^7.7.2",
+    "zod": "^3.23.0"
   },
   "engines": {
     "node": ">=16.0.0"
@@ -91,6 +94,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitest/coverage-v8": "^1.0.0",
+    "abort-controller": "^3.0.0",
     "eslint": "^8.0.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-typescript": "^3.0.0",

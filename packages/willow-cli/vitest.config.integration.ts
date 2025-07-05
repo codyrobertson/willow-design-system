@@ -1,50 +1,29 @@
 import { defineConfig } from 'vitest/config';
-import path from 'path';
+import { resolve } from 'path';
 
 export default defineConfig({
   test: {
-    name: 'integration',
-    include: ['**/*.integration.test.{ts,tsx}'],
-    exclude: ['**/node_modules/**', '**/dist/**'],
-    
-    // Longer timeouts for integration tests
-    testTimeout: 30000,
-    hookTimeout: 30000,
-    
-    // Run integration tests sequentially to avoid resource conflicts
-    pool: 'forks',
+    globals: true,
+    environment: 'node',
+    setupFiles: ['./vitest.setup.ts'],
+    testTimeout: 30000, // Longer timeout for integration tests
+    include: [
+      'src/**/*.integration.test.ts',
+      'src/core/network/__tests__/integration.test.ts',
+      'src/core/network/__tests__/HTTPClient.test.ts',
+      'src/utils/__tests__/component-fetcher.test.ts'
+    ],
+    pool: 'forks', // Use forks for better isolation
     poolOptions: {
       forks: {
-        singleFork: true,
-      },
-    },
-    
-    // Environment setup
-    environment: 'node',
-    globals: true,
-    
-    // Coverage settings for integration tests
-    coverage: {
-      enabled: false, // Usually skip coverage for integration tests
-    },
-    
-    // Reporter configuration
-    reporters: process.env.CI 
-      ? ['json', 'junit'] 
-      : ['verbose'],
-    
-    outputFile: {
-      json: './test-results/integration.json',
-      junit: './test-results/integration.xml',
-    },
-    
-    // Setup files
-    setupFiles: ['./vitest.setup.ts'],
+        maxForks: 2, // Limit parallel execution for integration tests
+      }
+    }
   },
-  
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': resolve(__dirname, './src'),
+      '~': resolve(__dirname, './'),
     },
   },
 });

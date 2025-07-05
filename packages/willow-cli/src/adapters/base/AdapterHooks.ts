@@ -1,5 +1,5 @@
-import { AdapterLifecycleHooks } from './AdapterLifecycle';
-import { UIKitAdapter, AdapterConfig } from './UIKitAdapter';
+import { AdapterLifecycleHooks } from './AdapterLifecycle.js';
+import { UIKitAdapter, AdapterConfig } from './UIKitAdapter.js';
 
 /**
  * Built-in hook implementations for common adapter needs

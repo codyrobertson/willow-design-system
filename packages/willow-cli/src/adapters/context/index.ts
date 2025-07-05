@@ -11,7 +11,7 @@ export {
   type AdapterContextState,
   type AdapterContextValue,
   type AdapterProviderProps,
-} from './AdapterContext';
+} from './AdapterContext.js';
 
 // Component context
 export {
@@ -24,7 +24,7 @@ export {
   type ComponentContextValue,
   type ComponentProviderProps,
   type ComponentMapping,
-} from './ComponentContext';
+} from './ComponentContext.js';
 
 // Theme context
 export {
@@ -36,10 +36,10 @@ export {
   type ThemeContextValue,
   type ThemeProviderProps,
   type ThemeMode,
-} from './ThemeContext';
+} from './ThemeContext.js';
 
 // Combined provider component
-export { CombinedProvider, type CombinedProviderProps } from './CombinedProvider';
+export { CombinedProvider, type CombinedProviderProps } from './CombinedProvider.js';
 
 // Context utilities
-export { useAdapterContext, useComponentContext, useThemeContext } from './hooks';
+export { useAdapterContext, useComponentContext, useThemeContext } from './hooks.js';

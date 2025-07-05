@@ -4,9 +4,9 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { EnhancedHTTPClient } from '../EnhancedHTTPClient';
-import { RetryPolicy } from '../RetryPolicy';
-import { HTTPError } from '../NetworkError';
+import { EnhancedHTTPClient } from '../EnhancedHTTPClient.js';
+import { RetryPolicy } from '../RetryPolicy.js';
+import { HTTPError } from '../NetworkError.js';
 
 describe('EnhancedHTTPClient Simple Tests', () => {
   describe('Retry Policy Configuration', () => {

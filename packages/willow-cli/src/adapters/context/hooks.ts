@@ -1,6 +1,6 @@
-import { useAdapter, AdapterContextValue } from './AdapterContext';
-import { useComponent, ComponentContextValue } from './ComponentContext';
-import { useTheme, ThemeContextValue } from './ThemeContext';
+import { useAdapter, AdapterContextValue } from './AdapterContext.js';
+import { useComponent, ComponentContextValue } from './ComponentContext.js';
+import { useTheme, ThemeContextValue } from './ThemeContext.js';
 
 /**
  * Combined context hook that returns all context values

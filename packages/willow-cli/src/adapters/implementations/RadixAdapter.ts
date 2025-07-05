@@ -15,9 +15,9 @@ import {
   ComponentName,
   AdapterCapability,
   AdapterMetadata,
-} from '../types';
-import { AdapterError } from '../errors';
-import { AdapterPluginManager } from '../plugins/AdapterPluginManager';
+} from '../types/index.js';
+import { AdapterError } from '../errors/index.js';
+import { AdapterPluginManager } from '../plugins/AdapterPluginManager.js';
 
 /**
  * Radix-specific component configuration

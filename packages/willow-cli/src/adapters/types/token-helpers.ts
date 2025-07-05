@@ -12,7 +12,7 @@ import {
   ShadowTokens,
   AnimationTokens,
   BreakpointTokens,
-} from './AdapterTypes';
+} from './AdapterTypes.js';
 
 // ============================================================================
 // Token Path Types

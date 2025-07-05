@@ -1,7 +1,7 @@
-import { AdapterValidator, ValidationResult, ValidationOptions } from '../base/AdapterValidator';
-import { AdapterConfig } from '../base/UIKitAdapter';
-import { ComponentConfig, StyleConfig, TokenConfig } from '../types/AdapterTypes';
-import { AdapterRegistration } from '../base/AdapterRegistry';
+import { AdapterValidator, ValidationResult, ValidationOptions } from '../base/AdapterValidator.js';
+import { AdapterConfig } from '../base/UIKitAdapter.js';
+import { ComponentConfig, StyleConfig, TokenConfig } from '../types/AdapterTypes.js';
+import { AdapterRegistration } from '../base/AdapterRegistry.js';
 
 /**
  * Validation utilities for adapter configurations

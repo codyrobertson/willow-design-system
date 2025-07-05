@@ -1,5 +1,5 @@
-import { AdapterError, AdapterInitializationError, AdapterConfigurationError } from './AdapterError';
-import { ErrorHandler, ErrorHandlerConfig } from './ErrorHandler';
+import { AdapterError, AdapterInitializationError, AdapterConfigurationError } from './AdapterError.js';
+import { ErrorHandler, ErrorHandlerConfig } from './ErrorHandler.js';
 
 /**
  * Recovery strategy for specific error types

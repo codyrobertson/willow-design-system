@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { AdapterValidator, ValidationOptions } from '../AdapterValidator';
-import { AdapterConfig } from '../UIKitAdapter';
-import { ComponentConfig, StyleConfig, TokenConfig, ComponentType } from '../../types/AdapterTypes';
-import { AdapterRegistration } from '../AdapterRegistry';
+import { AdapterValidator, ValidationOptions } from '../AdapterValidator.js';
+import { AdapterConfig } from '../UIKitAdapter.js';
+import { ComponentConfig, StyleConfig, TokenConfig, ComponentType } from '../../types/AdapterTypes.js';
+import { AdapterRegistration } from '../AdapterRegistry.js';
 
 describe('Adapter Schema and Validation', () => {
   const validator = new AdapterValidator();

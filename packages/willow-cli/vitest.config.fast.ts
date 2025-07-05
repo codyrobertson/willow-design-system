@@ -20,8 +20,6 @@ export default mergeConfig(
       poolOptions: {
         threads: {
           singleThread: false,
-          maxThreads: 8,
-          minThreads: 4,
         }
       }
     },

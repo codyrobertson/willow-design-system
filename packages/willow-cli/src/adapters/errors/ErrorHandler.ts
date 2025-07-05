@@ -1,4 +1,4 @@
-import { AdapterError } from './AdapterError';
+import { AdapterError } from './AdapterError.js';
 
 /**
  * Error handling strategy

@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { AdapterConfig, AdapterInstance, ComponentMapping, StyleConfig, TokenConfig, ValidationResult } from './types';
-import { AdapterError } from './errors';
-import { AdapterPluginManager } from './plugins/AdapterPluginManager';
-import { AccessibilityPlugin } from './plugins/builtin/AccessibilityPlugin';
+import { AdapterConfig, AdapterInstance, ComponentMapping, StyleConfig, TokenConfig, ValidationResult } from './types/index.js';
+import { AdapterError } from './errors/index.js';
+import { AdapterPluginManager } from './plugins/AdapterPluginManager.js';
+import { AccessibilityPlugin } from './plugins/builtin/AccessibilityPlugin.js';
 
 // Mock console methods
 const consoleSpy = {
@@ -448,7 +448,15 @@ describe('Adapter Integration Tests', () => {
       const tokens: TokenConfig = { category: 'test', path: 'test', value: 'test' };
       
       expect(() => uninitializedAdapter.convertTokens(tokens))
-        .toThrow(new AdapterError('Adapter not initialized', 'NOT_INITIALIZED'));
+        .toThrowError(AdapterError);
+      
+      try {
+        uninitializedAdapter.convertTokens(tokens);
+      } catch (error) {
+        expect(error).toBeInstanceOf(AdapterError);
+        expect((error as AdapterError).message).toBe('Adapter not initialized');
+        expect((error as AdapterError).code).toBe('NOT_INITIALIZED');
+      }
     });
   });
 

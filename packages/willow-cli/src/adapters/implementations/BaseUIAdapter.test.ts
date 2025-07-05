@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { BaseUIAdapter } from './BaseUIAdapter';
-import { AdapterError } from '../errors';
+import { BaseUIAdapter } from './BaseUIAdapter.js';
+import { AdapterError } from '../errors/index.js';
 
 describe('BaseUIAdapter', () => {
   let adapter: BaseUIAdapter;

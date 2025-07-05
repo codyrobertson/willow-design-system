@@ -1,5 +1,5 @@
-import { UIKitAdapter, AdapterConfig, ComponentMapping, ValidationResult } from '../UIKitAdapter';
-import { ComponentConfig, StyleConfig, TokenConfig, ComponentType } from '../../types/AdapterTypes';
+import { UIKitAdapter, AdapterConfig, ComponentMapping, ValidationResult } from '../UIKitAdapter.js';
+import { ComponentConfig, StyleConfig, TokenConfig, ComponentType } from '../../types/AdapterTypes.js';
 
 // Mock implementation for testing
 class MockAdapter extends UIKitAdapter {

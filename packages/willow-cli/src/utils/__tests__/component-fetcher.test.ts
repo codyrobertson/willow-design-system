@@ -26,7 +26,7 @@ describe('ComponentFetcher', () => {
 
     it('should accept custom options', () => {
       const customFetcher = new ComponentFetcher({
-        timeout: 5000,
+        timeout: 1000,
         retries: 5,
         includeUnstable: true,
         cacheEnabled: false

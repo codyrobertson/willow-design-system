@@ -13,8 +13,8 @@ import {
   reportError,
   addBreadcrumb,
   ErrorFilters,
-} from './ErrorReporting';
-import { AdapterError, AdapterValidationError } from './AdapterError';
+} from './ErrorReporting.js';
+import { AdapterError, AdapterValidationError } from './AdapterError.js';
 
 // Mock browser APIs
 const mockNavigator = {

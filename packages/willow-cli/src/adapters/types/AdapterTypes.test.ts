@@ -82,7 +82,7 @@ import {
   isComponentMapping,
   isValidationResult,
   isAdapterInstance,
-} from './AdapterTypes';
+} from './AdapterTypes.js';
 
 describe('AdapterTypes', () => {
   describe('Base Types', () => {

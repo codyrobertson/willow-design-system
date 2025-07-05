@@ -10,8 +10,8 @@ import {
   DNSLookupError,
   RegistryUnavailableError,
   HTTPError
-} from '../NetworkError';
-import { ErrorCode } from '../../../types/errors';
+} from '../NetworkError.js';
+import { ErrorCode } from '../../../types/errors.js';
 
 describe('NetworkError', () => {
   describe('NetworkError', () => {

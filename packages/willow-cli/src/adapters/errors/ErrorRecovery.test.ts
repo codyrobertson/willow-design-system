@@ -7,7 +7,7 @@ import {
   globalErrorRecovery,
   executeWithRecovery,
   withErrorRecovery,
-} from './ErrorRecovery';
+} from './ErrorRecovery.js';
 import {
   AdapterError,
   AdapterInitializationError,
@@ -17,7 +17,7 @@ import {
   AdapterMappingError,
   AdapterStyleError,
   AdapterTokenError,
-} from './AdapterError';
+} from './AdapterError.js';
 
 describe('ErrorRecovery', () => {
   let errorRecovery: ErrorRecovery;

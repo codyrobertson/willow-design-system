@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { MaterialUIAdapter } from './MaterialUIAdapter';
-import { AdapterError } from '../errors';
+import { MaterialUIAdapter } from './MaterialUIAdapter.js';
+import { AdapterError } from '../errors/index.js';
 
 describe('MaterialUIAdapter', () => {
   let adapter: MaterialUIAdapter;

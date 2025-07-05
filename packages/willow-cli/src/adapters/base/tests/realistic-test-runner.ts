@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { UIKitAdapter, AdapterConfig, ComponentMapping, ValidationResult } from '../UIKitAdapter';
-import { ComponentConfig, StyleConfig, TokenConfig } from '../../types/AdapterTypes';
+import { UIKitAdapter, AdapterConfig, ComponentMapping, ValidationResult } from '../UIKitAdapter.js';
+import { ComponentConfig, StyleConfig, TokenConfig } from '../../types/AdapterTypes.js';
 
 // More realistic mock adapter simulating real UI kit integration
 class RealisticMockAdapter extends UIKitAdapter {

@@ -27,7 +27,7 @@ import type {
   TemplateVariable,
   TemplateInfo,
   TemplateFilter,
-} from './GeneratorTypes';
+} from './GeneratorTypes.js';
 
 describe('GeneratorTypes', () => {
   describe('Type Definitions', () => {

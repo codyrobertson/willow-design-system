@@ -6,7 +6,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { InitCommand } from '../init/InitCommand.js';
-import { CommandContext } from '../../core/CommandRegistry.js';
+import { CommandContext } from '../../core/commands/CommandRegistry.js';
 import { InitOptions, CLIError, CLIErrorCode } from '../../types/cli.js';
 import { configManager, CONFIG_PRESETS } from '../../config/index.js';
 import { getPrompts } from '../../ui/index.js';
@@ -416,9 +416,10 @@ describe('InitCommand', () => {
 
       const options: InitOptions = {};
       
-      await expect(InitCommand.action(context, options)).rejects.toThrow(
-        new CLIError(CLIErrorCode.UNKNOWN_ERROR, 'Failed to initialize Willow')
-      );
+      const error = await InitCommand.action(context, options).catch(e => e);
+      expect(error).toBeInstanceOf(CLIError);
+      expect(error.code).toBe(CLIErrorCode.UNKNOWN_ERROR);
+      expect(error.message).toBe('Failed to initialize Willow');
       
       expect(mockProgress.fail).toHaveBeenCalledWith('Initialization failed');
     });

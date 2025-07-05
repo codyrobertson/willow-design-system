@@ -1,4 +1,4 @@
-import { UIKitAdapter, AdapterConfig } from './UIKitAdapter';
+import { UIKitAdapter, AdapterConfig } from './UIKitAdapter.js';
 
 /**
  * Lifecycle hooks for UI Kit adapters

@@ -395,7 +395,7 @@ function generateButtonStory(framework: string, typescript: boolean): string {
     : ``;
 
   return `${imports}
-import { Button } from '../components/ui/button';
+import { Button } from '../components/ui/button.js';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 ${typescript ? 'const meta = {' : 'export default {'}
@@ -469,8 +469,8 @@ function generateCardStory(framework: string, typescript: boolean): string {
     : ``;
 
   return `${imports}
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../components/ui/card';
-import { Button } from '../components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../components/ui/card.js';
+import { Button } from '../components/ui/button.js';
 
 ${typescript ? 'const meta = {' : 'export default {'}
   title: 'Example/Card',

@@ -1,6 +1,6 @@
-import { AdapterRegistry, AdapterRegistration, AdapterInstantiationOptions } from './AdapterRegistry';
-import { UIKitAdapter, AdapterConfig } from './UIKitAdapter';
-import { AdapterLifecycleHooks } from './AdapterLifecycle';
+import { AdapterRegistry, AdapterRegistration, AdapterInstantiationOptions } from './AdapterRegistry.js';
+import { UIKitAdapter, AdapterConfig } from './UIKitAdapter.js';
+import { AdapterLifecycleHooks } from './AdapterLifecycle.js';
 
 /**
  * Factory configuration for adapter creation

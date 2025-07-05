@@ -4,7 +4,8 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Command } from 'commander';
-import { CommandRegistry } from '../../core/CommandRegistry.js';
+import { CommandRegistry } from '../../core/commands/CommandRegistry.js';
+import { fromLegacyCommand } from '../../core/commands/LegacyCommandAdapter.js';
 import { InitCommand } from '../init/InitCommand.js';
 import { AddCommand } from '../add/AddCommand.js';
 import { ConfigCommand } from '../config/ConfigCommand.js';
@@ -35,19 +36,18 @@ describe('CLI Commands', () => {
       ];
 
       commands.forEach(cmd => {
-        registry.register(cmd);
+        registry.register(fromLegacyCommand(cmd));
       });
 
-      expect(registry.getCommands().size).toBe(commands.length);
+      expect(registry.getAll().length).toBe(commands.length);
     });
 
     it('should have correct command metadata', () => {
-      registry.register(InitCommand);
-      const commands = registry.getCommands();
+      registry.register(fromLegacyCommand(InitCommand));
       
-      expect(commands.has('init')).toBe(true);
-      const initCmd = commands.get('init');
-      expect(initCmd?.description).toBe('Initialize Willow in your project');
+      expect(registry.has('init')).toBe(true);
+      const initCmd = registry.get('init');
+      expect(initCmd?.getMetadata().description).toBe('Initialize Willow in your project');
     });
   });
 

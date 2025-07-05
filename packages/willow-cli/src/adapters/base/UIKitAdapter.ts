@@ -1,4 +1,4 @@
-import { ComponentConfig, StyleConfig, TokenConfig } from '../types/AdapterTypes';
+import { ComponentConfig, StyleConfig, TokenConfig } from '../types/AdapterTypes.js';
 
 /**
  * Base abstract class for UI Kit adapters

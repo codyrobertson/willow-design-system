@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { ShadcnAdapter } from './ShadcnAdapter';
-import { AdapterError } from '../errors';
+import { ShadcnAdapter } from './ShadcnAdapter.js';
+import { AdapterError } from '../errors/index.js';
 
 describe('ShadcnAdapter', () => {
   let adapter: ShadcnAdapter;

@@ -1,5 +1,5 @@
-import { AdapterConfig, AdapterInstance, ComponentMapping, StyleConfig, TokenConfig, ValidationResult } from '../types';
-import { AdapterError } from '../errors';
+import { AdapterConfig, AdapterInstance, ComponentMapping, StyleConfig, TokenConfig, ValidationResult } from '../types/index.js';
+import { AdapterError } from '../errors/index.js';
 import { vi, expect } from 'vitest';
 
 /**

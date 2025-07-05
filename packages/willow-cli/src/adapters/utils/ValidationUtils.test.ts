@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { ValidationUtils } from './ValidationUtils';
-import { AdapterValidator, ValidationResult } from '../base/AdapterValidator';
-import { AdapterConfig } from '../base/UIKitAdapter';
-import { ComponentConfig, StyleConfig, TokenConfig, ComponentType } from '../types/AdapterTypes';
-import { AdapterRegistration } from '../base/AdapterRegistry';
+import { ValidationUtils } from './ValidationUtils.js';
+import { AdapterValidator, ValidationResult } from '../base/AdapterValidator.js';
+import { AdapterConfig } from '../base/UIKitAdapter.js';
+import { ComponentConfig, StyleConfig, TokenConfig, ComponentType } from '../types/AdapterTypes.js';
+import { AdapterRegistration } from '../base/AdapterRegistry.js';
 
 // Mock the AdapterValidator
 vi.mock('../base/AdapterValidator');

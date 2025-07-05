@@ -6,10 +6,10 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { createServer, Server } from 'http';
 import { AddressInfo } from 'net';
-import { HTTPClientFactory } from '../HTTPClientFactory';
-import { CircuitBreakerFactory } from '../CircuitBreaker';
-import { HTTPClient, RequestProgress } from '../HTTPClient';
-import { NetworkError, HTTPError, ConnectionRefusedError } from '../NetworkError';
+import { HTTPClientFactory } from '../HTTPClientFactory.js';
+import { CircuitBreakerFactory } from '../CircuitBreaker.js';
+import { HTTPClient, RequestProgress } from '../HTTPClient.js';
+import { NetworkError, HTTPError, ConnectionRefusedError } from '../NetworkError.js';
 
 describe('Network Integration Tests', () => {
   let server: Server;

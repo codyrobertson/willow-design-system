@@ -2,8 +2,8 @@
  * Centralized test fixtures for adapter testing
  */
 
-export * from './adapter.fixtures';
-export * from './plugin.fixtures';
+export * from './adapter.fixtures.js';
+export * from './plugin.fixtures.js';
 
 // Re-export commonly used fixtures for convenience
 export {
@@ -46,7 +46,7 @@ export {
   createTimingHelpers,
   createStateFixtures,
   createAssertionHelpers,
-} from './adapter.fixtures';
+} from './adapter.fixtures.js';
 
 export {
   // Plugin fixtures
@@ -67,4 +67,4 @@ export {
   // Plugin helpers
   createPluginTestHelpers,
   createPluginExecutionContext,
-} from './plugin.fixtures';
+} from './plugin.fixtures.js';

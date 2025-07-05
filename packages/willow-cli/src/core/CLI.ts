@@ -21,14 +21,20 @@ import {
   setGlobalReporterOptions
 } from '../ui/index.js';
 import { configManager } from '../config/index.js';
-import { CommandRegistry, CommandContext } from './CommandRegistry.js';
+import { CommandRegistry, CommandContext } from './commands/CommandRegistry.js';
 import { terminalManager } from '../ui/TerminalManager.js';
+import { 
+  applyCompatibility, 
+  createCompatibilityMiddleware,
+  CompatibilityOptions 
+} from './compatibility/index.js';
 
 export interface CLIOptions {
   name: string;
   description: string;
   version?: string;
   registry?: CommandRegistry;
+  compatibility?: CompatibilityOptions;
 }
 
 export class CLI {
@@ -53,6 +59,12 @@ export class CLI {
     this.logger = new Logger();
     this.progress = new ProgressReporter();
     this.prompts = new InteractivePrompts();
+    
+    // Apply compatibility middleware if enabled
+    if (options.compatibility !== false) {
+      const compatibilityMiddleware = createCompatibilityMiddleware(options.compatibility);
+      this.registry.use(compatibilityMiddleware);
+    }
     
     this.setupGlobalOptions();
     this.setupErrorHandling();
@@ -187,6 +199,9 @@ export class CLI {
   async parse(argv: string[] = process.argv): Promise<void> {
     // Load configuration before parsing
     await this.loadConfiguration();
+    
+    // Apply compatibility features
+    await applyCompatibility(this.program);
     
     // Apply registered commands
     this.applyRegisteredCommands();

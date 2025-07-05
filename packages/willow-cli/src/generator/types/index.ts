@@ -4,7 +4,7 @@
  * Central export point for all code generation types and interfaces
  */
 
-export * from './GeneratorTypes';
+export * from './GeneratorTypes.js';
 
 // Re-export commonly used types for convenience
 export type {
@@ -29,4 +29,4 @@ export type {
   TemplateVariable,
   TemplateInfo,
   TemplateFilter,
-} from './GeneratorTypes';
+} from './GeneratorTypes.js';

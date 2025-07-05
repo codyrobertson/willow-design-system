@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach, vi, MockedFunction } from 'vitest';
-import { AdapterPluginManager, PluginRegistrationOptions } from './AdapterPluginManager';
-import { AccessibilityPlugin } from './builtin/AccessibilityPlugin';
-import { AdapterError } from '../errors';
-import { AdapterPlugin, AdapterInstance, ComponentMapping, StyleConfig, TokenConfig, ValidationResult, AdapterConfig } from '../types';
+import { AdapterPluginManager, PluginRegistrationOptions } from './AdapterPluginManager.js';
+import { AccessibilityPlugin } from './builtin/AccessibilityPlugin.js';
+import { AdapterError } from '../errors/index.js';
+import { AdapterPlugin, AdapterInstance, ComponentMapping, StyleConfig, TokenConfig, ValidationResult, AdapterConfig } from '../types/index.js';
 
 // Mock console methods
 const consoleSpy = {

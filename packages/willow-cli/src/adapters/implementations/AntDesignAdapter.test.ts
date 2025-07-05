@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { AntDesignAdapter } from './AntDesignAdapter';
-import { AdapterError } from '../errors';
+import { AntDesignAdapter } from './AntDesignAdapter.js';
+import { AdapterError } from '../errors/index.js';
 
 describe('AntDesignAdapter', () => {
   let adapter: AntDesignAdapter;

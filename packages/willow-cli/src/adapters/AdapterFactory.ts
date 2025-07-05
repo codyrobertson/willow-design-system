@@ -3,7 +3,7 @@
  */
 
 import { UIKit } from '../types/cli.js';
-import { UIKitAdapter } from './types/AdapterTypes.js';
+import { UIKitAdapter } from './base/UIKitAdapter.js';
 import { MaterialUIAdapter } from './implementations/MaterialUIAdapter.js';
 import { ShadcnAdapter } from './implementations/ShadcnAdapter.js';
 import { BootstrapAdapter } from './implementations/BootstrapAdapter.js';
@@ -15,10 +15,10 @@ export class AdapterFactory {
 
   static {
     // Register built-in adapters
-    this.register('material-ui', () => new MaterialUIAdapter());
+    this.register('material', () => new MaterialUIAdapter());
     this.register('shadcn', () => new ShadcnAdapter());
     this.register('bootstrap', () => new BootstrapAdapter());
-    this.register('ant-design', () => new AntDesignAdapter());
+    this.register('antd', () => new AntDesignAdapter());
   }
 
   /**

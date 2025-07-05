@@ -6,6 +6,8 @@
 import chalk from 'chalk';
 import type { ComponentMeta } from '../types/index.js';
 import { WILLOW_REGISTRY, STABLE_COMPONENTS, UNSTABLE_COMPONENTS } from '../types/index.js';
+import { HTTPClientFactory, HTTPClient, RequestProgress } from '../core/network/index.js';
+import { ErrorRecovery } from '../errors/ErrorRecovery.js';
 
 export interface FetchOptions {
   registry?: string;
@@ -13,6 +15,7 @@ export interface FetchOptions {
   retries?: number;
   includeUnstable?: boolean;
   cacheEnabled?: boolean;
+  onProgress?: (component: string, progress: RequestProgress) => void;
 }
 
 export interface FetchResult {
@@ -25,6 +28,7 @@ export interface FetchResult {
 export class ComponentFetcher {
   private cache: Map<string, ComponentMeta> = new Map();
   private options: Required<FetchOptions>;
+  private httpClient: HTTPClient;
 
   constructor(options: FetchOptions = {}) {
     this.options = {
@@ -32,8 +36,32 @@ export class ComponentFetcher {
       timeout: options.timeout || 30000,
       retries: options.retries || 3,
       includeUnstable: options.includeUnstable || false,
-      cacheEnabled: options.cacheEnabled !== false
+      cacheEnabled: options.cacheEnabled !== false,
+      onProgress: options.onProgress || (() => {})
     };
+
+    // Create HTTP client with registry-specific configuration
+    this.httpClient = HTTPClientFactory.createRegistryClient({
+      baseURL: this.options.registry,
+      timeout: this.options.timeout,
+      retry: {
+        maxAttempts: this.options.retries,
+        backoff: 'exponential',
+        initialDelay: 1000,
+        maxDelay: 10000
+      }
+    });
+  }
+
+  /**
+   * Get list of available components
+   */
+  async getAvailableComponents(): Promise<string[]> {
+    const components = [...STABLE_COMPONENTS];
+    if (this.options.includeUnstable) {
+      components.push(...UNSTABLE_COMPONENTS);
+    }
+    return components;
   }
 
   /**
@@ -58,9 +86,8 @@ export class ComponentFetcher {
     }
 
     try {
-      // For now, create mock component metadata
-      // TODO: Replace with actual registry API call
-      const metadata = await this.createMockMetadata(componentName);
+      // Try to fetch from actual registry first
+      const metadata = await this.fetchFromRegistry(componentName);
       
       // Cache the result
       if (this.options.cacheEnabled) {
@@ -110,18 +137,6 @@ export class ComponentFetcher {
     return results;
   }
 
-  /**
-   * Get all available components
-   */
-  async getAvailableComponents(): Promise<string[]> {
-    const components = [...STABLE_COMPONENTS];
-    
-    if (this.options.includeUnstable) {
-      components.push(...UNSTABLE_COMPONENTS);
-    }
-
-    return components;
-  }
 
   /**
    * Search components by pattern or category
@@ -225,15 +240,57 @@ export class ComponentFetcher {
   }
 
   /**
-   * Download component files (placeholder for actual implementation)
+   * Fetch component from registry
+   */
+  private async fetchFromRegistry(componentName: string): Promise<ComponentMeta> {
+    try {
+      // Attempt to fetch from actual registry
+      const response = await this.httpClient.get<ComponentMeta>(
+        `/api/components/${componentName}`,
+        {
+          onProgress: (progress) => {
+            this.options.onProgress(componentName, progress);
+          }
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      // Fallback to mock data if registry is not available
+      if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+        return this.createMockMetadata(componentName);
+      }
+      throw error;
+    }
+  }
+
+  /**
+   * Download component files
    */
   async downloadComponentFiles(component: ComponentMeta, targetPath: string): Promise<void> {
-    // TODO: Implement actual file download logic in later subtasks
-    console.log(chalk.blue(`📁 Would download ${component.name} to ${targetPath}`));
+    console.log(chalk.blue(`📁 Downloading ${component.name} to ${targetPath}`));
     
-    // Simulate download time (reduced in test environment)
-    const delay = process.env.NODE_ENV === 'test' ? 10 : 100;
-    await new Promise(resolve => setTimeout(resolve, delay));
+    // Download each file with progress tracking
+    for (const file of component.files) {
+      if (!file.content) {
+        // Fetch file content from registry if not embedded
+        const fileUrl = `/api/components/${component.name}/files/${file.name}`;
+        
+        try {
+          const response = await this.httpClient.get<string>(fileUrl, {
+            responseType: 'text',
+            onProgress: (progress) => {
+              this.options.onProgress(`${component.name}/${file.name}`, progress);
+            }
+          });
+          
+          file.content = response.data;
+        } catch (error) {
+          console.error(chalk.red(`Failed to download ${file.name}: ${error instanceof Error ? error.message : 'Unknown error'}`));
+          throw error;
+        }
+      }
+    }
   }
 
   /**

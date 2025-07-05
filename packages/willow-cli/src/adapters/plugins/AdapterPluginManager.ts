@@ -1,5 +1,5 @@
-import { AdapterPlugin, AdapterInstance, ComponentName, ComponentMapping, StyleConfig, TokenConfig, AdapterConfig, ValidationResult } from '../types';
-import { AdapterError } from '../errors';
+import { AdapterPlugin, AdapterInstance, ComponentName, ComponentMapping, StyleConfig, TokenConfig, AdapterConfig, ValidationResult } from '../types/index.js';
+import { AdapterError } from '../errors/index.js';
 
 /**
  * Plugin registration options

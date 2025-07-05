@@ -1,5 +1,10 @@
 import { beforeEach, afterEach, vi, expect } from 'vitest';
 
+// Increase max listeners for tests to avoid warnings
+if (typeof process !== 'undefined') {
+  process.setMaxListeners(20);
+}
+
 // Mock global browser APIs that are not available in Node.js test environment
 global.fetch = vi.fn();
 
@@ -67,11 +72,16 @@ global.document = {
   })),
 } as any;
 
-global.Intl = {
-  DateTimeFormat: () => ({
+// Extend Intl instead of replacing it
+if (!global.Intl) {
+  global.Intl = {} as any;
+}
+
+if (!global.Intl.DateTimeFormat) {
+  global.Intl.DateTimeFormat = (() => ({
     resolvedOptions: () => ({ timeZone: 'America/New_York' }),
-  }),
-} as any;
+  })) as any;
+}
 
 // Global test setup
 beforeEach(() => {
@@ -81,6 +91,11 @@ beforeEach(() => {
 
 afterEach(() => {
   // Clean up after tests
+  // Remove all listeners to prevent memory leaks
+  if (typeof process !== 'undefined') {
+    process.removeAllListeners('uncaughtException');
+    process.removeAllListeners('unhandledRejection');
+  }
 });
 
 // Mock console methods during tests to reduce noise
@@ -156,3 +171,19 @@ expect.extend({
     }
   },
 });
+
+// Polyfill Intl.Segmenter for ora/string-width compatibility
+if (!global.Intl.Segmenter) {
+  // @ts-ignore
+  global.Intl.Segmenter = class {
+    constructor() {}
+    segment(str: string) {
+      return Array.from(str).map((char, index) => ({
+        segment: char,
+        index,
+        isWordLike: /\w/.test(char)
+      }));
+    }
+  };
+}
+

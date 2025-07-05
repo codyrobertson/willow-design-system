@@ -1,4 +1,4 @@
-import { AdapterPlugin, AdapterInstance, ComponentMapping, StyleConfig, TokenConfig, ValidationResult, AdapterConfig } from '../types';
+import { AdapterPlugin, AdapterInstance, ComponentMapping, StyleConfig, TokenConfig, ValidationResult, AdapterConfig } from '../types/index.js';
 import { vi, MockedFunction } from 'vitest';
 
 /**

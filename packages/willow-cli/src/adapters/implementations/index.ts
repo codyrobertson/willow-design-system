@@ -5,25 +5,25 @@
  */
 
 // Material-UI Adapter
-export { MaterialUIAdapter, createMaterialUIAdapter } from './MaterialUIAdapter';
+export { MaterialUIAdapter, createMaterialUIAdapter } from './MaterialUIAdapter.js';
 
 // Radix UI Adapter
-export { RadixAdapter, createRadixAdapter } from './RadixAdapter';
+export { RadixAdapter, createRadixAdapter } from './RadixAdapter.js';
 
 // Shadcn UI Adapter
-export { ShadcnAdapter, createShadcnAdapter } from './ShadcnAdapter';
+export { ShadcnAdapter, createShadcnAdapter } from './ShadcnAdapter.js';
 
 // Ant Design Adapter
-export { AntDesignAdapter, createAntDesignAdapter } from './AntDesignAdapter';
+export { AntDesignAdapter, createAntDesignAdapter } from './AntDesignAdapter.js';
 
 // Aria Kit Adapter
-export { AriaKitAdapter, createAriaKitAdapter } from './AriaKitAdapter';
+export { AriaKitAdapter, createAriaKitAdapter } from './AriaKitAdapter.js';
 
 // Base UI Adapter
-export { BaseUIAdapter, createBaseUIAdapter } from './BaseUIAdapter';
+export { BaseUIAdapter, createBaseUIAdapter } from './BaseUIAdapter.js';
 
 // Bootstrap Adapter
-export { BootstrapAdapter, createBootstrapAdapter } from './BootstrapAdapter';
+export { BootstrapAdapter, createBootstrapAdapter } from './BootstrapAdapter.js';
 
 // Adapter type exports for convenience
 export type {
@@ -33,19 +33,19 @@ export type {
   StyleConfig,
   TokenConfig,
   ValidationResult,
-} from '../types';
+} from '../types/index.js';
 
 /**
  * Default adapter instances
  * These can be used directly without instantiation
  */
-export { default as materialUIAdapter } from './MaterialUIAdapter';
-export { default as radixAdapter } from './RadixAdapter';
-export { default as shadcnAdapter } from './ShadcnAdapter';
-export { default as antDesignAdapter } from './AntDesignAdapter';
-export { default as ariaKitAdapter } from './AriaKitAdapter';
-export { default as baseUIAdapter } from './BaseUIAdapter';
-export { default as bootstrapAdapter } from './BootstrapAdapter';
+export { default as materialUIAdapter } from './MaterialUIAdapter.js';
+export { default as radixAdapter } from './RadixAdapter.js';
+export { default as shadcnAdapter } from './ShadcnAdapter.js';
+export { default as antDesignAdapter } from './AntDesignAdapter.js';
+export { default as ariaKitAdapter } from './AriaKitAdapter.js';
+export { default as baseUIAdapter } from './BaseUIAdapter.js';
+export { default as bootstrapAdapter } from './BootstrapAdapter.js';
 
 /**
  * Adapter registry for dynamic adapter discovery

@@ -10,14 +10,14 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { BootstrapAdapter, createBootstrapAdapter } from './BootstrapAdapter';
+import { BootstrapAdapter, createBootstrapAdapter } from './BootstrapAdapter.js';
 import type {
   AdapterConfig,
   ComponentMapping,
   StyleConfig,
   TokenConfig,
   ValidationResult,
-} from '../types';
+} from '../types/index.js';
 
 describe('BootstrapAdapter', () => {
   let adapter: BootstrapAdapter;

@@ -4,6 +4,7 @@
 
 import { ProgressReporter } from './ProgressReporter.js';
 import { InteractivePrompts } from './InteractivePrompts.js';
+import { cleanupRegistry, CancellationToken } from '../core/cancellation/index.js';
 
 export class TerminalManager {
   private static instance: TerminalManager;
@@ -12,6 +13,7 @@ export class TerminalManager {
 
   private constructor() {
     this.setupSignalHandlers();
+    this.registerWithCleanupRegistry();
   }
 
   static getInstance(): TerminalManager {
@@ -22,37 +24,56 @@ export class TerminalManager {
   }
 
   /**
-   * Register a cleanup handler
+   * Register a cleanup handler (legacy method - use cleanupRegistry instead)
    */
   registerCleanupHandler(handler: () => void | Promise<void>): void {
     this.cleanupHandlers.push(handler);
+    
+    // Also register with the new cleanup registry
+    cleanupRegistry.register(() => handler(), {
+      name: 'Legacy terminal handler',
+      priority: 50,
+    });
+  }
+  
+  /**
+   * Register terminal cleanup with the global registry
+   */
+  private registerWithCleanupRegistry(): void {
+    cleanupRegistry.register(
+      async (token: CancellationToken) => {
+        await this.cleanup(token);
+      },
+      {
+        name: 'TerminalManager',
+        priority: 200, // High priority to ensure terminal cleanup happens early
+        timeout: 5000,
+      }
+    );
   }
 
   /**
    * Setup signal handlers for graceful shutdown
    */
   private setupSignalHandlers(): void {
+    // The cleanup registry already handles signal handlers,
+    // but we keep these for backward compatibility and immediate response
     const signals = ['SIGINT', 'SIGTERM', 'SIGHUP', 'SIGQUIT'] as const;
     
     signals.forEach(signal => {
       process.on(signal, async () => {
-        await this.cleanup();
-        process.exit(signal === 'SIGINT' ? 130 : 1);
+        // Create a cancellation token with timeout
+        const token = new CancellationToken({ timeout: 10000 });
+        
+        try {
+          // Use the cleanup registry for coordinated cleanup
+          await cleanupRegistry.cleanup(token);
+          process.exit(signal === 'SIGINT' ? 130 : 1);
+        } catch (error) {
+          console.error('\nCleanup failed:', error);
+          process.exit(1);
+        }
       });
-    });
-
-    // Handle uncaught exceptions
-    process.on('uncaughtException', async (error) => {
-      console.error('\nUnexpected error:', error.message);
-      await this.cleanup();
-      process.exit(1);
-    });
-
-    // Handle unhandled promise rejections
-    process.on('unhandledRejection', async (reason) => {
-      console.error('\nUnhandled promise rejection:', reason);
-      await this.cleanup();
-      process.exit(1);
     });
 
     // Handle process exit
@@ -65,12 +86,13 @@ export class TerminalManager {
   /**
    * Perform cleanup operations
    */
-  private async cleanup(): Promise<void> {
+  private async cleanup(token?: CancellationToken): Promise<void> {
     if (this.isCleaningUp) {
       return;
     }
 
     this.isCleaningUp = true;
+    const cancellationToken = token || new CancellationToken({ timeout: 5000 });
 
     // Clean up progress reporter
     try {
@@ -84,11 +106,19 @@ export class TerminalManager {
       // Any prompt cleanup if needed
     } catch {}
 
-    // Run registered cleanup handlers
+    // Run legacy cleanup handlers
     for (const handler of this.cleanupHandlers) {
       try {
-        await handler();
+        // Check for cancellation
+        cancellationToken.throwIfCancelled();
+        
+        await cancellationToken.race(
+          Promise.resolve(handler())
+        );
       } catch (error) {
+        if (cancellationToken.isCancelled) {
+          break; // Stop processing handlers if cancelled
+        }
         console.error('Cleanup handler error:', error);
       }
     }

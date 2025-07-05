@@ -5,7 +5,7 @@ import {
   TokenConfigSchema,
   AdapterRegistrationSchema,
   ValidationOptionsSchema,
-} from './AdapterSchema';
+} from './AdapterSchema.js';
 
 /**
  * Validation result interface

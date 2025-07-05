@@ -1,4 +1,4 @@
-import { AdapterPlugin, ComponentMapping, StyleConfig, AdapterInstance, ComponentName } from '../../types';
+import { AdapterPlugin, ComponentMapping, StyleConfig, AdapterInstance, ComponentName } from '../../types.js';
 
 /**
  * Accessibility enhancement plugin

@@ -3,7 +3,7 @@
  */
 
 // Re-export all types from AdapterTypes
-export * from './AdapterTypes';
+export * from './AdapterTypes.js';
 
 // Re-export types with specific aliases for convenience
 export type {
@@ -16,7 +16,7 @@ export type {
   ComponentMapping as Mapping,
   AdapterInstance as Instance,
   AdapterPlugin as Plugin,
-} from './AdapterTypes';
+} from './AdapterTypes.js';
 
 // Common type combinations for convenience
 export type {
@@ -31,7 +31,7 @@ export type {
   EventListener,
   Constructor,
   Mixin,
-} from './AdapterTypes';
+} from './AdapterTypes.js';
 
 // Type guards for runtime validation
 export {
@@ -39,4 +39,4 @@ export {
   isComponentMapping,
   isValidationResult,
   isAdapterInstance,
-} from './AdapterTypes';
+} from './AdapterTypes.js';

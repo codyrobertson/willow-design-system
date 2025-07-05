@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { CircuitBreaker, CircuitBreakerFactory, CircuitState, CircuitBreakerError } from '../CircuitBreaker';
+import { CircuitBreaker, CircuitBreakerFactory, CircuitState, CircuitBreakerError } from '../CircuitBreaker.js';
 
 describe('CircuitBreaker', () => {
   let breaker: CircuitBreaker;
